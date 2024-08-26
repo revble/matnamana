@@ -23,6 +23,7 @@
 		DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C22C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community */; };
 		DDCF92C52C7C7FB3005DB62F /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C42C7C7FB3005DB62F /* FirebaseAuthCombine-Community */; };
 		DDCF92C72C7C7FE4005DB62F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDCF92C62C7C7FE3005DB62F /* GoogleService-Info.plist */; };
+		DDCF92CB2C7C8AC1005DB62F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92CA2C7C8AC1005DB62F /* MainViewModel.swift */; };
 		DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043542C773E3500DA099A /* AppDelegate.swift */; };
 		DDE043592C773E3500DA099A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043582C773E3500DA099A /* TabBarController.swift */; };
 		DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDE0435A2C773E3500DA099A /* matnamana.xcdatamodeld */; };
@@ -58,6 +59,7 @@
 		DDCF92412C78557D005DB62F /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		DDCF92512C788E4B005DB62F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DDCF92C62C7C7FE3005DB62F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DDCF92CA2C7C8AC1005DB62F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		DDE043512C773E3500DA099A /* matnamana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = matnamana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDE043542C773E3500DA099A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDE043582C773E3500DA099A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DDCF92C82C7C8A6B005DB62F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DDE043582C773E3500DA099A /* TabBarController.swift */,
+				DDCF92392C7854E8005DB62F /* MainPageController.swift */,
+				DDCF923B2C78552C005DB62F /* ProfileController.swift */,
+				DDCF923D2C78554B005DB62F /* SearchController.swift */,
+				DDCF923F2C78556C005DB62F /* FriendListController.swift */,
+				DDCF92412C78557D005DB62F /* LoginController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DDCF92C92C7C8AAD005DB62F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DDCF92CA2C7C8AC1005DB62F /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		DDE043482C773E3500DA099A = {
 			isa = PBXGroup;
 			children = (
@@ -137,14 +160,10 @@
 		DDE043532C773E3500DA099A /* matnamana */ = {
 			isa = PBXGroup;
 			children = (
+				DDCF92C92C7C8AAD005DB62F /* ViewModel */,
 				DDE043542C773E3500DA099A /* AppDelegate.swift */,
 				DDCF92512C788E4B005DB62F /* SceneDelegate.swift */,
-				DDE043582C773E3500DA099A /* TabBarController.swift */,
-				DDCF92392C7854E8005DB62F /* MainPageController.swift */,
-				DDCF923B2C78552C005DB62F /* ProfileController.swift */,
-				DDCF923D2C78554B005DB62F /* SearchController.swift */,
-				DDCF923F2C78556C005DB62F /* FriendListController.swift */,
-				DDCF92412C78557D005DB62F /* LoginController.swift */,
+				DDCF92C82C7C8A6B005DB62F /* View */,
 				DDE0435D2C773E3700DA099A /* Assets.xcassets */,
 				DDE0435F2C773E3700DA099A /* LaunchScreen.storyboard */,
 				DDE043622C773E3700DA099A /* Info.plist */,
@@ -324,6 +343,7 @@
 				DDCF92522C788E4B005DB62F /* SceneDelegate.swift in Sources */,
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* SearchController.swift in Sources */,
+				DDCF92CB2C7C8AC1005DB62F /* MainViewModel.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
 				DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */,
