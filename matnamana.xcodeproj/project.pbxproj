@@ -23,9 +23,9 @@
 		DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C22C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community */; };
 		DDCF92C52C7C7FB3005DB62F /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C42C7C7FB3005DB62F /* FirebaseAuthCombine-Community */; };
 		DDCF92CB2C7C8AC1005DB62F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92CA2C7C8AC1005DB62F /* MainViewModel.swift */; };
-		DDCF931E2C7D7A32005DB62F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDCF931D2C7D7A32005DB62F /* GoogleService-Info.plist */; };
 		DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93202C7D8C6D005DB62F /* UserModel.swift */; };
 		DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */; };
+		DDCF93252C7DA8A0005DB62F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */; };
 		DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043542C773E3500DA099A /* AppDelegate.swift */; };
 		DDE043592C773E3500DA099A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043582C773E3500DA099A /* TabBarController.swift */; };
 		DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDE0435A2C773E3500DA099A /* matnamana.xcdatamodeld */; };
@@ -61,9 +61,9 @@
 		DDCF92412C78557D005DB62F /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		DDCF92512C788E4B005DB62F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DDCF92CA2C7C8AC1005DB62F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		DDCF931D2C7D7A32005DB62F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DDCF93202C7D8C6D005DB62F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
+		DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "matnamana/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DDE043512C773E3500DA099A /* matnamana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = matnamana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDE043542C773E3500DA099A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDE043582C773E3500DA099A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -220,8 +220,8 @@
 				DDCF92C82C7C8A6B005DB62F /* View */,
 				DDE0435D2C773E3700DA099A /* Assets.xcassets */,
 				DDE0435F2C773E3700DA099A /* LaunchScreen.storyboard */,
+				DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */,
 				DDE043622C773E3700DA099A /* Info.plist */,
-				DDCF931D2C7D7A32005DB62F /* GoogleService-Info.plist */,
 				DDE0435A2C773E3500DA099A /* matnamana.xcdatamodeld */,
 			);
 			path = matnamana;
@@ -366,8 +366,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDE0435E2C773E3700DA099A /* Assets.xcassets in Resources */,
-				DDCF931E2C7D7A32005DB62F /* GoogleService-Info.plist in Resources */,
 				DDE043612C773E3700DA099A /* Base in Resources */,
+				DDCF93252C7DA8A0005DB62F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
