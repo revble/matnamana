@@ -9,6 +9,13 @@ import UIKit
 
 class FriendListController: UIViewController {
   
+  private var friendListView = FriendListView(frame: .zero)
+  
+  override func loadView() {
+    friendListView = FriendListView(frame: UIScreen.main.bounds)
+    self.view = friendListView
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }

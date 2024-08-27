@@ -5,14 +5,14 @@
 //  Created by 김윤홍 on 8/27/24.
 //
 
-struct User {
+struct User: Codable {
   let info: Info
   let preset: [PresetQuestion]
   let friendList: [Friend]
 }
 
 extension User {
-  struct Info {
+  struct Info: Codable {
     let mbti: String
     let career: String
     let education: String
@@ -24,19 +24,19 @@ extension User {
     let profileImage: String
   }
 
-  struct PresetQuestion {
+  struct PresetQuestion: Codable {
     let presetTitle: String
     let indice: [Int]
   }
 
-  struct Friend {
+  struct Friend: Codable {
     let nickname: String
     let type: FriendType
   }
 }
 
 extension User.Friend {
-  enum FriendType {
+  enum FriendType: String, Codable {
     case family
     case collegue
     case friend

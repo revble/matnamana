@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
 		DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923B2C78552C005DB62F /* ProfileController.swift */; };
-		DDCF923E2C78554B005DB62F /* myQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* myQuestionController.swift */; };
+		DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* MyQuestionController.swift */; };
 		DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923F2C78556C005DB62F /* FriendListController.swift */; };
 		DDCF92422C78557D005DB62F /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92412C78557D005DB62F /* LoginController.swift */; };
 		DDCF92462C785837005DB62F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92452C785837005DB62F /* SnapKit */; };
@@ -22,10 +22,13 @@
 		DDCF92C12C7C7F8E005DB62F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C02C7C7F8E005DB62F /* FirebaseFirestore */; };
 		DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C22C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community */; };
 		DDCF92C52C7C7FB3005DB62F /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C42C7C7FB3005DB62F /* FirebaseAuthCombine-Community */; };
-		DDCF92CB2C7C8AC1005DB62F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92CA2C7C8AC1005DB62F /* MainViewModel.swift */; };
+		DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */; };
 		DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93202C7D8C6D005DB62F /* UserModel.swift */; };
 		DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */; };
 		DDCF93252C7DA8A0005DB62F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */; };
+		DDCF93272C7DD3AA005DB62F /* MainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93262C7DD3AA005DB62F /* MainPageView.swift */; };
+		DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93282C7E09ED005DB62F /* FriendListView.swift */; };
+		DDCF932B2C7E0D3D005DB62F /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF932A2C7E0D3D005DB62F /* FriendListCell.swift */; };
 		DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043542C773E3500DA099A /* AppDelegate.swift */; };
 		DDE043592C773E3500DA099A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043582C773E3500DA099A /* TabBarController.swift */; };
 		DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDE0435A2C773E3500DA099A /* matnamana.xcdatamodeld */; };
@@ -56,14 +59,17 @@
 /* Begin PBXFileReference section */
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		DDCF923B2C78552C005DB62F /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
-		DDCF923D2C78554B005DB62F /* myQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myQuestionController.swift; sourceTree = "<group>"; };
+		DDCF923D2C78554B005DB62F /* MyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionController.swift; sourceTree = "<group>"; };
 		DDCF923F2C78556C005DB62F /* FriendListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListController.swift; sourceTree = "<group>"; };
 		DDCF92412C78557D005DB62F /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		DDCF92512C788E4B005DB62F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DDCF92CA2C7C8AC1005DB62F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
 		DDCF93202C7D8C6D005DB62F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "matnamana/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DDCF93262C7DD3AA005DB62F /* MainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageView.swift; sourceTree = "<group>"; };
+		DDCF93282C7E09ED005DB62F /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
+		DDCF932A2C7E0D3D005DB62F /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
 		DDE043512C773E3500DA099A /* matnamana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = matnamana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDE043542C773E3500DA099A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDE043582C773E3500DA099A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -125,7 +131,7 @@
 				DDE043582C773E3500DA099A /* TabBarController.swift */,
 				DDCF93182C7D533D005DB62F /* MainPage */,
 				DDCF93192C7D5356005DB62F /* Profile */,
-				DDCF931A2C7D53FD005DB62F /* myQuestion */,
+				DDCF931A2C7D53FD005DB62F /* MyQuestion */,
 				DDCF931B2C7D5406005DB62F /* FriendList */,
 				DDCF931C2C7D5418005DB62F /* Login */,
 			);
@@ -135,7 +141,7 @@
 		DDCF92C92C7C8AAD005DB62F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				DDCF92CA2C7C8AC1005DB62F /* MainViewModel.swift */,
+				DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -144,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				DDCF92392C7854E8005DB62F /* MainPageController.swift */,
+				DDCF93262C7DD3AA005DB62F /* MainPageView.swift */,
 			);
 			path = MainPage;
 			sourceTree = "<group>";
@@ -156,18 +163,20 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		DDCF931A2C7D53FD005DB62F /* myQuestion */ = {
+		DDCF931A2C7D53FD005DB62F /* MyQuestion */ = {
 			isa = PBXGroup;
 			children = (
-				DDCF923D2C78554B005DB62F /* myQuestionController.swift */,
+				DDCF923D2C78554B005DB62F /* MyQuestionController.swift */,
 			);
-			path = myQuestion;
+			path = MyQuestion;
 			sourceTree = "<group>";
 		};
 		DDCF931B2C7D5406005DB62F /* FriendList */ = {
 			isa = PBXGroup;
 			children = (
 				DDCF923F2C78556C005DB62F /* FriendListController.swift */,
+				DDCF93282C7E09ED005DB62F /* FriendListView.swift */,
+				DDCF932A2C7E0D3D005DB62F /* FriendListCell.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -392,18 +401,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDCF932B2C7E0D3D005DB62F /* FriendListCell.swift in Sources */,
 				DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */,
 				DDE043592C773E3500DA099A /* TabBarController.swift in Sources */,
 				DDCF92522C788E4B005DB62F /* SceneDelegate.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
-				DDCF923E2C78554B005DB62F /* myQuestionController.swift in Sources */,
-				DDCF92CB2C7C8AC1005DB62F /* MainViewModel.swift in Sources */,
+				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
+				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
 				DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */,
+				DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */,
 				DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */,
 				DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */,
+				DDCF93272C7DD3AA005DB62F /* MainPageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
