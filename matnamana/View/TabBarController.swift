@@ -19,7 +19,7 @@ class TabBarController: UITabBarController {
     let secondVC = MainPageController()
     secondVC.tabBarItem = UITabBarItem(title: "홈", image: UIImage(systemName: "house.fill"), tag: 1)
     
-    let thirdVC = FriendListController()
+    let thirdVC = UINavigationController(rootViewController: FriendListController())
     thirdVC.tabBarItem = UITabBarItem(title: "친구 목록", image: UIImage(systemName: "person.2.fill"), tag: 2)
     
     let fourthVC = myQuestionController()

@@ -7,9 +7,14 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
+
 class FriendListController: UIViewController {
   
   private var friendListView = FriendListView(frame: .zero)
+  private let disposeBag = DisposeBag()
+  private let viewModel = FriendListViewModel()
   
   override func loadView() {
     friendListView = FriendListView(frame: UIScreen.main.bounds)
@@ -18,5 +23,10 @@ class FriendListController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    friendListView.addFriend.rx.tap
+      .subscribe(onNext: {
+        self.navigationController?.pushViewController(SearchViewController(), animated: true)
+      }).disposed(by: disposeBag)
   }
 }

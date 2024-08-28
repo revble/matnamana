@@ -29,7 +29,7 @@ class FriendListView: UIView {
     return label
   }()
   
-  private let addFriend: UIButton = {
+  let addFriend: UIButton = {
     let button = UIButton(type: .system)
     let image = UIImage(systemName: "person.badge.plus")
     button.setImage(image, for: .normal)
@@ -38,13 +38,13 @@ class FriendListView: UIView {
     return button
   }()
   
-  private let searchBar: UISearchBar = {
+  let searchBar: UISearchBar = {
     let searchBar = UISearchBar()
     searchBar.placeholder = "친구를 검색해보세요!"
     return searchBar
   }()
   
-  private let friendList: UITableView = {
+  let friendList: UITableView = {
     let tableView = UITableView()
     tableView.backgroundColor = .gray
     return tableView
