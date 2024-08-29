@@ -1,9 +1,9 @@
-//
-//  UserModel.swift
-//  matnamana
-//
-//  Created by 김윤홍 on 8/27/24.
-//
+////
+////  UserModel.swift
+////  matnamana
+////
+////  Created by 김윤홍 on 8/27/24.
+////
 
 struct User: Codable {
   let info: Info
@@ -27,7 +27,7 @@ extension User {
   
   struct PresetQuestion: Codable {
     let presetTitle: String
-    let indice: [Int]
+    let indice: [Int] // 사용자가 미리 정의된 목록에서 선택한 질문의 인덱스
   }
   
   struct Friend: Codable {
