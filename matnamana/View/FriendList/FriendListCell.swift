@@ -44,7 +44,7 @@ class FriendListCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setConstraints() {
+  private func setConstraints() {
     userImage.snp.makeConstraints {
       $0.leading.equalToSuperview().inset(20)
       $0.centerY.equalToSuperview()
@@ -61,5 +61,10 @@ class FriendListCell: UITableViewCell {
       $0.top.equalTo(userName.snp.bottom).offset(5)
       $0.leading.equalTo(userName.snp.leading)
     }
+  }
+  
+  func configureCell(nickName: String, relation: String) {
+    userName.text = nickName
+    userRelation.text = relation
   }
 }

@@ -4,25 +4,65 @@
 //
 //  Created by 김윤홍 on 8/27/24.
 //
+// init 을생성해서 id값 nickName값을 넣어줘야할듯
 
 import Foundation
 
+import FirebaseCore
+import FirebaseFirestore
 import RxSwift
+import RxCocoa
 
-class FriendListViewModel {
+protocol ViewModelType {
+  associatedtype Input
+  associatedtype Output
   
-  let disposeBag = DisposeBag()
-  let urlString = "https://firestore.googleapis.com/v1/projects/matnamana-65c65/databases/(default)/documents/users"
+  func transform(input: Input) -> Output
+}
+
+final class FriendListViewModel: ViewModelType {
   
-  func getData(urlString: String) {
-    guard let url = URL(string: urlString) else {
-      return
+  struct Input {
+    let fetchFriends: Observable<Void>
+  }
+  
+  struct Output {
+    let friendList: Driver<[User.Friend]>
+  }
+  
+  private let disposeBag = DisposeBag()
+  
+  private func fetchFriendList() -> Observable<[User.Friend]> {
+    return Observable.create { observer in
+      let db = Firestore.firestore()
+      
+      db.collection("users").document("abc").getDocument { (documentSnapshot, error) in
+        guard let document = documentSnapshot, document.exists, error == nil else {
+          print(error ?? "해당아이디 없음")
+          return
+        }
+        
+        do {
+          let user = try document.data(as: User.self)
+          let friends = user.friendList
+          observer.onNext(friends)
+          observer.onCompleted()
+        } catch {
+          observer.onError(error)
+        }
+      }
+      return Disposables.create()
     }
-    return NetworkManager.shared.dataFetch(url: url)
-      .subscribe(onSuccess: { (user: User)  in
-        print("userFEtch\(user)")
-      }, onFailure: { error in
-        print("error\(error)")
-      }).disposed(by: disposeBag)
+  }
+  
+  func transform(input: Input) -> Output {
+    let friendList = input.fetchFriends
+      .flatMapLatest { [weak self] _  -> Observable<[User.Friend]> in
+        guard let self = self else { return Observable.just([]) }
+        return self.fetchFriendList()
+      }
+      .asDriver(onErrorJustReturn: [])
+    
+    return Output(friendList: friendList)
   }
 }

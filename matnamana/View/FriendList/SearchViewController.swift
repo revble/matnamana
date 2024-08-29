@@ -7,9 +7,13 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+import FirebaseCore
+import FirebaseFirestore
+
+class SearchViewController: UIViewController, UISearchBarDelegate {
   
   private var searchView = SearchView(frame: .zero)
+  let db = Firestore.firestore()
   
   override func loadView() {
     searchView = SearchView(frame: UIScreen.main.bounds)
@@ -18,8 +22,21 @@ class SearchViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    viewModel.getData(urlString: "https://firestore.googleapis.com/v1/projects/matnamana-65c65/databases/(default)/documents/users")
+    searchView.searchBar.delegate = self
   }
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    if let text = searchView.searchBar.text {
+      db.collection("users").document(text).getDocument { (snapshot, error) in
+        guard let document = snapshot, document.exists, error == nil else {
+          print("그런 사람 없음")
+          return
+        }
+        if let data = document.data() {
+          print(data)
+        }
+      }
+    }
+    searchBar.resignFirstResponder()
   }
 }
