@@ -37,8 +37,7 @@ extension LoginController: ASAuthorizationControllerDelegate {
           return
         }
         // User is signed in to Firebase with Apple.
-        // ...
-        ///Main 화면으로 보내기
+        // 회원 정보 있는지 확인 로직 필요
           if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
              let window = windowScene.windows.first {
             let requiredInformationController = RequiredInformationController()
