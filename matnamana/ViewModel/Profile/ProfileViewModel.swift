@@ -1,4 +1,10 @@
 //
+//  ProfileViewModel.swift
+//  matnamana
+//
+//  Created by 이진규 on 8/28/24.
+//
+
 //  ProfileController.swift
 //  matnamana
 //
@@ -201,16 +207,11 @@
 //    let preset: [PresetQuestion]
 //    let friendList: [Friend]
 //}
-
-
-
-
-
-
 //import UIKit
-//import FirebaseFirestore
-
-//class ProfileController: UIViewController { //진짜
+//import FirebaseFirestore//데이터 업로드진짜
+//
+//
+//class ProfileController: UIViewController {
 //    let db = Firestore.firestore()
 //
 //    // Firestore에 User 객체 저장
@@ -270,7 +271,8 @@
 //        loadUser(id: "LEE")
 //    }
 //}
-//import UIKit//이미지 호출
+
+//import UIKit
 //import FirebaseStorage
 //
 //class ProfileController: UIViewController {
@@ -298,150 +300,4 @@
 //            }
 //        }
 //    }
-//}
-import UIKit
-import SnapKit
-
-class ProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    private let profilePage: UILabel = {
-        let label = UILabel()
-        label.text = "나의 정보"
-        label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
-        return label
-    }()
-
-    private let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "profile")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 50
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "김민지 (나이: 31살)"
-        label.textAlignment = .center
-        return label
-    }()
-
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        return tableView
-    }()
-
-    private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        setConstraints()
-    }
-
-    func setupUI() {
-      [
-        profilePage,
-          nameLabel,
-          profileImageView,
-          tableView
-          ].forEach { self.view.addSubview($0) }
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
-
-    func setConstraints() {
-        profilePage.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
-            $0.leading.equalToSuperview().offset(24)
-        }
-
-        profileImageView.snp.makeConstraints {
-            $0.top.equalTo(profilePage.snp.bottom).offset(20)
-            $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(100)
-        }
-
-        nameLabel.snp.makeConstraints {
-            $0.top.equalTo(profileImageView.snp.bottom).offset(30)
-            $0.centerX.equalToSuperview()
-        }
-
-        tableView.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview()
-        }
-    }
-
-    // 테이블 뷰 데이터 소스 메서드
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userInfo.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = userInfo[indexPath.row]
-
-        let textField: UITextField = {
-            let textField = UITextField()
-            textField.placeholder = "Value"
-            return textField
-        }()
-
-        cell.contentView.addSubview(textField)
-        textField.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(20)
-            $0.centerY.equalToSuperview()
-            $0.width.equalTo(200)
-        }
-
-        return cell
-    }
-}
-
-//import UIKit
-//import FirebaseStorage
-//
-//class ProfileController: UIViewController {
-//
-//  let storage = Storage.storage() // Firebase Storage 인스턴스 생성
-//
-//  override func viewDidLoad() {
-//    super.viewDidLoad()
-//    if let image = UIImage(named: "profile") {
-//      upLoadImage(img: image) // 원하는 이미지 업로드
-//    }
-//  }
-//
-//  func upLoadImage(img: UIImage) {
-//    if let data = img.jpegData(compressionQuality: 0.8) { // 이미지 데이터를 JPEG로 변환
-//      let filePath = "profile"
-//      let metaData = StorageMetadata()
-//      metaData.contentType = "image/png" // 이미지 타입 설정
-//      let storageRef = storage.reference().child(filePath)
-//
-//      // 이미지 데이터 업로드
-//      storageRef.putData(data, metadata: metaData) { metaData, error in
-//        if let error = error { // 실패 처리
-//          print(error.localizedDescription)
-//          return
-//        }
-//        print("성공") // 성공 처리
-//
-//        // 업로드 후 다운로드 URL 가져오기
-//        storageRef.downloadURL { url, error in
-//          if let error = error {
-//            print("Error fetching download URL: \(error.localizedDescription)")
-//            return
-//          }
-//          if let downloadURL = url {
-//            print("Download URL: \(downloadURL.absoluteString)")
-//          }
-//        }
-//      }
-//    }
-//  }
 //}
