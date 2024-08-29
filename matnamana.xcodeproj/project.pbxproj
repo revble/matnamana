@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F83D31B2C7F14830076AE2A /* RequiredInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */; };
 		4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D31C2C7F14A60076AE2A /* RequiredInformationView.swift */; };
+		4F83D3222C80CCD40076AE2A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4F83D3212C80CCD40076AE2A /* Then */; };
 		4FEB36952C7EC9240066998E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36942C7EC9240066998E /* LoginView.swift */; };
 		4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36972C7F07120066998E /* AppleLoginService.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
@@ -97,6 +98,7 @@
 				DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */,
 				DDCF92BF2C7C7F8E005DB62F /* FirebaseAuth in Frameworks */,
 				DDCF92492C78583D005DB62F /* RxCocoa in Frameworks */,
+				4F83D3222C80CCD40076AE2A /* Then in Frameworks */,
 				DDCF924D2C785846005DB62F /* RxRelay in Frameworks */,
 				DDCF92462C785837005DB62F /* SnapKit in Frameworks */,
 				DDCF92502C785884005DB62F /* Kingfisher in Frameworks */,
@@ -292,6 +294,7 @@
 				DDCF92C02C7C7F8E005DB62F /* FirebaseFirestore */,
 				DDCF92C22C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community */,
 				DDCF92C42C7C7FB3005DB62F /* FirebaseAuthCombine-Community */,
+				4F83D3212C80CCD40076AE2A /* Then */,
 			);
 			productName = matnamana;
 			productReference = DDE043512C773E3500DA099A /* matnamana.app */;
@@ -370,6 +373,7 @@
 				DDCF92442C785837005DB62F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				DDCF924E2C785884005DB62F /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				DDCF92BD2C7C7F8E005DB62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4F83D3202C80CCC00076AE2A /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = DDE043522C773E3500DA099A /* Products */;
 			projectDirPath = "";
@@ -774,6 +778,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4F83D3202C80CCC00076AE2A /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		DDCF92432C785824005DB62F /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -809,6 +821,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4F83D3212C80CCD40076AE2A /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F83D3202C80CCC00076AE2A /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
 		DDCF92452C785837005DB62F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DDCF92442C785837005DB62F /* XCRemoteSwiftPackageReference "SnapKit" */;

@@ -6,11 +6,13 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
-class LoginController: UIViewController {
-  private var loginView: LoginView?
+import RxCocoa
+import RxSwift
+
+final class LoginController: UIViewController {
+  
+  private var loginView = LoginView(frame: .zero)
   private let disposeBag = DisposeBag()
   
   override func loadView() {
@@ -20,7 +22,7 @@ class LoginController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    loginView?.loginButton.rx.tap
+    loginView.loginButton.rx.tap
       .subscribe(onNext: { [weak self] in
         self?.startSignInWithAppleFlow()
       }).disposed(by: disposeBag)
