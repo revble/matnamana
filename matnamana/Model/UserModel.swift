@@ -9,6 +9,7 @@ struct User: Codable {
   let info: Info
   let preset: [PresetQuestion]
   let friendList: [Friend]
+  let userId: String
 }
 
 extension User {
@@ -23,22 +24,23 @@ extension User {
     let shortDescription: String
     let profileImage: String
   }
-
+  
   struct PresetQuestion: Codable {
     let presetTitle: String
     let indice: [Int]
   }
-
+  
   struct Friend: Codable {
     let nickname: String
     let type: FriendType
+    let friendId: String
   }
 }
 
 extension User.Friend {
   enum FriendType: String, Codable {
     case family
-    case collegue
+    case colleague
     case friend
   }
 }

@@ -10,7 +10,6 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-
 class FriendListController: UIViewController {
   
   private var friendListView = FriendListView(frame: .zero)

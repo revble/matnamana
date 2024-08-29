@@ -4,7 +4,7 @@
 //
 //  Created by 김윤홍 on 8/27/24.
 //
-// init 을생성해서 id값 nickName값을 넣어줘야할듯
+// init 을생성해서 id값 nickName값을 넣어줘야할듯, searchBar rxCocoa, 
 
 import Foundation
 
@@ -34,21 +34,15 @@ final class FriendListViewModel: ViewModelType {
   
   private func fetchFriendList() -> Observable<[User.Friend]> {
     return Observable.create { observer in
-      let db = Firestore.firestore()
-      
-      db.collection("users").document("abc").getDocument { (documentSnapshot, error) in
-        guard let document = documentSnapshot, document.exists, error == nil else {
-          print(error ?? "해당아이디 없음")
-          return
-        }
-        
-        do {
-          let user = try document.data(as: User.self)
-          let friends = user.friendList
-          observer.onNext(friends)
-          observer.onCompleted()
-        } catch {
+      FirebaseManager.shared.readUser(documentId: "userId_123") { user, error in
+        if let error = error {
           observer.onError(error)
+        } else if let user = user {
+          observer.onNext(user.friendList)
+          observer.onCompleted()
+        } else {
+          observer.onNext([])
+          observer.onCompleted()
         }
       }
       return Disposables.create()
@@ -57,7 +51,7 @@ final class FriendListViewModel: ViewModelType {
   
   func transform(input: Input) -> Output {
     let friendList = input.fetchFriends
-      .flatMapLatest { [weak self] _  -> Observable<[User.Friend]> in
+      .flatMap { [weak self] _  -> Observable<[User.Friend]> in
         guard let self = self else { return Observable.just([]) }
         return self.fetchFriendList()
       }

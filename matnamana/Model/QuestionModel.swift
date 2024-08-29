@@ -5,19 +5,20 @@
 //  Created by 김윤홍 on 8/27/24.
 //
 
-struct question {
-  let contents: [content]
+struct Question {
+  let questionId: String
+  let contents: [Content]
 }
 
-extension question {
-  struct content {
-    let contenType: questionType
+extension Question {
+  struct Content {
+    let contentType: QuestionType
     let contentDescription: String
   }
 }
 
-extension question.content {
-  enum questionType {
+extension Question.Content {
+  enum QuestionType: String {
     case fact
     case career
     case values
