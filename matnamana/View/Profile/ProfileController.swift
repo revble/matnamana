@@ -307,7 +307,7 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
     private let profilePage: UILabel = {
         let label = UILabel()
         label.text = "나의 정보"
-        label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         return label
     }()
 
