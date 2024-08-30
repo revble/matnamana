@@ -6,66 +6,64 @@
 //
 
 import UIKit
+
 import SnapKit
+import Then
 
 class RequiredInformationView: UIView {
   
-  private let imageView: UIImageView = {
-    let imageView = UIImageView()
-    imageView.image = UIImage()
-    return imageView
-  }()
+  private let imageView = UIImageView().then {
+    $0.image = UIImage()
+  }
   
-  private let descriptionLabel: UILabel = {
-    let label = UILabel()
-    label.text = "서로를 알아볼 수 있는 정보를 입력해주세요."
-    label.numberOfLines = 2
-    label.textAlignment = .left
-    return label
-  }()
+  private let descriptionLabel = UILabel().then {
+    $0.text = "서로를 알아볼 수 있는 정보를 입력해주세요."
+    $0.numberOfLines = 2
+    $0.textAlignment = .left
+    $0.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+  }
   
-  private let nameLabel: UILabel = {
-    let label = UILabel()
-    label.text = "이름"
-    return label
-  }()
+  private let nameLabel = UILabel().then {
+    $0.text = "이름"
+    $0.textAlignment = .left
+    $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+  }
   
-  private let nameTextField: UITextField = {
-    let textField = UITextField()
-    textField.text = ""
-    textField.placeholder = "실명을 입력해주세요."
-    return textField
-  }()
+  private let nameTextField = UITextField().then {
+    $0.placeholder = "실명을 입력해주세요."
+    $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+    $0.layer.cornerRadius = 10
+    $0.layer.borderWidth = 1
+    $0.layer.borderColor = UIColor(.gray).cgColor
+  }
   
-  private let nickNameLabel: UILabel = {
-    let label = UILabel()
-    label.text = "닉네임"
-    return label
-  }()
+  private let nickNameLabel = UILabel().then {
+    $0.text = "닉네임"
+    $0.textAlignment = .left
+    $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+  }
   
-  private let nickNameTextField: UITextField = {
-    let textField = UITextField()
-    textField.text = ""
-    textField.placeholder = "닉네임을 입력해주세요."
-    return textField
-  }()
+  private let nickNameTextField = UITextField().then {
+    $0.placeholder = "닉네임을 입력해주세요."
+    $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+    $0.layer.cornerRadius = 10
+    $0.layer.borderWidth = 1
+    $0.layer.borderColor = UIColor(.gray).cgColor
+  }
   
-  
-  
-  private let duplicateCheckLabel: UILabel = {
-    let label = UILabel()
-    label.text = "중복된 닉네임입니다."
-    return label
-  }()
+  private let duplicateCheckLabel = UILabel().then {
+    $0.text = "중복된 닉네임입니다."
+    $0.textColor = .red
+    $0.textAlignment = .left
+    $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+  }
   
   
-  private let joinButton: UIButton = {
-    let button = UIButton()
-    button.setTitle("저장하기", for: .normal)
-    button.setTitleColor(.white, for: .normal)
-    button.backgroundColor = .green
-    return button
-  }()
+  private let joinButton = UIButton().then {
+    $0.setTitle("저장하기", for: .normal)
+    $0.setTitleColor(.white, for: .normal)
+    $0.backgroundColor = .green
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -91,36 +89,37 @@ class RequiredInformationView: UIView {
   }
   
   private func setConstraint() {
-    
     descriptionLabel.snp.makeConstraints {
-      $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(50)
+      $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(150)
       $0.leading.equalToSuperview().inset(20)
       $0.width.equalTo(250)
     }
     
     nameLabel.snp.makeConstraints {
       $0.top.equalTo(descriptionLabel.snp.bottom).offset(40)
-      $0.centerX.equalToSuperview()
+      $0.leading.trailing.equalToSuperview().inset(20)
     }
     
     nameTextField.snp.makeConstraints {
       $0.top.equalTo(nameLabel.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
+      $0.leading.trailing.equalToSuperview().inset(20)
+      $0.height.equalTo(50)
     }
     
     nickNameLabel.snp.makeConstraints {
       $0.top.equalTo(nameTextField.snp.bottom).offset(16)
-      $0.centerX.equalToSuperview()
+      $0.leading.trailing.equalToSuperview().inset(20)
     }
     
     nickNameTextField.snp.makeConstraints {
       $0.top.equalTo(nickNameLabel.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
+      $0.leading.trailing.equalToSuperview().inset(20)
+      $0.height.equalTo(50)
     }
     
     duplicateCheckLabel.snp.makeConstraints {
       $0.top.equalTo(nickNameTextField.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
+      $0.leading.trailing.equalToSuperview().inset(20)
     }
     
     joinButton.snp.makeConstraints {
