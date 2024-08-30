@@ -7,6 +7,8 @@
 
 import FirebaseCore
 import FirebaseFirestore
+import RxSwift
+import RxCocoa
 
 class FirebaseManager {
   
@@ -18,7 +20,6 @@ class FirebaseManager {
     let userData: [String: Any] = [
       "userId": user.userId,
       "info": [
-        "mbti": user.info.mbti,
         "career": user.info.career,
         "education": user.info.education,
         "email": user.info.email,
@@ -26,7 +27,8 @@ class FirebaseManager {
         "name": user.info.name,
         "phoneNumber": user.info.phoneNumber,
         "shortDescription": user.info.shortDescription,
-        "profileImage": user.info.profileImage
+        "profileImage": user.info.profileImage,
+        "nickName": user.info.nickName
       ],
       "preset": user.preset.map { preset in
         [
@@ -128,4 +130,26 @@ class FirebaseManager {
     }
   }
   
+  func searchUser(name: String) -> Observable<Bool> {
+    return Observable.create { observer in
+      self.db.collection("users").document(name).getDocument { (snapshot, error) in
+        if let error = error {
+          print(error)
+          observer.onNext(false)
+          observer.onCompleted()
+          return
+        }
+        
+        guard let document = snapshot, document.exists else {
+          observer.onNext(false)
+          observer.onCompleted()
+          return
+        }
+        
+        observer.onNext(true)
+        observer.onCompleted()
+      }
+      return Disposables.create()
+    }
+  }
 }

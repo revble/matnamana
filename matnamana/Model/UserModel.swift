@@ -14,7 +14,6 @@ struct User: Codable {
 
 extension User {
   struct Info: Codable {
-    let mbti: String
     let career: String
     let education: String
     let email: String
@@ -23,6 +22,7 @@ extension User {
     let phoneNumber: String
     let shortDescription: String
     let profileImage: String
+    let nickName: String
   }
   
   struct PresetQuestion: Codable {

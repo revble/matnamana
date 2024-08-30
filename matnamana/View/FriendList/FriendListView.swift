@@ -47,6 +47,8 @@ class FriendListView: UIView {
   let friendList: UITableView = {
     let tableView = UITableView()
     tableView.backgroundColor = .gray
+    tableView.register(FriendListCell.self,
+                        forCellReuseIdentifier: FriendListCell.identifier)
     return tableView
   }()
   

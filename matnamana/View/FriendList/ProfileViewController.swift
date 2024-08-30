@@ -5,7 +5,7 @@
 //  Created by 김윤홍 on 8/29/24.
 //
 
- import UIKit
+import UIKit
 
 class ProfileViewController: UIViewController {
   
@@ -18,6 +18,6 @@ class ProfileViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .white
+    view.backgroundColor = .systemBackground
   }
 }

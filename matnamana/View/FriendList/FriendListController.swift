@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class FriendListController: UIViewController {
+final class FriendListController: UIViewController {
   
   private var friendListView = FriendListView(frame: .zero)
   private let disposeBag = DisposeBag()
@@ -23,24 +23,24 @@ class FriendListController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    friendListView.friendList.register(FriendListCell.self,
-                                       forCellReuseIdentifier: FriendListCell.identifier)
     bind()
-    
+    buttonBind()
+  }
+
+  private func buttonBind() {
     friendListView.addFriend.rx.tap
       .subscribe(onNext: {
         self.navigationController?.pushViewController(SearchViewController(), animated: true)
       }).disposed(by: disposeBag)
   }
   
-  func bind() {
+  private func bind() {
     let input = FriendListViewModel.Input(fetchFriends: Observable.just(()))
     let output = viewModel.transform(input: input)
     
     output.friendList
       .drive(friendListView.friendList.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { row, friend, cell in
         cell.configureCell(nickName: friend.nickname, relation: friend.type.rawValue)
-
       }.disposed(by: disposeBag)
   }
 }

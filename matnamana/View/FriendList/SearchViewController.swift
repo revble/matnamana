@@ -16,6 +16,7 @@ class SearchViewController: UIViewController {
   
   private var searchView = SearchView(frame: .zero)
   private let disposeBag = DisposeBag()
+  private let viewModel = SearchViewModel()
   
   override func loadView() {
     searchView = SearchView(frame: UIScreen.main.bounds)
@@ -24,27 +25,31 @@ class SearchViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    searchView.searchBar.rx.searchButtonClicked
-      .subscribe(onNext: {
-        print("검색눌림")
-        self.searchView.searchBar.resignFirstResponder()
-      }).disposed(by: disposeBag)
+    bind()
   }
   
-//  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//    if let text = searchView.searchBar.text {
-//      db.collection("users").document(text).getDocument { (snapshot, error) in
-//        guard let document = snapshot, document.exists, error == nil else {
-//          print("그런 사람 없음")
-//          return
-//        }
-//        self.present(ProfileViewController(), animated: true)
-//        if let data = document.data() {
-//          print(data)
-//        }
-//      }
-//    }
-//    searchBar.resignFirstResponder()
-//  }
+  private func bind() {
+
+    let searchData = searchView.searchBar.rx.searchButtonClicked
+      .withLatestFrom(searchView.searchBar.rx.text.orEmpty)
+      .asObservable()
+    
+    let input = SearchViewModel.Input(searchData: searchData)
+    let output = viewModel.transform(input: input)
+    
+    output.searchResult
+      .drive(onNext: { [weak self] user in
+        self?.handleSearchResult(user)
+      })
+      .disposed(by: disposeBag)
+  }
+  
+  private func handleSearchResult(_ user: User?) {
+    if let user = user {
+      navigationController?.pushViewController(ProfileViewController(), animated: true)
+      print("Found user: \(user.info.nickName)")
+    } else {
+      print("User not found")
+    }
+  }
 }
