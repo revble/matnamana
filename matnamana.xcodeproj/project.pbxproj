@@ -10,6 +10,9 @@
 		4F83D31B2C7F14830076AE2A /* RequiredInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */; };
 		4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D31C2C7F14A60076AE2A /* RequiredInformationView.swift */; };
 		4F83D3222C80CCD40076AE2A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4F83D3212C80CCD40076AE2A /* Then */; };
+		4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */; };
+		4F83D3262C80DA360076AE2A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D3252C80DA360076AE2A /* LoginViewModel.swift */; };
+		4F83D3282C841D160076AE2A /* MatnamanaLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F83D3272C841D160076AE2A /* MatnamanaLaunchScreen.storyboard */; };
 		4FEB36952C7EC9240066998E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36942C7EC9240066998E /* LoginView.swift */; };
 		4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36972C7F07120066998E /* AppleLoginService.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
@@ -42,7 +45,6 @@
 		DDE043592C773E3500DA099A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043582C773E3500DA099A /* TabBarController.swift */; };
 		DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDE0435A2C773E3500DA099A /* matnamana.xcdatamodeld */; };
 		DDE0435E2C773E3700DA099A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDE0435D2C773E3700DA099A /* Assets.xcassets */; };
-		DDE043612C773E3700DA099A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DDE043602C773E3700DA099A /* Base */; };
 		DDE0436C2C773E3700DA099A /* matnamanaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0436B2C773E3700DA099A /* matnamanaTests.swift */; };
 		DDE043762C773E3700DA099A /* matnamanaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043752C773E3700DA099A /* matnamanaUITests.swift */; };
 		DDE043782C773E3700DA099A /* matnamanaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043772C773E3700DA099A /* matnamanaUITestsLaunchTests.swift */; };
@@ -74,6 +76,9 @@
 /* Begin PBXFileReference section */
 		4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredInformationController.swift; sourceTree = "<group>"; };
 		4F83D31C2C7F14A60076AE2A /* RequiredInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredInformationView.swift; sourceTree = "<group>"; };
+		4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredInformaitionViewModel.swift; sourceTree = "<group>"; };
+		4F83D3252C80DA360076AE2A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		4F83D3272C841D160076AE2A /* MatnamanaLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MatnamanaLaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FEB36942C7EC9240066998E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4FEB36962C7F05BB0066998E /* matnamana.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = matnamana.entitlements; sourceTree = "<group>"; };
 		4FEB36972C7F07120066998E /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
@@ -99,7 +104,6 @@
 		DDE043582C773E3500DA099A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DDE0435B2C773E3500DA099A /* matnamana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = matnamana.xcdatamodel; sourceTree = "<group>"; };
 		DDE0435D2C773E3700DA099A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DDE043602C773E3700DA099A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DDE043622C773E3700DA099A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDE043672C773E3700DA099A /* matnamanaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = matnamanaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDE0436B2C773E3700DA099A /* matnamanaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matnamanaTests.swift; sourceTree = "<group>"; };
@@ -181,8 +185,10 @@
 			isa = PBXGroup;
 			children = (
 				DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */,
+				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
 				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
 				DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */,
+				4F83D3252C80DA360076AE2A /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -290,7 +296,7 @@
 				DDCF92C82C7C8A6B005DB62F /* View */,
 				4FEB36992C7F07BE0066998E /* Service */,
 				DDE0435D2C773E3700DA099A /* Assets.xcassets */,
-				DDE0435F2C773E3700DA099A /* LaunchScreen.storyboard */,
+				4F83D3272C841D160076AE2A /* MatnamanaLaunchScreen.storyboard */,
 				DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */,
 				DDE043622C773E3700DA099A /* Info.plist */,
 				DDE0435A2C773E3500DA099A /* matnamana.xcdatamodeld */,
@@ -438,8 +444,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F83D3282C841D160076AE2A /* MatnamanaLaunchScreen.storyboard in Resources */,
 				DDE0435E2C773E3700DA099A /* Assets.xcassets in Resources */,
-				DDE043612C773E3700DA099A /* Base in Resources */,
 				DDCF93252C7DA8A0005DB62F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,6 +473,7 @@
 			files = (
 				DDCF93362C7EEE33005DB62F /* FirebaseManager.swift in Sources */,
 				DDCF93332C7EAF33005DB62F /* SearchView.swift in Sources */,
+				4F83D3262C80DA360076AE2A /* LoginViewModel.swift in Sources */,
 				DDF2A01A2C8031EE001B1DB7 /* ProfileViewController.swift in Sources */,
 				DDCF932B2C7E0D3D005DB62F /* FriendListCell.swift in Sources */,
 				DDF2A01E2C8034A1001B1DB7 /* UIColor+Ex.swift in Sources */,
@@ -475,6 +482,7 @@
 				DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */,
 				DDE043592C773E3500DA099A /* TabBarController.swift in Sources */,
 				DDCF92522C788E4B005DB62F /* SceneDelegate.swift in Sources */,
+				4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */,
 				DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */,
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
@@ -483,8 +491,8 @@
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
-				DDCF923E2C78554B005DB62F /* myQuestionController.swift in Sources */,
-				DDCF92CB2C7C8AC1005DB62F /* MainViewModel.swift in Sources */,
+				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
+				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
@@ -530,17 +538,6 @@
 			targetProxy = DDE043722C773E3700DA099A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		DDE0435F2C773E3700DA099A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDE043602C773E3700DA099A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DDE043792C773E3700DA099A /* Debug */ = {
@@ -674,7 +671,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = matnamana/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = MatnamanaLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -704,7 +701,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = matnamana/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = MatnamanaLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;

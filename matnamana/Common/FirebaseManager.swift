@@ -18,7 +18,6 @@ class FirebaseManager {
     let userData: [String: Any] = [
       "userId": user.userId,
       "info": [
-        "mbti": user.info.mbti,
         "career": user.info.career,
         "education": user.info.education,
         "email": user.info.email,
@@ -26,7 +25,8 @@ class FirebaseManager {
         "name": user.info.name,
         "phoneNumber": user.info.phoneNumber,
         "shortDescription": user.info.shortDescription,
-        "profileImage": user.info.profileImage
+        "profileImage": user.info.profileImage,
+        "nickname": user.info.nickname
       ],
       "preset": user.preset.map { preset in
         [
@@ -40,7 +40,8 @@ class FirebaseManager {
           "type": friend.type.rawValue,
           "friendId": friend.friendId
         ]
-      }
+      },
+      "reputationId": user.reputationId
     ]
     
     db.collection("users").document(user.userId).setData(userData) { error in
@@ -127,5 +128,4 @@ class FirebaseManager {
       }
     }
   }
-  
 }

@@ -37,15 +37,7 @@ extension LoginController: ASAuthorizationControllerDelegate {
           print ("Error Apple sign in: %@", error)
           return
         }
-        /// User is signed in to Firebase with Apple.
-        /// 회원 정보 있는지 확인 로직 필요
-          if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-             let window = windowScene.windows.first {
-            let requiredInformationController = RequiredInformationController()
-            window.rootViewController = requiredInformationController
-            window.makeKeyAndVisible()
-          }
-        
+        self.bindLoginViewModel()
       }
     }
   }
@@ -53,6 +45,7 @@ extension LoginController: ASAuthorizationControllerDelegate {
 
 ///Apple Sign in
 extension LoginController {
+  
   func startSignInWithAppleFlow() {
     let nonce = randomNonceString()
     currentNonce = nonce
@@ -65,6 +58,8 @@ extension LoginController {
     authorizationController.delegate = self
     authorizationController.presentationContextProvider = self
     authorizationController.performRequests()
+    
+
   }
   
   private func sha256(_ input: String) -> String {

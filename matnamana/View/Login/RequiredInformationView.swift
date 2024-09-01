@@ -12,10 +12,6 @@ import Then
 
 class RequiredInformationView: UIView {
   
-  private let imageView = UIImageView().then {
-    $0.image = UIImage()
-  }
-  
   private let descriptionLabel = UILabel().then {
     $0.text = "서로를 알아볼 수 있는 정보를 입력해주세요."
     $0.numberOfLines = 2
@@ -56,10 +52,11 @@ class RequiredInformationView: UIView {
     $0.textColor = .red
     $0.textAlignment = .left
     $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    $0.isHidden = true
   }
   
   
-  private let joinButton = UIButton().then {
+  let joinButton = UIButton().then {
     $0.setTitle("저장하기", for: .normal)
     $0.setTitleColor(.white, for: .normal)
     $0.backgroundColor = .green
@@ -74,6 +71,25 @@ class RequiredInformationView: UIView {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  func pickNickname() -> String {
+    guard let nickname = nickNameTextField.text else { return "" }
+    return nickname
+  }
+  
+  func pickName() -> String {
+    guard let name = nameTextField.text else { return "" }
+    return name
+  }
+  
+  func showduplicateCheck() {
+    duplicateCheckLabel.isHidden = false
+  }
+  
+  func hideduplicateCheck() {
+    duplicateCheckLabel.isHidden = true
+  }
+
   
   private func configureUI() {
     self.backgroundColor = .white
