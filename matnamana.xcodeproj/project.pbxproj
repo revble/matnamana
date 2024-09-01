@@ -16,6 +16,7 @@
 		DA3A55F92C802EA800459343 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A55F82C802EA800459343 /* FirebaseStorage */; };
 		DA3A55FB2C802EA800459343 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */; };
 		DA3A55FD2C81AC6A00459343 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55FC2C81AC6A00459343 /* SceneDelegate.swift */; };
+		DA3A55FF2C81C1EE00459343 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55FE2C81C1EE00459343 /* ProfileEditViewController.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
 		DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923B2C78552C005DB62F /* ProfileController.swift */; };
 		DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* MyQuestionController.swift */; };
@@ -82,6 +83,7 @@
 		4FEB36972C7F07120066998E /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		DA3A55F62C7F144500459343 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DA3A55FC2C81AC6A00459343 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DA3A55FE2C81C1EE00459343 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		DDCF923B2C78552C005DB62F /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		DDCF923D2C78554B005DB62F /* MyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionController.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				DDCF923B2C78552C005DB62F /* ProfileController.swift */,
+				DA3A55FE2C81C1EE00459343 /* ProfileEditViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */,
 				DDE043592C773E3500DA099A /* TabBarController.swift in Sources */,
 				DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */,
+				DA3A55FF2C81C1EE00459343 /* ProfileEditViewController.swift in Sources */,
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,

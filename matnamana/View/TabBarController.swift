@@ -24,9 +24,11 @@ class TabBarController: UITabBarController {
     let fourthVC = myQuestionController()
     fourthVC.tabBarItem = UITabBarItem(title: "나의 질문", image: UIImage(systemName: "list.bullet.rectangle.portrait.fill"), tag: 3)
     
-    let fifthVC = ProfileController()
+    let profileVC = ProfileController()
+    let fifthVC = UINavigationController(rootViewController: profileVC)
     fifthVC.tabBarItem = UITabBarItem(title: "프로필", image: UIImage(systemName: "person.fill"), tag: 4)
-    
+
+
     self.setViewControllers([secondVC, thirdVC, fourthVC, fifthVC], animated: true)
   }
 }

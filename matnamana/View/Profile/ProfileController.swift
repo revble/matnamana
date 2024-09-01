@@ -299,109 +299,117 @@
 //        }
 //    }
 //}
-import UIKit
-import SnapKit
-
-class ProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    private let profilePage: UILabel = {
-        let label = UILabel()
-        label.text = "나의 정보"
-        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-        return label
-    }()
-
-    private let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "profile")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 50
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "김민지 (나이: 31살)"
-        label.textAlignment = .center
-        return label
-    }()
-
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        return tableView
-    }()
-
-    private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        setConstraints()
-    }
-
-    func setupUI() {
-      [
-        profilePage,
-          nameLabel,
-          profileImageView,
-          tableView
-          ].forEach { self.view.addSubview($0) }
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
-
-    func setConstraints() {
-        profilePage.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
-            $0.leading.equalToSuperview().offset(24)
-        }
-
-        profileImageView.snp.makeConstraints {
-            $0.top.equalTo(profilePage.snp.bottom).offset(20)
-            $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(100)
-        }
-
-        nameLabel.snp.makeConstraints {
-            $0.top.equalTo(profileImageView.snp.bottom).offset(30)
-            $0.centerX.equalToSuperview()
-        }
-
-        tableView.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview()
-        }
-    }
-
-    // 테이블 뷰 데이터 소스 메서드
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userInfo.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = userInfo[indexPath.row]
-
-        let textField: UITextField = {
-            let textField = UITextField()
-            textField.placeholder = "Value"
-            return textField
-        }()
-
-        cell.contentView.addSubview(textField)
-        textField.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(20)
-            $0.centerY.equalToSuperview()
-            $0.width.equalTo(200)
-        }
-
-        return cell
-    }
-}
-
+//import UIKit
+//import SnapKit
+//
+//class ProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+//
+//    private let profilePage: UILabel = {
+//        let label = UILabel()
+//        label.text = "나의 정보"
+//        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+//        return label
+//    }()
+//
+//    private let profileImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "profile")
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.layer.cornerRadius = 50
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
+//
+//    private let nameLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "김민지 (나이: 31살)"
+//        label.textAlignment = .center
+//        return label
+//    }()
+//
+//    private let tableView: UITableView = {
+//        let tableView = UITableView()
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        return tableView
+//    }()
+//
+//    private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        setupUI()
+//        setConstraints()
+//    }
+//
+//    func setupUI() {
+//      [
+//        profilePage,
+//          nameLabel,
+//          profileImageView,
+//          tableView
+//          ].forEach { self.view.addSubview($0) }
+//        tableView.dataSource = self
+//        tableView.delegate = self
+//    }
+//
+//    func setConstraints() {
+//        profilePage.snp.makeConstraints {
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+//            $0.leading.equalToSuperview().offset(24)
+//        }
+//
+//        profileImageView.snp.makeConstraints {
+//            $0.top.equalTo(profilePage.snp.bottom).offset(20)
+//            $0.centerX.equalToSuperview()
+//            $0.width.height.equalTo(100)
+//        }
+//
+//        nameLabel.snp.makeConstraints {
+//            $0.top.equalTo(profileImageView.snp.bottom).offset(30)
+//            $0.centerX.equalToSuperview()
+//        }
+//
+//        tableView.snp.makeConstraints {
+//            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
+//            $0.leading.trailing.equalToSuperview().inset(20)
+//            $0.bottom.equalToSuperview()
+//        }
+//    }
+//
+//    // 테이블 뷰 데이터 소스 메서드
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return userInfo.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        cell.textLabel?.text = userInfo[indexPath.row]
+//
+//      let valueLabel: UILabel = {
+//               let label = UILabel()
+//               label.text = userValues[indexPath.row]
+//               label.textAlignment = .right
+//               label.textColor = .gray
+//               return label
+//           }()
+//
+//        cell.contentView.addSubview(textField)
+//        textField.snp.makeConstraints {
+//            $0.trailing.equalToSuperview().inset(20)
+//            $0.centerY.equalToSuperview()
+//            $0.width.equalTo(200)
+//        }
+//
+//        return cell
+//    }
+//}
+//let valueLabel: UILabel = {
+//         let label = UILabel()
+//         label.text = userValues[indexPath.row]
+//         label.textAlignment = .right
+//         label.textColor = .gray
+//         return label
+//     }()
 //import UIKit
 //import FirebaseStorage
 //
@@ -445,3 +453,532 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
 //    }
 //  }
 //}
+//import UIKit
+//import SnapKit
+//
+//class ProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+//
+//    private let profilePage: UILabel = {
+//        let label = UILabel()
+//        label.text = "나의 정보"
+//        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+//        return label
+//    }()
+//
+//    private let profileImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "profile")
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.layer.cornerRadius = 50
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
+//
+//    private let nameLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "김민지 (나이: 31살)"
+//        label.textAlignment = .center
+//        return label
+//    }()
+//
+//    private let tableView: UITableView = {
+//        let tableView = UITableView()
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        return tableView
+//    }()
+//
+//    private let editButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("수정", for: .normal)
+//        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+//        return button
+//    }()
+//
+//    private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+//    //private let userValues = ["010-1234-5678", ".com", "거주지역", "0000-00-00", "직업", "회사이름", "", ""]
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        setupUI()
+//        setConstraints()
+//    }
+//
+//    func setupUI() {
+//        [
+//            profilePage,
+//            nameLabel,
+//            profileImageView,
+//            tableView,
+//            editButton
+//        ].forEach { self.view.addSubview($0) }
+//
+//        tableView.dataSource = self
+//        tableView.delegate = self
+//    }
+//
+//    func setConstraints() {
+//        profilePage.snp.makeConstraints {
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+//            $0.leading.equalToSuperview().offset(24)
+//        }
+//
+//        profileImageView.snp.makeConstraints {
+//            $0.top.equalTo(profilePage.snp.bottom).offset(20)
+//            $0.centerX.equalToSuperview()
+//            $0.width.height.equalTo(100)
+//        }
+//
+//        nameLabel.snp.makeConstraints {
+//            $0.top.equalTo(profileImageView.snp.bottom).offset(30)
+//            $0.centerX.equalToSuperview()
+//        }
+//
+//        tableView.snp.makeConstraints {
+//            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
+//            $0.leading.trailing.equalToSuperview().inset(20)
+//            $0.bottom.equalToSuperview()
+//        }
+//
+//        editButton.snp.makeConstraints {
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+//            $0.trailing.equalToSuperview().inset(24)
+//        }
+//    }
+//
+//    @objc func editButtonTapped() {
+//        let editVC = ProfileEditViewController()
+//        navigationController?.pushViewController(editVC, animated: true)
+//    }
+//
+//    // 테이블 뷰 데이터 소스 메서드
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return userInfo.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        cell.textLabel?.text = userInfo[indexPath.row]
+//
+//        let valueLabel: UILabel = {
+//            let label = UILabel()
+//           // label.text = userValues[indexPath.row]
+//            label.textAlignment = .right
+//            label.textColor = .gray
+//            return label
+//        }()
+//
+//        cell.contentView.addSubview(valueLabel)
+//        valueLabel.snp.makeConstraints {
+//            $0.trailing.equalToSuperview().inset(20)
+//            $0.centerY.equalToSuperview()
+//        }
+//
+//        return cell
+//    }
+//}
+//import UIKit
+//import SnapKit
+//
+//class ProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+//
+//    private let profilePage: UILabel = {
+//        let label = UILabel()
+//        label.text = "나의 정보"
+//        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+//        return label
+//    }()
+//
+//    private let profileImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "profile")
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.layer.cornerRadius = 50
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
+//
+//    private let nameLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "김민지 (나이: 31살)"
+//        label.textAlignment = .center
+//        return label
+//    }()
+//
+//    private let tableView: UITableView = {
+//        let tableView = UITableView()
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        return tableView
+//    }()
+//
+//    private let editButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("수정", for: .normal)
+//        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+//        return button
+//    }()
+//
+//    private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+//    private let userValues = ["010-1234-5678", "minji@gmail.com", "서울시", "1992-04-05", "개발자", "ABC회사", "석사", "서울대학교"]
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        setupUI()
+//        setConstraints()
+//    }
+//
+//    func setupUI() {
+//        [
+//            profilePage,
+//            nameLabel,
+//            profileImageView,
+//            tableView,
+//            editButton
+//        ].forEach { self.view.addSubview($0) }
+//
+//        tableView.dataSource = self
+//        tableView.delegate = self
+//    }
+//
+//    func setConstraints() {
+//        profilePage.snp.makeConstraints {
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+//            $0.leading.equalToSuperview().offset(24)
+//        }
+//
+//        profileImageView.snp.makeConstraints {
+//            $0.top.equalTo(profilePage.snp.bottom).offset(20)
+//            $0.centerX.equalToSuperview()
+//            $0.width.height.equalTo(100)
+//        }
+//
+//        nameLabel.snp.makeConstraints {
+//            $0.top.equalTo(profileImageView.snp.bottom).offset(30)
+//            $0.centerX.equalToSuperview()
+//        }
+//
+//        tableView.snp.makeConstraints {
+//            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
+//            $0.leading.trailing.equalToSuperview().inset(20)
+//            $0.bottom.equalToSuperview()
+//        }
+//
+//        editButton.snp.makeConstraints {
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+//            $0.trailing.equalToSuperview().inset(24)
+//        }
+//    }
+//  @objc func editProfile() {
+//      let editVC = ProfileEditViewController()
+//      self.navigationController?.pushViewController(editVC, animated: true)
+//    }
+//  }
+////    @objc func editButtonTapped() {
+////        let editVC = ProfileEditViewController()
+////
+////        // 네비게이션 컨트롤러가 없으면 새로 생성해서 Present
+////        if navigationController == nil {
+////            let navController = UINavigationController(rootViewController: editVC)
+////            navController.modalPresentationStyle = .fullScreen
+////            present(navController, animated: true, completion: nil)
+////        } else {
+////            navigationController?.pushViewController(editVC, animated: true)
+////        }
+////    }
+//
+//    // 테이블 뷰 데이터 소스 메서드
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return userInfo.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        cell.textLabel?.text = userInfo[indexPath.row]
+//
+//        let valueLabel: UILabel = {
+//            let label = UILabel()
+//            label.text = userValues[indexPath.row]
+//            label.textAlignment = .right
+//            label.textColor = .gray
+//            return label
+//        }()
+//
+//        cell.contentView.addSubview(valueLabel)
+//        valueLabel.snp.makeConstraints {
+//            $0.trailing.equalToSuperview().inset(20)
+//            $0.centerY.equalToSuperview()
+//        }
+//
+//        return cell
+//    }
+//}
+//import UIKit
+//import SnapKit
+//
+//// 시작하는 ViewController 설정 부분
+//class ViewController: UIViewController {
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        // ProfileController를 네비게이션 컨트롤러로 감싸기
+//        let profileController = ProfileController()
+//        let navigationController = UINavigationController(rootViewController: profileController)
+//
+//        navigationController.modalPresentationStyle = .fullScreen
+//        present(navigationController, animated: true, completion: nil)
+//    }
+//}
+//
+//class ProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+//
+//    private let profilePage: UILabel = {
+//        let label = UILabel()
+//        label.text = "나의 정보"
+//        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+//        return label
+//    }()
+//
+//    private let profileImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "profile")
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.layer.cornerRadius = 50
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
+//
+//    private let nameLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "김민지 (나이: 31살)"
+//        label.textAlignment = .center
+//        return label
+//    }()
+//
+//    private let tableView: UITableView = {
+//        let tableView = UITableView()
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        return tableView
+//    }()
+//
+//    private let editButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("수정", for: .normal)
+//        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+//        return button
+//    }()
+//
+//    private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+//    private let userValues = ["010-1234-5678", "minji@gmail.com", "서울시", "1992-04-05", "개발자", "ABC회사", "석사", "서울대학교"]
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        setupUI()
+//        setConstraints()
+//    }
+//
+//    func setupUI() {
+//        view.backgroundColor = .white  // 배경색 추가
+//        self.navigationItem.title = "프로필"  // 네비게이션 타이틀 설정
+//
+//        [
+//            profilePage,
+//            nameLabel,
+//            profileImageView,
+//            tableView,
+//            editButton
+//        ].forEach { self.view.addSubview($0) }
+//
+//        tableView.dataSource = self
+//        tableView.delegate = self
+//    }
+//
+//    func setConstraints() {
+//        profilePage.snp.makeConstraints {
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+//            $0.leading.equalToSuperview().offset(24)
+//        }
+//
+//        profileImageView.snp.makeConstraints {
+//            $0.top.equalTo(profilePage.snp.bottom).offset(20)
+//            $0.centerX.equalToSuperview()
+//            $0.width.height.equalTo(100)
+//        }
+//
+//        nameLabel.snp.makeConstraints {
+//            $0.top.equalTo(profileImageView.snp.bottom).offset(30)
+//            $0.centerX.equalToSuperview()
+//        }
+//
+//        tableView.snp.makeConstraints {
+//            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
+//            $0.leading.trailing.equalToSuperview().inset(20)
+//            $0.bottom.equalToSuperview()
+//        }
+//
+//        editButton.snp.makeConstraints {
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+//            $0.trailing.equalToSuperview().inset(24)
+//        }
+//    }
+//
+//    @objc func editButtonTapped() {
+//        print(navigationController) // nil인지 확인하는 코드
+//        let editVC = ProfileEditViewController()
+//        navigationController?.pushViewController(editVC, animated: true)
+//    }
+//
+//    // 테이블 뷰 데이터 소스 메서드
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return userInfo.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        cell.textLabel?.text = userInfo[indexPath.row]
+//
+//        let valueLabel: UILabel = {
+//            let label = UILabel()
+//            label.text = userValues[indexPath.row]
+//            label.textAlignment = .right
+//            label.textColor = .gray
+//            return label
+//        }()
+//
+//        cell.contentView.addSubview(valueLabel)
+//        valueLabel.snp.makeConstraints {
+//            $0.trailing.equalToSuperview().inset(20)
+//            $0.centerY.equalToSuperview()
+//        }
+//
+//        return cell
+//    }
+//}
+import UIKit
+import SnapKit
+
+class ProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    // MARK: - UI Components
+
+    private let profilePage: UILabel = {
+        let label = UILabel()
+        label.text = "나의 정보"
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        return label
+    }()
+
+    private let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "profile")
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 50
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "김민지 (나이: 31살)"
+        label.textAlignment = .center
+        return label
+    }()
+
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        return tableView
+    }()
+
+    private let editButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("수정", for: .normal)
+        button.addTarget(self, action: #selector(editProfile), for: .touchUpInside)
+        return button
+    }()
+
+    // MARK: - Data
+
+    private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+    private let userValues = ["010-1234-5678", "e.mail", "지역", "0000-00-00", "직업", "회사", "최종학력", "__대학교"]
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        setConstraints()
+    }
+
+    // MARK: - Setup Methods
+
+    private func setupUI() {
+        view.addSubview(profilePage)
+        view.addSubview(profileImageView)
+        view.addSubview(nameLabel)
+        view.addSubview(tableView)
+        view.addSubview(editButton)
+
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+
+    private func setConstraints() {
+        profilePage.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            $0.leading.equalToSuperview().offset(24)
+        }
+
+        profileImageView.snp.makeConstraints {
+            $0.top.equalTo(profilePage.snp.bottom).offset(20)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(100)
+        }
+
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(profileImageView.snp.bottom).offset(30)
+            $0.centerX.equalToSuperview()
+        }
+
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+        }
+
+        editButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            $0.trailing.equalToSuperview().inset(24)
+        }
+    }
+
+    // MARK: - Actions
+
+    @objc private func editProfile() {
+        let editVC = ProfileEditViewController()
+        navigationController?.pushViewController(editVC, animated: true)
+    }
+
+    // MARK: - UITableViewDataSource
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userInfo.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = userInfo[indexPath.row]
+
+        let valueLabel = UILabel()
+        valueLabel.text = userValues[indexPath.row]
+        valueLabel.textAlignment = .right
+        valueLabel.textColor = .gray
+
+        cell.contentView.addSubview(valueLabel)
+        valueLabel.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(20)
+            $0.centerY.equalToSuperview()
+        }
+
+        return cell
+    }
+}
