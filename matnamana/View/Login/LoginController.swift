@@ -24,6 +24,11 @@ final class LoginController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    bindLoginButton()
+    
+  }
+  
+  func bindLoginButton() {
     loginView.loginButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
