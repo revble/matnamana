@@ -17,6 +17,7 @@
 		DA3A55FB2C802EA800459343 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */; };
 		DA3A55FD2C81AC6A00459343 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55FC2C81AC6A00459343 /* SceneDelegate.swift */; };
 		DA3A55FF2C81C1EE00459343 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55FE2C81C1EE00459343 /* ProfileEditViewController.swift */; };
+		DA3A56012C84B95100459343 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56002C84B95100459343 /* ProfileEditViewModel.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
 		DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923B2C78552C005DB62F /* ProfileController.swift */; };
 		DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* MyQuestionController.swift */; };
@@ -84,6 +85,7 @@
 		DA3A55F62C7F144500459343 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DA3A55FC2C81AC6A00459343 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DA3A55FE2C81C1EE00459343 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		DA3A56002C84B95100459343 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		DDCF923B2C78552C005DB62F /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		DDCF923D2C78554B005DB62F /* MyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionController.swift; sourceTree = "<group>"; };
@@ -169,9 +171,11 @@
 			isa = PBXGroup;
 			children = (
 				DA3A55F62C7F144500459343 /* ProfileViewModel.swift */,
+				DA3A56002C84B95100459343 /* ProfileEditViewModel.swift */,
 			);
-			path = Profile;
-			sourceTree = "<group>";
+			name = Profile;
+			path = matnamana/ViewModel/Profile;
+			sourceTree = SOURCE_ROOT;
 		};
 		DDCF92472C78583D005DB62F /* Frameworks */ = {
 			isa = PBXGroup;
@@ -507,6 +511,7 @@
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */,
+				DA3A56012C84B95100459343 /* ProfileEditViewModel.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
 				DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */,
 				DA3A55FD2C81AC6A00459343 /* SceneDelegate.swift in Sources */,

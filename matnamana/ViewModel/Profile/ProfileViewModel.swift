@@ -178,7 +178,7 @@
 //    struct Info: Codable {
 //        let mbti: String
 //        let career: String
-//        let education: String
+//        let ed   ucation: String
 //        let email: String
 //        let location: String
 //        let name: String

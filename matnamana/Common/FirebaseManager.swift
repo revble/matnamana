@@ -18,7 +18,7 @@ class FirebaseManager {
     let userData: [String: Any] = [
       "userId": user.userId,
       "info": [
-        "mbti": user.info.mbti,
+        //"mbti": user.info.mbti,
         "career": user.info.career,
         "education": user.info.education,
         "email": user.info.email,
@@ -27,6 +27,7 @@ class FirebaseManager {
         "phoneNumber": user.info.phoneNumber,
         "shortDescription": user.info.shortDescription,
         "profileImage": user.info.profileImage
+        
       ],
       "preset": user.preset.map { preset in
         [
