@@ -11,11 +11,13 @@ import FirebaseFirestore
 import RxSwift
 
 
-class RequiredInfoViewModel {
+final class RequiredInfoViewModel {
+  
   private let disposeBag = DisposeBag()
   private let db = FirebaseManager.shared.db
   
   let isNicknameDuplicate = PublishSubject<Bool>()
+
   
   func checNicknameDuplicate(nickname: String) {
     db.collection("users").whereField("info.nickName",

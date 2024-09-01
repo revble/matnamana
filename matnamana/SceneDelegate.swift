@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let window = UIWindow(windowScene: windowScene)
     
     let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    
+    UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+    UserDefaults.standard.removeObject(forKey: "loggedInUserId")
     if isLoggedIn {
       window.rootViewController = TabBarController()
     } else {

@@ -14,7 +14,7 @@ import RxCocoa
 import RxSwift
 
 
-class RequiredInformationController: UIViewController {
+final class RequiredInformationController: UIViewController {
   
   private var requiredInformationView = RequiredInformationView(frame: .zero)
   private let disposeBag = DisposeBag()
@@ -47,6 +47,7 @@ class RequiredInformationController: UIViewController {
         if isDuplicate {
           self.requiredInformationView.showduplicateCheck()
         } else {
+          self.requiredInformationView.hideduplicateCheck()
           self.alertMessage()
           self.requiredInfoViewModel.makeUserInformation(
             name: self.requiredInformationView.pickName(),

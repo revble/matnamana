@@ -13,7 +13,18 @@ import FirebaseAuth
 import RxSwift
 import RxCocoa
 
+
+
 final class LoginViewModel {
+
+  struct Input {
+    let loginButtonTap: Observable<Void>
+  }
+  
+  struct Output {
+    let isDuplicate: Observable<Bool>
+  }
+
   private let db = FirebaseManager.shared.db
   
   func checkUidDuplicate() -> Observable<Bool> {
@@ -43,8 +54,20 @@ final class LoginViewModel {
           print("가입되지 않은 사용자")
           observer.onNext(false)
         }
+        observer.onCompleted()
       }
       return Disposables.create()
     }
+  }
+  
+  func transform(input: Input) -> Output {
+    let isDuplicate = input.loginButtonTap
+      .flatMapLatest { [weak self] _ -> Observable<Bool> in
+        guard let self = self else {
+          return .empty()
+        }
+        return self.checkUidDuplicate()
+      }
+    return Output(isDuplicate: isDuplicate)
   }
 }

@@ -24,20 +24,17 @@ final class LoginController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    bindLoginButton()
+    bindLoginViewModel()
     
   }
   
-  func bindLoginButton() {
-    loginView.loginButton.rx.tap
-      .subscribe(onNext: { [weak self] in
-        guard let self = self else { return }
-        self.startSignInWithAppleFlow()
-      }).disposed(by: disposeBag)
-  }
-  
   func bindLoginViewModel() {
-    loginviewModel.checkUidDuplicate()
+    let input = LoginViewModel.Input(
+      loginButtonTap: loginView.loginButton.rx.tap.asObservable()
+    )
+    let output = loginviewModel.transform(input: input)
+    
+    output.isDuplicate
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { isDuplicate in
         if isDuplicate {
@@ -47,7 +44,7 @@ final class LoginController: UIViewController {
         }
       }).disposed(by: disposeBag)
   }
-  
+
   private func transitionToViewController(_ viewController: UIViewController) {
     guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
           let window = windowScene.windows.first else { return }
