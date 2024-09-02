@@ -2,9 +2,8 @@
 //  ProfileEditViewController.swift
 //  matnamana
 //
-//  Created by 이진규 on 8/30/24.
-// 키보드올라올때 화면 올라가게
-
+//  Created by 이진규 on 9/2/24.
+//
 
 import UIKit
 import SnapKit
@@ -15,135 +14,41 @@ import FirebaseStorage
 class ProfileEditViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
   // MARK: - UI Components
-
-  private let profilePage: UILabel = {
-    let label = UILabel()
-    label.text = "나의 정보"
-    label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-    return label
-  }()
-
-  private let profileImageView: UIImageView = {
-    let imageView = UIImageView()
-    imageView.image = UIImage(named: "profile")
-    imageView.contentMode = .scaleAspectFill
-    imageView.layer.cornerRadius = 50
-    imageView.clipsToBounds = true
-    imageView.isUserInteractionEnabled = true
-    return imageView
-  }()
-
-  private let nameTextField: UITextField = {
-    let textField = UITextField()
-    textField.layer.borderWidth = 1.0
-    textField.layer.borderColor = UIColor.black.cgColor
-    textField.layer.cornerRadius = 5
-    textField.placeholder = "이름을 입력해주세요"
-    return textField
-  }()
-
-  private let nickNameTextField: UITextField = {
-    let textField = UITextField()
-    textField.layer.borderWidth = 1.0
-    textField.layer.borderColor = UIColor.black.cgColor
-    textField.layer.cornerRadius = 5
-    textField.clearButtonMode = .always
-    textField.placeholder = "닉네임을 입력해주세요"
-    return textField
-  }()
-
-  private let introduceTextField: UITextField = {
-    let textField = UITextField()
-    textField.layer.borderWidth = 1.0
-    textField.layer.borderColor = UIColor.black.cgColor
-    textField.layer.cornerRadius = 5
-    textField.clearButtonMode = .always
-    textField.placeholder = "자기소개를 입력해주세요"
-    return textField
-  }()
-
-  private let tableView: UITableView = {
-    let tableView = UITableView()
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    tableView.rowHeight = UITableView.automaticDimension
-    tableView.estimatedRowHeight = 44
-    return tableView
-  }()
-
-  private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+  private var profileEditView = ProfileEditView()
   private let disposeBag = DisposeBag()
-  private let viewModel = ProfileEditViewModel()
 
+  // Firebase Storage 참조
   private let storage = Storage.storage()
-  private var profileImageUrl: String = ""  // 업로드된 이미지 URL을 저장할 변수 추가
+  private var profileImageUrl: String = ""
+
+  // 사용자 정보 필드
+  private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+
+  override func loadView() {
+    profileEditView = ProfileEditView()
+    self.view = profileEditView
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
     setupNavigationBar()
-    setupUI()
-    setConstraints()
-    bindViewModel()
+    bindUI()
 
-    // 프로필 이미지 뷰에 탭 제스처 추가
+    profileEditView.tableView.dataSource = self
+    profileEditView.tableView.delegate = self
+
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
-    profileImageView.addGestureRecognizer(tapGesture)
+    profileEditView.profileImageView.addGestureRecognizer(tapGesture)
   }
 
   // MARK: - Setup Methods
-
-  private func setupUI() {
-    [profilePage, profileImageView, nameTextField, nickNameTextField, introduceTextField, tableView].forEach {
-      view.addSubview($0)
-    }
-
-    tableView.dataSource = self
-    tableView.delegate = self
-  }
-
-  private func setConstraints() {
-    profilePage.snp.makeConstraints {
-      $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
-      $0.leading.equalToSuperview().offset(24)
-    }
-
-    profileImageView.snp.makeConstraints {
-      $0.top.equalTo(profilePage.snp.bottom).offset(20)
-      $0.centerX.equalToSuperview()
-      $0.width.height.equalTo(100)
-    }
-
-    nameTextField.snp.makeConstraints {
-      $0.top.equalTo(profileImageView.snp.bottom).offset(30)
-      $0.centerX.equalToSuperview()
-    }
-
-    nickNameTextField.snp.makeConstraints {
-      $0.top.equalTo(nameTextField.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
-    }
-
-    introduceTextField.snp.makeConstraints {
-      $0.top.equalTo(nickNameTextField.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
-    }
-
-    tableView.snp.makeConstraints {
-      $0.top.equalTo(introduceTextField.snp.bottom).offset(20)
-      $0.leading.trailing.equalToSuperview().inset(20)
-      $0.bottom.equalToSuperview()
-    }
-  }
 
   private func setupNavigationBar() {
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
   }
 
-  @objc private func saveButtonTapped() {
-    saveUserData()
-  }
-
-  // MARK: - 프로필 이미지 선택 및 업로드
+  // MARK: - Image Picker and Upload Logic
 
   @objc private func profileImageTapped() {
     let imagePicker = UIImagePickerController()
@@ -153,11 +58,11 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
     present(imagePicker, animated: true, completion: nil)
   }
 
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
     picker.dismiss(animated: true, completion: nil)
 
     if let selectedImage = info[.editedImage] as? UIImage {
-      profileImageView.image = selectedImage
+      profileEditView.profileImageView.image = selectedImage
       uploadImageToFirebase(image: selectedImage)
     }
   }
@@ -180,22 +85,26 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
           return
         }
         guard let downloadUrl = url else { return }
-        self?.profileImageUrl = downloadUrl.absoluteString  // 업로드된 이미지 URL 저장
+        self?.profileImageUrl = downloadUrl.absoluteString
         print("Download URL: \(self?.profileImageUrl ?? "")")
       }
     }
   }
 
-  // MARK: - Firestore에 사용자 데이터 저장
+  // MARK: - Save User Data
+
+  @objc private func saveButtonTapped() {
+    saveUserData()
+  }
 
   private func saveUserData() {
-    let name = nameTextField.text ?? ""
-    let nickname = nickNameTextField.text ?? ""
-    let shortDescription = introduceTextField.text ?? ""
+    let name = profileEditView.nameTextField.text ?? ""
+    let nickname = profileEditView.nickNameTextField.text ?? ""
+    let shortDescription = profileEditView.introduceTextField.text ?? ""
 
     var userDetails: [String: String] = [:]
     for (index, key) in userInfo.enumerated() {
-      if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)),
+      if let cell = profileEditView.tableView.cellForRow(at: IndexPath(row: index, section: 0)),
          let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
         userDetails[key] = textField.text ?? ""
       }
@@ -209,7 +118,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       name: name,
       phoneNumber: userDetails["휴대번호"] ?? "",
       shortDescription: shortDescription,
-      profileImage: profileImageUrl,  // 이미지 URL 저장
+      profileImage: profileImageUrl,
       nickname: nickname), preset: [], friendList: [], userId: "user_id_1456")
     FirebaseManager.shared.addUser(user: info1)
   }
@@ -242,49 +151,52 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
     return cell
   }
 
-  // MARK: - ViewModel Binding
+  // MARK: - ViewModel Binding Replacement
 
-  private func bindViewModel() {
+  private func bindUI() {
     let saveTap = navigationItem.leftBarButtonItem!.rx.tap.asObservable()
-    let nameText = nameTextField.rx.text.orEmpty.asObservable()
-    let nicknameText = nickNameTextField.rx.text.orEmpty.asObservable()
-    let shortDescriptionText = introduceTextField.rx.text.orEmpty.asObservable()
+    let nameText = profileEditView.nameTextField.rx.text.orEmpty.asObservable()
+    let nicknameText = profileEditView.nickNameTextField.rx.text.orEmpty.asObservable()
+    let shortDescriptionText = profileEditView.introduceTextField.rx.text.orEmpty.asObservable()
 
     let userInfoTexts = Observable.just(userInfo).map { userInfo in
       userInfo.reduce(into: [String: String]()) { result, key in
-        if let cell = self.tableView.cellForRow(at: IndexPath(row: userInfo.firstIndex(of: key)!, section: 0)),
+        if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: userInfo.firstIndex(of: key)!, section: 0)),
            let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
           result[key] = textField.text ?? ""
         }
       }
     }
 
-    let profileImageObservable = Observable.just(profileImageUrl)  // 프로필 이미지 URL 전달
+    let profileImageObservable = Observable.just(profileImageUrl)
 
-    let input = ProfileEditViewModel.Input(
-      saveTap: saveTap,
-      nameText: nameText,
-      nicknameText: nicknameText,
-      shortDescriptionText: shortDescriptionText,
-      userInfoTexts: userInfoTexts,
-      profileImageUrl: profileImageObservable  // ViewModel에 URL 전달
-    )
-
-    let output = viewModel.transform(input: input)
-
-    output.saveResult
-      .drive(onNext: { [weak self] (success: Bool) in  // success의 타입 명시
-        if success {
-          self?.navigationController?.popViewController(animated: true)
-        } else {
-          print("Failed to save user data.")
-        }
+    saveTap
+      .withLatestFrom(Observable.combineLatest(nameText, nicknameText, shortDescriptionText, userInfoTexts, profileImageObservable))
+      .subscribe(onNext: { [weak self] (name, nickname, shortDescription, userDetails, profileImageUrl) in
+        self?.saveUserData()
       })
       .disposed(by: disposeBag)
   }
 }
-// 사용자가 터치시 이벤트 페이지
-// then 설치
-// UI페이지 따로 만들기
-//rx키보드
-//rx데이터소스
+//    let input = ProfileEditViewModel.Input(
+//      saveTap: saveTap,
+//      nameText: nameText,
+//      nicknameText: nicknameText,
+//      shortDescriptionText: shortDescriptionText,
+//      userInfoTexts: userInfoTexts,
+//      profileImageUrl: profileImageObservable  // ViewModel에 URL 전달
+//    )
+//
+//    let output = viewModel.transform(input: input)
+//
+//    output.saveResult
+//      .drive(onNext: { [weak self] (success: Bool) in  // success의 타입 명시
+//        if success {
+//          self?.navigationController?.popViewController(animated: true)
+//        } else {
+//          print("Failed to save user data.")
+//        }
+//      })
+//      .disposed(by: disposeBag)
+//  }
+//}

@@ -163,7 +163,6 @@
 //  }
 //}
 import UIKit
-import SnapKit
 import RxSwift
 import RxCocoa
 
@@ -171,134 +170,29 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
 
   // MARK: - UI Components
 
-  private let profilePage: UILabel = {
-    let label = UILabel()
-    label.text = "나의 정보"
-    label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-    return label
-  }()
-
-  private let profileImageView: UIImageView = {
-    let imageView = UIImageView()
-    imageView.image = UIImage(named: "profile")
-    imageView.contentMode = .scaleAspectFill
-    imageView.layer.cornerRadius = 50
-    imageView.clipsToBounds = true
-    return imageView
-  }()
-
-  private let nameLabel: UILabel = {
-    let label = UILabel()
-    label.text = "이름"
-    label.textAlignment = .center
-    return label
-  }()
-
-  private let nickNameLabel: UILabel = {
-    let label = UILabel()
-    label.text = "닉네임"
-    label.layer.borderColor = UIColor.lightGray.cgColor
-    label.layer.borderWidth = 1.0
-    label.textAlignment = .center
-    return label
-  }()
-
-  private let introduceLabel: UILabel = {
-    let label = UILabel()
-    label.layer.borderWidth = 1.0
-    label.layer.borderColor = UIColor.lightGray.cgColor
-    label.text = "자기소개"
-    label.textAlignment = .center
-    return label
-  }()
-
-  private let tableView: UITableView = {
-    let tableView = UITableView()
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    return tableView
-  }()
-
-  private let editButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("수정", for: .normal)
-    button.addTarget(self, action: #selector(editProfile), for: .touchUpInside)
-    return button
-  }()
+  private var profileView = ProfileUIView()  // 이름 변경
+  private let disposeBag = DisposeBag()
+  private let viewModel = ProfileViewModel()
 
   // MARK: - Data
 
   private let userInfoKeys = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
-  private var userValues = ["", "", "", "", "", "", "", ""]  // Firestore에서 불러온 값을 저장할 배열
-
-  private let disposeBag = DisposeBag()
-  private let viewModel = ProfileViewModel()
+  private var userValues = ["", "", "", "", "", "", "", ""]
 
   // MARK: - Lifecycle
 
+  override func loadView() {
+    self.view = profileView
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupUI()
-    setConstraints()
     bindViewModel()
-  }
 
-  // MARK: - Setup Methods
+    profileView.tableView.dataSource = self
+    profileView.tableView.delegate = self
 
-  func setupUI() {
-    [
-      profilePage,
-      nameLabel,
-      profileImageView,
-      tableView,
-      nickNameLabel,
-      editButton,
-      introduceLabel
-    ].forEach { self.view.addSubview($0) }
-
-    tableView.dataSource = self
-    tableView.delegate = self
-  }
-
-  private func setConstraints() {
-    profilePage.snp.makeConstraints {
-      $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
-      $0.leading.equalToSuperview().offset(24)
-    }
-
-    profileImageView.snp.makeConstraints {
-      $0.top.equalTo(profilePage.snp.bottom).offset(20)
-      $0.centerX.equalToSuperview()
-      $0.width.height.equalTo(100)
-    }
-
-    nameLabel.snp.makeConstraints {
-      $0.top.equalTo(profileImageView.snp.bottom).offset(20)
-      $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview().inset(20) // 새 제약 조건 추가
-    }
-
-    nickNameLabel.snp.makeConstraints {
-      $0.top.equalTo(nameLabel.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview().inset(20) // 새 제약 조건 추가
-    }
-
-    introduceLabel.snp.makeConstraints {
-      $0.top.equalTo(nickNameLabel.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview().inset(20) // 새 제약 조건 추가
-    }
-
-    tableView.snp.makeConstraints {
-      $0.top.equalTo(introduceLabel.snp.bottom).offset(20)
-      $0.leading.trailing.equalToSuperview().inset(20)
-      $0.bottom.equalToSuperview()
-    }
-
-    editButton.snp.makeConstraints {
-      $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
-      $0.trailing.equalToSuperview().inset(24)
-    }
+    profileView.editButton.addTarget(self, action: #selector(editProfile), for: .touchUpInside)
   }
 
   // MARK: - Actions
@@ -340,10 +234,10 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
 
     output.profileData
       .drive(onNext: { [weak self] profile in
-        self?.nameLabel.text = profile.name
-        self?.nickNameLabel.text = profile.nickname
-        self?.introduceLabel.text = profile.shortDescription
-        self?.profileImageView.loadImage(from: profile.profileImage)
+        self?.profileView.nameLabel.text = profile.name
+        self?.profileView.nickNameLabel.text = profile.nickname
+        self?.profileView.introduceLabel.text = profile.shortDescription
+        self?.profileView.profileImageView.loadImage(from: profile.profileImage)
 
         // TableView 데이터 업데이트
         self?.userValues = [
@@ -356,7 +250,7 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
           profile.education,
           ""   // 대학교
         ]
-        self?.tableView.reloadData()
+        self?.profileView.tableView.reloadData()
       })
       .disposed(by: disposeBag)
   }
