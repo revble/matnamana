@@ -26,8 +26,9 @@ class FirebaseManager {
         "name": user.info.name,
         "phoneNumber": user.info.phoneNumber,
         "shortDescription": user.info.shortDescription,
-        "profileImage": user.info.profileImage
-        
+        "profileImage": user.info.profileImage,
+        "nickname": user.info.nickname
+
       ],
       "preset": user.preset.map { preset in
         [
