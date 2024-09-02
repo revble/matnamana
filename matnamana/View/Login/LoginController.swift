@@ -8,8 +8,11 @@
 import UIKit
 
 import FirebaseAuth
+import KakaoSDKAuth
+import KakaoSDKUser
 import RxCocoa
 import RxSwift
+
 
 final class LoginController: UIViewController {
   
@@ -25,8 +28,13 @@ final class LoginController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     bindLoginViewModel()
-    
+    loginView.kakaoLoginButton.rx.tap
+      .subscribe(onNext: { _ in
+        KakaoLoginService.shared.KakaoLogin()
+      }).disposed(by: disposeBag)
   }
+  
+
   
   func bindLoginViewModel() {
     let input = LoginViewModel.Input(
@@ -44,12 +52,11 @@ final class LoginController: UIViewController {
         }
       }).disposed(by: disposeBag)
   }
-
+  
   private func transitionToViewController(_ viewController: UIViewController) {
     guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
           let window = windowScene.windows.first else { return }
     window.rootViewController = viewController
     window.makeKeyAndVisible()
   }
-  
 }

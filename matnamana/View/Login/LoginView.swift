@@ -45,6 +45,13 @@ class LoginView: UIView {
     $0.layer.cornerRadius = 10
   }
   
+  let kakaoLoginButton = UIButton().then {
+    $0.setImage(UIImage(named: "kakaoLogin"), for: .normal)
+    $0.setTitleColor(.white, for: .normal)
+    $0.backgroundColor = .black
+    $0.layer.cornerRadius = 10
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configureUI()
@@ -63,7 +70,8 @@ class LoginView: UIView {
     goodQuestion,
     quicklyReferenceCheck,
     matnamana,
-    loginButton
+    loginButton,
+    kakaoLoginButton
     ].forEach { self.addSubview($0) }
   }
   
@@ -96,6 +104,12 @@ class LoginView: UIView {
     
     loginButton.snp.makeConstraints {
       $0.bottom.equalToSuperview().inset(200)
+      $0.centerX.equalToSuperview()
+      $0.width.equalTo(160)
+      $0.height.equalTo(35)
+    }
+    kakaoLoginButton.snp.makeConstraints {
+      $0.bottom.equalToSuperview().inset(150)
       $0.centerX.equalToSuperview()
       $0.width.equalTo(160)
       $0.height.equalTo(35)

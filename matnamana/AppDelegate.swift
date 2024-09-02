@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 
 import FirebaseCore
+import KakaoSDKCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
       
-      
+      KakaoSDK.initSDK(appKey: "a819a59d9cb83cddc3d7d806754f2a1e")
+
       FirebaseApp.configure()
       sleep(1)
       return true
