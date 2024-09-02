@@ -59,7 +59,7 @@ class RequiredInformationView: UIView {
   let joinButton = UIButton().then {
     $0.setTitle("저장하기", for: .normal)
     $0.setTitleColor(.white, for: .normal)
-    $0.backgroundColor = .green
+    $0.backgroundColor = .manaGreen
   }
   
   override init(frame: CGRect) {
@@ -90,7 +90,6 @@ class RequiredInformationView: UIView {
     duplicateCheckLabel.isHidden = true
   }
 
-  
   private func configureUI() {
     self.backgroundColor = .white
     [

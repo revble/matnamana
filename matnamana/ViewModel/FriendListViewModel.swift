@@ -21,7 +21,7 @@ protocol ViewModelType {
 }
 
 final class FriendListViewModel: ViewModelType {
-  
+
   struct Input {
     let fetchFriends: Observable<Void>
   }

@@ -13,7 +13,6 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-
 final class RequiredInformationController: UIViewController {
   
   private var requiredInformationView = RequiredInformationView(frame: .zero)
@@ -62,14 +61,12 @@ final class RequiredInformationController: UIViewController {
     let alertMessage = UIAlertController(title: "가입을 환영합니다!",
                                          message: "나만의 탁월한 질문을 만들어 보세요!",
                                          preferredStyle: .alert)
-    
     let okAction = UIAlertAction(title: "이동하기", style: .default) {_ in
       self.transitionToViewController(TabBarController())
     }
     alertMessage.addAction(okAction)
     present(alertMessage, animated: true, completion: nil)
   }
-  
   
   private func transitionToViewController(_ viewController: UIViewController) {
     guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
