@@ -32,7 +32,6 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
-    setupNavigationBar()
     bindUI()
 
     profileEditView.tableView.dataSource = self
@@ -44,8 +43,42 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
 
   // MARK: - Setup Methods
 
-  private func setupNavigationBar() {
-    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+  private func bindUI() {
+    // 네비게이션 바의 "저장" 버튼 생성
+    let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
+    navigationItem.rightBarButtonItem = saveButton
+
+    // "저장" 버튼 탭 이벤트를 RxSwift로 처리
+    guard let button = navigationItem.rightBarButtonItem else { return }
+    let saveTap = button.rx.tap.asObservable()
+
+    // 입력 필드와 Observable 생성
+    let nameText = profileEditView.nameTextField.rx.text.orEmpty.asObservable()
+    let nicknameText = profileEditView.nickNameTextField.rx.text.orEmpty.asObservable()
+    let shortDescriptionText = profileEditView.introduceTextField.rx.text.orEmpty.asObservable()
+
+    // 사용자 정보 텍스트 필드 Observable 생성
+    let userInfoTexts = Observable.just(userInfo).map { userInfo in
+      userInfo.reduce(into: [String: String]()) { result, key in
+        if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: userInfo.firstIndex(of: key)!, section: 0)),
+           let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
+          result[key] = textField.text ?? ""
+        }
+      }
+    }
+
+    // 프로필 이미지 Observable 생성
+    let profileImageObservable = Observable.just(profileImageUrl)
+
+    // "저장" 버튼 탭 이벤트 처리
+    saveTap
+      .withLatestFrom(Observable.combineLatest(nameText, nicknameText, shortDescriptionText, userInfoTexts, profileImageObservable))
+      .subscribe(onNext: { [weak self] (name, nickname, shortDescription, userDetails, profileImageUrl) in
+        guard let self = self else { return }
+        self.saveUserData()
+        self.navigateToProfileController()  // ProfileController로 이동
+      })
+      .disposed(by: disposeBag)
   }
 
   // MARK: - Image Picker and Upload Logic
@@ -78,6 +111,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
         print("Error uploading image: \(error.localizedDescription)")
         return
       }
+
       print("Image successfully uploaded to Firebase Storage!")
       self?.storage.reference().child(filePath).downloadURL { url, error in
         if let error = error {
@@ -92,10 +126,6 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
   }
 
   // MARK: - Save User Data
-
-  @objc private func saveButtonTapped() {
-    saveUserData()
-  }
 
   private func saveUserData() {
     let name = profileEditView.nameTextField.text ?? ""
@@ -119,7 +149,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       phoneNumber: userDetails["휴대번호"] ?? "",
       shortDescription: shortDescription,
       profileImage: profileImageUrl,
-      nickname: nickname), preset: [], friendList: [], userId: "user_id_1456")
+      nickname: nickname), preset: [], friendList: [], userId: "user_id_9812")
     FirebaseManager.shared.addUser(user: info1)
   }
 
@@ -151,52 +181,11 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
     return cell
   }
 
-  // MARK: - ViewModel Binding Replacement
+  // MARK: - 네비게이션 메서드 추가
 
-  private func bindUI() {
-    let saveTap = navigationItem.leftBarButtonItem!.rx.tap.asObservable()
-    let nameText = profileEditView.nameTextField.rx.text.orEmpty.asObservable()
-    let nicknameText = profileEditView.nickNameTextField.rx.text.orEmpty.asObservable()
-    let shortDescriptionText = profileEditView.introduceTextField.rx.text.orEmpty.asObservable()
-
-    let userInfoTexts = Observable.just(userInfo).map { userInfo in
-      userInfo.reduce(into: [String: String]()) { result, key in
-        if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: userInfo.firstIndex(of: key)!, section: 0)),
-           let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
-          result[key] = textField.text ?? ""
-        }
-      }
-    }
-
-    let profileImageObservable = Observable.just(profileImageUrl)
-
-    saveTap
-      .withLatestFrom(Observable.combineLatest(nameText, nicknameText, shortDescriptionText, userInfoTexts, profileImageObservable))
-      .subscribe(onNext: { [weak self] (name, nickname, shortDescription, userDetails, profileImageUrl) in
-        self?.saveUserData()
-      })
-      .disposed(by: disposeBag)
+  private func navigateToProfileController() {
+    let profileController = ProfileController()  // ProfileController의 인스턴스 생성
+    self.navigationController?.popViewController(animated: true)
   }
 }
-//    let input = ProfileEditViewModel.Input(
-//      saveTap: saveTap,
-//      nameText: nameText,
-//      nicknameText: nicknameText,
-//      shortDescriptionText: shortDescriptionText,
-//      userInfoTexts: userInfoTexts,
-//      profileImageUrl: profileImageObservable  // ViewModel에 URL 전달
-//    )
-//
-//    let output = viewModel.transform(input: input)
-//
-//    output.saveResult
-//      .drive(onNext: { [weak self] (success: Bool) in  // success의 타입 명시
-//        if success {
-//          self?.navigationController?.popViewController(animated: true)
-//        } else {
-//          print("Failed to save user data.")
-//        }
-//      })
-//      .disposed(by: disposeBag)
-//  }
-//}
+//open func popViewController(animated: Bool) -> UIViewController? /

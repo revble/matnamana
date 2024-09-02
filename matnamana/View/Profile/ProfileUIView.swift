@@ -59,11 +59,11 @@ class ProfileUIView: UIView {
     return tableView
   }()
 
-  let editButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("수정", for: .normal)
-    return button
-  }()
+  //  let editButton: UIButton = {
+  //    let button = UIButton(type: .system)
+  //    button.setTitle("수정", for: .normal)
+  //    return button
+  //  }()
 
   // MARK: - Initializer
 
@@ -86,7 +86,7 @@ class ProfileUIView: UIView {
       profileImageView,
       tableView,
       nickNameLabel,
-      editButton,
+      //      editButton,
       introduceLabel
     ].forEach { self.addSubview($0) }
   }
@@ -127,9 +127,10 @@ class ProfileUIView: UIView {
       $0.bottom.equalToSuperview()
     }
 
-    editButton.snp.makeConstraints {
-      $0.top.equalTo(safeAreaLayoutGuide).offset(8)
-      $0.trailing.equalToSuperview().inset(24)
-    }
+    //    editButton.snp.makeConstraints {
+    //      $0.top.equalTo(safeAreaLayoutGuide).offset(8)
+    //      $0.trailing.equalToSuperview().inset(24)
+    //    }
+    //  }
   }
 }

@@ -287,7 +287,7 @@ class ProfileEditViewModel {
                     nickname: nickname
                 )
 
-                let user = User(info: info, preset: [], friendList: [], userId: "user_id_456")
+                let user = User(info: info, preset: [], friendList: [], userId: "user_id_9812")
 
                 return self.saveUserData(user: user)
             }
