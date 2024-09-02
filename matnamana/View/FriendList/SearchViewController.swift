@@ -46,10 +46,10 @@ class SearchViewController: UIViewController {
   
   private func handleSearchResult(_ user: User?) {
     if let user = user {
-      navigationController?.pushViewController(ProfileViewController(), animated: true)
-      print("Found user: \(user.info.nickName)")
-    } else {
-      print("User not found")
+      let profileVC = ProfileViewController()
+      profileVC.userInfo = user.info.nickName
+      navigationController?.pushViewController(profileVC, animated: true)
+      print("user: \(user.info.nickName)")
     }
   }
 }

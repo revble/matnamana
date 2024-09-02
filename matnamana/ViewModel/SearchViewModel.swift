@@ -12,7 +12,7 @@ import FirebaseFirestore
 import RxSwift
 import RxCocoa
 
-class SearchViewModel: ViewModelType {
+final class SearchViewModel: ViewModelType {
   
   struct Input {
     let searchData: Observable<String>
