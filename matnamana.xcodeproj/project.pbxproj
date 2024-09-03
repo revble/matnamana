@@ -24,6 +24,17 @@
 		4F83D3412C85A4680076AE2A /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D3402C85A4680076AE2A /* KakaoLoginService.swift */; };
 		4FEB36952C7EC9240066998E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36942C7EC9240066998E /* LoginView.swift */; };
 		4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36972C7F07120066998E /* AppleLoginService.swift */; };
+		DA3A55F72C7F144500459343 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55F62C7F144500459343 /* ProfileViewModel.swift */; };
+		DA3A55F92C802EA800459343 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A55F82C802EA800459343 /* FirebaseStorage */; };
+		DA3A55FB2C802EA800459343 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */; };
+		DA3A55FD2C81AC6A00459343 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55FC2C81AC6A00459343 /* SceneDelegate.swift */; };
+		DA3A55FF2C81C1EE00459343 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */; };
+		DA3A56012C84B95100459343 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56002C84B95100459343 /* ProfileEditViewModel.swift */; };
+		DA3A56042C85467000459343 /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A56032C85467000459343 /* RxKeyboard */; };
+		DA3A56062C85565B00459343 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56052C85565B00459343 /* ProfileEditViewController.swift */; };
+		DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56092C855BC400459343 /* ProfileUIView.swift */; };
+		DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */; };
+		DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560D2C868BCC00459343 /* profileEditTable.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
 		DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923B2C78552C005DB62F /* ProfileController.swift */; };
 		DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* MyQuestionController.swift */; };
@@ -34,7 +45,6 @@
 		DDCF924B2C785841005DB62F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF924A2C785841005DB62F /* RxSwift */; };
 		DDCF924D2C785846005DB62F /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF924C2C785846005DB62F /* RxRelay */; };
 		DDCF92502C785884005DB62F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF924F2C785884005DB62F /* Kingfisher */; };
-		DDCF92522C788E4B005DB62F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92512C788E4B005DB62F /* SceneDelegate.swift */; };
 		DDCF92BF2C7C7F8E005DB62F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92BE2C7C7F8E005DB62F /* FirebaseAuth */; };
 		DDCF92C12C7C7F8E005DB62F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C02C7C7F8E005DB62F /* FirebaseFirestore */; };
 		DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C22C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community */; };
@@ -102,12 +112,19 @@
 		4FEB36942C7EC9240066998E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4FEB36962C7F05BB0066998E /* matnamana.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = matnamana.entitlements; sourceTree = "<group>"; };
 		4FEB36972C7F07120066998E /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
+		DA3A55F62C7F144500459343 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		DA3A55FC2C81AC6A00459343 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		DA3A56002C84B95100459343 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
+		DA3A56052C85565B00459343 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		DA3A56092C855BC400459343 /* ProfileUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUIView.swift; sourceTree = "<group>"; };
+		DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		DA3A560D2C868BCC00459343 /* profileEditTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditTable.swift; sourceTree = "<group>"; };
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		DDCF923B2C78552C005DB62F /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		DDCF923D2C78554B005DB62F /* MyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionController.swift; sourceTree = "<group>"; };
 		DDCF923F2C78556C005DB62F /* FriendListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListController.swift; sourceTree = "<group>"; };
 		DDCF92412C78557D005DB62F /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		DDCF92512C788E4B005DB62F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
 		DDCF93202C7D8C6D005DB62F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
@@ -147,10 +164,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3A55FB2C802EA800459343 /* FirebaseStorageCombine-Community in Frameworks */,
 				DDCF924B2C785841005DB62F /* RxSwift in Frameworks */,
 				4F83D33F2C85A27D0076AE2A /* KakaoSDK in Frameworks */,
 				DDCF92C52C7C7FB3005DB62F /* FirebaseAuthCombine-Community in Frameworks */,
+				DA3A56042C85467000459343 /* RxKeyboard in Frameworks */,
 				DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */,
+				DA3A55F92C802EA800459343 /* FirebaseStorage in Frameworks */,
 				DDCF92BF2C7C7F8E005DB62F /* FirebaseAuth in Frameworks */,
 				DDCF92492C78583D005DB62F /* RxCocoa in Frameworks */,
 				DDF2A0302C84B35D001B1DB7 /* Then in Frameworks */,
@@ -201,6 +221,16 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		DA3A55F52C7F141800459343 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				DA3A55F62C7F144500459343 /* ProfileViewModel.swift */,
+				DA3A56002C84B95100459343 /* ProfileEditViewModel.swift */,
+			);
+			name = Profile;
+			path = matnamana/ViewModel/Profile;
+			sourceTree = SOURCE_ROOT;
+		};
 		DDCF92472C78583D005DB62F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +259,7 @@
 				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
 				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
 				DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */,
+				DA3A55F52C7F141800459343 /* Profile */,
 				DDF2A0262C842978001B1DB7 /* ProfileViewModel.swift */,
 				DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */,
 				4F83D3252C80DA360076AE2A /* LoginViewModel.swift */,
@@ -249,6 +280,11 @@
 			isa = PBXGroup;
 			children = (
 				DDCF923B2C78552C005DB62F /* ProfileController.swift */,
+				DA3A56092C855BC400459343 /* ProfileUIView.swift */,
+				DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */,
+				DA3A56052C85565B00459343 /* ProfileEditViewController.swift */,
+				DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */,
+				DA3A560D2C868BCC00459343 /* profileEditTable.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -337,7 +373,6 @@
 				4FEB36962C7F05BB0066998E /* matnamana.entitlements */,
 				DDCF931F2C7D8C20005DB62F /* Model */,
 				DDE043542C773E3500DA099A /* AppDelegate.swift */,
-				DDCF92512C788E4B005DB62F /* SceneDelegate.swift */,
 				DDCF92C92C7C8AAD005DB62F /* ViewModel */,
 				DDCF92C82C7C8A6B005DB62F /* View */,
 				4FEB36992C7F07BE0066998E /* Service */,
@@ -397,6 +432,9 @@
 				4F83D3342C85763D0076AE2A /* RxDataSources */,
 				4F83D33C2C85A0E80076AE2A /* KakaoSDKAuth */,
 				4F83D33E2C85A27D0076AE2A /* KakaoSDK */,
+				DA3A55F82C802EA800459343 /* FirebaseStorage */,
+				DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */,
+				DA3A56032C85467000459343 /* RxKeyboard */,
 			);
 			productName = matnamana;
 			productReference = DDE043512C773E3500DA099A /* matnamana.app */;
@@ -479,6 +517,7 @@
 				4F83D3332C85763D0076AE2A /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				4F83D3382C859A180076AE2A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				4F83D33B2C85A0E80076AE2A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				DA3A56022C85464900459343 /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 			);
 			productRefGroup = DDE043522C773E3500DA099A /* Products */;
 			projectDirPath = "";
@@ -524,6 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDCF93362C7EEE33005DB62F /* FirebaseManager.swift in Sources */,
+				DA3A56062C85565B00459343 /* ProfileEditViewController.swift in Sources */,
 				DDCF93332C7EAF33005DB62F /* SearchView.swift in Sources */,
 				4F83D3262C80DA360076AE2A /* LoginViewModel.swift in Sources */,
 				DDF2A01A2C8031EE001B1DB7 /* ProfileViewController.swift in Sources */,
@@ -539,6 +579,7 @@
 				DDCF92522C788E4B005DB62F /* SceneDelegate.swift in Sources */,
 				4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */,
 				DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */,
+				DA3A55FF2C81C1EE00459343 /* ProfileEditView.swift in Sources */,
 				DDF2A02D2C846927001B1DB7 /* addFriendViewModel.swift in Sources */,
 				DDF2A0272C842978001B1DB7 /* ProfileViewModel.swift in Sources */,
 				4F83D3302C8556570076AE2A /* FriendReputationRequestCell.swift in Sources */,
@@ -555,12 +596,18 @@
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */,
+				DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */,
+				DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */,
+				DA3A56012C84B95100459343 /* ProfileEditViewModel.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
 				DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */,
+				DA3A55FD2C81AC6A00459343 /* SceneDelegate.swift in Sources */,
 				DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */,
+				DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */,
 				4FEB36952C7EC9240066998E /* LoginView.swift in Sources */,
+				DA3A55F72C7F144500459343 /* ProfileViewModel.swift in Sources */,
 				DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */,
 				DDF2A0242C80AB4B001B1DB7 /* SearchViewModel.swift in Sources */,
 				DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */,
@@ -931,6 +978,14 @@
 				minimumVersion = 2.22.6;
 			};
 		};
+		DA3A56022C85464900459343 /* XCRemoteSwiftPackageReference "RxKeyboard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxKeyboard.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 		DDCF92432C785824005DB62F /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -993,6 +1048,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4F83D33B2C85A0E80076AE2A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDK;
+		};
+		DA3A55F82C802EA800459343 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDCF92BD2C7C7F8E005DB62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDCF92BD2C7C7F8E005DB62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
+		};
+		DA3A56032C85467000459343 /* RxKeyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA3A56022C85464900459343 /* XCRemoteSwiftPackageReference "RxKeyboard" */;
+			productName = RxKeyboard;
 		};
 		DDCF92452C785837005DB62F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
