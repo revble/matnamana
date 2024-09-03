@@ -13,6 +13,7 @@ import KakaoSDKUser
 import RxCocoa
 import RxSwift
 
+
 final class LoginController: UIViewController {
   
   private var loginView = LoginView(frame: .zero)
@@ -32,6 +33,8 @@ final class LoginController: UIViewController {
         KakaoLoginService.shared.KakaoLogin()
       }).disposed(by: disposeBag)
   }
+  
+
   
   func bindLoginViewModel() {
     let input = LoginViewModel.Input(
