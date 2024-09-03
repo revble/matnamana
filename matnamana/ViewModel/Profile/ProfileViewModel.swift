@@ -38,8 +38,7 @@ final class ProfileViewModel: ProfileViewModelType {
   
   private func fetchProfileData() -> Observable<User.Info> {
     return Observable.create { observer in
-      let documentId = "user_id_9812"
-      FirebaseManager.shared.readUser(documentId: documentId) { user, error in
+      FirebaseManager.shared.readUser(documentId: "user_id_9812") { user, error in
         if let error = error {
           observer.onError(error)
         } else if let user = user {
