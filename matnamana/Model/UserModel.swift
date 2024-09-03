@@ -10,11 +10,11 @@ struct User: Codable {
   let preset: [PresetQuestion]
   let friendList: [Friend]
   let userId: String
+  let reputationId: String
 }
 
 extension User {
   struct Info: Codable {
-    //let mbti: String
     let career: String
     let education: String
     let email: String
@@ -23,10 +23,7 @@ extension User {
     let phoneNumber: String
     let shortDescription: String
     let profileImage: String
-    let nickname: String
-    //생년월일
-    //회사명
-    //대학교
+    let nickName: String
   }
   
   struct PresetQuestion: Codable {
@@ -38,6 +35,7 @@ extension User {
     let nickname: String
     let type: FriendType
     let friendId: String
+    let friendImage: String
   }
 }
 

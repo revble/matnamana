@@ -5,20 +5,20 @@
 //  Created by 김윤홍 on 8/27/24.
 //
 
-struct Question {
+struct Question: Codable {
   let questionId: String
   let contents: [Content]
 }
 
 extension Question {
-  struct Content {
+  struct Content: Codable {
     let contentType: QuestionType
     let contentDescription: String
   }
 }
 
 extension Question.Content {
-  enum QuestionType: String {
+  enum QuestionType: String, Codable {
     case fact
     case career
     case values

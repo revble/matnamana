@@ -7,50 +7,72 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
+import Then
 
-class ProfileView: UIView {
+final class ProfileView: UIView {
   
-  private let profileImage: UIImageView = {
-    let imageView = UIImageView()
-    imageView.image = UIImage()
-    return imageView
-  }()
+  private let verticalStackView: UIStackView = UIStackView().then {
+    $0.axis = .vertical
+    $0.spacing = 10
+    $0.distribution = .fillEqually
+  }
   
-  private let userName: UILabel = {
-    let label = UILabel()
-    label.text = ""
-    label.font = .boldSystemFont(ofSize: 20)
-    return label
-  }()
+  private let horizontalStackView: UIStackView = UIStackView().then {
+    $0.axis = .horizontal
+    $0.spacing = 20
+    $0.distribution = .fillEqually
+  }
   
-  private let nickName: UILabel = {
-    let label = UILabel()
-    label.text = ""
-    label.font = .boldSystemFont(ofSize: 15)
-    return label
-  }()
+  let profileImage: UIImageView = UIImageView().then {
+    $0.image = UIImage()
+    $0.layer.cornerRadius = 100
+    $0.contentMode = .scaleAspectFit
+    $0.clipsToBounds = true
+  }
   
-  private let requestFriend: UIButton = {
-    let button = UIButton()
-    button.setTitle("친구 요청", for: .normal)
-    button.backgroundColor = .manaGreen
-    button.layer.cornerRadius = 10
-    return button
-  }()
+  private let userName: UILabel = UILabel().then {
+    $0.text = ""
+    $0.textAlignment = .center
+    $0.font = .boldSystemFont(ofSize: 20)
+  }
   
-  private let requestReference: UIButton = {
-    let button = UIButton()
-    button.setTitle("평판조회 신청", for: .normal)
-    button.backgroundColor = .manaPink
-    button.layer.cornerRadius = 10
-    return button
-  }()
+  private let nickName: UILabel = UILabel().then {
+    $0.textAlignment = .center
+    $0.text = ""
+    $0.font = .boldSystemFont(ofSize: 15)
+  }
+  
+  let requestFriend: UIButton = UIButton().then {
+    $0.setTitle("친구 요청", for: .normal)
+    $0.backgroundColor = .manaGreen
+    $0.layer.cornerRadius = 10
+  }
+  
+  let requestReference: UIButton = UIButton().then {
+    $0.setTitle("평판조회 신청", for: .normal)
+    $0.backgroundColor = .manaPink
+    $0.layer.cornerRadius = 10
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+    [
+      profileImage,
+      verticalStackView,
+      horizontalStackView
+    ].forEach { self.addSubview($0) }
     
-    configureUI()
+    [
+      userName,
+      nickName
+    ].forEach { verticalStackView.addArrangedSubview($0) }
+    
+    [
+      requestFriend,
+      requestReference
+    ].forEach { horizontalStackView.addArrangedSubview($0) }
     setConstraints()
   }
   
@@ -58,46 +80,30 @@ class ProfileView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func configureUI() {
-    [
-      profileImage,
-      userName,
-      nickName,
-      requestFriend,
-      requestReference
-    ].forEach { self.addSubview($0) }
+  func configureUI(imageURL: String, userName: String, nickName: String) {
+    self.userName.text = userName
+    self.nickName.text = nickName
+    
+    if let url = URL(string: imageURL) {
+      profileImage.kf.setImage(with: url)
+    }
   }
   
-  func setConstraints() {
+  private func setConstraints() {
     profileImage.snp.makeConstraints {
-      $0.top.equalToSuperview().inset(100)
+      $0.width.height.equalTo(200)
       $0.centerX.equalToSuperview()
-      $0.width.equalTo(profileImage.snp.height)
+      $0.top.equalTo(self.safeAreaLayoutGuide).inset(100)
     }
     
-    userName.snp.makeConstraints { make in
-      make.top.equalTo(profileImage.snp.bottom).offset(15)
-      make.left.right.equalToSuperview().inset(20)
+    verticalStackView.snp.makeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.top.equalTo(profileImage.snp.bottom).offset(20)
     }
     
-    nickName.snp.makeConstraints { make in
-      make.top.equalTo(userName.snp.bottom).offset(10)
-      make.left.right.equalToSuperview().inset(20)
-    }
-    
-    requestFriend.snp.makeConstraints { make in
-      make.top.equalTo(nickName.snp.bottom).offset(20)
-      make.left.equalToSuperview().inset(20)
-      make.right.equalTo(requestReference.snp.left).offset(-10)
-      make.height.equalTo(44)
-      make.width.equalTo(requestReference)
-    }
-    
-    requestReference.snp.makeConstraints { make in
-      make.top.equalTo(nickName.snp.bottom).offset(20)
-      make.right.equalToSuperview().inset(20)
-      make.left.equalTo(requestFriend.snp.right).offset(10)
-      make.height.equalTo(44)
+    horizontalStackView.snp.makeConstraints {
+      $0.top.equalTo(verticalStackView.snp.bottom).offset(20)
+      $0.centerX.equalToSuperview()
     }
   }
 }

@@ -10,6 +10,18 @@
 		4F83D31B2C7F14830076AE2A /* RequiredInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */; };
 		4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D31C2C7F14A60076AE2A /* RequiredInformationView.swift */; };
 		4F83D3222C80CCD40076AE2A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4F83D3212C80CCD40076AE2A /* Then */; };
+		4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */; };
+		4F83D3262C80DA360076AE2A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D3252C80DA360076AE2A /* LoginViewModel.swift */; };
+		4F83D3282C841D160076AE2A /* MatnamanaLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F83D3272C841D160076AE2A /* MatnamanaLaunchScreen.storyboard */; };
+		4F83D32C2C8554BA0076AE2A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D32B2C8554BA0076AE2A /* HomeView.swift */; };
+		4F83D32E2C8554C50076AE2A /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D32D2C8554C50076AE2A /* HomeController.swift */; };
+		4F83D3302C8556570076AE2A /* FriendReputationRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D32F2C8556570076AE2A /* FriendReputationRequestCell.swift */; };
+		4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D3312C8559470076AE2A /* SectionHeaderView.swift */; };
+		4F83D3352C85763D0076AE2A /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4F83D3342C85763D0076AE2A /* RxDataSources */; };
+		4F83D3372C8576770076AE2A /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D3362C8576770076AE2A /* SectionModel.swift */; };
+		4F83D33D2C85A0E80076AE2A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4F83D33C2C85A0E80076AE2A /* KakaoSDKAuth */; };
+		4F83D33F2C85A27D0076AE2A /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4F83D33E2C85A27D0076AE2A /* KakaoSDK */; };
+		4F83D3412C85A4680076AE2A /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D3402C85A4680076AE2A /* KakaoLoginService.swift */; };
 		4FEB36952C7EC9240066998E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36942C7EC9240066998E /* LoginView.swift */; };
 		4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36972C7F07120066998E /* AppleLoginService.swift */; };
 		DA3A55F72C7F144500459343 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55F62C7F144500459343 /* ProfileViewModel.swift */; };
@@ -52,7 +64,6 @@
 		DDE043592C773E3500DA099A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043582C773E3500DA099A /* TabBarController.swift */; };
 		DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDE0435A2C773E3500DA099A /* matnamana.xcdatamodeld */; };
 		DDE0435E2C773E3700DA099A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDE0435D2C773E3700DA099A /* Assets.xcassets */; };
-		DDE043612C773E3700DA099A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DDE043602C773E3700DA099A /* Base */; };
 		DDE0436C2C773E3700DA099A /* matnamanaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0436B2C773E3700DA099A /* matnamanaTests.swift */; };
 		DDE043762C773E3700DA099A /* matnamanaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043752C773E3700DA099A /* matnamanaUITests.swift */; };
 		DDE043782C773E3700DA099A /* matnamanaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043772C773E3700DA099A /* matnamanaUITestsLaunchTests.swift */; };
@@ -62,6 +73,11 @@
 		DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A01F2C80A072001B1DB7 /* AnswerModel.swift */; };
 		DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0212C80A084001B1DB7 /* ReputationModel.swift */; };
 		DDF2A0242C80AB4B001B1DB7 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */; };
+		DDF2A0272C842978001B1DB7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0262C842978001B1DB7 /* ProfileViewModel.swift */; };
+		DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */; };
+		DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */; };
+		DDF2A02D2C846927001B1DB7 /* addFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */; };
+		DDF2A0302C84B35D001B1DB7 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DDF2A02F2C84B35D001B1DB7 /* Then */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +100,15 @@
 /* Begin PBXFileReference section */
 		4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredInformationController.swift; sourceTree = "<group>"; };
 		4F83D31C2C7F14A60076AE2A /* RequiredInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredInformationView.swift; sourceTree = "<group>"; };
+		4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredInformaitionViewModel.swift; sourceTree = "<group>"; };
+		4F83D3252C80DA360076AE2A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		4F83D3272C841D160076AE2A /* MatnamanaLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MatnamanaLaunchScreen.storyboard; sourceTree = "<group>"; };
+		4F83D32B2C8554BA0076AE2A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4F83D32D2C8554C50076AE2A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		4F83D32F2C8556570076AE2A /* FriendReputationRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReputationRequestCell.swift; sourceTree = "<group>"; };
+		4F83D3312C8559470076AE2A /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		4F83D3362C8576770076AE2A /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
+		4F83D3402C85A4680076AE2A /* KakaoLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginService.swift; sourceTree = "<group>"; };
 		4FEB36942C7EC9240066998E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4FEB36962C7F05BB0066998E /* matnamana.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = matnamana.entitlements; sourceTree = "<group>"; };
 		4FEB36972C7F07120066998E /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
@@ -116,7 +141,6 @@
 		DDE043582C773E3500DA099A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DDE0435B2C773E3500DA099A /* matnamana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = matnamana.xcdatamodel; sourceTree = "<group>"; };
 		DDE0435D2C773E3700DA099A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DDE043602C773E3700DA099A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DDE043622C773E3700DA099A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDE043672C773E3700DA099A /* matnamanaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = matnamanaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDE0436B2C773E3700DA099A /* matnamanaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matnamanaTests.swift; sourceTree = "<group>"; };
@@ -129,6 +153,10 @@
 		DDF2A01F2C80A072001B1DB7 /* AnswerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerModel.swift; sourceTree = "<group>"; };
 		DDF2A0212C80A084001B1DB7 /* ReputationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationModel.swift; sourceTree = "<group>"; };
 		DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		DDF2A0262C842978001B1DB7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendView.swift; sourceTree = "<group>"; };
+		DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addFriendViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,17 +166,21 @@
 			files = (
 				DA3A55FB2C802EA800459343 /* FirebaseStorageCombine-Community in Frameworks */,
 				DDCF924B2C785841005DB62F /* RxSwift in Frameworks */,
+				4F83D33F2C85A27D0076AE2A /* KakaoSDK in Frameworks */,
 				DDCF92C52C7C7FB3005DB62F /* FirebaseAuthCombine-Community in Frameworks */,
 				DA3A56042C85467000459343 /* RxKeyboard in Frameworks */,
 				DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */,
 				DA3A55F92C802EA800459343 /* FirebaseStorage in Frameworks */,
 				DDCF92BF2C7C7F8E005DB62F /* FirebaseAuth in Frameworks */,
 				DDCF92492C78583D005DB62F /* RxCocoa in Frameworks */,
+				DDF2A0302C84B35D001B1DB7 /* Then in Frameworks */,
+				4F83D3352C85763D0076AE2A /* RxDataSources in Frameworks */,
 				4F83D3222C80CCD40076AE2A /* Then in Frameworks */,
 				DDCF924D2C785846005DB62F /* RxRelay in Frameworks */,
 				DDCF92462C785837005DB62F /* SnapKit in Frameworks */,
 				DDCF92502C785884005DB62F /* Kingfisher in Frameworks */,
 				DDCF92C12C7C7F8E005DB62F /* FirebaseFirestore in Frameworks */,
+				4F83D33D2C85A0E80076AE2A /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,10 +201,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F83D32A2C8552CD0076AE2A /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				4F83D32B2C8554BA0076AE2A /* HomeView.swift */,
+				4F83D32D2C8554C50076AE2A /* HomeController.swift */,
+				4F83D3312C8559470076AE2A /* SectionHeaderView.swift */,
+				4F83D32F2C8556570076AE2A /* FriendReputationRequestCell.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
 		4FEB36992C7F07BE0066998E /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				4FEB36972C7F07120066998E /* AppleLoginService.swift */,
+				4F83D3402C85A4680076AE2A /* KakaoLoginService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -197,6 +241,7 @@
 		DDCF92C82C7C8A6B005DB62F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4F83D32A2C8552CD0076AE2A /* HomePage */,
 				DDE043582C773E3500DA099A /* TabBarController.swift */,
 				DDCF93182C7D533D005DB62F /* MainPage */,
 				DDCF93192C7D5356005DB62F /* Profile */,
@@ -210,10 +255,14 @@
 		DDCF92C92C7C8AAD005DB62F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */,
+				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
 				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
 				DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */,
-				DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */,
 				DA3A55F52C7F141800459343 /* Profile */,
+				DDF2A0262C842978001B1DB7 /* ProfileViewModel.swift */,
+				DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */,
+				4F83D3252C80DA360076AE2A /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -258,6 +307,8 @@
 				DDCF93322C7EAF33005DB62F /* SearchView.swift */,
 				DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */,
 				DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */,
+				DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */,
+				DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -280,7 +331,7 @@
 				DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */,
 				DDF2A01F2C80A072001B1DB7 /* AnswerModel.swift */,
 				DDF2A0212C80A084001B1DB7 /* ReputationModel.swift */,
-				DA3A55FC2C81AC6A00459343 /* SceneDelegate.swift */,
+				4F83D3362C8576770076AE2A /* SectionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -326,7 +377,7 @@
 				DDCF92C82C7C8A6B005DB62F /* View */,
 				4FEB36992C7F07BE0066998E /* Service */,
 				DDE0435D2C773E3700DA099A /* Assets.xcassets */,
-				DDE0435F2C773E3700DA099A /* LaunchScreen.storyboard */,
+				4F83D3272C841D160076AE2A /* MatnamanaLaunchScreen.storyboard */,
 				DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */,
 				DDE043622C773E3700DA099A /* Info.plist */,
 				DDE0435A2C773E3500DA099A /* matnamana.xcdatamodeld */,
@@ -378,6 +429,9 @@
 				DDCF92C22C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community */,
 				DDCF92C42C7C7FB3005DB62F /* FirebaseAuthCombine-Community */,
 				4F83D3212C80CCD40076AE2A /* Then */,
+				4F83D3342C85763D0076AE2A /* RxDataSources */,
+				4F83D33C2C85A0E80076AE2A /* KakaoSDKAuth */,
+				4F83D33E2C85A27D0076AE2A /* KakaoSDK */,
 				DA3A55F82C802EA800459343 /* FirebaseStorage */,
 				DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */,
 				DA3A56032C85467000459343 /* RxKeyboard */,
@@ -460,6 +514,9 @@
 				DDCF924E2C785884005DB62F /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				DDCF92BD2C7C7F8E005DB62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4F83D3202C80CCC00076AE2A /* XCRemoteSwiftPackageReference "Then" */,
+				4F83D3332C85763D0076AE2A /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				4F83D3382C859A180076AE2A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
+				4F83D33B2C85A0E80076AE2A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				DA3A56022C85464900459343 /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 			);
 			productRefGroup = DDE043522C773E3500DA099A /* Products */;
@@ -478,8 +535,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F83D3282C841D160076AE2A /* MatnamanaLaunchScreen.storyboard in Resources */,
 				DDE0435E2C773E3700DA099A /* Assets.xcassets in Resources */,
-				DDE043612C773E3700DA099A /* Base in Resources */,
 				DDCF93252C7DA8A0005DB62F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,25 +565,38 @@
 				DDCF93362C7EEE33005DB62F /* FirebaseManager.swift in Sources */,
 				DA3A56062C85565B00459343 /* ProfileEditViewController.swift in Sources */,
 				DDCF93332C7EAF33005DB62F /* SearchView.swift in Sources */,
+				4F83D3262C80DA360076AE2A /* LoginViewModel.swift in Sources */,
 				DDF2A01A2C8031EE001B1DB7 /* ProfileViewController.swift in Sources */,
 				DDCF932B2C7E0D3D005DB62F /* FriendListCell.swift in Sources */,
+				4F83D32C2C8554BA0076AE2A /* HomeView.swift in Sources */,
 				DDF2A01E2C8034A1001B1DB7 /* UIColor+Ex.swift in Sources */,
+				4F83D3372C8576770076AE2A /* SectionModel.swift in Sources */,
 				DDCF93312C7EAF22005DB62F /* SearchViewController.swift in Sources */,
 				4F83D31B2C7F14830076AE2A /* RequiredInformationController.swift in Sources */,
+				4F83D32E2C8554C50076AE2A /* HomeController.swift in Sources */,
 				DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */,
 				DDE043592C773E3500DA099A /* TabBarController.swift in Sources */,
+				DDCF92522C788E4B005DB62F /* SceneDelegate.swift in Sources */,
+				4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */,
 				DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */,
 				DA3A55FF2C81C1EE00459343 /* ProfileEditView.swift in Sources */,
+				DDF2A02D2C846927001B1DB7 /* addFriendViewModel.swift in Sources */,
+				DDF2A0272C842978001B1DB7 /* ProfileViewModel.swift in Sources */,
+				4F83D3302C8556570076AE2A /* FriendReputationRequestCell.swift in Sources */,
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
+				DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
+				4F83D3412C85A4680076AE2A /* KakaoLoginService.swift in Sources */,
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
 				DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */,
+				4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
-				DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
+				DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */,
+				DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */,
 				DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */,
@@ -577,17 +647,6 @@
 			targetProxy = DDE043722C773E3700DA099A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		DDE0435F2C773E3700DA099A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDE043602C773E3700DA099A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DDE043792C773E3700DA099A /* Debug */ = {
@@ -721,7 +780,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = matnamana/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = MatnamanaLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -751,7 +810,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = matnamana/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = MatnamanaLaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -895,6 +954,30 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		4F83D3332C85763D0076AE2A /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+		4F83D3382C859A180076AE2A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.5;
+			};
+		};
+		4F83D33B2C85A0E80076AE2A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.22.6;
+			};
+		};
 		DA3A56022C85464900459343 /* XCRemoteSwiftPackageReference "RxKeyboard" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxKeyboard.git";
@@ -935,6 +1018,14 @@
 				minimumVersion = 11.1.0;
 			};
 		};
+		DDF2A02E2C84B35C001B1DB7 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -942,6 +1033,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4F83D3202C80CCC00076AE2A /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		4F83D3342C85763D0076AE2A /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F83D3332C85763D0076AE2A /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
+		4F83D33C2C85A0E80076AE2A /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F83D33B2C85A0E80076AE2A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		4F83D33E2C85A27D0076AE2A /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F83D33B2C85A0E80076AE2A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
 		};
 		DA3A55F82C802EA800459343 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1002,6 +1108,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DDCF92BD2C7C7F8E005DB62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAuthCombine-Community";
+		};
+		DDF2A02F2C84B35D001B1DB7 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDF2A02E2C84B35C001B1DB7 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 

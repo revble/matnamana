@@ -7,115 +7,59 @@
 
 import FirebaseCore
 import FirebaseFirestore
+import RxCocoa
+import RxSwift
 
 class FirebaseManager {
   
   static let shared = FirebaseManager()
-  
   let db = Firestore.firestore()
   
   func addUser(user: User) {
-    let userData: [String: Any] = [
-      "userId": user.userId,
-      "info": [
-        //"mbti": user.info.mbti,
-        "career": user.info.career,
-        "education": user.info.education,
-        "email": user.info.email,
-        "location": user.info.location,
-        "name": user.info.name,
-        "phoneNumber": user.info.phoneNumber,
-        "shortDescription": user.info.shortDescription,
-        "profileImage": user.info.profileImage,
-        "nickname": user.info.nickname
-        //생년월일
-        //회사명
-        //대학교
-
-
-      ],
-      "preset": user.preset.map { preset in
-        [
-          "presetTitle": preset.presetTitle,
-          "indice": preset.indice
-        ]
-      },
-      "friendList": user.friendList.map { friend in
-        [
-          "nickname": friend.nickname,
-          "type": friend.type.rawValue,
-          "friendId": friend.friendId
-        ]
+    if let userData = user.asDictionary {
+      db.collection("users").document(user.userId).setData(userData) { error in
+        if let error = error {
+          print("user추가 실패 ID 오류: \(error)")
+        }
       }
-    ]
-    
-    db.collection("users").document(user.userId).setData(userData) { error in
-      if let error = error {
-        print(error)
-      }
+    } else {
+      print("user추가 실패")
     }
   }
   
   func addReputationRequest(request: ReputationRequest) {
-    let requestData: [String: Any] = [
-      "requestId": request.requestId,
-      "requesterId": request.requesterId,
-      "targetId": request.targetId,
-      "questionList": request.questionList.map { question in
-        [
-          "contentType": question.contentType.rawValue,
-          "contentDescription": question.contentDescription
-        ]
-      },
-      "status": request.status.rawValue,
-      "selectedFriends": request.selectedFriends.map { friend in
-        [
-          "nickname": friend.nickname,
-          "type": friend.type.rawValue,
-          "friendId": friend.friendId
-        ]
+    if let requestData = request.asDictionary {
+      db.collection("reputationRequests").document(request.requestId).setData(requestData) { error in
+        if let error = error {
+          print("reputation request추가 시류ㅐ: \(error)")
+        }
       }
-    ]
-    
-    db.collection("reputationRequests").document(request.requestId).setData(requestData) { error in
-      if let error = error {
-        print(error)
-      }
+    } else {
+      print("Reputationdictionary 변경 실패")
     }
   }
   
   func addQuestion(question: Question) {
-    let questionData: [String: Any] = [
-      "questionId": question.questionId,
-      "contents": question.contents.map { content in
-        [
-          "contentType": content.contentType.rawValue,
-          "contentDescription": content.contentDescription
-        ]
+    if let questionData = question.asDictionary {
+      db.collection("questions").document(question.questionId).setData(questionData) { error in
+        if let error = error {
+          print("question추가 실패: \(error)")
+        }
       }
-    ]
-    
-    db.collection("questions").document(question.questionId).setData(questionData) { error in
-      if let error = error {
-        print(error)
-      }
+    } else {
+      print("Questiondictionary 변경 실패")
     }
   }
   
   func addAnswer(answer: Answer) {
-    let answerData: [String: Any] = [
-      "answerId": answer.answerId,
-      "requestId": answer.requestId,
-      "questionId": answer.questionId,
-      "responderId": answer.responderId,
-      "answerText": answer.answerText,
-      "createdAt": Timestamp(date: answer.createdAt)
-    ]
-    
-    db.collection("answers").document(answer.answerId).setData(answerData) { error in
-      if let error = error {
-        print(error)
+    if let answerData = answer.asDictionary {
+      db.collection("answers").document(answer.answerId).setData(answerData) { error in
+        if let error = error {
+          print("answer추가 실패: \(error)")
+        }
       }
+    } else {
+      print("dictionary 변경 실패")
     }
   }
   
@@ -127,11 +71,94 @@ class FirebaseManager {
       }
       do {
         let user = try document.data(as: User.self)
+        print(user)
         completion(user, nil)
       } catch {
+        print(error)
         completion(nil, error)
       }
     }
   }
   
+  func searchUser(name: String) -> Observable<Bool> {
+    return Observable.create { observer in
+      self.db.collection("users").document(name).getDocument { (snapshot, error) in
+        if let error = error {
+          print(error)
+          observer.onNext(false)
+          observer.onCompleted()
+          return
+        }
+        guard let document = snapshot, document.exists else {
+          observer.onNext(false)
+          observer.onCompleted()
+          return
+        }
+        observer.onNext(true)
+        observer.onCompleted()
+      }
+      return Disposables.create()
+    }
+  }
+  
+  func getUserInfo(nickName: String, completion: @escaping (User?, Error?) -> Void) {
+    let query = db.collection("users").whereField("info.nickName", isEqualTo: nickName)
+    query.getDocuments { (snapShot, error) in
+      guard let snapshot = snapShot, error == nil else {
+        completion(nil, error)
+        return
+      }
+      
+      if let document = snapshot.documents.first {
+        do {
+          let user = try document.data(as: User.self)
+          completion(user, nil)
+        } catch {
+          completion(nil, error)
+        }
+      } else {
+        completion(nil, nil)
+      }
+    }
+  }
+  
+  func addFriend(friendId: String,
+                 friendType: String,
+                 friendImage: String,
+                 completion: @escaping (Bool, Error?) -> Void) {
+    //    guard let userId = /*UserDefaults.standard.string(forKey: "loggedInUserId")*/ else {
+    //      print("userID없음 확인안됨")
+    //      return
+    //    }
+    let userId = "user015"
+    guard let type = User.Friend.FriendType(rawValue: friendType) else { return }
+    let newFriend = User.Friend(nickname: friendId,
+                                type: type,
+                                friendId: friendId, friendImage: friendImage)
+
+    guard let friendData = newFriend.asDictionary else { return }
+
+    let userDocument = Firestore.firestore().collection("users").document(userId)
+    
+    userDocument.updateData([
+      "friendList": FieldValue.arrayUnion([friendData])
+    ]) { error in
+      if let error = error {
+        completion(false, error)
+      } else {
+        completion(true, nil)
+      }
+    }
+  }
+}
+
+extension Encodable {
+  var asDictionary: [String: Any]? {
+    guard let object = try? JSONEncoder().encode(self),
+          let dictionary = try? JSONSerialization.jsonObject(with: object, options: []) 
+            as? [String: Any] else {
+      return nil
+    }
+    return dictionary
+  }
 }

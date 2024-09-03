@@ -7,29 +7,22 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
 class SearchView: UIView {
   
-  private let topView: UIView = {
-    let uiView = UIView()
-    return uiView
-  }()
+  let logo: UIImageView = UIImageView().then {
+    $0.image = UIImage()
+  }
   
-  private let tabBarName: UILabel = {
-    let label = UILabel()
-    label.text = "검색"
-    label.font = .boldSystemFont(ofSize: 30)
-    return label
-  }()
-  
-  let searchBar: UISearchBar = {
-    let searchBar = UISearchBar()
-    searchBar.placeholder = "친구를 검색해보세요!"
-    return searchBar
-  }()
+  let searchBar: UISearchBar = UISearchBar().then {
+    $0.placeholder = "친구를 검색해보세요!"
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    configureUI()
+    self.addSubview(searchBar)
     setConstraints()
   }
   
@@ -37,25 +30,9 @@ class SearchView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func configureUI() {
-    topView.addSubview(tabBarName)
-    self.addSubview(topView)
-    self.addSubview(searchBar)
-  }
-  
-  func setConstraints() {
-    topView.snp.makeConstraints {
-      $0.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
-      $0.height.equalTo(100)
-    }
-    
-    tabBarName.snp.makeConstraints {
-      $0.centerY.equalToSuperview()
-      $0.leading.equalToSuperview()
-    }
-    
+  private func setConstraints() {
     searchBar.snp.makeConstraints {
-      $0.top.equalTo(topView.snp.bottom).offset(200)
+      $0.top.equalTo(self.safeAreaLayoutGuide).offset(100)
       $0.leading.trailing.equalTo(self.safeAreaLayoutGuide)
     }
   }
