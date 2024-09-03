@@ -34,6 +34,6 @@ class TabBarController: UITabBarController {
     fifthVC.tabBarItem = UITabBarItem(title: "프로필",
                                       image: UIImage(systemName: "person.fill"), tag: 4)
     
-    self.setViewControllers([firstVC, secondVC, thirdVC, fourthVC, fifthVC], animated: true)
+    self.setViewControllers([secondVC, thirdVC, fourthVC, fifthVC], animated: true)
   }
 }
