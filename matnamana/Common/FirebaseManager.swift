@@ -28,6 +28,10 @@ class FirebaseManager {
         "shortDescription": user.info.shortDescription,
         "profileImage": user.info.profileImage,
         "nickname": user.info.nickname
+        //생년월일
+        //회사명
+        //대학교
+
 
       ],
       "preset": user.preset.map { preset in
