@@ -11,7 +11,7 @@ import Kingfisher
 import SnapKit
 import Then
 
-class ProfileView: UIView {
+final class ProfileView: UIView {
   
   private let verticalStackView: UIStackView = UIStackView().then {
     $0.axis = .vertical
@@ -25,19 +25,21 @@ class ProfileView: UIView {
     $0.distribution = .fillEqually
   }
   
-  private let profileImage: UIImageView = UIImageView().then {
+  let profileImage: UIImageView = UIImageView().then {
     $0.image = UIImage()
-    $0.layer.cornerRadius = 50
+    $0.layer.cornerRadius = 100
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
   }
   
   private let userName: UILabel = UILabel().then {
     $0.text = ""
+    $0.textAlignment = .center
     $0.font = .boldSystemFont(ofSize: 20)
   }
   
   private let nickName: UILabel = UILabel().then {
+    $0.textAlignment = .center
     $0.text = ""
     $0.font = .boldSystemFont(ofSize: 15)
   }
@@ -56,12 +58,15 @@ class ProfileView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.addSubview(verticalStackView)
     [
       profileImage,
-      userName,
-      nickName,
+      verticalStackView,
       horizontalStackView
+    ].forEach { self.addSubview($0) }
+    
+    [
+      userName,
+      nickName
     ].forEach { verticalStackView.addArrangedSubview($0) }
     
     [
@@ -78,16 +83,27 @@ class ProfileView: UIView {
   func configureUI(imageURL: String, userName: String, nickName: String) {
     self.userName.text = userName
     self.nickName.text = nickName
+    
     if let url = URL(string: imageURL) {
       profileImage.kf.setImage(with: url)
     }
   }
   
   private func setConstraints() {
+    profileImage.snp.makeConstraints {
+      $0.width.height.equalTo(200)
+      $0.centerX.equalToSuperview()
+      $0.top.equalTo(self.safeAreaLayoutGuide).inset(100)
+    }
+    
     verticalStackView.snp.makeConstraints {
-      $0.center.equalToSuperview()
-      $0.horizontalEdges.equalToSuperview().inset(30)
-      $0.height.equalTo(verticalStackView.snp.width)
+      $0.centerX.equalToSuperview()
+      $0.top.equalTo(profileImage.snp.bottom).offset(20)
+    }
+    
+    horizontalStackView.snp.makeConstraints {
+      $0.top.equalTo(verticalStackView.snp.bottom).offset(20)
+      $0.centerX.equalToSuperview()
     }
   }
 }

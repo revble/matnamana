@@ -7,8 +7,8 @@
 
 import UIKit
 
-import RxSwift
 import RxCocoa
+import RxSwift
 
 class ProfileViewController: UIViewController {
   
@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
   private var viewModel = ProfileViewModel()
   private let disposeBag = DisposeBag()
   var userInfo: String?
+  var userImage: String?
   
   override func loadView() {
     profileView = ProfileView(frame: UIScreen.main.bounds)
@@ -35,6 +36,7 @@ class ProfileViewController: UIViewController {
     
     output.userInfo
       .drive(onNext: { [weak self] userInfo in
+        self?.userImage = userInfo.profileImage
         self?.profileView.configureUI(imageURL: userInfo.profileImage, userName: userInfo.name, nickName: userInfo.nickName)
       })
       .disposed(by: disposeBag)
@@ -45,12 +47,16 @@ class ProfileViewController: UIViewController {
       .subscribe(onNext: {
         let modalVC = AddFriendViewController()
         modalVC.modalPresentationStyle = .overFullScreen
+        modalVC.userInfo = self.userInfo
+        if let userImage = self.userImage {
+          modalVC.userImage = userImage
+        }
         self.present(modalVC, animated: true)
       }).disposed(by: disposeBag)
     
     profileView.requestReference.rx.tap
       .subscribe(onNext: {
-        print("456")
+        print("레퍼런스 체크")
       }).disposed(by: disposeBag)
   }
 }

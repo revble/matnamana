@@ -7,15 +7,13 @@
 
 import FirebaseCore
 import FirebaseFirestore
-import RxSwift
 import RxCocoa
-
+import RxSwift
 
 final class addFriendViewModel: ViewModelType {
   
   struct Input {
-    let addFriend: Observable<(String, String)>
-    
+    let addFriend: Observable<[String]>
   }
   
   struct Output {
@@ -26,18 +24,22 @@ final class addFriendViewModel: ViewModelType {
   
   func transform(input: Input) -> Output {
     let addFriendResult = input.addFriend
-      .flatMap { [weak self] friendId, friendType -> Observable<Bool> in
+      .flatMap { [weak self] friend -> Observable<Bool> in
         guard let self = self else { return .just(false) }
-        return self.addFriend(friendId: friendId, friendType: friendType)
+        return self.addFriend(friendId: friend[0], friendType: friend[1], friendImage: friend[2])
       }
       .asDriver(onErrorJustReturn: false)
     
     return Output(addFriendResult: addFriendResult)
   }
   
-  private func addFriend(friendId: String, friendType: String) -> Observable<Bool> {
+  private func addFriend(friendId: String,
+                         friendType: String,
+                         friendImage: String) -> Observable<Bool> {
     return Observable.create { observer in
-      FirebaseManager.shared.addFriend(friendId: friendId, friendType: friendType) { success, error in
+      FirebaseManager.shared.addFriend(friendId: friendId,
+                                       friendType: friendType,
+                                       friendImage: friendImage) { success, error in
         if let error = error {
           observer.onError(error)
         } else {

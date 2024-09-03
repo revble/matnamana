@@ -13,7 +13,6 @@ import RxSwift
 class FirebaseManager {
   
   static let shared = FirebaseManager()
-  
   let db = Firestore.firestore()
   
   func addUser(user: User) {
@@ -90,13 +89,11 @@ class FirebaseManager {
           observer.onCompleted()
           return
         }
-        
         guard let document = snapshot, document.exists else {
           observer.onNext(false)
           observer.onCompleted()
           return
         }
-        
         observer.onNext(true)
         observer.onCompleted()
       }
@@ -125,20 +122,23 @@ class FirebaseManager {
     }
   }
   
-  func addFriend(friendId: String, friendType: String, completion: @escaping (Bool, Error?) -> Void) {
+  func addFriend(friendId: String,
+                 friendType: String,
+                 friendImage: String,
+                 completion: @escaping (Bool, Error?) -> Void) {
     //    guard let userId = /*UserDefaults.standard.string(forKey: "loggedInUserId")*/ else {
     //      print("userID없음 확인안됨")
     //      return
     //    }
-    let userId = "Eve"
-    
-    let friendData: [String: Any] = [
-      "friendId": friendId,
-      "nickname": friendId,
-      "type": friendType
-    ]
-    // 바꿔줘야함
-    let userDocument = db.collection("users").document("user005")
+    let userId = "user015"
+    guard let type = User.Friend.FriendType(rawValue: friendType) else { return }
+    let newFriend = User.Friend(nickname: friendId,
+                                type: type,
+                                friendId: friendId, friendImage: friendImage)
+
+    guard let friendData = newFriend.asDictionary else { return }
+
+    let userDocument = Firestore.firestore().collection("users").document(userId)
     
     userDocument.updateData([
       "friendList": FieldValue.arrayUnion([friendData])
@@ -151,10 +151,12 @@ class FirebaseManager {
     }
   }
 }
+
 extension Encodable {
   var asDictionary: [String: Any]? {
     guard let object = try? JSONEncoder().encode(self),
-          let dictionary = try? JSONSerialization.jsonObject(with: object, options: []) as? [String: Any] else {
+          let dictionary = try? JSONSerialization.jsonObject(with: object, options: []) 
+            as? [String: Any] else {
       return nil
     }
     return dictionary

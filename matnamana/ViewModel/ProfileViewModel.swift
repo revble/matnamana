@@ -7,8 +7,8 @@
 
 import FirebaseCore
 import FirebaseFirestore
-import RxSwift
 import RxCocoa
+import RxSwift
 
 final class ProfileViewModel: ViewModelType {
   

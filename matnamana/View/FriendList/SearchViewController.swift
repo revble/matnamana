@@ -9,8 +9,8 @@ import UIKit
 
 import FirebaseCore
 import FirebaseFirestore
-import RxSwift
 import RxCocoa
+import RxSwift
 
 class SearchViewController: UIViewController {
   
@@ -26,6 +26,14 @@ class SearchViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     bind()
+    setNavigation()
+    view.backgroundColor = .systemBackground
+  }
+  
+  private func setNavigation() {
+    self.title = "검색"
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationItem.largeTitleDisplayMode = .always
   }
   
   private func bind() {
@@ -49,7 +57,16 @@ class SearchViewController: UIViewController {
       let profileVC = ProfileViewController()
       profileVC.userInfo = user.info.nickName
       navigationController?.pushViewController(profileVC, animated: true)
-      print("user: \(user.info.nickName)")
+    } else {
+      let alert = UIAlertController(title: "해당 닉네임의 사용자가 없습니다.",
+                                    message: "",
+                                    preferredStyle: .alert)
+      
+      let action = UIAlertAction(title: "확인",
+                                 style: .default,
+                                 handler: nil)
+      alert.addAction(action)
+      present(alert, animated: true, completion: nil)
     }
   }
 }

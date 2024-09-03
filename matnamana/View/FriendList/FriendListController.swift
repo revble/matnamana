@@ -23,15 +23,30 @@ final class FriendListController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setNavigation()
     bind()
-    buttonBind()
   }
-
-  private func buttonBind() {
-    friendListView.addFriend.rx.tap
-      .subscribe(onNext: {
-        self.navigationController?.pushViewController(SearchViewController(), animated: true)
+  
+  private func setNavigation() {
+    self.title = "친구 목록"
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationItem.largeTitleDisplayMode = .always
+    navigationItem.rightBarButtonItem = plusButton()
+  }
+  
+  private func plusButton() -> UIBarButtonItem {
+    let button = friendListView.addFriend
+    
+    button.rx.tap
+      .observe(on: MainScheduler.instance)
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        DispatchQueue.main.async {
+          self.navigationController?.pushViewController(SearchViewController(), animated: true)
+        }
       }).disposed(by: disposeBag)
+    
+    return UIBarButtonItem(customView: button)
   }
   
   private func bind() {
@@ -39,8 +54,12 @@ final class FriendListController: UIViewController {
     let output = viewModel.transform(input: input)
     
     output.friendList
-      .drive(friendListView.friendList.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { row, friend, cell in
-        cell.configureCell(nickName: friend.nickname, relation: friend.type.rawValue)
+      .drive(friendListView.friendList.rx
+        .items(cellIdentifier: FriendListCell.identifier,
+               cellType: FriendListCell.self)) { row, friend, cell in
+        cell.configureCell(nickName: friend.nickname,
+                           relation: friend.type.rawValue,
+                           friendImage: friend.friendImage)
       }.disposed(by: disposeBag)
   }
 }

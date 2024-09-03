@@ -34,6 +34,7 @@ extension User {
     let nickname: String
     let type: FriendType
     let friendId: String
+    let friendImage: String
   }
 }
 

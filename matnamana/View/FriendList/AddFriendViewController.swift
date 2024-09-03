@@ -16,6 +16,8 @@ class AddFriendViewController: UIViewController {
   private let disposeBag = DisposeBag()
   private var friendType = ""
   private let viewModel = addFriendViewModel()
+  var userInfo: String?
+  var userImage: String?
   
   override func loadView() {
     addFriendView = AddFriendView(frame: UIScreen.main.bounds)
@@ -51,8 +53,11 @@ class AddFriendViewController: UIViewController {
     addFriendView.sendButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        let friendId = "Dave"
-        let input = addFriendViewModel.Input(addFriend: .just((friendId, self.friendType)))
+        guard let userInfo = self.userInfo else { return }
+        guard let userImage = self.userImage else { return }
+        let friendId = userInfo
+        let friendType = self.friendType
+        let input = addFriendViewModel.Input(addFriend: .just([friendId, self.friendType, userImage]))
         let output = self.viewModel.transform(input: input)
         
         output.addFriendResult
@@ -64,9 +69,7 @@ class AddFriendViewController: UIViewController {
               print("실패")
               self.dismiss(animated: true, completion: nil)
             }
-          })
-          .disposed(by: self.disposeBag)
-      })
-      .disposed(by: disposeBag)
+          }).disposed(by: self.disposeBag)
+      }).disposed(by: disposeBag)
   }
 }

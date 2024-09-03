@@ -25,6 +25,7 @@ class AddFriendView: UIView {
   let friendButton = UIButton().then {
     $0.backgroundColor = .manaPink
     $0.setTitle("친구", for: .normal)
+    $0.layer.cornerRadius = 10
   }
   
   let familyButton = UIButton().then {
@@ -54,7 +55,7 @@ class AddFriendView: UIView {
   
   private let stackView = UIStackView().then {
     $0.axis = .vertical
-    $0.spacing = 10
+    $0.spacing = 20
     $0.distribution = .fillEqually
   }
   
@@ -77,13 +78,13 @@ class AddFriendView: UIView {
   
   private func configureUI() {
     self.addSubview(relationView)
-    [closeButton, stackView].forEach { relationView.addSubview($0) }
+    [closeButton, stackView, sendButton].forEach { relationView.addSubview($0) }
     
     [
       label,
       horizontalStackView,
-      sendButton
     ].forEach { stackView.addArrangedSubview($0) }
+    
     
     [familyButton, friendButton, colleagueButton].forEach { horizontalStackView.addArrangedSubview($0) }
   }
@@ -103,6 +104,13 @@ class AddFriendView: UIView {
     stackView.snp.makeConstraints {
       $0.top.equalTo(closeButton.snp.bottom).offset(10)
       $0.horizontalEdges.equalToSuperview().inset(10)
+    }
+    
+    sendButton.snp.makeConstraints {
+      $0.top.equalTo(stackView.snp.bottom).offset(20)
+      $0.width.equalTo(200)
+      $0.height.equalTo(50)
+      $0.centerX.equalToSuperview()
       $0.bottom.equalToSuperview().inset(20)
     }
   }
