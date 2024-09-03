@@ -7,6 +7,7 @@
 
 import AuthenticationServices
 import CryptoKit
+
 import FirebaseAuth
 
 fileprivate var currentNonce: String?
@@ -36,23 +37,15 @@ extension LoginController: ASAuthorizationControllerDelegate {
           print ("Error Apple sign in: %@", error)
           return
         }
-        // User is signed in to Firebase with Apple.
-        // ...
-        ///Main 화면으로 보내기
-          if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-             let window = windowScene.windows.first {
-            let requiredInformationController = RequiredInformationController()
-            window.rootViewController = requiredInformationController
-            window.makeKeyAndVisible()
-          }
-        
+        self.bindLoginViewModel()
       }
     }
   }
 }
 
-//Apple Sign in
+///Apple Sign in
 extension LoginController {
+  
   func startSignInWithAppleFlow() {
     let nonce = randomNonceString()
     currentNonce = nonce
@@ -65,6 +58,8 @@ extension LoginController {
     authorizationController.delegate = self
     authorizationController.presentationContextProvider = self
     authorizationController.performRequests()
+    
+
   }
   
   private func sha256(_ input: String) -> String {
@@ -77,7 +72,7 @@ extension LoginController {
     return hashString
   }
   
-  // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
+  /// Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
   private func randomNonceString(length: Int = 32) -> String {
     precondition(length > 0)
     let charset: Array<Character> =
@@ -99,7 +94,7 @@ extension LoginController {
         if remainingLength == 0 {
           return
         }
-        
+
         if random < charset.count {
           result.append(charset[Int(random)])
           remainingLength -= 1
