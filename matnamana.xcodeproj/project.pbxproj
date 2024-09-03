@@ -63,6 +63,11 @@
 		DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A01F2C80A072001B1DB7 /* AnswerModel.swift */; };
 		DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0212C80A084001B1DB7 /* ReputationModel.swift */; };
 		DDF2A0242C80AB4B001B1DB7 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */; };
+		DDF2A0272C842978001B1DB7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0262C842978001B1DB7 /* ProfileViewModel.swift */; };
+		DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */; };
+		DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */; };
+		DDF2A02D2C846927001B1DB7 /* addFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */; };
+		DDF2A0302C84B35D001B1DB7 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DDF2A02F2C84B35D001B1DB7 /* Then */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +136,10 @@
 		DDF2A01F2C80A072001B1DB7 /* AnswerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerModel.swift; sourceTree = "<group>"; };
 		DDF2A0212C80A084001B1DB7 /* ReputationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationModel.swift; sourceTree = "<group>"; };
 		DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		DDF2A0262C842978001B1DB7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendView.swift; sourceTree = "<group>"; };
+		DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addFriendViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +153,7 @@
 				DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */,
 				DDCF92BF2C7C7F8E005DB62F /* FirebaseAuth in Frameworks */,
 				DDCF92492C78583D005DB62F /* RxCocoa in Frameworks */,
+				DDF2A0302C84B35D001B1DB7 /* Then in Frameworks */,
 				4F83D3352C85763D0076AE2A /* RxDataSources in Frameworks */,
 				4F83D3222C80CCD40076AE2A /* Then in Frameworks */,
 				DDCF924D2C785846005DB62F /* RxRelay in Frameworks */,
@@ -219,6 +229,8 @@
 				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
 				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
 				DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */,
+				DDF2A0262C842978001B1DB7 /* ProfileViewModel.swift */,
+				DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */,
 				4F83D3252C80DA360076AE2A /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
@@ -259,6 +271,8 @@
 				DDCF93322C7EAF33005DB62F /* SearchView.swift */,
 				DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */,
 				DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */,
+				DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */,
+				DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -525,8 +539,11 @@
 				DDCF92522C788E4B005DB62F /* SceneDelegate.swift in Sources */,
 				4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */,
 				DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */,
+				DDF2A02D2C846927001B1DB7 /* addFriendViewModel.swift in Sources */,
+				DDF2A0272C842978001B1DB7 /* ProfileViewModel.swift in Sources */,
 				4F83D3302C8556570076AE2A /* FriendReputationRequestCell.swift in Sources */,
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
+				DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
 				4F83D3412C85A4680076AE2A /* KakaoLoginService.swift in Sources */,
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
@@ -537,6 +554,7 @@
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
+				DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
@@ -945,6 +963,14 @@
 				minimumVersion = 11.1.0;
 			};
 		};
+		DDF2A02E2C84B35C001B1DB7 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1012,6 +1038,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DDCF92BD2C7C7F8E005DB62F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAuthCombine-Community";
+		};
+		DDF2A02F2C84B35D001B1DB7 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDF2A02E2C84B35C001B1DB7 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 

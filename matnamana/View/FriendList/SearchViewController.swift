@@ -9,13 +9,14 @@ import UIKit
 
 import FirebaseCore
 import FirebaseFirestore
-import RxSwift
 import RxCocoa
+import RxSwift
 
 class SearchViewController: UIViewController {
   
   private var searchView = SearchView(frame: .zero)
   private let disposeBag = DisposeBag()
+  private let viewModel = SearchViewModel()
   
   override func loadView() {
     searchView = SearchView(frame: UIScreen.main.bounds)
@@ -24,27 +25,48 @@ class SearchViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    searchView.searchBar.rx.searchButtonClicked
-      .subscribe(onNext: {
-        print("검색눌림")
-        self.searchView.searchBar.resignFirstResponder()
-      }).disposed(by: disposeBag)
+    bind()
+    setNavigation()
+    view.backgroundColor = .systemBackground
   }
   
-//  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//    if let text = searchView.searchBar.text {
-//      db.collection("users").document(text).getDocument { (snapshot, error) in
-//        guard let document = snapshot, document.exists, error == nil else {
-//          print("그런 사람 없음")
-//          return
-//        }
-//        self.present(ProfileViewController(), animated: true)
-//        if let data = document.data() {
-//          print(data)
-//        }
-//      }
-//    }
-//    searchBar.resignFirstResponder()
-//  }
+  private func setNavigation() {
+    self.title = "검색"
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationItem.largeTitleDisplayMode = .always
+  }
+  
+  private func bind() {
+
+    let searchData = searchView.searchBar.rx.searchButtonClicked
+      .withLatestFrom(searchView.searchBar.rx.text.orEmpty)
+      .asObservable()
+    
+    let input = SearchViewModel.Input(searchData: searchData)
+    let output = viewModel.transform(input: input)
+    
+    output.searchResult
+      .drive(onNext: { [weak self] user in
+        self?.handleSearchResult(user)
+      })
+      .disposed(by: disposeBag)
+  }
+  
+  private func handleSearchResult(_ user: User?) {
+    if let user = user {
+      let profileVC = ProfileViewController()
+      profileVC.userInfo = user.info.nickName
+      navigationController?.pushViewController(profileVC, animated: true)
+    } else {
+      let alert = UIAlertController(title: "해당 닉네임의 사용자가 없습니다.",
+                                    message: "",
+                                    preferredStyle: .alert)
+      
+      let action = UIAlertAction(title: "확인",
+                                 style: .default,
+                                 handler: nil)
+      alert.addAction(action)
+      present(alert, animated: true, completion: nil)
+    }
+  }
 }

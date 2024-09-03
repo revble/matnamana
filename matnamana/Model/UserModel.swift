@@ -23,7 +23,7 @@ extension User {
     let phoneNumber: String
     let shortDescription: String
     let profileImage: String
-    let nickname: String
+    let nickName: String
   }
   
   struct PresetQuestion: Codable {
@@ -35,6 +35,7 @@ extension User {
     let nickname: String
     let type: FriendType
     let friendId: String
+    let friendImage: String
   }
 }
 

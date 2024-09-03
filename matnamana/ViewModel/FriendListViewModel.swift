@@ -4,14 +4,11 @@
 //
 //  Created by 김윤홍 on 8/27/24.
 //
-// init 을생성해서 id값 nickName값을 넣어줘야할듯, searchBar rxCocoa, 
-
-import Foundation
 
 import FirebaseCore
 import FirebaseFirestore
-import RxSwift
 import RxCocoa
+import RxSwift
 
 protocol ViewModelType {
   associatedtype Input
@@ -34,7 +31,7 @@ final class FriendListViewModel: ViewModelType {
   
   private func fetchFriendList() -> Observable<[User.Friend]> {
     return Observable.create { observer in
-      FirebaseManager.shared.readUser(documentId: "userId_123") { user, error in
+      FirebaseManager.shared.readUser(documentId: "user015") { user, error in
         if let error = error {
           observer.onError(error)
         } else if let user = user {

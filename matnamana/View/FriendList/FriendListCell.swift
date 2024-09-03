@@ -7,14 +7,15 @@
 
 import UIKit
 
-class FriendListCell: UITableViewCell {
+final class FriendListCell: UITableViewCell {
   
   static let identifier = "friendCell"
   
   private let userImage: UIImageView = {
     let imageView = UIImageView()
     imageView.clipsToBounds = true
-    imageView.layer.cornerRadius = 50
+    imageView.layer.cornerRadius = 25
+    imageView.contentMode = .scaleAspectFit
     return imageView
   }()
   
@@ -48,8 +49,7 @@ class FriendListCell: UITableViewCell {
     userImage.snp.makeConstraints {
       $0.leading.equalToSuperview().inset(20)
       $0.centerY.equalToSuperview()
-      //$0.width.height.equalTo(contentView.snp.height).multipliedBy(0.7)
-      $0.width.height.equalTo(100)
+      $0.width.height.equalTo(50)
     }
     
     userName.snp.makeConstraints {
@@ -63,8 +63,22 @@ class FriendListCell: UITableViewCell {
     }
   }
   
-  func configureCell(nickName: String, relation: String) {
+  func configureCell(nickName: String, relation: String, friendImage: String) {
     userName.text = nickName
-    userRelation.text = relation
+    
+    if let url = URL(string: friendImage) {
+      userImage.kf.setImage(with: url)
+    }
+    
+    switch relation.lowercased() {
+    case "friend":
+      userRelation.text = "친구"
+    case "family":
+      userRelation.text = "가족"
+    case "colleague":
+      userRelation.text = "동료"
+    default:
+      userRelation.text = relation
+    }
   }
 }

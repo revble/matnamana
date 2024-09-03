@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+      UINavigationBar.appearance().layoutMargins.left = 40
+      UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont.systemFont(ofSize: 28, weight: .bold)]
       
       KakaoSDK.initSDK(appKey: "a819a59d9cb83cddc3d7d806754f2a1e")
 
