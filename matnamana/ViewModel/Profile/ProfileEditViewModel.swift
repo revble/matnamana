@@ -14,7 +14,7 @@ import RxSwift
 
 class ProfileEditViewModel {
   
-  private let db = Firestore.firestore()
+  private let db = FirebaseManager.shared.db
   private let disposeBag = DisposeBag()
   
   struct Input {
@@ -45,10 +45,14 @@ class ProfileEditViewModel {
           phoneNumber: userInfo["휴대번호"] ?? "",
           shortDescription: shortDescription,
           profileImage: profileImageUrl,  // 실제 프로필 이미지 URL 사용
-          nickname: nickname
+          nickName: nickname
         )
         
-        let user = User(info: info, preset: [], friendList: [], userId: "user_id_9812")
+        guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else {
+          return Observable.just(false)
+        }
+        
+        let user = User(info: info, preset: [], friendList: [], userId: loggedInUserId)
         
         return self.saveUserData(user: user)
       }

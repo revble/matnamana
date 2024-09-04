@@ -126,11 +126,10 @@ class FirebaseManager {
                  friendType: String,
                  friendImage: String,
                  completion: @escaping (Bool, Error?) -> Void) {
-    //    guard let userId = /*UserDefaults.standard.string(forKey: "loggedInUserId")*/ else {
-    //      print("userID없음 확인안됨")
-    //      return
-    //    }
-    let userId = "user015"
+    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else {
+      print("userID없음 확인안됨")
+      return
+    }
     guard let type = User.Friend.FriendType(rawValue: friendType) else { return }
     let newFriend = User.Friend(nickname: friendId,
                                 type: type,

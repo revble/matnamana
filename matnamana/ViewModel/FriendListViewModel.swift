@@ -30,8 +30,9 @@ final class FriendListViewModel: ViewModelType {
   private let disposeBag = DisposeBag()
   
   private func fetchFriendList() -> Observable<[User.Friend]> {
+    let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId")!
     return Observable.create { observer in
-      FirebaseManager.shared.readUser(documentId: "user015") { user, error in
+      FirebaseManager.shared.readUser(documentId: loggedInUserId) { user, error in
         if let error = error {
           observer.onError(error)
         } else if let user = user {

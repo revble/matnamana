@@ -38,7 +38,8 @@ final class ProfileViewModel: ProfileViewModelType {
   
   private func fetchProfileData() -> Observable<User.Info> {
     return Observable.create { observer in
-      FirebaseManager.shared.readUser(documentId: "user_id_9812") { user, error in
+      let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId")!
+      FirebaseManager.shared.readUser(documentId: loggedInUserId) { user, error in
         if let error = error {
           observer.onError(error)
         } else if let user = user {
@@ -67,6 +68,6 @@ final class ProfileViewModel: ProfileViewModelType {
 
 extension User.Info {
   static var empty: User.Info {
-    return User.Info(career: "", education: "", email: "", location: "", name: "", phoneNumber: "", shortDescription: "", profileImage: "", nickname: "")
+    return User.Info(career: "", education: "", email: "", location: "", name: "", phoneNumber: "", shortDescription: "", profileImage: "", nickName: "")
   }
 }

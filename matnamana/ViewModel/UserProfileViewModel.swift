@@ -10,7 +10,7 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-final class ProfileViewModel: ViewModelType {
+final class UserProfileViewModel: ViewModelType {
   
   struct Input {
     let fetchUser: Observable<Void>
