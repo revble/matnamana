@@ -58,6 +58,16 @@ final class ProfileView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+    configure()
+    setConstraints()
+  }
+  
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  func configure() {
     [
       profileImage,
       verticalStackView,
@@ -73,13 +83,8 @@ final class ProfileView: UIView {
       requestFriend,
       requestReference
     ].forEach { horizontalStackView.addArrangedSubview($0) }
-    setConstraints()
+
   }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
   func configureUI(imageURL: String, userName: String, nickName: String) {
     self.userName.text = userName
     self.nickName.text = nickName

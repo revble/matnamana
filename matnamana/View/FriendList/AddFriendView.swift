@@ -78,7 +78,11 @@ class AddFriendView: UIView {
   
   private func configureUI() {
     self.addSubview(relationView)
-    [closeButton, stackView, sendButton].forEach { relationView.addSubview($0) }
+    [
+      closeButton,
+      stackView,
+      sendButton
+    ].forEach { relationView.addSubview($0) }
     
     [
       label,

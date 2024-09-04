@@ -3,34 +3,23 @@
 //  matnamana
 //
 //  Created by 김윤홍 on 8/23/24.
-//이거 보기
 
 import UIKit
 
-import RxCocoa
 import RxSwift
 
-final class FriendListController: UIViewController {
+final class FriendListController: BaseViewController {
   
-  private var friendListView = FriendListView(frame: .zero)
-  private let disposeBag = DisposeBag()
   private let viewModel = FriendListViewModel()
+  private var friendListView = FriendListView(frame: .zero)
   
-  override func loadView() {
+  override func setupView() {
     friendListView = FriendListView(frame: UIScreen.main.bounds)
     self.view = friendListView
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    setNavigation()
-    bind()
-  }
-  
-  private func setNavigation() {
+  override func setNavigation() {
     self.title = "친구 목록"
-    navigationController?.navigationBar.prefersLargeTitles = true
-    navigationItem.largeTitleDisplayMode = .always
     navigationItem.rightBarButtonItem = plusButton()
   }
   
@@ -41,15 +30,14 @@ final class FriendListController: UIViewController {
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        DispatchQueue.main.async {
-          self.navigationController?.pushViewController(SearchViewController(), animated: true)
-        }
+        self.navigationController?.pushViewController(SearchViewController(), animated: true)
+        
       }).disposed(by: disposeBag)
     
     return UIBarButtonItem(customView: button)
   }
   
-  private func bind() {
+  override func bind() {
     let input = FriendListViewModel.Input(fetchFriends: Observable.just(()))
     let output = viewModel.transform(input: input)
     
@@ -63,3 +51,4 @@ final class FriendListController: UIViewController {
       }.disposed(by: disposeBag)
   }
 }
+
