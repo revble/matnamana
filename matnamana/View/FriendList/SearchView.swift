@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SearchView: UIView {
+final class SearchView: UIView {
   
   let logo: UIImageView = UIImageView().then {
     $0.image = UIImage()

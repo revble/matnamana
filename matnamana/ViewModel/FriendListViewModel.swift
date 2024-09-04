@@ -10,13 +10,6 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-protocol ViewModelType {
-  associatedtype Input
-  associatedtype Output
-  
-  func transform(input: Input) -> Output
-}
-
 final class FriendListViewModel: ViewModelType {
 
   struct Input {

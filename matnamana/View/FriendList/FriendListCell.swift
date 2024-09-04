@@ -7,29 +7,26 @@
 
 import UIKit
 
+import Then
+
 final class FriendListCell: UITableViewCell {
   
   static let identifier = "friendCell"
   
-  private let userImage: UIImageView = {
-    let imageView = UIImageView()
-    imageView.clipsToBounds = true
-    imageView.layer.cornerRadius = 25
-    imageView.contentMode = .scaleAspectFit
-    return imageView
-  }()
   
-  private let userName: UILabel = {
-    let label = UILabel()
-    label.text = ""
-    return label
-  }()
+  private let userImage = UIImageView().then {
+    $0.clipsToBounds = true
+    $0.layer.cornerRadius = 25
+    $0.contentMode = .scaleAspectFit
+  }
   
-  private let userRelation: UILabel = {
-    let label = UILabel()
-    label.text = "친구"
-    return label
-  }()
+  private let userName = UILabel().then {
+    $0.text = ""
+  }
+  
+  private let userRelation = UILabel().then {
+    $0.text = "친구"
+  }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class AddFriendView: UIView {
+final class AddFriendView: UIView {
   
   private let relationView = UIView().then {
     $0.backgroundColor = .white
@@ -78,7 +78,11 @@ class AddFriendView: UIView {
   
   private func configureUI() {
     self.addSubview(relationView)
-    [closeButton, stackView, sendButton].forEach { relationView.addSubview($0) }
+    [
+      closeButton,
+      stackView,
+      sendButton
+    ].forEach { relationView.addSubview($0) }
     
     [
       label,

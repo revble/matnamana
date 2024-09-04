@@ -24,7 +24,7 @@ final class SearchViewModel: ViewModelType {
   
   func transform(input: Input) -> Output {
     let searchResult = input.searchData
-      .flatMapLatest { [weak self] data -> Observable<User?> in
+      .flatMap { [weak self] data -> Observable<User?> in
         guard let self = self else {
           return Observable.just(nil)
         }

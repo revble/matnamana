@@ -21,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     UserDefaults.standard.set(true, forKey: "isLoggedIn")
     let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
 
-
     
     if isLoggedIn {
       window.rootViewController = TabBarController()
@@ -29,7 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       window.rootViewController = LoginController()
     }
     window.makeKeyAndVisible()
-    
     self.window = window
   }
   
