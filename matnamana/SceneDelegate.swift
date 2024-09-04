@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: windowScene)
     
-    UserDefaults.standard.set("user_id_1004", forKey: "loggedInUserId")
+    UserDefaults.standard.set("user016", forKey: "loggedInUserId")
     UserDefaults.standard.set(true, forKey: "isLoggedIn")
     let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
 

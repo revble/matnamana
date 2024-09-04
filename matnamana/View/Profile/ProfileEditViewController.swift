@@ -45,7 +45,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
   }
   
   // MARK: - Setup Methods
-  
+
   private func bindUI() {
     // 네비게이션 바의 "저장" 버튼 생성
     let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
@@ -142,7 +142,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
         userDetails[key] = textField.text ?? ""
       }
     }
-
+    guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
     let info1 = User(info: User.Info(
         career: userDetails["직업"] ?? "",
         education: userDetails["최종학력"] ?? "",
@@ -152,11 +152,11 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
         phoneNumber: userDetails["휴대번호"] ?? "",
         shortDescription: shortDescription,
         profileImage: profileImageUrl,
-        nickName: userDetails["닉네임"] ?? "",
+        nickName: nickname,
         birth: userDetails["생년월일"] ?? "", // 'birth'의 순서를 변경했습니다.
         university: userDetails["대학교"] ?? "",
         companyName: userDetails["회사명"] ?? "" // 'companyName'의 순서를 변경했습니다.
-    ), preset: [], friendList: [], userId: "loggedInUserId")
+    ), preset: [], friendList: [], userId: id)
 
     FirebaseManager.shared.addUser(user: info1)
 

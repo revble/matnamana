@@ -56,7 +56,7 @@ final class ProfileViewModel: ProfileViewModelType {
   
   func transform(input: Input) -> Output {
     let profileData = input.fetchProfile
-      .flatMapLatest { [weak self] _ -> Observable<User.Info> in
+      .flatMap { [weak self] _ -> Observable<User.Info> in
         guard let self = self else { return Observable.just(User.Info.empty) }
         return self.fetchProfileData()
       }
