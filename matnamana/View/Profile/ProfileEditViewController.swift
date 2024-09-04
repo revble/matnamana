@@ -152,7 +152,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       phoneNumber: userDetails["휴대번호"] ?? "",
       shortDescription: shortDescription,
       profileImage: profileImageUrl,
-      nickname: nickname), preset: [], friendList: [], userId: "user_id_9812")
+      nickName: nickname), preset: [], friendList: [], userId: "user_id_9812")
     FirebaseManager.shared.addUser(user: info1)
     //생년월일
     //회사명

@@ -93,7 +93,7 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
       .drive(onNext: { [weak self] profile in
         guard let self = self else { return }
         self.profileView.nameLabel.text = profile.name
-        self.profileView.nickNameLabel.text = profile.nickname
+        self.profileView.nickNameLabel.text = profile.nickName
         self.profileView.introduceLabel.text = profile.shortDescription
         self.profileView.profileImageView.loadImage(from: profile.profileImage)
         

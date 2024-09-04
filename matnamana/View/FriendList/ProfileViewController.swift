@@ -13,7 +13,7 @@ import RxSwift
 class ProfileViewController: UIViewController {
   
   private var profileView = ProfileView(frame: .zero)
-  private var viewModel = ProfileViewModel()
+  private var viewModel = UserProfileViewModel()
   private let disposeBag = DisposeBag()
   var userInfo: String?
   var userImage: String?
@@ -31,7 +31,7 @@ class ProfileViewController: UIViewController {
   }
   
   private func bind() {
-    let input = ProfileViewModel.Input(fetchUser: Observable.just(()), nickName: userInfo ?? "")
+    let input = UserProfileViewModel.Input(fetchUser: Observable.just(()), nickName: userInfo ?? "")
     let output = viewModel.transform(input: input)
     
     output.userInfo

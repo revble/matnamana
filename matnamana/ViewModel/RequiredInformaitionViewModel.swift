@@ -55,12 +55,11 @@ final class RequiredInfoViewModel {
             phoneNumber: "",
             shortDescription: "",
             profileImage: "",
-            nickname: nickName
+            nickName: nickName
         ),
         preset: [],
         friendList: [],
-        userId: appleUser.uid,
-        reputationId: ""
+        userId: appleUser.uid
     )
     FirebaseManager.shared.addUser(user: user)
     completion(user)
