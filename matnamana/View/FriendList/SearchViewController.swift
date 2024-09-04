@@ -7,37 +7,21 @@
 
 import UIKit
 
-import FirebaseCore
-import FirebaseFirestore
-import RxCocoa
-import RxSwift
-
-class SearchViewController: UIViewController {
+final class SearchViewController: BaseViewController {
   
   private var searchView = SearchView(frame: .zero)
-  private let disposeBag = DisposeBag()
   private let viewModel = SearchViewModel()
   
-  override func loadView() {
+  override func setupView() {
     searchView = SearchView(frame: UIScreen.main.bounds)
     self.view = searchView
   }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    bind()
-    setNavigation()
-    view.backgroundColor = .systemBackground
-  }
-  
-  private func setNavigation() {
-    self.title = "검색"
-    navigationController?.navigationBar.prefersLargeTitles = true
-    navigationItem.largeTitleDisplayMode = .always
-  }
-  
-  private func bind() {
 
+  override func setNavigation() {
+    self.title = "검색"
+  }
+  
+  override func bind() {
     let searchData = searchView.searchBar.rx.searchButtonClicked
       .withLatestFrom(searchView.searchBar.rx.text.orEmpty)
       .asObservable()
@@ -47,14 +31,14 @@ class SearchViewController: UIViewController {
     
     output.searchResult
       .drive(onNext: { [weak self] user in
-        self?.handleSearchResult(user)
-      })
-      .disposed(by: disposeBag)
+        guard let self = self else { return }
+        self.handleSearchResult(user)
+      }).disposed(by: disposeBag)
   }
   
   private func handleSearchResult(_ user: User?) {
     if let user = user {
-      let profileVC = ProfileViewController()
+      let profileVC = ProfileViewController(userInfo: user.info.nickName)
       profileVC.userInfo = user.info.nickName
       navigationController?.pushViewController(profileVC, animated: true)
     } else {

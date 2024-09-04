@@ -35,6 +35,8 @@
 		DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56092C855BC400459343 /* ProfileUIView.swift */; };
 		DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */; };
 		DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560D2C868BCC00459343 /* profileEditTable.swift */; };
+		DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470ED2C882F68009BF95E /* BaseViewController.swift */; };
+		DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470EF2C885D8B009BF95E /* Protocol.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
 		DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923B2C78552C005DB62F /* ProfileController.swift */; };
 		DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* MyQuestionController.swift */; };
@@ -121,6 +123,8 @@
 		DA3A56092C855BC400459343 /* ProfileUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUIView.swift; sourceTree = "<group>"; };
 		DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		DA3A560D2C868BCC00459343 /* profileEditTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditTable.swift; sourceTree = "<group>"; };
+		DD9470ED2C882F68009BF95E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		DD9470EF2C885D8B009BF95E /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		DDCF923B2C78552C005DB62F /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		DDCF923D2C78554B005DB62F /* MyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionController.swift; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 		DDCF92C82C7C8A6B005DB62F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DD9470ED2C882F68009BF95E /* BaseViewController.swift */,
 				4F83D32A2C8552CD0076AE2A /* HomePage */,
 				DDE043582C773E3500DA099A /* TabBarController.swift */,
 				DDCF93182C7D533D005DB62F /* MainPage */,
@@ -264,6 +269,7 @@
 		DDCF92C92C7C8AAD005DB62F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DD9470EF2C885D8B009BF95E /* Protocol.swift */,
 				DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */,
 				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
 				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
@@ -600,6 +606,7 @@
 				4F83D3412C85A4680076AE2A /* KakaoLoginService.swift in Sources */,
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
 				DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */,
+				DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */,
 				4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
@@ -614,6 +621,7 @@
 				DA3A56012C84B95100459343 /* ProfileEditViewModel.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
 				DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */,
+				DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */,
 				DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */,
 				DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */,
 				4FEB36952C7EC9240066998E /* LoginView.swift in Sources */,

@@ -10,26 +10,30 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class AddFriendViewController: UIViewController {
+final class AddFriendViewController: BaseViewController {
   
   private var addFriendView = AddFriendView(frame: .zero)
-  private let disposeBag = DisposeBag()
   private var friendType = ""
   private let viewModel = addFriendViewModel()
-  var userInfo: String?
-  var userImage: String?
+  var userInfo: String
+  var userImage: String
   
-  override func loadView() {
+  init(userInfo: String, userImage: String) {
+    self.userInfo = userInfo
+    self.userImage = userImage
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func setupView() {
     addFriendView = AddFriendView(frame: UIScreen.main.bounds)
     self.view = addFriendView
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    buttonClicked()
-  }
-  
-  private func buttonClicked() {
+  override func bind() {
     addFriendView.closeButton.rx.tap
       .subscribe(onNext: {
         self.dismiss(animated: true, completion: nil)
@@ -53,8 +57,6 @@ class AddFriendViewController: UIViewController {
     addFriendView.sendButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        guard let userInfo = self.userInfo else { return }
-        guard let userImage = self.userImage else { return }
         let friendId = userInfo
         let friendType = self.friendType
         let input = addFriendViewModel.Input(addFriend: .just([friendId, self.friendType, userImage]))
@@ -64,11 +66,10 @@ class AddFriendViewController: UIViewController {
           .drive(onNext: { success in
             if success {
               print("성공")
-              self.dismiss(animated: true, completion: nil)
             } else {
               print("실패")
-              self.dismiss(animated: true, completion: nil)
             }
+            self.dismiss(animated: true, completion: nil)
           }).disposed(by: self.disposeBag)
       }).disposed(by: disposeBag)
   }
