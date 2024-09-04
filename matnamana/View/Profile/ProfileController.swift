@@ -100,16 +100,23 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
         // TableView 데이터 업데이트
         self.userValues = [
           profile.phoneNumber,
+          "",
           profile.email,
+          "",
           profile.location,
           "",
           profile.career,
           "",
           profile.education,
+          "",
+          profile.nickName,
+          "",
+          profile.birth,
+          "",
+          profile.university,
+          "",
+          profile.companyName,
           ""
-          //생년월일
-          //회사명
-          //대학교ㄷ
         ]
         self.profileView.tableView.reloadData()
       })

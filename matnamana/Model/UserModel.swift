@@ -15,15 +15,19 @@ struct User: Codable {
 
 extension User {
   struct Info: Codable {
-    let career: String
-    let education: String
-    let email: String
-    let location: String
-    let name: String
-    let phoneNumber: String
-    let shortDescription: String
-    let profileImage: String
-    let nickName: String
+    let career: String //직업
+    let education: String //최종학력
+    let email: String //이메일
+    let location: String //거주지
+    let name: String //이름
+    let phoneNumber: String//휴대번호
+    let shortDescription: String// 자기소개
+    let profileImage: String//사진
+    let nickName: String//별명
+    let birth: String //추가 생년월일
+    let university: String //추가 대학교
+    let companyName: String //추가 회사명
+
   }
   
   struct PresetQuestion: Codable {

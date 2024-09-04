@@ -33,7 +33,7 @@ class ProfileEditViewModel {
   func transform(input: Input) -> Output {
     let saveResult = input.saveTap
       .withLatestFrom(Observable.combineLatest(input.nameText, input.nicknameText, input.shortDescriptionText, input.userInfoTexts, input.profileImageUrl))  // 이미지 URL 포함
-      .flatMapLatest { [weak self] (name, nickname, shortDescription, userInfo, profileImageUrl) -> Observable<Bool> in
+      .flatMapLatest { [weak self] (name, nickName, shortDescription, userInfo, profileImageUrl) -> Observable<Bool> in
         guard let self = self else { return Observable.just(false) }
         
         let info = User.Info(
@@ -45,7 +45,10 @@ class ProfileEditViewModel {
           phoneNumber: userInfo["휴대번호"] ?? "",
           shortDescription: shortDescription,
           profileImage: profileImageUrl,  // 실제 프로필 이미지 URL 사용
-          nickName: nickname
+          nickName: userInfo["닉네임"] ?? "",
+          birth: userInfo["생년월일"] ?? "",
+          university: userInfo["대학교"] ?? "",
+          companyName: userInfo["회사명"] ?? ""
         )
         
         guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else {

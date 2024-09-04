@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 import RxCocoa
-import RxKeyboard
+//import RxKeyboard
 import RxSwift
 import FirebaseStorage
 
@@ -142,19 +142,24 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
         userDetails[key] = textField.text ?? ""
       }
     }
-    
+
     let info1 = User(info: User.Info(
-      career: userDetails["직업"] ?? "",
-      education: userDetails["최종학력"] ?? "",
-      email: userDetails["이메일"] ?? "",
-      location: userDetails["거주지"] ?? "",
-      name: name,
-      phoneNumber: userDetails["휴대번호"] ?? "",
-      shortDescription: shortDescription,
-      profileImage: profileImageUrl,
-      nickName: nickname), preset: [], friendList: [], userId: "user_id_9812")
+        career: userDetails["직업"] ?? "",
+        education: userDetails["최종학력"] ?? "",
+        email: userDetails["이메일"] ?? "",
+        location: userDetails["거주지"] ?? "",
+        name: name,
+        phoneNumber: userDetails["휴대번호"] ?? "",
+        shortDescription: shortDescription,
+        profileImage: profileImageUrl,
+        nickName: userDetails["닉네임"] ?? "",
+        birth: userDetails["생년월일"] ?? "", // 'birth'의 순서를 변경했습니다.
+        university: userDetails["대학교"] ?? "",
+        companyName: userDetails["회사명"] ?? "" // 'companyName'의 순서를 변경했습니다.
+    ), preset: [], friendList: [], userId: "loggedInUserId")
+
     FirebaseManager.shared.addUser(user: info1)
-    //생년월일
+
     //회사명
     //대학교
     
