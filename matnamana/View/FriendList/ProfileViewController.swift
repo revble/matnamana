@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class ProfileViewController: BaseViewController {
+final class ProfileViewController: BaseViewController {
   
   private var profileView = ProfileView(frame: .zero)
   private var viewModel = UserProfileViewModel()

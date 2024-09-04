@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class AddFriendView: UIView {
+final class AddFriendView: UIView {
   
   private let relationView = UIView().then {
     $0.backgroundColor = .white

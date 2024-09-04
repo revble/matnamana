@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class AddFriendViewController: BaseViewController {
+final class AddFriendViewController: BaseViewController {
   
   private var addFriendView = AddFriendView(frame: .zero)
   private var friendType = ""
