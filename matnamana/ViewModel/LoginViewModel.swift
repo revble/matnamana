@@ -27,6 +27,21 @@ final class LoginViewModel: ViewModelType {
   
   private let db = FirebaseManager.shared.db
   
+//  func perfomAppleLogin() -> Observable<Void> {
+//    return Observable.create { observer in
+//      AppleLoginService.shared.startSignInWithAppleFlow { result in
+//        switch result {
+//        case .success:
+//          observer.onNext(())
+//        case .failure(let error):
+//          observer.onError(error)
+//        }
+//        observer.onCompleted()
+//      }
+//      return Disposables.create()
+//    }
+//  }
+  
   func checkUidDuplicate() -> Observable<Bool> {
     return Observable.create { [weak self] observer in
       guard let self = self else {

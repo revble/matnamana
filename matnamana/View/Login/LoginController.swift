@@ -31,12 +31,18 @@ final class LoginController: UIViewController {
       .subscribe(onNext: { _ in
         KakaoLoginService.shared.KakaoLogin()
       }).disposed(by: disposeBag)
+    
+    loginView.loginButton.rx.tap
+      .subscribe(onNext:  { _ in
+        AppleLoginService.shared.startSignInWithAppleFlow()
+      }).disposed(by: disposeBag)
   }
   
   func bindLoginViewModel() {
     let input = LoginViewModel.Input(
       loggedInApple: loginView.loginButton.rx.tap
     )
+    
     let output = loginviewModel.transform(input: input)
     
     output.isDuplicate
