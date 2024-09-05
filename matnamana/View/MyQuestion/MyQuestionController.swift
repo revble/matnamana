@@ -7,9 +7,11 @@
 
 import UIKit
 
-class myQuestionController: UIViewController {
+class myQuestionController:  {
   
   override func viewDidLoad() {
     super.viewDidLoad()
   }
+  
+  
 }
