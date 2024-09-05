@@ -15,10 +15,10 @@ import RxCocoa
 
 
 
-final class LoginViewModel {
+final class LoginViewModel: ViewModelType {
 
   struct Input {
-    let loginButtonTap: Observable<Void>
+    let loggedInAppel: Observable<Bool>
   }
   
   struct Output {
@@ -26,6 +26,21 @@ final class LoginViewModel {
   }
 
   private let db = FirebaseManager.shared.db
+  
+//  func perfomAppleLogin() -> Observable<Void> {
+//    return Observable.create { observer in
+//      AppleLoginService.shared.startSignInWithAppleFlow { result in
+//        switch result {
+//        case .success:
+//          observer.onNext(())
+//        case .failure(let error):
+//          observer.onError(error)
+//        }
+//        observer.onCompleted()
+//      }
+//      return Disposables.create()
+//    }
+//  }
   
   func checkUidDuplicate() -> Observable<Bool> {
     return Observable.create { [weak self] observer in
@@ -61,8 +76,15 @@ final class LoginViewModel {
   }
   
   func transform(input: Input) -> Output {
-    let isDuplicate = input.loginButtonTap
-      .flatMapLatest { [weak self] _ -> Observable<Bool> in
+//    let appleLoginResult = input.loginButtonTap
+//      .flatMap { [weak self] _ -> Observable<Void> in
+//        guard let self = self else {
+//          return .empty()
+//        }
+//        return self.perfomAppleLogin()
+//      }
+    let isDuplicate = input.loggedInAppel
+      .flatMap { [weak self] _ -> Observable<Bool> in
         guard let self = self else {
           return .empty()
         }
