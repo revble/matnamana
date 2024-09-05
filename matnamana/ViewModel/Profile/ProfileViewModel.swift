@@ -1,10 +1,3 @@
-//
-//  ProfileViewModel.swift
-//  matnamana
-//
-//  Created by 이진규 on 8/28/24.
-//
-
 //  ProfileController.swift
 //  matnamana
 //
