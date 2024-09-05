@@ -13,7 +13,6 @@ import KakaoSDKUser
 import RxCocoa
 import RxSwift
 
-
 final class LoginController: UIViewController {
   
   private var loginView = LoginView(frame: .zero)
@@ -32,18 +31,12 @@ final class LoginController: UIViewController {
       .subscribe(onNext: { _ in
         KakaoLoginService.shared.KakaoLogin()
       }).disposed(by: disposeBag)
-    
-    loginView.loginButton.rx.tap
-      .subscribe(onNext:  { _ in
-        AppleLoginService.shared.startSignInWithAppleFlow()
-      }).disposed(by: disposeBag)
   }
   
   func bindLoginViewModel() {
     let input = LoginViewModel.Input(
-      loggedInAppel: AppleLoginService.shared.authResultObservable()
+      loggedInApple: loginView.loginButton.rx.tap
     )
-    
     let output = loginviewModel.transform(input: input)
     
     output.isDuplicate
@@ -55,12 +48,5 @@ final class LoginController: UIViewController {
           self.transitionToViewController(RequiredInformationController())
         }
       }).disposed(by: disposeBag)
-  }
-  
-  private func transitionToViewController(_ viewController: UIViewController) {
-    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-          let window = windowScene.windows.first else { return }
-    window.rootViewController = viewController
-    window.makeKeyAndVisible()
   }
 }

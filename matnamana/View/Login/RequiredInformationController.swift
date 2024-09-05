@@ -67,11 +67,4 @@ final class RequiredInformationController: UIViewController {
     alertMessage.addAction(okAction)
     present(alertMessage, animated: true, completion: nil)
   }
-  
-  private func transitionToViewController(_ viewController: UIViewController) {
-    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-          let window = windowScene.windows.first else { return }
-    window.rootViewController = viewController
-    window.makeKeyAndVisible()
-  }
 }
