@@ -47,7 +47,6 @@ final class FriendListViewModel: ViewModelType {
         return self.fetchFriendList()
       }
       .asDriver(onErrorJustReturn: [])
-    
     return Output(friendList: friendList)
   }
 }

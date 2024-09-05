@@ -41,7 +41,7 @@ class FirebaseManager {
   
   func addQuestion(question: Question) {
     if let questionData = question.asDictionary {
-      db.collection("questions").document(question.questionId).setData(questionData) { error in
+      db.collection("questions").document("question.questionId").setData(questionData) { error in
         if let error = error {
           print("question추가 실패: \(error)")
         }
@@ -146,6 +146,23 @@ class FirebaseManager {
         completion(false, error)
       } else {
         completion(true, nil)
+      }
+    }
+  }
+  
+  func getQuestionList(documentId: String, completion: @escaping (Question?, Error?) -> Void) {
+    db.collection("questions").document("questionId_789").getDocument { (documentSnapshot, error) in
+      guard let document = documentSnapshot, document.exists, error == nil else {
+        completion(nil, error)
+        return
+      }
+      do {
+        let question = try document.data(as: Question.self)
+        print(question)
+        completion(question, nil)
+      } catch {
+        print(error)
+        completion(nil, error)
       }
     }
   }

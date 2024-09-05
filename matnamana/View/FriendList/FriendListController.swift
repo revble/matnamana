@@ -14,11 +14,13 @@ final class FriendListController: BaseViewController {
   private var friendListView = FriendListView(frame: .zero)
   
   override func setupView() {
+    super.setupView()
     friendListView = FriendListView(frame: UIScreen.main.bounds)
     self.view = friendListView
   }
   
   override func setNavigation() {
+    super.setNavigation()
     self.title = "친구 목록"
     navigationItem.rightBarButtonItem = plusButton()
   }

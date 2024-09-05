@@ -37,8 +37,11 @@
 		DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560D2C868BCC00459343 /* profileEditTable.swift */; };
 		DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470ED2C882F68009BF95E /* BaseViewController.swift */; };
 		DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470EF2C885D8B009BF95E /* Protocol.swift */; };
-		DD9470F22C88640B009BF95E /* myQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F12C88640B009BF95E /* myQuestionView.swift */; };
-		DD9470F42C886647009BF95E /* questionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F32C886647009BF95E /* questionListCell.swift */; };
+		DD9470F22C88640B009BF95E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		DD9470F42C886647009BF95E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		DD9470F62C898FD6009BF95E /* MyQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */; };
+		DD9470F92C899058009BF95E /* QuestionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F72C899057009BF95E /* QuestionListCell.swift */; };
+		DD9470FA2C899058009BF95E /* MyQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F82C899057009BF95E /* MyQuestionView.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
 		DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923B2C78552C005DB62F /* ProfileController.swift */; };
 		DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* MyQuestionController.swift */; };
@@ -127,6 +130,9 @@
 		DA3A560D2C868BCC00459343 /* profileEditTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditTable.swift; sourceTree = "<group>"; };
 		DD9470ED2C882F68009BF95E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DD9470EF2C885D8B009BF95E /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionViewModel.swift; sourceTree = "<group>"; };
+		DD9470F72C899057009BF95E /* QuestionListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionListCell.swift; sourceTree = "<group>"; };
+		DD9470F82C899057009BF95E /* MyQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQuestionView.swift; sourceTree = "<group>"; };
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		DDCF923B2C78552C005DB62F /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		DDCF923D2C78554B005DB62F /* MyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionController.swift; sourceTree = "<group>"; };
@@ -272,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				DD9470EF2C885D8B009BF95E /* Protocol.swift */,
+				DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */,
 				DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */,
 				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
 				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
@@ -309,9 +316,9 @@
 		DDCF931A2C7D53FD005DB62F /* MyQuestion */ = {
 			isa = PBXGroup;
 			children = (
+				DD9470F82C899057009BF95E /* MyQuestionView.swift */,
+				DD9470F72C899057009BF95E /* QuestionListCell.swift */,
 				DDCF923D2C78554B005DB62F /* MyQuestionController.swift */,
-				DD9470F12C88640B009BF95E /* myQuestionView.swift */,
-				DD9470F32C886647009BF95E /* questionListCell.swift */,
 			);
 			path = MyQuestion;
 			sourceTree = "<group>";
@@ -326,8 +333,8 @@
 				DDCF93322C7EAF33005DB62F /* SearchView.swift */,
 				DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */,
 				DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */,
-				DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */,
 				DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */,
+				DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -604,6 +611,7 @@
 				DDF2A02D2C846927001B1DB7 /* addFriendViewModel.swift in Sources */,
 				DDF2A0272C842978001B1DB7 /* UserProfileViewModel.swift in Sources */,
 				4F83D3302C8556570076AE2A /* FriendReputationRequestCell.swift in Sources */,
+				DD9470F92C899058009BF95E /* QuestionListCell.swift in Sources */,
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
 				DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
@@ -611,11 +619,13 @@
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
 				DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */,
 				DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */,
+				DD9470F62C898FD6009BF95E /* MyQuestionViewModel.swift in Sources */,
 				4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */,
-				DD9470F22C88640B009BF95E /* myQuestionView.swift in Sources */,
+				DD9470F22C88640B009BF95E /* (null) in Sources */,
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
+				DD9470FA2C899058009BF95E /* MyQuestionView.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */,
@@ -625,7 +635,7 @@
 				4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */,
 				DA3A56012C84B95100459343 /* ProfileEditViewModel.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
-				DD9470F42C886647009BF95E /* questionListCell.swift in Sources */,
+				DD9470F42C886647009BF95E /* (null) in Sources */,
 				DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */,
 				DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */,
 				DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */,

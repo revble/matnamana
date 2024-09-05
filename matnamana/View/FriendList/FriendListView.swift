@@ -27,7 +27,7 @@ final class FriendListView: UIView {
     $0.placeholder = "친구를 검색해보세요!"
   }
   
-  let friendList = UITableView(frame: .zero, style: .insetGrouped).then {
+  let friendList = UITableView().then {
     $0.register(FriendListCell.self,
                 forCellReuseIdentifier: FriendListCell.identifier)
     $0.rowHeight = 100
