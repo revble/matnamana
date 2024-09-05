@@ -9,11 +9,33 @@ import AuthenticationServices
 import CryptoKit
 
 import FirebaseAuth
+import RxSwift
 
-fileprivate var currentNonce: String?
-
-extension LoginController: ASAuthorizationControllerDelegate {
-  func authorizationController(controller: ASAuthorizationController, 
+class AppleLoginService: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+  static let shared = AppleLoginService()
+  private var currentNonce: String?
+  private let authResultSubject = PublishSubject<Bool>()
+  private override init() {}
+  
+  func authResultObservable() -> Observable<Bool> {
+    return authResultSubject.asObservable()
+  }
+  
+  func startSignInWithAppleFlow(/*completion: @escaping (Result<Void, Error>) -> Void*/) {
+    let nonce = randomNonceString()
+    currentNonce = nonce
+    let appleIDProvider = ASAuthorizationAppleIDProvider()
+    let request = appleIDProvider.createRequest()
+    request.requestedScopes = [.fullName, .email]
+    request.nonce = sha256(nonce)
+    
+    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+    authorizationController.delegate = self
+    authorizationController.presentationContextProvider = self
+    authorizationController.performRequests()
+  }
+  
+  func authorizationController(controller: ASAuthorizationController,
                                didCompleteWithAuthorization authorization: ASAuthorization) {
     if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
       guard let nonce = currentNonce else {
@@ -29,37 +51,22 @@ extension LoginController: ASAuthorizationControllerDelegate {
       }
       
       let credential = OAuthProvider.appleCredential(withIDToken: idTokenString,
-                                                              rawNonce: nonce,
-                                                              fullName: appleIDCredential.fullName)
+                                                     rawNonce: nonce,
+                                                     fullName: appleIDCredential.fullName)
       
-      Auth.auth().signIn(with: credential) { authResult, error in
+      Auth.auth().signIn(with: credential) { [weak self] authResult, error in
         if let error = error {
           print ("Error Apple sign in: %@", error)
+          self?.authResultSubject.onNext(false)
           return
         }
-        self.bindLoginViewModel()
+        self?.authResultSubject.onNext(true)
       }
     }
   }
-}
-
-///Apple Sign in
-extension LoginController {
   
-  func startSignInWithAppleFlow() {
-    let nonce = randomNonceString()
-    currentNonce = nonce
-    let appleIDProvider = ASAuthorizationAppleIDProvider()
-    let request = appleIDProvider.createRequest()
-    request.requestedScopes = [.fullName, .email]
-    request.nonce = sha256(nonce)
-    
-    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-    authorizationController.delegate = self
-    authorizationController.presentationContextProvider = self
-    authorizationController.performRequests()
-    
-
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    return UIApplication.shared.windows.first { $0.isKeyWindow }!
   }
   
   private func sha256(_ input: String) -> String {
@@ -72,7 +79,6 @@ extension LoginController {
     return hashString
   }
   
-  /// Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
   private func randomNonceString(length: Int = 32) -> String {
     precondition(length > 0)
     let charset: Array<Character> =
@@ -94,20 +100,15 @@ extension LoginController {
         if remainingLength == 0 {
           return
         }
-
+        
         if random < charset.count {
           result.append(charset[Int(random)])
           remainingLength -= 1
         }
       }
     }
-    
     return result
   }
+  
 }
 
-extension LoginController : ASAuthorizationControllerPresentationContextProviding {
-  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-    return self.view.window!
-  }
-}

@@ -19,7 +19,6 @@ class KakaoLoginService {
       }
       else {
         print("loginWithKakaoTalk() success.")
-        
         //do something
         _ = oauthToken
       }
@@ -27,14 +26,12 @@ class KakaoLoginService {
   }
   
   func kakaoLoginWithAccount() {
-    
     UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
       if let error = error {
         print(error)
       }
       else {
         print("loginWithKakaoAccount() success.")
-        
         //do something
         _ = oauthToken
       }
@@ -67,17 +64,14 @@ class KakaoLoginService {
     UserApi.shared.me() {(user, error) in
       guard let user = user else { return }
       guard let kakaoAccount = user.kakaoAccount else { return }
-      
       if let error = error {
         print(error)
       }
       else {
         print("me() success.")
-        
         //do something
         let userName = kakaoAccount.name
         let userEmail = kakaoAccount.email
-        
         print("이름: \(userName)")
         print("이메일: \(userEmail)")
       }
