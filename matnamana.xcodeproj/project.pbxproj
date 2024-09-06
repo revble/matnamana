@@ -35,6 +35,7 @@
 		DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */; };
 		DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560D2C868BCC00459343 /* profileEditTable.swift */; };
 		DA3A56102C881AF900459343 /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A560F2C881AF900459343 /* RxKeyboard */; };
+		DA3A56132C8A967C00459343 /* TTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56122C8A967B00459343 /* TTest.swift */; };
 		DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470ED2C882F68009BF95E /* BaseViewController.swift */; };
 		DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470EF2C885D8B009BF95E /* Protocol.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
@@ -123,6 +124,7 @@
 		DA3A56092C855BC400459343 /* ProfileUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUIView.swift; sourceTree = "<group>"; };
 		DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		DA3A560D2C868BCC00459343 /* profileEditTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditTable.swift; sourceTree = "<group>"; };
+		DA3A56122C8A967B00459343 /* TTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTest.swift; sourceTree = "<group>"; };
 		DD9470ED2C882F68009BF95E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DD9470EF2C885D8B009BF95E /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				DA3A56052C85565B00459343 /* ProfileEditViewController.swift */,
 				DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */,
 				DA3A560D2C868BCC00459343 /* profileEditTable.swift */,
+				DA3A56122C8A967B00459343 /* TTest.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */,
 				DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */,
 				4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */,
+				DA3A56132C8A967C00459343 /* TTest.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
