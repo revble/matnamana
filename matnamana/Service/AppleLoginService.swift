@@ -11,7 +11,7 @@ import CryptoKit
 import FirebaseAuth
 import RxSwift
 
-class AppleLoginService: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
   static let shared = AppleLoginService()
   private var currentNonce: String?
   private let authResultSubject = PublishSubject<Bool>()
@@ -54,18 +54,19 @@ class AppleLoginService: NSObject, ASAuthorizationControllerDelegate, ASAuthoriz
                                                      fullName: appleIDCredential.fullName)
       
       Auth.auth().signIn(with: credential) { [weak self] authResult, error in
+        guard let self = self else { return }
         if let error = error {
           print ("Error Apple sign in: %@", error)
-          self?.authResultSubject.onNext(false)
+          self.authResultSubject.onNext(false)
           return
         }
-        self?.authResultSubject.onNext(true)
+        self.authResultSubject.onNext(true)
       }
     }
   }
   
   func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-    return UIApplication.shared.windows.first { $0.isKeyWindow }!
+    return ASPresentationAnchor()
   }
   
   private func sha256(_ input: String) -> String {

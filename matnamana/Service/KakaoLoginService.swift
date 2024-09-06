@@ -11,7 +11,7 @@ import FirebaseAuth
 import KakaoSDKUser
 import RxSwift
 
-class KakaoLoginService {
+final class KakaoLoginService {
   static let shared = KakaoLoginService()
   
   private let authResultSubject = PublishSubject<Bool>()
@@ -22,32 +22,34 @@ class KakaoLoginService {
   
   func kakaoLonginWithApp() {
     UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
+      guard let self = self else { return }
       if let error = error {
         print(error)
-        self?.authResultSubject.onNext(false)
+        self.authResultSubject.onNext(false)
       }
       else {
         print("loginWithKakaoTalk() success.")
         //do something
         _ = oauthToken
-        self?.firebaseLoginWithKakao(oauthToken: oauthToken?.idToken)
-        self?.authResultSubject.onNext(true)
+        self.firebaseLoginWithKakao(oauthToken: oauthToken?.idToken)
+        self.authResultSubject.onNext(true)
       }
     }
   }
   
   func kakaoLoginWithAccount() {
     UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
+      guard let self = self else { return }
       if let error = error {
         print(error)
-        self?.authResultSubject.onNext(false)
+        self.authResultSubject.onNext(false)
       }
       else {
         print("loginWithKakaoAccount() success.")
         //do something
         _ = oauthToken
-        self?.firebaseLoginWithKakao(oauthToken: oauthToken?.idToken)
-        self?.authResultSubject.onNext(true)
+        self.firebaseLoginWithKakao(oauthToken: oauthToken?.idToken)
+        self.authResultSubject.onNext(true)
       }
     }
   }

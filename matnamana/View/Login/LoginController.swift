@@ -23,7 +23,6 @@ final class LoginController: BaseViewController {
     self.view = loginView
   }
   
-  
   override func bind() {
     let input = LoginViewModel.Input(
       loggedInApple: loginView.loginButton.rx.tap,
@@ -41,6 +40,5 @@ final class LoginController: BaseViewController {
           self.transitionToViewController(RequiredInformationController())
         }
       }).disposed(by: disposeBag)
-    
   }
 }
