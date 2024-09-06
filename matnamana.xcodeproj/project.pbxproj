@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F63D6E12C870C7800B0F65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */; };
+		4F63D7312C8AE67700B0F65C /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4F63D7302C8AE67700B0F65C /* IQKeyboardManagerSwift */; };
 		4F83D31B2C7F14830076AE2A /* RequiredInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */; };
 		4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F83D31C2C7F14A60076AE2A /* RequiredInformationView.swift */; };
 		4F83D3222C80CCD40076AE2A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4F83D3212C80CCD40076AE2A /* Then */; };
@@ -174,6 +175,7 @@
 				4F83D33F2C85A27D0076AE2A /* KakaoSDK in Frameworks */,
 				DA3A56102C881AF900459343 /* RxKeyboard in Frameworks */,
 				DDCF92C52C7C7FB3005DB62F /* FirebaseAuthCombine-Community in Frameworks */,
+				4F63D7312C8AE67700B0F65C /* IQKeyboardManagerSwift in Frameworks */,
 				DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */,
 				DA3A55F92C802EA800459343 /* FirebaseStorage in Frameworks */,
 				DDCF92BF2C7C7F8E005DB62F /* FirebaseAuth in Frameworks */,
@@ -452,6 +454,7 @@
 				DA3A55F82C802EA800459343 /* FirebaseStorage */,
 				DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */,
 				DA3A560F2C881AF900459343 /* RxKeyboard */,
+				4F63D7302C8AE67700B0F65C /* IQKeyboardManagerSwift */,
 			);
 			productName = matnamana;
 			productReference = DDE043512C773E3500DA099A /* matnamana.app */;
@@ -535,6 +538,7 @@
 				4F83D3382C859A180076AE2A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				4F83D33B2C85A0E80076AE2A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				DA3A56022C85464900459343 /* XCRemoteSwiftPackageReference "RxKeyboard" */,
+				4F63D72F2C8AE5C800B0F65C /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = DDE043522C773E3500DA099A /* Products */;
 			projectDirPath = "";
@@ -964,6 +968,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4F63D72F2C8AE5C800B0F65C /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.1;
+			};
+		};
 		4F83D3202C80CCC00076AE2A /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
@@ -1047,6 +1059,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4F63D7302C8AE67700B0F65C /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F63D72F2C8AE5C800B0F65C /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		4F83D3212C80CCD40076AE2A /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4F83D3202C80CCC00076AE2A /* XCRemoteSwiftPackageReference "Then" */;
