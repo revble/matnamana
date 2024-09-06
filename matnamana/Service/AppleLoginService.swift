@@ -15,7 +15,6 @@ class AppleLoginService: NSObject, ASAuthorizationControllerDelegate, ASAuthoriz
   static let shared = AppleLoginService()
   private var currentNonce: String?
   private let authResultSubject = PublishSubject<Bool>()
-  private override init() {}
   
   func authResultObservable() -> Observable<Bool> {
     return authResultSubject.asObservable()

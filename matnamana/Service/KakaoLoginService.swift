@@ -7,33 +7,47 @@
 
 import Foundation
 
+import FirebaseAuth
 import KakaoSDKUser
+import RxSwift
 
 class KakaoLoginService {
   static let shared = KakaoLoginService()
   
+  private let authResultSubject = PublishSubject<Bool>()
+  
+  func authResultObservable() -> Observable<Bool> {
+    return authResultSubject.asObservable()
+  }
+  
   func kakaoLonginWithApp() {
-    UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+    UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
       if let error = error {
         print(error)
+        self?.authResultSubject.onNext(false)
       }
       else {
         print("loginWithKakaoTalk() success.")
         //do something
         _ = oauthToken
+        self?.firebaseLoginWithKakao(oauthToken: oauthToken?.idToken)
+        self?.authResultSubject.onNext(true)
       }
     }
   }
   
   func kakaoLoginWithAccount() {
-    UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+    UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
       if let error = error {
         print(error)
+        self?.authResultSubject.onNext(false)
       }
       else {
         print("loginWithKakaoAccount() success.")
         //do something
         _ = oauthToken
+        self?.firebaseLoginWithKakao(oauthToken: oauthToken?.idToken)
+        self?.authResultSubject.onNext(true)
       }
     }
   }
@@ -72,10 +86,22 @@ class KakaoLoginService {
         //do something
         let userName = kakaoAccount.name
         let userEmail = kakaoAccount.email
-        print("이름: \(userName)")
-        print("이메일: \(userEmail)")
       }
     }
   }
   
+  func firebaseLoginWithKakao(oauthToken: String?) {
+    guard let token = oauthToken else { return }
+    
+    let credential = OAuthProvider.credential(withProviderID: "oidc.kakao", idToken: token, rawNonce: "")
+    
+    Auth.auth().signIn(with: credential) { (authResult, error) in
+      if let error = error {
+        print("Firebase Sign in with Kakao Failed: \(error.localizedDescription)")
+      } else {
+        print("Firebase Sign in with Kakao Success")
+        // 로그인 성공 후 처리
+      }
+    }
+  }
 }

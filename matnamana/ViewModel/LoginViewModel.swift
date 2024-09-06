@@ -19,6 +19,7 @@ final class LoginViewModel: ViewModelType {
   
   struct Input {
     let loggedInApple: ControlEvent<Void>
+    let loggedInKakao: ControlEvent<Void>
   }
   
   struct Output {
@@ -26,21 +27,6 @@ final class LoginViewModel: ViewModelType {
   }
   
   private let db = FirebaseManager.shared.db
-  
-//  func perfomAppleLogin() -> Observable<Void> {
-//    return Observable.create { observer in
-//      AppleLoginService.shared.startSignInWithAppleFlow { result in
-//        switch result {
-//        case .success:
-//          observer.onNext(())
-//        case .failure(let error):
-//          observer.onError(error)
-//        }
-//        observer.onCompleted()
-//      }
-//      return Disposables.create()
-//    }
-//  }
   
   func checkUidDuplicate() -> Observable<Bool> {
     return Observable.create { [weak self] observer in
@@ -76,13 +62,24 @@ final class LoginViewModel: ViewModelType {
   }
   
   func transform(input: Input) -> Output {
-    let isDuplicate = input.loggedInApple
+    let appleLogin = input.loggedInApple
       .do(onNext: {
         AppleLoginService.shared.startSignInWithAppleFlow()
       })
       .flatMap { _ -> Observable<Bool> in
         AppleLoginService.shared.authResultObservable()
       }
+
+    let kakaoLogin = input.loggedInKakao
+      .do(onNext: {
+        KakaoLoginService.shared.KakaoLogin()
+      })
+      .flatMap { _ -> Observable<Bool> in
+        KakaoLoginService.shared.authResultObservable()
+      }
+
+    let isDuplicate = Observable.of(appleLogin, kakaoLogin)
+      .merge()
       .filter { $0 == true }
       .flatMap { [weak self] _ -> Observable<Bool> in
         guard let self = self else {
