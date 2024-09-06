@@ -7,36 +7,48 @@
 
 import Foundation
 
+import FirebaseAuth
 import KakaoSDKUser
+import RxSwift
 
-class KakaoLoginService {
+final class KakaoLoginService {
   static let shared = KakaoLoginService()
   
+  private let authResultSubject = PublishSubject<Bool>()
+  
+  func authResultObservable() -> Observable<Bool> {
+    return authResultSubject.asObservable()
+  }
+  
   func kakaoLonginWithApp() {
-    UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+    UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
+      guard let self = self else { return }
       if let error = error {
         print(error)
+        self.authResultSubject.onNext(false)
       }
       else {
         print("loginWithKakaoTalk() success.")
-        
         //do something
-        _ = oauthToken
+        guard let oauthToken = oauthToken else { return }
+        self.firebaseLoginWithKakao(oauthToken: oauthToken.idToken)
+        
       }
     }
   }
   
   func kakaoLoginWithAccount() {
-    
-    UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+    UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
+      guard let self = self else { return }
       if let error = error {
         print(error)
+        self.authResultSubject.onNext(false)
       }
       else {
         print("loginWithKakaoAccount() success.")
-        
         //do something
-        _ = oauthToken
+        guard let oauthToken = oauthToken else { return }
+        self.firebaseLoginWithKakao(oauthToken: oauthToken.idToken)
       }
     }
   }
@@ -67,21 +79,31 @@ class KakaoLoginService {
     UserApi.shared.me() {(user, error) in
       guard let user = user else { return }
       guard let kakaoAccount = user.kakaoAccount else { return }
-      
       if let error = error {
         print(error)
       }
       else {
         print("me() success.")
-        
         //do something
         let userName = kakaoAccount.name
         let userEmail = kakaoAccount.email
-        
-        print("이름: \(userName)")
-        print("이메일: \(userEmail)")
       }
     }
   }
   
+  func firebaseLoginWithKakao(oauthToken: String?) {
+    guard let token = oauthToken else { return }
+    
+    let credential = OAuthProvider.credential(withProviderID: "oidc.kakao", idToken: token, rawNonce: "")
+    
+    Auth.auth().signIn(with: credential) { (authResult, error) in
+      if let error = error {
+        print("Firebase Sign in with Kakao Failed: \(error.localizedDescription)")
+        self.authResultSubject.onNext(false)
+      } else {
+        print("Firebase Sign in with Kakao Success")
+        self.authResultSubject.onNext(true)
+      }
+    }
+  }
 }
