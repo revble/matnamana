@@ -20,4 +20,8 @@ extension UIViewController {
     window.rootViewController = viewController
     window.makeKeyAndVisible()
   }
+  
+  func pushViewController(_ viewController: UIViewController) {
+    navigationController?.pushViewController(viewController, animated: true)
+  }
 }

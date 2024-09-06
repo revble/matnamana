@@ -19,11 +19,13 @@ final class LoginController: BaseViewController {
   private let loginviewModel = LoginViewModel()
   
   override func setupView() {
+    super.setupView()
     loginView = LoginView(frame: UIScreen.main.bounds)
     self.view = loginView
   }
   
   override func bind() {
+    super.bind()
     let input = LoginViewModel.Input(
       loggedInApple: loginView.loginButton.rx.tap,
       loggedInKakao: loginView.kakaoLoginButton.rx.tap
