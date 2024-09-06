@@ -13,38 +13,34 @@ import KakaoSDKUser
 import RxCocoa
 import RxSwift
 
-final class LoginController: UIViewController {
+final class LoginController: BaseViewController {
   
   private var loginView = LoginView(frame: .zero)
-  private let disposeBag = DisposeBag()
   private let loginviewModel = LoginViewModel()
   
-  override func loadView() {
+  override func setupView() {
     loginView = LoginView(frame: UIScreen.main.bounds)
     self.view = loginView
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    bindLoginViewModel()
+  
+  override func bind() {
+    let input = LoginViewModel.Input(
+      loggedInApple: loginView.loginButton.rx.tap,
+      loggedInKakao: loginView.kakaoLoginButton.rx.tap
+    )
     
-    func bindLoginViewModel() {
-      let input = LoginViewModel.Input(
-        loggedInApple: loginView.loginButton.rx.tap,
-        loggedInKakao: loginView.kakaoLoginButton.rx.tap
-      )
-      
-      let output = loginviewModel.transform(input: input)
-      
-      output.isDuplicate
-        .observe(on: MainScheduler.instance)
-        .subscribe(onNext: { isDuplicate in
-          if isDuplicate {
-            self.transitionToViewController(TabBarController())
-          } else {
-            self.transitionToViewController(RequiredInformationController())
-          }
-        }).disposed(by: disposeBag)
-    }
+    let output = loginviewModel.transform(input: input)
+    
+    output.isDuplicate
+      .observe(on: MainScheduler.instance)
+      .subscribe(onNext: { isDuplicate in
+        if isDuplicate {
+          self.transitionToViewController(TabBarController())
+        } else {
+          self.transitionToViewController(RequiredInformationController())
+        }
+      }).disposed(by: disposeBag)
+    
   }
 }
