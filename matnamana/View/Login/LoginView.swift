@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class LoginView: UIView {
+final class LoginView: UIView {
   
   private let logo = UIImageView().then {
     $0.image = UIImage(named: "MatnamanaLogo")

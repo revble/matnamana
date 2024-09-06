@@ -13,18 +13,17 @@ import FirebaseAuth
 import RxSwift
 import RxCocoa
 
-
-
-final class LoginViewModel {
-   
+final class LoginViewModel: ViewModelType {
+  
   struct Input {
-    let loginButtonTap: Observable<Void>
+    let loggedInApple: ControlEvent<Void>
+    let loggedInKakao: ControlEvent<Void>
   }
   
   struct Output {
     let isDuplicate: Observable<Bool>
   }
-
+  
   private let db = FirebaseManager.shared.db
   
   func checkUidDuplicate() -> Observable<Bool> {
@@ -61,8 +60,26 @@ final class LoginViewModel {
   }
   
   func transform(input: Input) -> Output {
-    let isDuplicate = input.loginButtonTap
-      .flatMapLatest { [weak self] _ -> Observable<Bool> in
+    let appleLogin = input.loggedInApple
+      .do(onNext: {
+        AppleLoginService.shared.startSignInWithAppleFlow()
+      })
+      .flatMap { _ -> Observable<Bool> in
+        AppleLoginService.shared.authResultObservable()
+      }
+
+    let kakaoLogin = input.loggedInKakao
+      .do(onNext: {
+        KakaoLoginService.shared.KakaoLogin()
+      })
+      .flatMap { _ -> Observable<Bool> in
+        KakaoLoginService.shared.authResultObservable()
+      }
+
+    let isDuplicate = Observable.of(appleLogin, kakaoLogin)
+      .merge()
+      .filter { $0 == true }
+      .flatMap { [weak self] _ -> Observable<Bool> in
         guard let self = self else {
           return .empty()
         }

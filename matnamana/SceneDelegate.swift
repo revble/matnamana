@@ -8,6 +8,7 @@
 import UIKit
 
 import KakaoSDKAuth
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
@@ -16,18 +17,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     guard let windowScene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: windowScene)
-    
-    UserDefaults.standard.set("user016", forKey: "loggedInUserId")
-    UserDefaults.standard.set(true, forKey: "isLoggedIn")
-    let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
 
+    let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
     
     if isLoggedIn {
       window.rootViewController = TabBarController()
     } else {
       window.rootViewController = LoginController()
     }
-    window.makeKeyAndVisible()
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+      window.makeKeyAndVisible()
+    }
     self.window = window
   }
   
