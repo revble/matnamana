@@ -30,9 +30,9 @@ final class KakaoLoginService {
       else {
         print("loginWithKakaoTalk() success.")
         //do something
-        _ = oauthToken
-        self.firebaseLoginWithKakao(oauthToken: oauthToken?.idToken)
-        self.authResultSubject.onNext(true)
+        guard let oauthToken = oauthToken else { return }
+        self.firebaseLoginWithKakao(oauthToken: oauthToken.idToken)
+        
       }
     }
   }
@@ -47,9 +47,8 @@ final class KakaoLoginService {
       else {
         print("loginWithKakaoAccount() success.")
         //do something
-        _ = oauthToken
-        self.firebaseLoginWithKakao(oauthToken: oauthToken?.idToken)
-        self.authResultSubject.onNext(true)
+        guard let oauthToken = oauthToken else { return }
+        self.firebaseLoginWithKakao(oauthToken: oauthToken.idToken)
       }
     }
   }
@@ -100,9 +99,10 @@ final class KakaoLoginService {
     Auth.auth().signIn(with: credential) { (authResult, error) in
       if let error = error {
         print("Firebase Sign in with Kakao Failed: \(error.localizedDescription)")
+        self.authResultSubject.onNext(false)
       } else {
         print("Firebase Sign in with Kakao Success")
-        // 로그인 성공 후 처리
+        self.authResultSubject.onNext(true)
       }
     }
   }
