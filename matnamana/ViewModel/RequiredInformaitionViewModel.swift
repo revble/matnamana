@@ -55,7 +55,10 @@ final class RequiredInfoViewModel {
             phoneNumber: "",
             shortDescription: "",
             profileImage: "",
-            nickName: nickName
+            nickName: nickName,
+            birth: "",
+            university: "",
+            companyName: ""
         ),
         preset: [],
         friendList: [],

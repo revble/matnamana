@@ -13,8 +13,6 @@ import FirebaseAuth
 import RxSwift
 import RxCocoa
 
-
-
 final class LoginViewModel: ViewModelType {
   
   struct Input {

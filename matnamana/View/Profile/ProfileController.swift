@@ -29,14 +29,15 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
   override func loadView() {
     self.view = profileView
   }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     
     view.backgroundColor = .white
     setupNavigationBar()
     bindViewModel()
-    
+    //bindViewModel()
+
     profileView.tableView.dataSource = self
     profileView.tableView.delegate = self
   }
@@ -102,14 +103,11 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
           profile.phoneNumber,
           profile.email,
           profile.location,
-          "",
+          profile.birth,
           profile.career,
-          "",
+          profile.companyName,
           profile.education,
-          ""
-          //생년월일
-          //회사명
-          //대학교ㄷ
+          profile.university
         ]
         self.profileView.tableView.reloadData()
       })

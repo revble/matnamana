@@ -21,7 +21,7 @@ final class FriendListViewModel: ViewModelType {
   }
   
   private let disposeBag = DisposeBag()
-  
+
   private func fetchFriendList() -> Observable<[User.Friend]> {
     guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty()}
     return Observable.create { observer in
