@@ -48,6 +48,8 @@ final class LoginViewModel: ViewModelType {
         
         if let document = document, document.exists {
           print("가입된 사용자")
+          UserDefaults.standard.set(true, forKey: "isLoggedIn")
+          UserDefaults.standard.set(user.uid, forKey: "loggedInUserId")
           observer.onNext(true)
         } else {
           print("가입되지 않은 사용자")
