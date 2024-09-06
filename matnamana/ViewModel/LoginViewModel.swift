@@ -16,7 +16,7 @@ import RxCocoa
 
 
 final class LoginViewModel {
-
+   
   struct Input {
     let loginButtonTap: Observable<Void>
   }
