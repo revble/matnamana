@@ -15,6 +15,7 @@ import Then
 
 final class ReputaionController: BaseViewController {
   private var reputaionView = ReputationView(frame: .zero)
+  private let viewModel = ReputaionViewModel()
   
   override func setupView() {
     super.setupView()
@@ -32,6 +33,7 @@ final class ReputaionController: BaseViewController {
   override func bind() {
     super.bind()
     bindCollectionView()
+    refreshingGesture()
   }
   
   private func moveToSearchButton() -> UIBarButtonItem {
@@ -47,16 +49,19 @@ final class ReputaionController: BaseViewController {
     return UIBarButtonItem(customView: button)
   }
   
+  private func refreshingGesture() {
+    reputaionView.collecitonView.rx.contentOffset
+      .subscribe(onNext: { [weak self] contentOffset in
+        guard let self else { return }
+        let deafaultOffset = self.reputaionView.collecitonView.contentOffset.y
+        if deafaultOffset < -100 {
+          viewModel.fetchRequestedReputation()
+        }
+        print(deafaultOffset)
+      }).disposed(by: disposeBag)
+  }
+  
   private func bindCollectionView() {
-    let sections = Observable.just([
-      SectionModel(model: Section.friendRequest.title,
-                   items: Array(repeating: Item(id: 0, title: "Friend Request"), count: 5)),
-      SectionModel(model: Section.myRequests.title,
-                   items: Array(repeating: Item(id: 0, title: "My Requests"), count: 5)),
-      SectionModel(model: Section.receivedRequests.title,
-                   items: Array(repeating: Item(id: 0, title: "Received Requests"), count: 5))
-    ])
-    
     let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, Item>>(
       configureCell: { dataSource, collecitonView, indexPath, item in
         switch indexPath.section {
@@ -80,6 +85,7 @@ final class ReputaionController: BaseViewController {
             for: indexPath) as? ReceivedRequestCell else {
             return UICollectionViewCell()
           }
+          cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
           return cell
         default:
           return UICollectionViewCell()
@@ -100,8 +106,21 @@ final class ReputaionController: BaseViewController {
         return headerView
       }
     )
-    
-    sections
+    viewModel.reputationDataRelay
+      .observe(on: MainScheduler.instance)
+      .map { data -> [SectionModel<String, Item>] in
+        let receivedRequestItems = data.map { (profileImage, userNickName) in
+          Item(userNickName: userNickName, profileImageUrl: profileImage)
+        }
+        return [
+          SectionModel(model: Section.friendRequest.title,
+                       items: Array(repeating: Item(userNickName: "", profileImageUrl: ""), count: 5)),
+          SectionModel(model: Section.myRequests.title,
+                       items: Array(repeating: Item(userNickName: "", profileImageUrl: ""), count: 5)),
+          SectionModel(model: Section.receivedRequests.title,
+                       items: receivedRequestItems)
+        ]
+      }
       .bind(to: reputaionView.collecitonView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
   }

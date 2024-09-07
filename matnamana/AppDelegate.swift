@@ -9,7 +9,6 @@ import UIKit
 import CoreData
 
 import FirebaseCore
-import IQKeyboardManagerSwift
 import KakaoSDKCommon
 
 @main
@@ -25,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
       FirebaseApp.configure()
       
-      IQKeyboardManager.shared.enable = true
       
       return true
     }

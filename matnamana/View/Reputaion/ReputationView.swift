@@ -12,7 +12,6 @@ import SnapKit
 final class ReputationView: UIView {
   
   let searchFriend = UIButton(type: .system).then {
-    
     let image = UIImage(systemName: "magnifyingglass.circle")
     $0.setImage(image, for: .normal)
     $0.imageView?.contentMode = .scaleAspectFit
@@ -78,8 +77,8 @@ final class ReputationView: UIView {
     
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .continuous
-    section.interGroupSpacing = 10
-    section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+    section.interGroupSpacing = 20
+    section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
     
     let headerSize = NSCollectionLayoutSize(
       widthDimension: .fractionalWidth(1.0),
@@ -115,8 +114,8 @@ final class ReputationView: UIView {
     
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .groupPaging
-    section.interGroupSpacing = 40
-    section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40)
+    section.interGroupSpacing = 10
+    section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
     
     let headerSize = NSCollectionLayoutSize(
       widthDimension: .fractionalWidth(1.0),
@@ -139,7 +138,7 @@ final class ReputationView: UIView {
   
   private func setConstraints() {
     collecitonView.snp.makeConstraints {
-      $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(40)
+      $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(20)
       $0.centerX.equalToSuperview()
       $0.width.height.equalToSuperview()
     }

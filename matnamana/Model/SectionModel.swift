@@ -22,7 +22,12 @@ enum Section: Int, CaseIterable {
 }
 
 struct Item {
-  let id: Int
-  let title: String
+    let userNickName: String
+    let profileImageUrl: String
+
+    init(userNickName: String, profileImageUrl: String) {
+        self.userNickName = userNickName
+        self.profileImageUrl = profileImageUrl
+    }
 }
 
