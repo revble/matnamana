@@ -10,28 +10,28 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class myQuestionController: BaseViewController {
+final class TotalQuestionController: BaseViewController {
   
-  private var viewModel = MyQuestionViewModel()
-  private var myQuestionView = MyQuestionView(frame: .zero)
+  private var viewModel = TotalQuestionViewModel()
+  private var totalQuestionView = TotalQuestionView(frame: .zero)
   
   override func setupView() {
     super.setupView()
-    myQuestionView = MyQuestionView(frame: UIScreen.main.bounds)
-    self.view = myQuestionView
+    totalQuestionView = TotalQuestionView(frame: UIScreen.main.bounds)
+    self.view = totalQuestionView
   }
   
   override func setNavigation() {
     super.setNavigation()
-    self.title = "홈"
+    self.title = "전체 질문 리스트"
   }
   
   override func bind() {
-    let input = MyQuestionViewModel.Input(fetchQuestions: Observable.just(()))
+    let input = TotalQuestionViewModel.Input(fetchQuestions: Observable.just(()))
     let output = viewModel.transform(input: input)
     
     output.questionList
-      .drive(myQuestionView.questionList.rx
+      .drive(totalQuestionView.questionList.rx
         .items(cellIdentifier: QuestionListCell.identifier,
                cellType: QuestionListCell.self)) { row, question, cell in
         cell.configureCell(questionCell: question.contentDescription)

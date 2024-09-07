@@ -20,8 +20,6 @@ final class FriendListViewModel: ViewModelType {
     let friendList: Driver<[User.Friend]>
   }
   
-  private let disposeBag = DisposeBag()
-  
   private func fetchFriendList() -> Observable<[User.Friend]> {
     let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId")!
     return Observable.create { observer in

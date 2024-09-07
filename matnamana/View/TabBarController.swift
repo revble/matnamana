@@ -25,7 +25,7 @@ class TabBarController: UITabBarController {
     thirdVC.tabBarItem = UITabBarItem(title: "친구 목록",
                                       image: UIImage(systemName: "person.2.fill"), tag: 2)
     
-    let fourthVC = UINavigationController(rootViewController: myQuestionController())
+    let fourthVC = UINavigationController(rootViewController: MainQuestionViewController())
     fourthVC.tabBarItem = UITabBarItem(title: "나의 질문",
                                        image: UIImage(systemName: "list.bullet.rectangle.portrait.fill"),
                                        tag: 3)

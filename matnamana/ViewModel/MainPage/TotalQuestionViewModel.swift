@@ -1,5 +1,5 @@
 //
-//  MyQuestionViewModel.swift
+//  TotalQuestionViewModel.swift
 //  matnamana
 //
 //  Created by 김윤홍 on 9/5/24.
@@ -10,7 +10,7 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-final class MyQuestionViewModel: ViewModelType {
+final class TotalQuestionViewModel: ViewModelType {
   
   struct Input {
     let fetchQuestions: Observable<Void>
@@ -24,7 +24,7 @@ final class MyQuestionViewModel: ViewModelType {
   
   private func fetchQuestionList() -> Observable<[Question.Content]> {
     return Observable.create { observer in
-      FirebaseManager.shared.getQuestionList(documentId: "") { question, error in
+      FirebaseManager.shared.getQuestionList(documentId: "questionId_789") { question, error in
         if let error = error {
           observer.onError(error)
         } else if let question = question {

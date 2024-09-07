@@ -16,9 +16,10 @@ final class QuestionListCell: UITableViewCell {
     return String(describing: self)
   }
   
-  private let question = UILabel().then {
+  private let questionLabel = UILabel().then {
     $0.text = ""
     $0.numberOfLines = 0
+    $0.font = .boldSystemFont(ofSize: 15)
   }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,17 +33,17 @@ final class QuestionListCell: UITableViewCell {
   }
   
   private func configureUI() {
-    contentView.addSubview(question)
+    contentView.addSubview(questionLabel)
   }
   
   private func setConstraints() {
-    question.snp.makeConstraints {
+    questionLabel.snp.makeConstraints {
       $0.center.equalToSuperview()
-      $0.edges.equalToSuperview()
+      $0.leading.equalToSuperview().inset(20)
     }
   }
   
   func configureCell(questionCell: String) {
-    question.text = questionCell
+    questionLabel.text = questionCell
   }
 }

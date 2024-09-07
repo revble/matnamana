@@ -39,16 +39,23 @@
 		DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470EF2C885D8B009BF95E /* Protocol.swift */; };
 		DD9470F22C88640B009BF95E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		DD9470F42C886647009BF95E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		DD9470F62C898FD6009BF95E /* MyQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */; };
+		DD9470F62C898FD6009BF95E /* TotalQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F52C898FD6009BF95E /* TotalQuestionViewModel.swift */; };
 		DD9470F92C899058009BF95E /* QuestionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F72C899057009BF95E /* QuestionListCell.swift */; };
-		DD9470FA2C899058009BF95E /* MyQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F82C899057009BF95E /* MyQuestionView.swift */; };
+		DD9470FA2C899058009BF95E /* TotalQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F82C899057009BF95E /* TotalQuestionView.swift */; };
 		DD9470FC2C8A82D9009BF95E /* ReferenceCheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470FB2C8A82D9009BF95E /* ReferenceCheckController.swift */; };
 		DD9470FE2C8A834D009BF95E /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470FD2C8A834D009BF95E /* ReferenceView.swift */; };
 		DD9471002C8A89D6009BF95E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470FF2C8A89D6009BF95E /* BaseView.swift */; };
 		DD9471032C8A96D1009BF95E /* ReferenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */; };
+		DD9471052C8C4379009BF95E /* MainQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9471042C8C4379009BF95E /* MainQuestionController.swift */; };
+		DD9471072C8C4383009BF95E /* MainQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9471062C8C4383009BF95E /* MainQuestionView.swift */; };
+		DD9471092C8C482E009BF95E /* MainCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9471082C8C482E009BF95E /* MainCollectionCell.swift */; };
+		DD94710D2C8C49C3009BF95E /* MainQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD94710C2C8C49C3009BF95E /* MainQuestionViewModel.swift */; };
+		DD94710F2C8C5F50009BF95E /* TypeQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD94710E2C8C5F50009BF95E /* TypeQuestionController.swift */; };
+		DD9471112C8C5F7B009BF95E /* TypeQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9471102C8C5F7B009BF95E /* TypeQuestionView.swift */; };
+		DD9471132C8C8D48009BF95E /* TypeQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9471122C8C8D48009BF95E /* TypeQuestionViewModel.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
 		DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923B2C78552C005DB62F /* ProfileController.swift */; };
-		DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* MyQuestionController.swift */; };
+		DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* TotalQuestionController.swift */; };
 		DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923F2C78556C005DB62F /* FriendListController.swift */; };
 		DDCF92422C78557D005DB62F /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92412C78557D005DB62F /* LoginController.swift */; };
 		DDCF92462C785837005DB62F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92452C785837005DB62F /* SnapKit */; };
@@ -60,7 +67,6 @@
 		DDCF92C12C7C7F8E005DB62F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C02C7C7F8E005DB62F /* FirebaseFirestore */; };
 		DDCF92C32C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C22C7C7FA9005DB62F /* FirebaseFirestoreCombine-Community */; };
 		DDCF92C52C7C7FB3005DB62F /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DDCF92C42C7C7FB3005DB62F /* FirebaseAuthCombine-Community */; };
-		DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */; };
 		DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93202C7D8C6D005DB62F /* UserModel.swift */; };
 		DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */; };
 		DDCF93252C7DA8A0005DB62F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */; };
@@ -134,19 +140,25 @@
 		DA3A560D2C868BCC00459343 /* profileEditTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditTable.swift; sourceTree = "<group>"; };
 		DD9470ED2C882F68009BF95E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DD9470EF2C885D8B009BF95E /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
-		DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionViewModel.swift; sourceTree = "<group>"; };
+		DD9470F52C898FD6009BF95E /* TotalQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalQuestionViewModel.swift; sourceTree = "<group>"; };
 		DD9470F72C899057009BF95E /* QuestionListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionListCell.swift; sourceTree = "<group>"; };
-		DD9470F82C899057009BF95E /* MyQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQuestionView.swift; sourceTree = "<group>"; };
+		DD9470F82C899057009BF95E /* TotalQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalQuestionView.swift; sourceTree = "<group>"; };
 		DD9470FB2C8A82D9009BF95E /* ReferenceCheckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceCheckController.swift; sourceTree = "<group>"; };
 		DD9470FD2C8A834D009BF95E /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
 		DD9470FF2C8A89D6009BF95E /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceViewModel.swift; sourceTree = "<group>"; };
+		DD9471042C8C4379009BF95E /* MainQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQuestionController.swift; sourceTree = "<group>"; };
+		DD9471062C8C4383009BF95E /* MainQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQuestionView.swift; sourceTree = "<group>"; };
+		DD9471082C8C482E009BF95E /* MainCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionCell.swift; sourceTree = "<group>"; };
+		DD94710C2C8C49C3009BF95E /* MainQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQuestionViewModel.swift; sourceTree = "<group>"; };
+		DD94710E2C8C5F50009BF95E /* TypeQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeQuestionController.swift; sourceTree = "<group>"; };
+		DD9471102C8C5F7B009BF95E /* TypeQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeQuestionView.swift; sourceTree = "<group>"; };
+		DD9471122C8C8D48009BF95E /* TypeQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeQuestionViewModel.swift; sourceTree = "<group>"; };
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		DDCF923B2C78552C005DB62F /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
-		DDCF923D2C78554B005DB62F /* MyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionController.swift; sourceTree = "<group>"; };
+		DDCF923D2C78554B005DB62F /* TotalQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalQuestionController.swift; sourceTree = "<group>"; };
 		DDCF923F2C78556C005DB62F /* FriendListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListController.swift; sourceTree = "<group>"; };
 		DDCF92412C78557D005DB62F /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
 		DDCF93202C7D8C6D005DB62F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		DDCF93242C7DA8A0005DB62F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "matnamana/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -269,6 +281,28 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		DD94710A2C8C490C009BF95E /* FriendList */ = {
+			isa = PBXGroup;
+			children = (
+				DDF2A02C2C846927001B1DB7 /* AddFriendViewModel.swift */,
+				DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */,
+				DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */,
+				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
+				DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */,
+			);
+			path = FriendList;
+			sourceTree = "<group>";
+		};
+		DD94710B2C8C4943009BF95E /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				DD9470F52C898FD6009BF95E /* TotalQuestionViewModel.swift */,
+				DD94710C2C8C49C3009BF95E /* MainQuestionViewModel.swift */,
+				DD9471122C8C8D48009BF95E /* TypeQuestionViewModel.swift */,
+			);
+			path = MainPage;
+			sourceTree = "<group>";
+		};
 		DDCF92472C78583D005DB62F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,16 +328,11 @@
 		DDCF92C92C7C8AAD005DB62F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DD94710B2C8C4943009BF95E /* MainPage */,
 				DD9470EF2C885D8B009BF95E /* Protocol.swift */,
-				DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */,
-				DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */,
-				DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */,
+				DD94710A2C8C490C009BF95E /* FriendList */,
 				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
-				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
-				DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */,
 				DA3A55F52C7F141800459343 /* Profile */,
-				DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */,
-				DDF2A02C2C846927001B1DB7 /* AddFriendViewModel.swift */,
 				4F83D3252C80DA360076AE2A /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
@@ -334,9 +363,14 @@
 		DDCF931A2C7D53FD005DB62F /* MyQuestion */ = {
 			isa = PBXGroup;
 			children = (
-				DD9470F82C899057009BF95E /* MyQuestionView.swift */,
+				DD9470F82C899057009BF95E /* TotalQuestionView.swift */,
 				DD9470F72C899057009BF95E /* QuestionListCell.swift */,
-				DDCF923D2C78554B005DB62F /* MyQuestionController.swift */,
+				DDCF923D2C78554B005DB62F /* TotalQuestionController.swift */,
+				DD9471042C8C4379009BF95E /* MainQuestionController.swift */,
+				DD9471062C8C4383009BF95E /* MainQuestionView.swift */,
+				DD9471082C8C482E009BF95E /* MainCollectionCell.swift */,
+				DD94710E2C8C5F50009BF95E /* TypeQuestionController.swift */,
+				DD9471102C8C5F7B009BF95E /* TypeQuestionView.swift */,
 			);
 			path = MyQuestion;
 			sourceTree = "<group>";
@@ -614,14 +648,17 @@
 				DDCF93362C7EEE33005DB62F /* FirebaseManager.swift in Sources */,
 				DA3A56062C85565B00459343 /* ProfileEditViewController.swift in Sources */,
 				DDCF93332C7EAF33005DB62F /* SearchView.swift in Sources */,
+				DD9471092C8C482E009BF95E /* MainCollectionCell.swift in Sources */,
 				4F83D3262C80DA360076AE2A /* LoginViewModel.swift in Sources */,
 				DDF2A01A2C8031EE001B1DB7 /* ProfileViewController.swift in Sources */,
 				DDCF932B2C7E0D3D005DB62F /* FriendListCell.swift in Sources */,
 				4F83D32C2C8554BA0076AE2A /* HomeView.swift in Sources */,
+				DD9471052C8C4379009BF95E /* MainQuestionController.swift in Sources */,
 				DDF2A01E2C8034A1001B1DB7 /* UIColor+Ex.swift in Sources */,
 				4F83D3372C8576770076AE2A /* SectionModel.swift in Sources */,
 				DDCF93312C7EAF22005DB62F /* SearchViewController.swift in Sources */,
 				4F83D31B2C7F14830076AE2A /* RequiredInformationController.swift in Sources */,
+				DD9471072C8C4383009BF95E /* MainQuestionView.swift in Sources */,
 				4F83D32E2C8554C50076AE2A /* HomeController.swift in Sources */,
 				DD9471032C8A96D1009BF95E /* ReferenceViewModel.swift in Sources */,
 				DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */,
@@ -640,17 +677,18 @@
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
 				DD9471002C8A89D6009BF95E /* BaseView.swift in Sources */,
 				DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */,
+				DD94710D2C8C49C3009BF95E /* MainQuestionViewModel.swift in Sources */,
 				DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */,
-				DD9470F62C898FD6009BF95E /* MyQuestionViewModel.swift in Sources */,
+				DD9470F62C898FD6009BF95E /* TotalQuestionViewModel.swift in Sources */,
 				4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */,
 				DD9470F22C88640B009BF95E /* (null) in Sources */,
-				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
-				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
+				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
-				DD9470FA2C899058009BF95E /* MyQuestionView.swift in Sources */,
-				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
-				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
+				DD9470FA2C899058009BF95E /* TotalQuestionView.swift in Sources */,
+				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
+				DD94710F2C8C5F50009BF95E /* TypeQuestionController.swift in Sources */,
 				DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */,
+				DD9471112C8C5F7B009BF95E /* TypeQuestionView.swift in Sources */,
 				DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */,
 				DD9470FE2C8A834D009BF95E /* ReferenceView.swift in Sources */,
 				DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */,
@@ -670,6 +708,7 @@
 				DDF2A0242C80AB4B001B1DB7 /* SearchViewModel.swift in Sources */,
 				DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */,
 				DDF2A01C2C8031F8001B1DB7 /* ProfileView.swift in Sources */,
+				DD9471132C8C8D48009BF95E /* TypeQuestionViewModel.swift in Sources */,
 				DDCF93272C7DD3AA005DB62F /* MainPageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

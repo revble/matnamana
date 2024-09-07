@@ -26,9 +26,9 @@ final class ReferenceCheckController: BaseViewController {
   }
   
   var request = ReputationRequest(
-    requestId: "123",
-    requesterId: "user1",
-    targetId: "user2",
+    requestId: "jungsook",
+    requesterId: "jungsook",
+    targetId: "hJW3bh865LNXUxxngowHp4O3c223",
     questionList: [Question.Content].ExtendedType(),
     status: .pending,
     selectedFriends: []
@@ -64,9 +64,9 @@ final class ReferenceCheckController: BaseViewController {
         
         guard let requestId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
         request = ReputationRequest(
-          requestId: "12345",
-          requesterId: requestId,
-          targetId: self.targetID,
+          requestId: "hJW3bh865LNXUxxngowHp4O3c223",
+          requesterId: "hJW3bh865LNXUxxngowHp4O3c223",
+          targetId: "jungsook",
           questionList: question,
           status: .pending,
           selectedFriends: []

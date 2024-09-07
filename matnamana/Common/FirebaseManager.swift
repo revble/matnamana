@@ -134,7 +134,7 @@ class FirebaseManager {
   }
   
   func getQuestionList(documentId: String, completion: @escaping (Question?, Error?) -> Void) {
-    db.collection("questions").document("questionId_789").getDocument { (documentSnapshot, error) in
+    db.collection("questions").document(documentId).getDocument { (documentSnapshot, error) in
       guard let document = documentSnapshot, document.exists, error == nil else {
         completion(nil, error)
         return

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MyQuestionView: UIView {
+final class TotalQuestionView: UIView {
   
   let questionList = UITableView(frame: .zero, style: .insetGrouped).then {
     $0.register(QuestionListCell.self, forCellReuseIdentifier: QuestionListCell.identifier)

@@ -28,7 +28,7 @@ extension User {
   
   struct PresetQuestion: Codable {
     let presetTitle: String
-    let indice: [Int] // 사용자가 미리 정의된 목록에서 선택한 질문의 인덱스
+    let indice: [Int]
   }
   
   struct Friend: Codable {
