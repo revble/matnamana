@@ -11,12 +11,11 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class ProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class ProfileController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
   // MARK: - UI Components
 
   private var profileView = ProfileUIView()  // UIView 클래스 인스턴스
-  private let disposeBag = DisposeBag()
   private let viewModel = ProfileViewModel()
   //  private let infoTableView = ProfileTableViewController()
   // MARK: - Data
@@ -34,28 +33,27 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
     super.viewWillAppear(true)
 
     view.backgroundColor = .white
-    setupNavigationBar()
     bindViewModel()
 
     profileView.tableView.dataSource = self
     profileView.tableView.delegate = self
   }
 
-  // MARK: - Setup Methods
+  override func setNavigation() {
+    super.setNavigation()
 
-  private func setupNavigationBar() {
     let editButton = UIBarButtonItem(title: "수정", style: .plain, target: nil, action: nil)
     navigationItem.rightBarButtonItem = editButton
 
-    // "저장" 버튼 탭 이벤트 처리 (RxSwift 사용)
     editButton.rx.tap
+      .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] in
-        self?.navigateToProfileEditViewController()
+        guard let self = self else { return }
+        self.navigationController?.pushViewController(ProfileEditViewController(), animated: true)
       })
       .disposed(by: disposeBag)
   }
 
-  // MARK: - UITableViewDataSource
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return userInfoKeys.count
@@ -119,12 +117,7 @@ class ProfileController: UIViewController, UITableViewDataSource, UITableViewDel
       .disposed(by: disposeBag)
   }
 
-  // MARK: - 네비게이션 메서드 추가
 
-  private func navigateToProfileEditViewController() {
-    let profileEditViewController = ProfileEditViewController()  // ProfileEditViewController의 인스턴스 생성
-    self.navigationController?.pushViewController(profileEditViewController, animated: true)
-  }
 }
 
 // MARK: - UIImageView Extension

@@ -31,7 +31,7 @@ class FirebaseManager {
     if let requestData = request.asDictionary {
       db.collection("reputationRequests").document(request.requestId).setData(requestData) { error in
         if let error = error {
-          print("reputation request추가 시류ㅐ: \(error)")
+          print("reputation request추가 시류ㅐ: \(error)")//???
         }
       }
     } else {
