@@ -43,7 +43,7 @@ class BaseViewController: UIViewController {
 
   }
 
-  func setupKeyboardHandling() {
+  private func setupKeyboardHandling() {
     RxKeyboard.instance.visibleHeight
       .drive(onNext: { [weak self] keyboardHeight in
         guard let self = self else { return }

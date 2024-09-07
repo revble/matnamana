@@ -271,7 +271,7 @@ class ProfileUIView: UIView {
 
     private func setConstraints() {
         profilePage.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(8)
+            $0.top.equalTo(safeAreaLayoutGuide).offset(1)
             $0.leading.equalToSuperview().offset(24)
         }
 
@@ -300,7 +300,7 @@ class ProfileUIView: UIView {
         tableView.snp.makeConstraints {
             $0.top.equalTo(introduceLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
 }
