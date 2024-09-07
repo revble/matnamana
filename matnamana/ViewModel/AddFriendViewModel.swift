@@ -10,7 +10,7 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-final class addFriendViewModel: ViewModelType {
+final class AddFriendViewModel: ViewModelType {
   
   struct Input {
     let addFriend: Observable<[String]>

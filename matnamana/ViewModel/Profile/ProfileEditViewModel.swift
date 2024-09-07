@@ -63,7 +63,7 @@ class ProfileEditViewModel {
   
   private func saveUserData(user: User) -> Observable<Bool> {
     return Observable.create { observer in
-      FirebaseManager.shared.addUser(user: user)
+//      FirebaseManager.shared.addUser(user: user)
       observer.onNext(true)
       observer.onCompleted()
       return Disposables.create()

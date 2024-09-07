@@ -56,7 +56,7 @@ final class ProfileViewController: BaseViewController {
     
     profileView.requestReference.rx.tap
       .subscribe(onNext: {
-        print("레퍼런스 체크")
+        self.navigationController?.pushViewController(ReferenceCheckController(targetId: self.userInfo), animated: true)
       }).disposed(by: disposeBag)
   }
 }

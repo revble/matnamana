@@ -153,7 +153,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       shortDescription: shortDescription,
       profileImage: profileImageUrl,
       nickName: nickname), preset: [], friendList: [], userId: "user_id_9812")
-    FirebaseManager.shared.addUser(user: info1)
+//    FirebaseManager.shared.addUser(user: info1)
     //생년월일
     //회사명
     //대학교

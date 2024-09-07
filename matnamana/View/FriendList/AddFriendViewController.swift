@@ -14,7 +14,7 @@ final class AddFriendViewController: BaseViewController {
   
   private var addFriendView = AddFriendView(frame: .zero)
   private var friendType = ""
-  private let viewModel = addFriendViewModel()
+  private let viewModel = AddFriendViewModel()
   var userInfo: String
   var userImage: String
   
@@ -57,9 +57,7 @@ final class AddFriendViewController: BaseViewController {
     addFriendView.sendButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        let friendId = userInfo
-        let friendType = self.friendType
-        let input = addFriendViewModel.Input(addFriend: .just([friendId, self.friendType, userImage]))
+        let input = AddFriendViewModel.Input(addFriend: .just([userInfo, self.friendType, userImage]))
         let output = self.viewModel.transform(input: input)
         
         output.addFriendResult

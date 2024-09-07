@@ -42,6 +42,10 @@
 		DD9470F62C898FD6009BF95E /* MyQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */; };
 		DD9470F92C899058009BF95E /* QuestionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F72C899057009BF95E /* QuestionListCell.swift */; };
 		DD9470FA2C899058009BF95E /* MyQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F82C899057009BF95E /* MyQuestionView.swift */; };
+		DD9470FC2C8A82D9009BF95E /* ReferenceCheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470FB2C8A82D9009BF95E /* ReferenceCheckController.swift */; };
+		DD9470FE2C8A834D009BF95E /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470FD2C8A834D009BF95E /* ReferenceView.swift */; };
+		DD9471002C8A89D6009BF95E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470FF2C8A89D6009BF95E /* BaseView.swift */; };
+		DD9471032C8A96D1009BF95E /* ReferenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */; };
 		DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF92392C7854E8005DB62F /* MainPageController.swift */; };
 		DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923B2C78552C005DB62F /* ProfileController.swift */; };
 		DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF923D2C78554B005DB62F /* MyQuestionController.swift */; };
@@ -83,7 +87,7 @@
 		DDF2A0272C842978001B1DB7 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */; };
 		DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */; };
 		DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */; };
-		DDF2A02D2C846927001B1DB7 /* addFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */; };
+		DDF2A02D2C846927001B1DB7 /* AddFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A02C2C846927001B1DB7 /* AddFriendViewModel.swift */; };
 		DDF2A0302C84B35D001B1DB7 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DDF2A02F2C84B35D001B1DB7 /* Then */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +137,10 @@
 		DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionViewModel.swift; sourceTree = "<group>"; };
 		DD9470F72C899057009BF95E /* QuestionListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionListCell.swift; sourceTree = "<group>"; };
 		DD9470F82C899057009BF95E /* MyQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQuestionView.swift; sourceTree = "<group>"; };
+		DD9470FB2C8A82D9009BF95E /* ReferenceCheckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceCheckController.swift; sourceTree = "<group>"; };
+		DD9470FD2C8A834D009BF95E /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
+		DD9470FF2C8A89D6009BF95E /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceViewModel.swift; sourceTree = "<group>"; };
 		DDCF92392C7854E8005DB62F /* MainPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		DDCF923B2C78552C005DB62F /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		DDCF923D2C78554B005DB62F /* MyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionController.swift; sourceTree = "<group>"; };
@@ -169,7 +177,7 @@
 		DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendView.swift; sourceTree = "<group>"; };
-		DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addFriendViewModel.swift; sourceTree = "<group>"; };
+		DDF2A02C2C846927001B1DB7 /* AddFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +260,15 @@
 			path = matnamana/ViewModel/Profile;
 			sourceTree = SOURCE_ROOT;
 		};
+		DD9471012C8A89E2009BF95E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DD9470FF2C8A89D6009BF95E /* BaseView.swift */,
+				DD9470ED2C882F68009BF95E /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		DDCF92472C78583D005DB62F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,7 +279,7 @@
 		DDCF92C82C7C8A6B005DB62F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DD9470ED2C882F68009BF95E /* BaseViewController.swift */,
+				DD9471012C8A89E2009BF95E /* Base */,
 				4F83D32A2C8552CD0076AE2A /* HomePage */,
 				DDE043582C773E3500DA099A /* TabBarController.swift */,
 				DDCF93182C7D533D005DB62F /* MainPage */,
@@ -278,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				DD9470EF2C885D8B009BF95E /* Protocol.swift */,
+				DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */,
 				DD9470F52C898FD6009BF95E /* MyQuestionViewModel.swift */,
 				DDCF92CA2C7C8AC1005DB62F /* MainPageViewModel.swift */,
 				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
@@ -285,7 +303,7 @@
 				DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */,
 				DA3A55F52C7F141800459343 /* Profile */,
 				DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */,
-				DDF2A02C2C846927001B1DB7 /* addFriendViewModel.swift */,
+				DDF2A02C2C846927001B1DB7 /* AddFriendViewModel.swift */,
 				4F83D3252C80DA360076AE2A /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
@@ -331,10 +349,12 @@
 				DDCF932A2C7E0D3D005DB62F /* FriendListCell.swift */,
 				DDCF93302C7EAF22005DB62F /* SearchViewController.swift */,
 				DDCF93322C7EAF33005DB62F /* SearchView.swift */,
-				DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */,
 				DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */,
 				DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */,
+				DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */,
 				DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */,
+				DD9470FB2C8A82D9009BF95E /* ReferenceCheckController.swift */,
+				DD9470FD2C8A834D009BF95E /* ReferenceView.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -603,12 +623,13 @@
 				DDCF93312C7EAF22005DB62F /* SearchViewController.swift in Sources */,
 				4F83D31B2C7F14830076AE2A /* RequiredInformationController.swift in Sources */,
 				4F83D32E2C8554C50076AE2A /* HomeController.swift in Sources */,
+				DD9471032C8A96D1009BF95E /* ReferenceViewModel.swift in Sources */,
 				DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */,
 				DDE043592C773E3500DA099A /* TabBarController.swift in Sources */,
 				4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */,
 				DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */,
 				DA3A55FF2C81C1EE00459343 /* ProfileEditView.swift in Sources */,
-				DDF2A02D2C846927001B1DB7 /* addFriendViewModel.swift in Sources */,
+				DDF2A02D2C846927001B1DB7 /* AddFriendViewModel.swift in Sources */,
 				DDF2A0272C842978001B1DB7 /* UserProfileViewModel.swift in Sources */,
 				4F83D3302C8556570076AE2A /* FriendReputationRequestCell.swift in Sources */,
 				DD9470F92C899058009BF95E /* QuestionListCell.swift in Sources */,
@@ -617,6 +638,7 @@
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
 				4F83D3412C85A4680076AE2A /* KakaoLoginService.swift in Sources */,
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
+				DD9471002C8A89D6009BF95E /* BaseView.swift in Sources */,
 				DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */,
 				DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */,
 				DD9470F62C898FD6009BF95E /* MyQuestionViewModel.swift in Sources */,
@@ -630,12 +652,14 @@
 				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
 				DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */,
 				DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */,
+				DD9470FE2C8A834D009BF95E /* ReferenceView.swift in Sources */,
 				DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */,
 				DA3A56012C84B95100459343 /* ProfileEditViewModel.swift in Sources */,
 				DDCF92402C78556C005DB62F /* FriendListController.swift in Sources */,
 				DD9470F42C886647009BF95E /* (null) in Sources */,
+				DD9470FC2C8A82D9009BF95E /* ReferenceCheckController.swift in Sources */,
 				DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */,
 				DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */,
 				DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */,
