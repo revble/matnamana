@@ -89,7 +89,7 @@ class ProfileEditView: UIView {
   
   private func setConstraints() {
     profilePage.snp.makeConstraints {
-      $0.top.equalTo(safeAreaLayoutGuide).offset(1)
+      $0.top.equalToSuperview().offset(100)
       $0.leading.equalToSuperview().offset(24)
     }
     
