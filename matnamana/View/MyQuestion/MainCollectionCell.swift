@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 class MainCollectionCell: UICollectionViewCell {
-  static let identifier = "CustomCell"
+  static let identifier = "mainCollectionCell"
   
   let titleLabel = UILabel().then {
     $0.textColor = .black

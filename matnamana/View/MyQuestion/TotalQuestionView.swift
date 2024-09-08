@@ -12,7 +12,7 @@ import Then
 
 final class TotalQuestionView: UIView {
   
-  let questionList = UITableView(frame: .zero, style: .insetGrouped).then {
+  let questionList = UITableView().then {
     $0.register(QuestionListCell.self, forCellReuseIdentifier: QuestionListCell.identifier)
   }
   

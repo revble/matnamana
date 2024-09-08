@@ -38,6 +38,7 @@ final class ReferenceView: BaseView {
   }
   
   override func configureUI() {
+    super.configureUI()
     [
       titleLabel,
       questionStackView,
@@ -48,6 +49,7 @@ final class ReferenceView: BaseView {
   }
   
   override func setConstraints() {
+    super.setConstraints()
     titleLabel.snp.makeConstraints {
       $0.top.equalTo(self.safeAreaLayoutGuide)
       $0.centerX.equalToSuperview()

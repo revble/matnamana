@@ -21,8 +21,6 @@ final class UserProfileViewModel: ViewModelType {
     let userInfo: Driver<User.Info>
   }
   
-  private let disposeBag = DisposeBag()
-  
   func transform(input: Input) -> Output {
     let userInfo = input.fetchUser
       .flatMap { _ in

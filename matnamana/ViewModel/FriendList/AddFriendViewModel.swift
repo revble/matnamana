@@ -20,8 +20,6 @@ final class AddFriendViewModel: ViewModelType {
     let addFriendResult: Driver<Bool>
   }
   
-  private let disposeBag = DisposeBag()
-  
   func transform(input: Input) -> Output {
     let addFriendResult = input.addFriend
       .flatMap { [weak self] friend -> Observable<Bool> in

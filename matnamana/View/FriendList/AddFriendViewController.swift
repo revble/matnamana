@@ -29,39 +29,46 @@ final class AddFriendViewController: BaseViewController {
   }
   
   override func setupView() {
+    super.setupView()
     addFriendView = AddFriendView(frame: UIScreen.main.bounds)
     self.view = addFriendView
   }
   
   override func bind() {
+    super.bind()
     addFriendView.closeButton.rx.tap
-      .subscribe(onNext: {
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
         self.dismiss(animated: true, completion: nil)
       }).disposed(by: disposeBag)
     
     addFriendView.familyButton.rx.tap
-      .subscribe(onNext: {
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
         self.friendType = "family"
       }).disposed(by: disposeBag)
     
     addFriendView.friendButton.rx.tap
-      .subscribe(onNext: {
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
         self.friendType = "friend"
       }).disposed(by: disposeBag)
     
     addFriendView.colleagueButton.rx.tap
-      .subscribe(onNext: {
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
         self.friendType = "colleague"
       }).disposed(by: disposeBag)
     
     addFriendView.sendButton.rx.tap
       .subscribe(onNext: { [weak self] in
-        guard let self = self else { return }
+        guard let self else { return }
         let input = AddFriendViewModel.Input(addFriend: .just([userInfo, self.friendType, userImage]))
         let output = self.viewModel.transform(input: input)
         
         output.addFriendResult
-          .drive(onNext: { success in
+          .drive(onNext: { [weak self] success in
+            guard let self else { return }
             if success {
               print("성공")
             } else {

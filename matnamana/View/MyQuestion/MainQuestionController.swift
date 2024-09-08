@@ -35,7 +35,7 @@ class MainQuestionViewController: BaseViewController {
     
     output.moveTotalList
       .drive(onNext: { [weak self] in
-        guard let self = self else { return }
+        guard let self else { return }
         self.navigationController?.pushViewController(TotalQuestionController(), animated: true)
       }).disposed(by: disposeBag)
     
@@ -51,7 +51,7 @@ class MainQuestionViewController: BaseViewController {
     mainQuestionView.questionCollection.rx.itemSelected
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] indexPath in
-        guard let self = self else { return }
+        guard let self else { return }
         if let cell = self.mainQuestionView.questionCollection.cellForItem(at: indexPath) as? MainCollectionCell {
           let title = cell.titleLabel.text
           let documentId = DocumentModel.translateEnglish(cell.titleLabel.text ?? "")

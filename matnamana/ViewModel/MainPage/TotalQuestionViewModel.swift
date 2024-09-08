@@ -20,8 +20,6 @@ final class TotalQuestionViewModel: ViewModelType {
     let questionList: Driver<[Question.Content]>
   }
   
-  private let disposeBag = DisposeBag()
-  
   private func fetchQuestionList() -> Observable<[Question.Content]> {
     return Observable.create { observer in
       FirebaseManager.shared.getQuestionList(documentId: "questionId_789") { question, error in

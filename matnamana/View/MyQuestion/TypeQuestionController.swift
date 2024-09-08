@@ -33,9 +33,11 @@ final class TypeQuestionController: BaseViewController {
   }
   
   override func bind() {
+    super.bind()
     let input = TypeQuestionViewModel.Input(fetchQuestions: Observable.just(()))
     let output = viewModel.transform(input: input)
     typeQuestionView.questionLabel.text = titleLabel
+    
     output.questionList
       .drive(typeQuestionView.questionTable.rx
         .items(cellIdentifier: QuestionListCell.identifier,

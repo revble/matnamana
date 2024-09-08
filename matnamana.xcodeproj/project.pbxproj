@@ -74,8 +74,6 @@
 		DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93282C7E09ED005DB62F /* FriendListView.swift */; };
 		DDCF932B2C7E0D3D005DB62F /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF932A2C7E0D3D005DB62F /* FriendListCell.swift */; };
 		DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */; };
-		DDCF93312C7EAF22005DB62F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93302C7EAF22005DB62F /* SearchViewController.swift */; };
-		DDCF93332C7EAF33005DB62F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93322C7EAF33005DB62F /* SearchView.swift */; };
 		DDCF93362C7EEE33005DB62F /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF93352C7EEE33005DB62F /* FirebaseManager.swift */; };
 		DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043542C773E3500DA099A /* AppDelegate.swift */; };
 		DDE043592C773E3500DA099A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043582C773E3500DA099A /* TabBarController.swift */; };
@@ -166,8 +164,6 @@
 		DDCF93282C7E09ED005DB62F /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
 		DDCF932A2C7E0D3D005DB62F /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
 		DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
-		DDCF93302C7EAF22005DB62F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		DDCF93322C7EAF33005DB62F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		DDCF93352C7EEE33005DB62F /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		DDE043512C773E3500DA099A /* matnamana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = matnamana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDE043542C773E3500DA099A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -303,6 +299,15 @@
 			path = MainPage;
 			sourceTree = "<group>";
 		};
+		DD9471142C8CDCE4009BF95E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */,
+				DDE043542C773E3500DA099A /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		DDCF92472C78583D005DB62F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,9 +318,9 @@
 		DDCF92C82C7C8A6B005DB62F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DDE043582C773E3500DA099A /* TabBarController.swift */,
 				DD9471012C8A89E2009BF95E /* Base */,
 				4F83D32A2C8552CD0076AE2A /* HomePage */,
-				DDE043582C773E3500DA099A /* TabBarController.swift */,
 				DDCF93182C7D533D005DB62F /* MainPage */,
 				DDCF93192C7D5356005DB62F /* Profile */,
 				DDCF931A2C7D53FD005DB62F /* MyQuestion */,
@@ -328,8 +333,8 @@
 		DDCF92C92C7C8AAD005DB62F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				DD94710B2C8C4943009BF95E /* MainPage */,
 				DD9470EF2C885D8B009BF95E /* Protocol.swift */,
+				DD94710B2C8C4943009BF95E /* MainPage */,
 				DD94710A2C8C490C009BF95E /* FriendList */,
 				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
 				DA3A55F52C7F141800459343 /* Profile */,
@@ -364,8 +369,8 @@
 			isa = PBXGroup;
 			children = (
 				DD9470F82C899057009BF95E /* TotalQuestionView.swift */,
-				DD9470F72C899057009BF95E /* QuestionListCell.swift */,
 				DDCF923D2C78554B005DB62F /* TotalQuestionController.swift */,
+				DD9470F72C899057009BF95E /* QuestionListCell.swift */,
 				DD9471042C8C4379009BF95E /* MainQuestionController.swift */,
 				DD9471062C8C4383009BF95E /* MainQuestionView.swift */,
 				DD9471082C8C482E009BF95E /* MainCollectionCell.swift */,
@@ -381,8 +386,6 @@
 				DDCF923F2C78556C005DB62F /* FriendListController.swift */,
 				DDCF93282C7E09ED005DB62F /* FriendListView.swift */,
 				DDCF932A2C7E0D3D005DB62F /* FriendListCell.swift */,
-				DDCF93302C7EAF22005DB62F /* SearchViewController.swift */,
-				DDCF93322C7EAF33005DB62F /* SearchView.swift */,
 				DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */,
 				DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */,
 				DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */,
@@ -450,11 +453,10 @@
 		DDE043532C773E3500DA099A /* matnamana */ = {
 			isa = PBXGroup;
 			children = (
-				4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */,
-				DDCF93342C7EEE16005DB62F /* Common */,
 				4FEB36962C7F05BB0066998E /* matnamana.entitlements */,
+				DD9471142C8CDCE4009BF95E /* App */,
+				DDCF93342C7EEE16005DB62F /* Common */,
 				DDCF931F2C7D8C20005DB62F /* Model */,
-				DDE043542C773E3500DA099A /* AppDelegate.swift */,
 				DDCF92C92C7C8AAD005DB62F /* ViewModel */,
 				DDCF92C82C7C8A6B005DB62F /* View */,
 				4FEB36992C7F07BE0066998E /* Service */,
@@ -647,7 +649,6 @@
 				4F63D6E12C870C7800B0F65C /* SceneDelegate.swift in Sources */,
 				DDCF93362C7EEE33005DB62F /* FirebaseManager.swift in Sources */,
 				DA3A56062C85565B00459343 /* ProfileEditViewController.swift in Sources */,
-				DDCF93332C7EAF33005DB62F /* SearchView.swift in Sources */,
 				DD9471092C8C482E009BF95E /* MainCollectionCell.swift in Sources */,
 				4F83D3262C80DA360076AE2A /* LoginViewModel.swift in Sources */,
 				DDF2A01A2C8031EE001B1DB7 /* ProfileViewController.swift in Sources */,
@@ -656,7 +657,6 @@
 				DD9471052C8C4379009BF95E /* MainQuestionController.swift in Sources */,
 				DDF2A01E2C8034A1001B1DB7 /* UIColor+Ex.swift in Sources */,
 				4F83D3372C8576770076AE2A /* SectionModel.swift in Sources */,
-				DDCF93312C7EAF22005DB62F /* SearchViewController.swift in Sources */,
 				4F83D31B2C7F14830076AE2A /* RequiredInformationController.swift in Sources */,
 				DD9471072C8C4383009BF95E /* MainQuestionView.swift in Sources */,
 				4F83D32E2C8554C50076AE2A /* HomeController.swift in Sources */,

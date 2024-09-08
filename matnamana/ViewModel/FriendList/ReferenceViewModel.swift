@@ -22,8 +22,6 @@ final class ReferenceViewModel: ViewModelType {
 
   }
   
-  private let disposeBag = DisposeBag()
-  
   private func fetchQuestionList() -> Observable<[Question.Content]> {
     return Observable.create { observer in
       FirebaseManager.shared.getQuestionList(documentId: "") { question, error in

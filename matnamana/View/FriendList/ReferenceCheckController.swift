@@ -26,10 +26,10 @@ final class ReferenceCheckController: BaseViewController {
   }
   
   var request = ReputationRequest(
-    requestId: "jungsook",
-    requesterId: "jungsook",
-    targetId: "hJW3bh865LNXUxxngowHp4O3c223",
-    questionList: [Question.Content].ExtendedType(),
+    requestId: "",
+    requesterId: "",
+    targetId: "",
+    questionList: [Question.Content](),
     status: .pending,
     selectedFriends: []
   )
@@ -41,21 +41,24 @@ final class ReferenceCheckController: BaseViewController {
   }
   
   override func bind() {
-    let input = ReferenceViewModel.Input(fetchQuestions: Observable.just(()), 
+    super.bind()
+    let input = ReferenceViewModel.Input(fetchQuestions: Observable.just(()),
                                          buttonInput: referenceView.sendButton.rx.tap)
     let output = viewModel.transform(input: input)
     
     referenceView.sendButton.rx.tap
       .subscribe({ [weak self] _ in
-        guard let self = self else { return }
+        guard let self else { return }
         
-        FirebaseManager.shared.addData(to: .reputationRequest, data: request, documentId: request.requestId)
-        
+        FirebaseManager.shared.addData(to: .reputationRequest,
+                                       data: request,
+                                       documentId: request.requestId
+        )
       }).disposed(by: disposeBag)
     
     output.questionList
       .drive(onNext: { [weak self] question in
-        guard let self = self else { return }
+        guard let self else { return }
         for (index, content) in question.enumerated() {
           if index < self.referenceView.questions.count {
             self.referenceView.questions[index].text = content.contentDescription
@@ -64,9 +67,9 @@ final class ReferenceCheckController: BaseViewController {
         
         guard let requestId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
         request = ReputationRequest(
-          requestId: "hJW3bh865LNXUxxngowHp4O3c223",
-          requesterId: "hJW3bh865LNXUxxngowHp4O3c223",
-          targetId: "jungsook",
+          requestId: requestId,
+          requesterId: requestId,
+          targetId: targetID,
           questionList: question,
           status: .pending,
           selectedFriends: []
