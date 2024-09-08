@@ -67,7 +67,7 @@ final class ProfileView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func configure() {
+  private func configure() {
     [
       profileImage,
       verticalStackView,
@@ -85,6 +85,7 @@ final class ProfileView: UIView {
     ].forEach { horizontalStackView.addArrangedSubview($0) }
 
   }
+  
   func configureUI(imageURL: String, userName: String, nickName: String) {
     self.userName.text = userName
     self.nickName.text = nickName

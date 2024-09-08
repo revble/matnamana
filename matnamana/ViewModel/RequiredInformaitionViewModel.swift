@@ -39,8 +39,6 @@ final class RequiredInfoViewModel {
   func saveLoginState(userId: String) {
     UserDefaults.standard.set(true, forKey: "isLoggedIn")
     UserDefaults.standard.set(userId, forKey: "loggedInUserId")
-    print(UserDefaults.standard.bool(forKey: "isLoggedIn"))
-    print(UserDefaults.standard.string(forKey: "loggedInUserId"))
   }
 
   func makeUserInformation(name: String, nickName: String, completion: @escaping (User) -> Void ) {
@@ -64,7 +62,7 @@ final class RequiredInfoViewModel {
       friendList: [],
       userId: appleUser.uid
     )
-    FirebaseManager.shared.addUser(user: user)
+//    FirebaseManager.shared.addUser(user: user)
     completion(user)
   }
 }

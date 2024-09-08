@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       KakaoSDK.initSDK(appKey: "a819a59d9cb83cddc3d7d806754f2a1e")
 
       FirebaseApp.configure()
+      
+      
       return true
     }
   

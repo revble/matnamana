@@ -68,10 +68,7 @@ class ProfileEditViewModel {
           phoneNumber: userInfo["휴대번호"] ?? "",
           shortDescription: shortDescription,
           profileImage: profileImageUrl,  // 실제 프로필 이미지 URL 사용
-          nickName: nickName,
-          birth: userInfo["생년월일"] ?? "",
-          university: userInfo["대학교"] ?? "",
-          companyName: userInfo["회사명"] ?? ""
+          nickName: nickName
         )
 
         guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else {
@@ -93,7 +90,7 @@ class ProfileEditViewModel {
   // Firebase에 사용자 데이터를 저장하는 메서드
   private func saveUserData(user: User) -> Observable<Bool> {
     return Observable.create { observer in
-      FirebaseManager.shared.addUser(user: user)
+//      FirebaseManager.shared.addUser(user: user)
       observer.onNext(true)
       observer.onCompleted()
       return Disposables.create()

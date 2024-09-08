@@ -89,6 +89,6 @@ final class ProfileViewModel: ProfileViewModelType {
 
 extension User.Info {
   static var empty: User.Info {
-    return User.Info(career: "", education: "", email: "", location: "", name: "", phoneNumber: "", shortDescription: "", profileImage: "", nickName: "", birth: "", university: "", companyName: "")
+    return User.Info(career: "", education: "", email: "", location: "", name: "", phoneNumber: "", shortDescription: "", profileImage: "", nickName: "")
   }
 }

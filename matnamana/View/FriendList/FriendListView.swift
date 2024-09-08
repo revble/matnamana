@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class FriendListView: UIView {
+final class FriendListView: BaseView {
   
   private let friendCount = UILabel().then {
     $0.text = ""
@@ -27,30 +27,20 @@ final class FriendListView: UIView {
     $0.placeholder = "친구를 검색해보세요!"
   }
   
-  let friendList = UITableView(frame: .zero, style: .insetGrouped).then {
+  let friendList = UITableView().then {
     $0.register(FriendListCell.self,
-                forCellReuseIdentifier: FriendListCell.identifier)
-    $0.rowHeight = 100
+                forCellReuseIdentifier: String(describing: FriendListCell.self))
+    $0.rowHeight = 70
   }
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    configureUI()
-    setConstraints()
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  func configureUI() {
+  override func configureUI() {
     [
       searchBar,
       friendList
     ].forEach { self.addSubview($0) }
   }
   
-  func setConstraints() {
+  override func setConstraints() {
     
     searchBar.snp.makeConstraints {
       $0.top.equalTo(self.safeAreaLayoutGuide)

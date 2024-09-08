@@ -10,10 +10,7 @@ import UIKit
 import Then
 
 final class FriendListCell: UITableViewCell {
-  
-  static let identifier = "friendCell"
-  
-  
+
   private let userImage = UIImageView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 25
