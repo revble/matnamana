@@ -7,21 +7,27 @@
 
 import RxDataSources
 
-enum Category: String {
-    case friendRequest = "Friend Request"
-    case someOtherCategory = "Other Category"
+enum Section: Int, CaseIterable {
+  case friendRequest
+  case myRequests
+  case receivedRequests
+  
+  var title: String {
+    switch self {
+    case .friendRequest: return "친구 평판조회"
+    case .myRequests: return "요청한 평판조회"
+    case .receivedRequests: return "요청받은 평판조회"
+    }
+  }
 }
 
-struct CategorySectionModel {
-    var header: String
-    var items: [Category]
-}
+struct Item {
+    let userNickName: String
+    let profileImageUrl: String
 
-extension CategorySectionModel: SectionModelType {
-    typealias Item = Category
-
-    init(original: CategorySectionModel, items: [Item]) {
-        self = original
-        self.items = items
+    init(userNickName: String, profileImageUrl: String) {
+        self.userNickName = userNickName
+        self.profileImageUrl = profileImageUrl
     }
 }
+

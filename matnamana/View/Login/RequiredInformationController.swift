@@ -13,23 +13,22 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-final class RequiredInformationController: UIViewController {
+final class RequiredInformationController: BaseViewController {
   
   private var requiredInformationView = RequiredInformationView(frame: .zero)
-  private let disposeBag = DisposeBag()
   private let requiredInfoViewModel = RequiredInfoViewModel()
   
-  override func loadView() {
+  override func setupView() {
+    super.setupView()
     requiredInformationView = RequiredInformationView(frame: UIScreen.main.bounds)
     self.view = requiredInformationView
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func bind() {
+    super.bind()
     bindJoinButton()
     bindViewModel()
   }
-  
   private func bindJoinButton() {
     requiredInformationView.joinButton.rx.tap
       .subscribe(onNext: { [weak self] in

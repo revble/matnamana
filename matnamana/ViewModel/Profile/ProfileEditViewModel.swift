@@ -68,10 +68,7 @@ class ProfileEditViewModel {
           phoneNumber: userInfo["휴대번호"] ?? "",
           shortDescription: shortDescription,
           profileImage: profileImageUrl,  // 실제 프로필 이미지 URL 사용
-          nickName: nickName,
-          birth: userInfo["생년월일"] ?? "",
-          university: userInfo["대학교"] ?? "",
-          companyName: userInfo["회사명"] ?? ""
+          nickName: nickName
         )
         
         guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else {

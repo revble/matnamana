@@ -117,11 +117,8 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
           profile.phoneNumber,
           profile.email,
           profile.location,
-          profile.birth,
           profile.career,
-          profile.companyName,
-          profile.education,
-          profile.university
+          profile.education
         ]
         
         for (index, value) in userDetails.enumerated() {
@@ -201,10 +198,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       phoneNumber: userDetails["휴대번호"] ?? "",
       shortDescription: shortDescription,
       profileImage: profileImageUrl,
-      nickName: nickname,
-      birth: userDetails["생년월일"] ?? "",
-      university: userDetails["대학교"] ?? "",
-      companyName: userDetails["회사명"] ?? ""
+      nickName: nickname
     ), preset: [], friendList: [], userId: id)
     
     FirebaseManager.shared.addUser(user: info1)
