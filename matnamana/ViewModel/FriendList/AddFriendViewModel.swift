@@ -10,7 +10,7 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-final class addFriendViewModel: ViewModelType {
+final class AddFriendViewModel: ViewModelType {
   
   struct Input {
     let addFriend: Observable<[String]>
@@ -19,8 +19,6 @@ final class addFriendViewModel: ViewModelType {
   struct Output {
     let addFriendResult: Driver<Bool>
   }
-  
-  private let disposeBag = DisposeBag()
   
   func transform(input: Input) -> Output {
     let addFriendResult = input.addFriend

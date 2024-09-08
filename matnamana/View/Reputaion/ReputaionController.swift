@@ -43,7 +43,7 @@ final class ReputaionController: BaseViewController {
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        self.pushViewController(SearchViewController())
+        //self.pushViewController(SearchViewController())
       }).disposed(by: disposeBag)
     
     return UIBarButtonItem(customView: button)

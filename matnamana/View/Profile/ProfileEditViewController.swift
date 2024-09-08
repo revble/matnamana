@@ -201,7 +201,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       nickName: nickname
     ), preset: [], friendList: [], userId: id)
     
-    FirebaseManager.shared.addUser(user: info1)
+    //3FirebaseManager.shared.addUser(user: info1)
   }
   
   // MARK: - UITableViewDataSource Methods

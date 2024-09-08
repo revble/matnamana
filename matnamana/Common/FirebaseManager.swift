@@ -16,51 +16,34 @@ class FirebaseManager {
   static let shared = FirebaseManager()
   let db = Firestore.firestore()
   
-  func addUser(user: User) {
-    if let userData = user.asDictionary {
-      db.collection("users").document(user.userId).setData(userData) { error in
-        if let error = error {
-          print("user추가 실패 ID 오류: \(error)")
-        }
+  enum CollectionName: String {
+    case user = "users"
+    case reputationRequest = "reputationRequests"
+    case question = "questions"
+    case answer = "answers"
+    
+    var title: Any {
+      switch self {
+      case .user: return User.self
+      case .reputationRequest: return ReputationRequest.self
+      case .question: return Question.self
+      case .answer: return Answer.self
       }
-    } else {
-      print("user추가 실패")
     }
   }
   
-  func addReputationRequest(request: ReputationRequest) {
-    if let requestData = request.asDictionary {
-      db.collection("reputationRequests").document(request.requestId).setData(requestData) { error in
+  func addData<T: Codable>(to collectionName: CollectionName, data: T, documentId: String) {
+    
+    if let dataDictionary = data.asDictionary {
+      db.collection(collectionName.rawValue).document(documentId).setData(dataDictionary) { error in
         if let error = error {
-          print("reputation request추가 시류ㅐ: \(error)")
+          print("\(collectionName.rawValue) 추가 실패: \(error.localizedDescription)")
+        } else {
+          print("\(collectionName.rawValue) 추가 성공")
         }
       }
     } else {
-      print("Reputationdictionary 변경 실패")
-    }
-  }
-  
-  func addQuestion(question: Question) {
-    if let questionData = question.asDictionary {
-      db.collection("questions").document(question.questionId).setData(questionData) { error in
-        if let error = error {
-          print("question추가 실패: \(error)")
-        }
-      }
-    } else {
-      print("Questiondictionary 변경 실패")
-    }
-  }
-  
-  func addAnswer(answer: Answer) {
-    if let answerData = answer.asDictionary {
-      db.collection("answers").document(answer.answerId).setData(answerData) { error in
-        if let error = error {
-          print("answer추가 실패: \(error)")
-        }
-      }
-    } else {
-      print("dictionary 변경 실패")
+      print("\(collectionName.rawValue) 데이터 변환 실패")
     }
   }
   
@@ -135,9 +118,9 @@ class FirebaseManager {
     let newFriend = User.Friend(nickname: friendId,
                                 type: type,
                                 friendId: friendId, friendImage: friendImage)
-
+    
     guard let friendData = newFriend.asDictionary else { return }
-
+    
     let userDocument = Firestore.firestore().collection("users").document(userId)
     
     userDocument.updateData([
@@ -150,12 +133,29 @@ class FirebaseManager {
       }
     }
   }
+  
+  func getQuestionList(documentId: String, completion: @escaping (Question?, Error?) -> Void) {
+    db.collection("questions").document(documentId).getDocument { (documentSnapshot, error) in
+      guard let document = documentSnapshot, document.exists, error == nil else {
+        completion(nil, error)
+        return
+      }
+      do {
+        let question = try document.data(as: Question.self)
+        print(question)
+        completion(question, nil)
+      } catch {
+        print(error)
+        completion(nil, error)
+      }
+    }
+  }
 }
 
 extension Encodable {
   var asDictionary: [String: Any]? {
     guard let object = try? JSONEncoder().encode(self),
-          let dictionary = try? JSONSerialization.jsonObject(with: object, options: []) 
+          let dictionary = try? JSONSerialization.jsonObject(with: object, options: [])
             as? [String: Any] else {
       return nil
     }

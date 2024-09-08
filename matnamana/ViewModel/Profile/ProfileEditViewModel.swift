@@ -90,7 +90,7 @@ class ProfileEditViewModel {
   // Firebase에 사용자 데이터를 저장하는 메서드
   private func saveUserData(user: User) -> Observable<Bool> {
     return Observable.create { observer in
-      FirebaseManager.shared.addUser(user: user)
+//      FirebaseManager.shared.addUser(user: user)
       observer.onNext(true)
       observer.onCompleted()
       return Disposables.create()
