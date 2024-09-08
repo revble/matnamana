@@ -32,7 +32,7 @@ final class FriendListController: BaseViewController {
     
     output.friendList
       .drive(friendListView.friendList.rx.items(
-        cellIdentifier: FriendListCell.identifier,
+        cellIdentifier: String(describing: FriendListCell.self),
         cellType: FriendListCell.self)
       ) { row, friend, cell in
         cell.configureCell(nickName: friend.nickname,
