@@ -24,6 +24,9 @@ extension User {
     let shortDescription: String
     let profileImage: String
     let nickName: String
+    let birth:String
+    let university: String
+    let companyName: String
   }
   
   struct PresetQuestion: Codable {

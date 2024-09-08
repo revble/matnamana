@@ -3,19 +3,19 @@
 //  matnamana
 //
 //  Created by 이진규 on 9/2/24.
-
 import UIKit
 
 import SnapKit
 import RxCocoa
 import RxSwift
+import RxKeyboard
 import FirebaseStorage
 
-class ProfileEditViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate,
+                                 UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
   
   // MARK: - UI Components
   private var profileEditView = ProfileEditView()
-  private let disposeBag = DisposeBag()
   private let viewModel = ProfileEditViewModel()  // ViewModel 인스턴스 생성
   
   // Firebase Storage 참조
@@ -23,7 +23,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
   private var profileImageUrl: String = ""
   
   // 사용자 정보 필드
-  private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+  private let userInfo = ["휴대번호", "이메일", "거주지", "생일", "직업", "회사", "최종학력", "대학교"]
   
   override func loadView() {
     profileEditView = ProfileEditView()
@@ -34,12 +34,21 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
     super.viewDidLoad()
     view.backgroundColor = .white
     bindUI()
-    bindViewModel()  // 사용자 정보 바인딩 메서드 추가
+    bindViewModel()
     profileEditView.tableView.dataSource = self
     profileEditView.tableView.delegate = self
     
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
     profileEditView.profileImageView.addGestureRecognizer(tapGesture)
+  }
+  
+  override func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
+    // 키보드 높이에 따라 tableView의 bottomInset을 조정
+    UIView.animate(withDuration: 0.3) {
+      let inset = keyboardHeight > 0 ? keyboardHeight : 0
+      self.profileEditView.tableView.contentInset.bottom = inset
+      self.profileEditView.tableView.scrollIndicatorInsets.bottom = inset
+    }
   }
   
   // MARK: - Setup Methods
@@ -78,8 +87,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
         guard let self = self else { return }
         self.saveUserData()
         self.navigateToProfileController()  // ProfileController로 이동
-      })
-      .disposed(by: disposeBag)
+      }).disposed(by: disposeBag)
   }
   
   // 사용자 정보 바인딩 메서드 추가
@@ -90,10 +98,11 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       nicknameText: profileEditView.nickNameTextField.rx.text.orEmpty.asObservable(),
       shortDescriptionText: profileEditView.introduceTextField.rx.text.orEmpty.asObservable(),
       userInfoTexts: Observable.just(userInfo).map { userInfo in
-        userInfo.reduce(into: [String: String]()) { result, key in
-          if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: userInfo.firstIndex(of: key)!, section: 0)),
+        userInfo.reduce(into: [String: String]()) { result, field in
+          if let rowIndex = userInfo.firstIndex(of: field),
+             let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: rowIndex, section: 0)),
              let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
-            result[key] = textField.text ?? ""
+            result[field] = textField.text ?? ""
           }
         }
       },
@@ -117,8 +126,11 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
           profile.phoneNumber,
           profile.email,
           profile.location,
+          profile.birth,
           profile.career,
-          profile.education
+          profile.companyName,
+          profile.education,
+          profile.university
         ]
         
         for (index, value) in userDetails.enumerated() {
@@ -189,7 +201,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       }
     }
     guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
-    let info1 = User(info: User.Info(
+    let info = User(info: User.Info(
       career: userDetails["직업"] ?? "",
       education: userDetails["최종학력"] ?? "",
       email: userDetails["이메일"] ?? "",
@@ -198,10 +210,13 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       phoneNumber: userDetails["휴대번호"] ?? "",
       shortDescription: shortDescription,
       profileImage: profileImageUrl,
-      nickName: nickname
+      nickName: nickname,
+      birth: userDetails["생일"] ?? "",
+      university: userDetails["대학교"] ?? "",
+      companyName:userDetails["회사"] ?? ""
     ), preset: [], friendList: [], userId: id)
     
-    //3FirebaseManager.shared.addUser(user: info1)
+    FirebaseManager.shared.addData(to: .user, data: info, documentId: id)
   }
   
   // MARK: - UITableViewDataSource Methods
@@ -228,14 +243,13 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       $0.centerY.equalToSuperview()
       $0.width.equalTo(200)
     }
-    
     return cell
   }
+  
   
   // MARK: - 네비게이션 메서드 추가
   
   private func navigateToProfileController() {
-    let profileController = ProfileController()
     self.navigationController?.popViewController(animated: true)
   }
 }
