@@ -22,7 +22,7 @@ class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITa
   private var profileImageUrl: String = ""
 
   // 사용자 정보 필드
-  private let userInfo = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
+  private let userInfo = ["휴대번호", "이메일", "거주지", "생일", "직업", "회사", "최종학력", "대학교"]
 
   override func loadView() {
     profileEditView = ProfileEditView()
@@ -33,7 +33,8 @@ class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITa
     super.viewDidLoad()
     view.backgroundColor = .white
     bindUI()
-    bindViewModel()  // 사용자 정보 바인딩 메서드 추가
+    bindViewModel()
+    print("123")// 사용자 정보 바인딩 메서드 추가
     profileEditView.tableView.dataSource = self
     profileEditView.tableView.delegate = self
 

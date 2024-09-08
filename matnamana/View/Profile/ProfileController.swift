@@ -100,11 +100,11 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
           profile.phoneNumber,
           profile.email,
           profile.location,
-          profile.career,
-          profile.education,
           profile.birth,
-          profile.university,
-          profile.companyName
+          profile.career,
+          profile.companyName,
+          profile.education,
+          profile.university
         ]
         self.profileView.tableView.reloadData()
       })
