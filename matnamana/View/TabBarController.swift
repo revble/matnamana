@@ -38,7 +38,7 @@ extension TabBarController {
     var viewController: UIViewController {
       switch self {
       case .mainPage:
-        return MainPageController()
+        return MainQuestionViewController()
       case .friendList:
         return FriendListController()
       case .reputation:
