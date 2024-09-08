@@ -10,10 +10,9 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-class ProfileEditViewModel {
+final class ProfileEditViewModel: ViewModelType {
 
   private let db = FirebaseManager.shared.db
-  private let disposeBag = DisposeBag()
 
   struct Input {
     let saveTap: Observable<Void>

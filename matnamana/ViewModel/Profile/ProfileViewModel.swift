@@ -9,15 +9,7 @@ import RxCocoa
 import RxSwift
 import FirebaseFirestore
 
-
-protocol ProfileViewModelType {
-  associatedtype Input
-  associatedtype Output
-  
-  func transform(input: Input) -> Output
-}
-
-final class ProfileViewModel: ProfileViewModelType {
+final class ProfileViewModel: ViewModelType {
   
   struct Input {
     let fetchProfile: Observable<Void>
@@ -27,8 +19,6 @@ final class ProfileViewModel: ProfileViewModelType {
     let profileData: Driver<User.Info>
     let userAge: Driver<String>
   }
-  
-  private let disposeBag = DisposeBag()
   
   private func fetchProfileData() -> Observable<User.Info> {
     return Observable.create { observer in

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class TypeQuestionView: BaseView {
+final class TypeQuestionView: BaseView {
   
   let questionLabel = UILabel().then {
     $0.text = "새로운 질문"

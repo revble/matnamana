@@ -19,7 +19,6 @@ final class ReferenceViewModel: ViewModelType {
   
   struct Output {
     let questionList: Driver<[Question.Content]>
-
   }
   
   private func fetchQuestionList() -> Observable<[Question.Content]> {
