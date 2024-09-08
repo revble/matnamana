@@ -9,22 +9,22 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.matnamana</string>
+	<string>com.revble.matnamana</string>
 	<key>PROJECT_ID</key>
 	<string>matnamana-65c65</string>
 	<key>STORAGE_BUCKET</key>
 	<string>matnamana-65c65.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:86351593070:ios:c6dfb42cb4883fc2b5307f</string>
+	<string>1:86351593070:ios:34cc56eba05381ceb5307f</string>
 </dict>
 </plist>

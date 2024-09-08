@@ -7,9 +7,40 @@
 
 import UIKit
 
-class LoginController: UIViewController {
+import FirebaseAuth
+import KakaoSDKAuth
+import KakaoSDKUser
+import RxCocoa
+import RxSwift
+
+final class LoginController: BaseViewController {
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  private var loginView = LoginView(frame: .zero)
+  private let loginviewModel = LoginViewModel()
+  
+  override func setupView() {
+    super.setupView()
+    loginView = LoginView(frame: UIScreen.main.bounds)
+    self.view = loginView
+  }
+  
+  override func bind() {
+    super.bind()
+    let input = LoginViewModel.Input(
+      loggedInApple: loginView.loginButton.rx.tap,
+      loggedInKakao: loginView.kakaoLoginButton.rx.tap
+    )
+    
+    let output = loginviewModel.transform(input: input)
+    
+    output.isDuplicate
+      .observe(on: MainScheduler.instance)
+      .subscribe(onNext: { isDuplicate in
+        if isDuplicate {
+          self.transitionToViewController(TabBarController())
+        } else {
+          self.transitionToViewController(RequiredInformationController())
+        }
+      }).disposed(by: disposeBag)
   }
 }

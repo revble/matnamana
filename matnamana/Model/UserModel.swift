@@ -1,19 +1,20 @@
-//
-//  UserModel.swift
-//  matnamana
-//
-//  Created by 김윤홍 on 8/27/24.
-//
+////
+////  UserModel.swift
+////  matnamana
+////
+////  Created by 김윤홍 on 8/27/24.
+////
 
-struct User {
+struct User: Codable {
   let info: Info
   let preset: [PresetQuestion]
   let friendList: [Friend]
+  let userId: String
+//  let reputationId: String
 }
 
 extension User {
-  struct Info {
-    let mbti: String
+  struct Info: Codable {
     let career: String
     let education: String
     let email: String
@@ -22,23 +23,29 @@ extension User {
     let phoneNumber: String
     let shortDescription: String
     let profileImage: String
+    let nickName: String
+    let birth:String
+    let university: String
+    let companyName: String
   }
-
-  struct PresetQuestion {
+  
+  struct PresetQuestion: Codable {
     let presetTitle: String
     let indice: [Int]
   }
-
-  struct Friend {
+  
+  struct Friend: Codable {
     let nickname: String
     let type: FriendType
+    let friendId: String
+    let friendImage: String
   }
 }
 
 extension User.Friend {
-  enum FriendType {
+  enum FriendType: String, Codable {
     case family
-    case collegue
+    case colleague
     case friend
   }
 }
