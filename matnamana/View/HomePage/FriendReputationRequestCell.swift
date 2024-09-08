@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class FriendReputationRequestCell: UICollectionViewCell {
+final class FriendReputationRequestCell: UICollectionViewCell {
   static let id = "FriendReputationRequestCell"
   
   private let friendImage = UIImageView().then {
@@ -58,7 +58,6 @@ class FriendReputationRequestCell: UICollectionViewCell {
     friendImage.snp.makeConstraints {
       $0.top.equalToSuperview().offset(10)
     }
-    
   }
 }
 

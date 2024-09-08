@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class ProfileEditView: UIView {
+final class ProfileEditView: UIView {
   
   let profilePage: UILabel = {
     let label = UILabel()
