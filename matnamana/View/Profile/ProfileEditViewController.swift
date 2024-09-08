@@ -42,13 +42,13 @@ class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITa
   }
 
   override func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
-         // 키보드 높이에 따라 tableView의 bottomInset을 조정
-         UIView.animate(withDuration: 0.3) {
-             let inset = keyboardHeight > 0 ? keyboardHeight : 0
-             self.profileEditView.tableView.contentInset.bottom = inset
-             self.profileEditView.tableView.scrollIndicatorInsets.bottom = inset
-         }
-     }
+    // 키보드 높이에 따라 tableView의 bottomInset을 조정
+    UIView.animate(withDuration: 0.3) {
+      let inset = keyboardHeight > 0 ? keyboardHeight : 0
+      self.profileEditView.tableView.contentInset.bottom = inset
+      self.profileEditView.tableView.scrollIndicatorInsets.bottom = inset
+    }
+  }
 
   // MARK: - Setup Methods
 
@@ -196,7 +196,7 @@ class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITa
       }
     }
     guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
-    let info1 = User(info: User.Info(
+    let info = User(info: User.Info(
       career: userDetails["직업"] ?? "",
       education: userDetails["최종학력"] ?? "",
       email: userDetails["이메일"] ?? "",
@@ -205,10 +205,13 @@ class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITa
       phoneNumber: userDetails["휴대번호"] ?? "",
       shortDescription: shortDescription,
       profileImage: profileImageUrl,
-      nickName: nickname
+      nickName: nickname,
+      birth: userDetails["생일"] ?? "",
+      university: userDetails["대학교"] ?? "",
+      companyName:userDetails["회사"] ?? ""
     ), preset: [], friendList: [], userId: id)
-    
-    //3FirebaseManager.shared.addUser(user: info1)
+
+    FirebaseManager.shared.addData(to: .user, data: info, documentId: id)
   }
 
   // MARK: - UITableViewDataSource Methods
@@ -228,7 +231,7 @@ class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITa
       textField.text = ""
       return textField
     }()
-
+    
     cell.contentView.addSubview(textField)
     textField.snp.makeConstraints {
       $0.trailing.equalToSuperview().inset(20)
