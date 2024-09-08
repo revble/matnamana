@@ -11,30 +11,67 @@ class TabBarController: UITabBarController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .systemBackground
+    viewConfig()
+  }
   
-    let firstVC = LoginController()
-    firstVC.tabBarItem = UITabBarItem(title: "로그인",
-                                      image: UIImage(systemName: "globe"), tag: 0)
+  private func viewConfig() {
+    let viewControllers = TabbarItem.allCases.map { item -> UINavigationController in
+      let vc = item.viewController
+      vc.view.backgroundColor = .systemBackground
+      vc.navigationItem.title = item.navigtaionItemTitle
+      let nav = UINavigationController(rootViewController: vc)
+      nav.title = item.navigtaionItemTitle
+      nav.tabBarItem.image = UIImage(systemName: item.tabbarImageName)
+      return nav
+    }
+    setViewControllers(viewControllers, animated: false)
+  }
+}
+extension TabBarController {
+  
+  enum TabbarItem: CaseIterable {
+    case mainPage
+    case friendList
+    case reputation
+    case profile
     
-    let secondVC = MainPageController()
-    secondVC.tabBarItem = UITabBarItem(title: "홈",
-                                       image: UIImage(systemName: "house.fill"), tag: 1)
+    var viewController: UIViewController {
+      switch self {
+      case .mainPage:
+        return MainPageController()
+      case .friendList:
+        return FriendListController()
+      case .reputation:
+        return ReputaionController()
+      case .profile:
+        return ProfileController()
+      }
+    }
     
-    let thirdVC = UINavigationController(rootViewController: FriendListController())
-    thirdVC.tabBarItem = UITabBarItem(title: "친구 목록",
-                                      image: UIImage(systemName: "person.2.fill"), tag: 2)
+    var tabbarImageName: String {
+      switch self {
+      case .mainPage:
+        return "house.fill"
+      case .friendList:
+        return "person.2.fill"
+      case .reputation:
+        return "list.bullet.rectangle.portrait.fill"
+      case .profile:
+        return "person.fill"
+      }
+    }
     
-    let fourthVC = UINavigationController(rootViewController: MainQuestionViewController())
-    fourthVC.tabBarItem = UITabBarItem(title: "나의 질문",
-                                       image: UIImage(systemName: "list.bullet.rectangle.portrait.fill"),
-                                       tag: 3)
-    
-    let profileVC = ProfileController()
-    let fifthVC = UINavigationController(rootViewController: profileVC)
-    fifthVC.tabBarItem = UITabBarItem(title: "프로필", image: UIImage(systemName: "person.fill"), tag: 4)
-
-
-    self.setViewControllers([secondVC, thirdVC, fourthVC, fifthVC], animated: true)
+    var navigtaionItemTitle: String {
+      switch self {
+      case .mainPage:
+        return "홈"
+      case .friendList:
+        return "친구 목록"
+      case .reputation:
+        return "평판 조회"
+      case .profile:
+        return "나의 정보"
+      }
+    }
   }
 }

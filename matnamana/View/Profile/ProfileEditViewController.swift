@@ -3,13 +3,11 @@
 //  matnamana
 //
 //  Created by 이진규 on 9/2/24.
-//
 
 import UIKit
 
 import SnapKit
 import RxCocoa
-import RxKeyboard
 import RxSwift
 import FirebaseStorage
 
@@ -18,6 +16,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
   // MARK: - UI Components
   private var profileEditView = ProfileEditView()
   private let disposeBag = DisposeBag()
+  private let viewModel = ProfileEditViewModel()  // ViewModel 인스턴스 생성
   
   // Firebase Storage 참조
   private let storage = Storage.storage()
@@ -35,8 +34,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
     super.viewDidLoad()
     view.backgroundColor = .white
     bindUI()
-    //subscribe()
-    
+    bindViewModel()  // 사용자 정보 바인딩 메서드 추가
     profileEditView.tableView.dataSource = self
     profileEditView.tableView.delegate = self
     
@@ -84,8 +82,56 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       .disposed(by: disposeBag)
   }
   
+  // 사용자 정보 바인딩 메서드 추가
+  private func bindViewModel() {
+    let input = ProfileEditViewModel.Input(
+      saveTap: navigationItem.rightBarButtonItem!.rx.tap.asObservable(),
+      nameText: profileEditView.nameTextField.rx.text.orEmpty.asObservable(),
+      nicknameText: profileEditView.nickNameTextField.rx.text.orEmpty.asObservable(),
+      shortDescriptionText: profileEditView.introduceTextField.rx.text.orEmpty.asObservable(),
+      userInfoTexts: Observable.just(userInfo).map { userInfo in
+        userInfo.reduce(into: [String: String]()) { result, key in
+          if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: userInfo.firstIndex(of: key)!, section: 0)),
+             let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
+            result[key] = textField.text ?? ""
+          }
+        }
+      },
+      profileImageUrl: Observable.just(profileImageUrl)
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    // Firebase에서 가져온 사용자 정보를 UI에 바인딩
+    output.currentUserInfo
+      .observe(on: MainScheduler.instance)
+      .subscribe(onNext: { [weak self] profile in
+        guard let self = self else { return }
+        self.profileEditView.nameTextField.text = profile.name
+        self.profileEditView.nickNameTextField.text = profile.nickName
+        self.profileEditView.introduceTextField.text = profile.shortDescription
+        self.profileEditView.profileImageView.loadImage(from: profile.profileImage)
+        
+        // TableView 데이터 업데이트
+        let userDetails = [
+          profile.phoneNumber,
+          profile.email,
+          profile.location,
+          profile.career,
+          profile.education
+        ]
+        
+        for (index, value) in userDetails.enumerated() {
+          if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: index, section: 0)),
+             let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
+            textField.text = value
+          }
+        }
+      })
+      .disposed(by: disposeBag)
+  }
+  
   // MARK: - Image Picker and Upload Logic
-  // 고쳐야함
   @objc private func profileImageTapped() {
     let imagePicker = UIImagePickerController()
     imagePicker.delegate = self
@@ -142,7 +188,7 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
         userDetails[key] = textField.text ?? ""
       }
     }
-    
+    guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
     let info1 = User(info: User.Info(
       career: userDetails["직업"] ?? "",
       education: userDetails["최종학력"] ?? "",
@@ -152,12 +198,10 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
       phoneNumber: userDetails["휴대번호"] ?? "",
       shortDescription: shortDescription,
       profileImage: profileImageUrl,
-      nickName: nickname), preset: [], friendList: [], userId: "user_id_9812")
-//    FirebaseManager.shared.addUser(user: info1)
-    //생년월일
-    //회사명
-    //대학교
+      nickName: nickname
+    ), preset: [], friendList: [], userId: id)
     
+    FirebaseManager.shared.addUser(user: info1)
   }
   
   // MARK: - UITableViewDataSource Methods
@@ -187,27 +231,11 @@ class ProfileEditViewController: UIViewController, UITableViewDataSource, UITabl
     
     return cell
   }
-  // 키보드
-  //  func subscribe() {
-  //    RxKeyboard.instance.visibleHeight
-  //      .drive(onNext: { [unowned self] keyboardHeigt in
-  //        let height = keyboardHeigt > 0 ? -keyboardHeigt +
-  //        view.safeAreaInsets.bottom : 0
-  //          profileEditView.tableView.snp.updateConstraints {
-  //          $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(height)
-  //        }
-  //
-  //        view.layoutIfNeeded()
-  //      })
-  //      .disposed(by: disposeBag)
-  //  }
   
   // MARK: - 네비게이션 메서드 추가
   
   private func navigateToProfileController() {
-    let profileController = ProfileController()  // ProfileController의 인스턴스 생성
+    let profileController = ProfileController()
     self.navigationController?.popViewController(animated: true)
   }
-  
-  
 }
