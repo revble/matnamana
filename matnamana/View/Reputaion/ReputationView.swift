@@ -134,6 +134,7 @@ final class ReputationView: UIView {
   
   private func configureUI() {
     self.addSubview(collecitonView)
+
   }
   
   private func setConstraints() {

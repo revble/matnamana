@@ -19,7 +19,6 @@ final class FriendListController: BaseViewController {
   }
   
   override func setNavigation() {
-    self.title = "친구 목록"
     navigationItem.rightBarButtonItem = plusButton()
   }
   

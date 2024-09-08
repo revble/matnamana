@@ -25,3 +25,12 @@ extension UIViewController {
     navigationController?.pushViewController(viewController, animated: true)
   }
 }
+
+extension UIView {
+  func setupShadow() {
+    self.layer.masksToBounds = false
+    self.layer.shadowOpacity = 0.8
+    self.layer.shadowOffset = CGSize(width: -2, height: 2)
+    self.layer.shadowRadius = 5
+  }
+}

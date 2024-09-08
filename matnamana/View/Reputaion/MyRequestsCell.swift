@@ -49,9 +49,9 @@ final class MyRequestsCell: UICollectionViewCell {
   
   
   private func configureUI() {
+    self.backgroundColor = .manaMint
     self.layer.cornerRadius = 10
-    self.layer.borderWidth = 1
-    self.layer.borderColor = UIColor.black.cgColor
+    setupShadow()
     [
       imageView,
       nameLabel,

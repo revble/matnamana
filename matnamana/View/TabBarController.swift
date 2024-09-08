@@ -20,6 +20,7 @@ class TabBarController: UITabBarController {
       vc.view.backgroundColor = .systemBackground
       vc.navigationItem.title = item.navigtaionItemTitle
       let nav = UINavigationController(rootViewController: vc)
+      nav.title = item.navigtaionItemTitle
       nav.tabBarItem.image = UIImage(systemName: item.tabbarImageName)
       return nav
     }
@@ -65,11 +66,11 @@ extension TabBarController {
       case .mainPage:
         return "홈"
       case .friendList:
-        return "친구목록"
+        return "친구 목록"
       case .reputation:
-        return "평판조회"
+        return "평판 조회"
       case .profile:
-        return "나의정보"
+        return "나의 정보"
       }
     }
   }

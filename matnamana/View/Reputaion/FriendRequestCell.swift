@@ -46,10 +46,7 @@ final class FriendRequestCell: UICollectionViewCell {
   private func configureUI() {
     self.backgroundColor = .manaSkin
     self.layer.cornerRadius = 10
-    self.layer.masksToBounds = false
-    self.layer.shadowOpacity = 0.8
-    self.layer.shadowOffset = CGSize(width: -2, height: 2)
-    self.layer.shadowRadius = 10
+    setupShadow()
     [
       imageView,
       nameLabel,

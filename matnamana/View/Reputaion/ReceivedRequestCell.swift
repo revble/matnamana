@@ -55,9 +55,9 @@ final class ReceivedRequestCell: UICollectionViewCell {
   }
   
   private func configureUI() {
+    self.backgroundColor = .manaPink
     self.layer.cornerRadius = 10
-    self.layer.borderWidth = 1
-    self.layer.borderColor = UIColor.black.cgColor
+    setupShadow()
     [
       acceptButton,
       cancelButton
