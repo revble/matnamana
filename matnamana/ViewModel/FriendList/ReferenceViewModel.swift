@@ -23,7 +23,7 @@ final class ReferenceViewModel: ViewModelType {
   
   private func fetchQuestionList() -> Observable<[Question.Content]> {
     return Observable.create { observer in
-      FirebaseManager.shared.getQuestionList(documentId: "") { question, error in
+      FirebaseManager.shared.getQuestionList(documentId: "questionId_789") { question, error in
         if let error = error {
           observer.onError(error)
         } else if let question = question {
