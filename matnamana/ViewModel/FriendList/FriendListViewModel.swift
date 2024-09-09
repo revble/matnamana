@@ -41,7 +41,7 @@ final class FriendListViewModel: ViewModelType {
     }
   }
   
-  private func searchFriendInFirestore(by nickname: String) -> Observable<User?> {
+  private func searchFriend(by nickname: String) -> Observable<User?> {
     return Observable.create { observer in
       FirebaseManager.shared.getUserInfo(nickName: nickname) { user, error in
         if let error = error {
@@ -82,7 +82,7 @@ final class FriendListViewModel: ViewModelType {
     let searchResult = input.searchText
       .flatMap { [weak self] nickname -> Observable<Bool> in
         guard let self else { return Observable.just(false) }
-        return self.searchFriendInFirestore(by: nickname)
+        return self.searchFriend(by: nickname)
           .flatMap { user -> Observable<Bool> in
             if user != nil {
               return Observable.just(true)
@@ -95,7 +95,7 @@ final class FriendListViewModel: ViewModelType {
     
     let errorMessage = input.searchText
       .flatMap { nickname -> Observable<String> in
-        return self.searchFriendInFirestore(by: nickname)
+        return self.searchFriend(by: nickname)
           .flatMap { user -> Observable<String> in
             if user == nil {
               return Observable.just("해당 닉네임의 사용자가 없습니다.")

@@ -93,7 +93,6 @@
 		DDF2A01E2C8034A1001B1DB7 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A01D2C8034A1001B1DB7 /* UIExtensions.swift */; };
 		DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A01F2C80A072001B1DB7 /* AnswerModel.swift */; };
 		DDF2A0222C80A084001B1DB7 /* ReputationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0212C80A084001B1DB7 /* ReputationModel.swift */; };
-		DDF2A0242C80AB4B001B1DB7 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */; };
 		DDF2A0272C842978001B1DB7 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */; };
 		DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */; };
 		DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */; };
@@ -196,7 +195,6 @@
 		DDF2A01D2C8034A1001B1DB7 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		DDF2A01F2C80A072001B1DB7 /* AnswerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerModel.swift; sourceTree = "<group>"; };
 		DDF2A0212C80A084001B1DB7 /* ReputationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationModel.swift; sourceTree = "<group>"; };
-		DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		DDF2A02A2C843CF8001B1DB7 /* AddFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendView.swift; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 			children = (
 				DDF2A02C2C846927001B1DB7 /* AddFriendViewModel.swift */,
 				DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */,
-				DDF2A0232C80AB4B001B1DB7 /* SearchViewModel.swift */,
 				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
 				DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */,
 			);
@@ -719,8 +716,7 @@
 				DD9470F62C898FD6009BF95E /* TotalQuestionViewModel.swift in Sources */,
 				4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
-				DDCF923E2C78554B005DB62F /* MyQuestionController.swift in Sources */,
-				DDCF92CB2C7C8AC1005DB62F /* MainPageViewModel.swift in Sources */,
+				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
 				DA3A56132C8A967C00459343 /* TTest.swift in Sources */,
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
 				DD9470FA2C899058009BF95E /* TotalQuestionView.swift in Sources */,
@@ -745,7 +741,6 @@
 				4FEB36952C7EC9240066998E /* LoginView.swift in Sources */,
 				DA3A55F72C7F144500459343 /* ProfileViewModel.swift in Sources */,
 				DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */,
-				DDF2A0242C80AB4B001B1DB7 /* SearchViewModel.swift in Sources */,
 				DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */,
 				DDF2A01C2C8031F8001B1DB7 /* ProfileView.swift in Sources */,
 				DD9471132C8C8D48009BF95E /* TypeQuestionViewModel.swift in Sources */,

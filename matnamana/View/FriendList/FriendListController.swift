@@ -33,8 +33,7 @@ final class FriendListController: BaseViewController {
     output.friendList
       .drive(friendListView.friendList.rx.items(
         cellIdentifier: String(describing: FriendListCell.self),
-        cellType: FriendListCell.self)
-      ) { row, friend, cell in
+        cellType: FriendListCell.self)) { row, friend, cell in
         cell.configureCell(nickName: friend.nickname,
                            relation: friend.type.rawValue,
                            friendImage: friend.friendImage
@@ -65,6 +64,7 @@ final class FriendListController: BaseViewController {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default))
         self.present(alert, animated: true)
-      }).disposed(by: disposeBag)
+      })
+      .disposed(by: disposeBag)
   }
 }

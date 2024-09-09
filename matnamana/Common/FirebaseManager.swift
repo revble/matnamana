@@ -122,7 +122,7 @@ final class FirebaseManager {
     
     guard let friendData = newFriend.asDictionary else { return }
     
-    let userDocument = Firestore.firestore().collection("users").document(userId)
+    let userDocument = db.collection("users").document(userId)
     
     userDocument.updateData([
       "friendList": FieldValue.arrayUnion([friendData])
