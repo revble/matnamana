@@ -36,13 +36,18 @@ final class ReputaionController: BaseViewController {
     refreshingGesture()
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    viewModel.fetchRequestedReputation()
+  }
+  
   private func moveToSearchButton() -> UIBarButtonItem {
     let button = reputaionView.searchFriend
     
     button.rx.tap
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] in
-        guard let self = self else { return }
+        guard let self else { return }
         //self.pushViewController(SearchViewController())
       }).disposed(by: disposeBag)
     
@@ -106,6 +111,27 @@ final class ReputaionController: BaseViewController {
         return headerView
       }
     )
+    
+    reputaionView.collecitonView.rx.itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        guard let self = self else { return }
+        
+        switch indexPath.section {
+        case Section.friendRequest.rawValue:
+          print("friendRequest: \(indexPath.row)")
+          
+        case Section.myRequests.rawValue:
+          print("myRequests: \(indexPath.row)")
+          
+        case Section.receivedRequests.rawValue:
+          print("receivedRequests: \(indexPath.row)")
+          presentModally(UINavigationController(rootViewController: AcceptRequestController()))
+        default:
+          break
+        }
+      })
+      .disposed(by: disposeBag)
+    
     viewModel.reputationDataRelay
       .observe(on: MainScheduler.instance)
       .map { data -> [SectionModel<String, Item>] in

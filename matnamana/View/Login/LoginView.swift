@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class LoginView: UIView {
+final class LoginView: BaseView {
   
   private let logo = UIImageView().then {
     $0.image = UIImage(named: "MatnamanaLogo")
@@ -52,17 +52,7 @@ final class LoginView: UIView {
     $0.layer.cornerRadius = 10
   }
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    configureUI()
-    setConstraint()
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  private func configureUI() {
+  override func configureUI() {
     self.backgroundColor = .white
     [
     logo,
@@ -75,7 +65,7 @@ final class LoginView: UIView {
     ].forEach { self.addSubview($0) }
   }
   
-  private func setConstraint() {
+  override func setConstraints() {
     logo.snp.makeConstraints {
       $0.top.equalToSuperview().offset(50)
       $0.centerX.equalToSuperview()

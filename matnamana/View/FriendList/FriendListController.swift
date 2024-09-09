@@ -8,10 +8,10 @@ import UIKit
 
 import RxSwift
 
-final class FriendListController: BaseViewController {
+class FriendListController: BaseViewController {
   
   private let viewModel = FriendListViewModel()
-  private var friendListView = FriendListView(frame: .zero)
+  var friendListView = FriendListView(frame: .zero)
   
   override func setupView() {
     super.setupView()
