@@ -10,12 +10,13 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class MainQuestionViewController: BaseViewController {
+final class MainQuestionViewController: BaseViewController {
   
   private var mainQuestionView = MainQuestionView(frame: .zero)
   private let viewModel = MainQuestionViewModel()
   
   override func setupView() {
+    super.setupView()
     mainQuestionView = MainQuestionView(frame: UIScreen.main.bounds)
     self.view = mainQuestionView
   }

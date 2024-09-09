@@ -11,9 +11,10 @@ import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
-class FirebaseManager {
+final class FirebaseManager {
   
   static let shared = FirebaseManager()
+  private init() {}
   let db = Firestore.firestore()
   
   enum CollectionName: String {

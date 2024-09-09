@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MainCollectionCell: UICollectionViewCell {
+final class MainCollectionCell: UICollectionViewCell {
   static let identifier = "mainCollectionCell"
   
   let titleLabel = UILabel().then {

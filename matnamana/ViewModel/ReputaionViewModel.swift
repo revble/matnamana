@@ -14,7 +14,7 @@ import Kingfisher
 import RxSwift
 import RxCocoa
 
-class ReputaionViewModel {
+final class ReputaionViewModel {
   
   private let db = FirebaseManager.shared.db
   

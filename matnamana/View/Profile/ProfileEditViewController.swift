@@ -11,7 +11,7 @@ import RxSwift
 import RxKeyboard
 import FirebaseStorage
 
-class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate,
+final class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate,
                                  UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
   
   // MARK: - UI Components
