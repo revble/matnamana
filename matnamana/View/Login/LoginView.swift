@@ -55,13 +55,13 @@ final class LoginView: BaseView {
   override func configureUI() {
     self.backgroundColor = .white
     [
-    logo,
-    goodMeeting,
-    goodQuestion,
-    quicklyReferenceCheck,
-    matnamana,
-    loginButton,
-    kakaoLoginButton
+      logo,
+      goodMeeting,
+      goodQuestion,
+      quicklyReferenceCheck,
+      matnamana,
+      loginButton,
+      kakaoLoginButton
     ].forEach { self.addSubview($0) }
   }
   
