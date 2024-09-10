@@ -753,13 +753,16 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
   }
 
   override func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
-    // 키보드 높이에 따라 tableView의 bottomInset을 조정
-    UIView.animate(withDuration: 0.3) {
-      let inset = keyboardHeight > 0 ? keyboardHeight : 0
-      self.profileEditView.tableView.contentInset.bottom = inset
-      self.profileEditView.tableView.scrollIndicatorInsets.bottom = inset
-    }
+    super.adjustForKeyboardHeight(keyboardHeight)
   }
+//  override func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
+//    // 키보드 높이에 따라 tableView의 bottomInset을 조정
+//    UIView.animate(withDuration: 0.3) {
+//      let inset = keyboardHeight > 0 ? keyboardHeight : 0
+//      self.profileEditView.tableView.contentInset.bottom = inset
+//      self.profileEditView.tableView.scrollIndicatorInsets.bottom = inset
+//    }
+//  }
 
   // MARK: - Setup Methods
 

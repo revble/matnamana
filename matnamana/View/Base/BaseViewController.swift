@@ -42,16 +42,31 @@ class BaseViewController: UIViewController {
   }
   
   private func setupKeyboardHandling() {
-    RxKeyboard.instance.visibleHeight
-      .drive(onNext: { [weak self] keyboardHeight in
-        guard let self = self else { return }
-        self.adjustForKeyboardHeight(keyboardHeight)
-      })
-      .disposed(by: disposeBag)
-    
+          RxKeyboard.instance.visibleHeight
+              .drive(onNext: { [weak self] keyboardHeight in
+                  guard let self = self else { return }
+                  self.adjustForKeyboardHeight(keyboardHeight)
+              })
+              .disposed(by: disposeBag)
+      }
+
+      func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
+          // 전체 뷰의 subviews 중 UIScrollView 타입의 뷰에 대해 인셋 조정
+          UIView.animate(withDuration: 0.3) {
+              let inset = keyboardHeight > 0 ? keyboardHeight : 0
+              if let scrollView = self.view as? UIScrollView {
+                  // self.view가 UIScrollView일 경우 처리
+                  scrollView.contentInset.bottom = inset
+                  scrollView.scrollIndicatorInsets.bottom = inset
+              } else {
+                  // self.view의 서브뷰들 중 UIScrollView가 있을 경우 처리
+                  for subview in self.view.subviews where subview is UIScrollView {
+                      guard let scrollView = subview as? UIScrollView else { continue }
+                      scrollView.contentInset.bottom = inset
+                      scrollView.scrollIndicatorInsets.bottom = inset
+                  }
+              }
+          }
+      }
   }
-  func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
-    
-  }
-}
 
