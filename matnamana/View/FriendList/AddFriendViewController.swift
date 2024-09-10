@@ -48,6 +48,9 @@ final class AddFriendViewController: BaseViewController {
         guard let self else { return }
         self.friendType = "family"
         self.status = "pending"
+        addFriendView.familyButton.backgroundColor = .green
+        addFriendView.friendButton.backgroundColor = .manaPink
+        addFriendView.colleagueButton.backgroundColor = .manaMint
       }).disposed(by: disposeBag)
     
     addFriendView.friendButton.rx.tap
@@ -55,6 +58,9 @@ final class AddFriendViewController: BaseViewController {
         guard let self else { return }
         self.friendType = "friend"
         self.status = "pending"
+        addFriendView.familyButton.backgroundColor = .manaGreen
+        addFriendView.friendButton.backgroundColor = .systemPink
+        addFriendView.colleagueButton.backgroundColor = .manaMint
       }).disposed(by: disposeBag)
     
     addFriendView.colleagueButton.rx.tap
@@ -62,6 +68,9 @@ final class AddFriendViewController: BaseViewController {
         guard let self else { return }
         self.friendType = "colleague"
         self.status = "pending"
+        addFriendView.familyButton.backgroundColor = .manaGreen
+        addFriendView.friendButton.backgroundColor = .manaPink
+        addFriendView.colleagueButton.backgroundColor = .systemMint
       }).disposed(by: disposeBag)
     
     addFriendView.sendButton.rx.tap
@@ -78,7 +87,20 @@ final class AddFriendViewController: BaseViewController {
             } else {
               print("실패")
             }
-            self.dismiss(animated: true, completion: nil)
+            let alertController = UIAlertController(title: "친구 신청 완료",
+                                                    message: "친구 신청이 완료되었습니다.",
+                                                    preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+              guard let self else { return }
+              self.navigationController?.popViewController(animated: true)
+            }
+            alertController.addAction(confirmAction)
+            
+            // dismiss 완료 후 알림 표시
+            self.dismiss(animated: true, completion: { [weak self] in
+              self?.present(alertController, animated: true, completion: nil)
+            })
+            
           }).disposed(by: self.disposeBag)
       }).disposed(by: disposeBag)
   }
