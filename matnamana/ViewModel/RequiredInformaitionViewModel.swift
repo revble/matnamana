@@ -62,7 +62,7 @@ final class RequiredInfoViewModel {
       friendList: [],
       userId: appleUser.uid
     )
-//    FirebaseManager.shared.addUser(user: user)
+    FirebaseManager.shared.addData(to: .user, data: user, documentId: appleUser.uid)
     completion(user)
   }
 }

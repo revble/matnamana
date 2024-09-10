@@ -24,13 +24,22 @@ extension UIViewController {
   func pushViewController(_ viewController: UIViewController) {
     navigationController?.pushViewController(viewController, animated: true)
   }
+  
+  func presentModally(
+    _ viewController: UIViewController,
+    animated: Bool = true,
+    modalPresentationStyle: UIModalPresentationStyle = .formSheet
+  ) {
+    viewController.modalPresentationStyle = modalPresentationStyle
+    self.present(viewController, animated: animated)
+  }
 }
 
 extension UIView {
   func setupShadow() {
     self.layer.masksToBounds = false
-    self.layer.shadowOpacity = 0.8
-    self.layer.shadowOffset = CGSize(width: -2, height: 2)
-    self.layer.shadowRadius = 5
+    self.layer.shadowOpacity = 0.2
+    self.layer.shadowOffset = CGSize(width: 2, height: 2)
+    self.layer.shadowRadius = 2
   }
 }

@@ -17,7 +17,7 @@ final class FriendListCell: UITableViewCell {
     $0.contentMode = .scaleAspectFit
   }
   
-  private let userName = UILabel().then {
+  let userName = UILabel().then {
     $0.text = ""
   }
   
@@ -75,4 +75,5 @@ final class FriendListCell: UITableViewCell {
       userRelation.text = relation
     }
   }
+
 }
