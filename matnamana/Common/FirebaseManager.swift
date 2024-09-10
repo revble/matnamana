@@ -110,6 +110,7 @@ final class FirebaseManager {
   func addFriend(friendId: String,
                  friendType: String,
                  friendImage: String,
+                 status: String,
                  completion: @escaping (Bool, Error?) -> Void) {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else {
       print("userID없음 확인안됨")
@@ -118,7 +119,9 @@ final class FirebaseManager {
     guard let type = User.Friend.FriendType(rawValue: friendType) else { return }
     let newFriend = User.Friend(nickname: friendId,
                                 type: type,
-                                friendId: friendId, friendImage: friendImage)
+                                friendId: friendId,
+                                friendImage: friendImage,
+                                status: .pending)
     
     guard let friendData = newFriend.asDictionary else { return }
     

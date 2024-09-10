@@ -39,6 +39,7 @@ extension User {
     let type: FriendType
     let friendId: String
     let friendImage: String
+    let status: StatusType
   }
 }
 
@@ -47,5 +48,10 @@ extension User.Friend {
     case family
     case colleague
     case friend
+  }
+  
+  enum StatusType: String, Codable {
+    case pending
+    case accepted
   }
 }

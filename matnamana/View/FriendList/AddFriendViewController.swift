@@ -14,6 +14,7 @@ final class AddFriendViewController: BaseViewController {
   
   private var addFriendView = AddFriendView(frame: .zero)
   private var friendType = ""
+  private var status = ""
   private let viewModel = AddFriendViewModel()
   var userInfo: String
   var userImage: String
@@ -46,24 +47,27 @@ final class AddFriendViewController: BaseViewController {
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
         self.friendType = "family"
+        self.status = "pending"
       }).disposed(by: disposeBag)
     
     addFriendView.friendButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
         self.friendType = "friend"
+        self.status = "pending"
       }).disposed(by: disposeBag)
     
     addFriendView.colleagueButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
         self.friendType = "colleague"
+        self.status = "pending"
       }).disposed(by: disposeBag)
     
     addFriendView.sendButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
-        let input = AddFriendViewModel.Input(addFriend: .just([userInfo, self.friendType, userImage]))
+        let input = AddFriendViewModel.Input(addFriend: .just([userInfo, self.friendType, userImage, self.status]))
         let output = self.viewModel.transform(input: input)
         
         output.addFriendResult
