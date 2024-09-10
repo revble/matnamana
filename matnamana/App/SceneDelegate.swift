@@ -18,6 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: windowScene)
 
+    UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+    UserDefaults.standard.removeObject(forKey: "loggedInUserId")
+    
     let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
     
     if isLoggedIn {

@@ -24,6 +24,9 @@ class FriendListController: BaseViewController {
     let input = FriendListViewModel.Input(
       fetchFriends: Observable.just(()),
       searchText: friendListView.searchBar.rx.searchButtonClicked
+        .do(onNext: {
+          print("click")
+        })
         .withLatestFrom(friendListView.searchBar.rx.text.orEmpty)
         .filter { !$0.isEmpty }
     )

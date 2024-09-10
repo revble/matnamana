@@ -38,6 +38,7 @@ final class ReputaionController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    viewModel.fetchMyRequestReputation()
     viewModel.fetchRequestedReputation()
   }
   
@@ -61,6 +62,7 @@ final class ReputaionController: BaseViewController {
         let deafaultOffset = self.reputaionView.collecitonView.contentOffset.y
         if deafaultOffset < -100 {
           viewModel.fetchRequestedReputation()
+          viewModel.fetchMyRequestReputation()
         }
         print(deafaultOffset)
       }).disposed(by: disposeBag)
@@ -83,6 +85,7 @@ final class ReputaionController: BaseViewController {
             for: indexPath) as? MyRequestsCell else {
             return UICollectionViewCell()
           }
+          cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
           return cell
         case Section.receivedRequests.rawValue:
           guard let cell = collecitonView.dequeueReusableCell(
@@ -132,22 +135,29 @@ final class ReputaionController: BaseViewController {
       })
       .disposed(by: disposeBag)
     
-    viewModel.reputationDataRelay
+    Observable.combineLatest(
+      viewModel.myRequestedReputationDataRelay,
+      viewModel.receivedReputationDataRelay
+    )
       .observe(on: MainScheduler.instance)
-      .map { data -> [SectionModel<String, Item>] in
-        let receivedRequestItems = data.map { (profileImage, userNickName) in
+      .map { (myRequestedData, receivedData) -> [SectionModel<String, Item>] in
+        let myRequestedItems = myRequestedData.map { (profileImage, userNickName) in
+          Item(userNickName: userNickName, profileImageUrl: profileImage)
+        }
+        let receivedRequestItems = receivedData.map { (profileImage, userNickName) in
           Item(userNickName: userNickName, profileImageUrl: profileImage)
         }
         return [
           SectionModel(model: Section.friendRequest.title,
                        items: Array(repeating: Item(userNickName: "", profileImageUrl: ""), count: 5)),
           SectionModel(model: Section.myRequests.title,
-                       items: Array(repeating: Item(userNickName: "", profileImageUrl: ""), count: 5)),
+                       items: myRequestedItems),
           SectionModel(model: Section.receivedRequests.title,
                        items: receivedRequestItems)
         ]
       }
       .bind(to: reputaionView.collecitonView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
+    
   }
 }
