@@ -38,6 +38,21 @@ final class ProfileViewController: BaseViewController {
     let input = UserProfileViewModel.Input(fetchUser: Observable.just(()), nickName: userInfo)
     let output = viewModel.transform(input: input)
     
+    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
+    FirebaseManager.shared.readUser(documentId: userId) { [weak self] documentSnapshot, error in
+      guard let self else { return }
+      guard let snapshot = documentSnapshot else { return }
+      let isFriend = snapshot.friendList.contains { $0.nickname == self.userInfo }
+      
+      if isFriend {
+        self.profileView.requestFriend.isHidden = true
+      }
+      if snapshot.userId == userId {
+        self.profileView.requestFriend.isHidden = true
+        self.profileView.requestReference.isHidden = true
+      }
+    }
+    
     output.userInfo
       .drive(onNext: { [weak self] userInfo in
         guard let self = self else { return }

@@ -55,22 +55,6 @@ final class FriendListViewModel: ViewModelType {
     }
   }
   
-  private func addFriend(nickName: String) -> Observable<Bool> {
-    return Observable.create { observer in
-      FirebaseManager.shared.addFriend(friendId: nickName,
-                                       friendType: "친구",
-                                       friendImage: "defaultImageURL") { success, error in
-        if let error = error {
-          observer.onError(error)
-        } else {
-          observer.onNext(success)
-        }
-        observer.onCompleted()
-      }
-      return Disposables.create()
-    }
-  }
-  
   func transform(input: Input) -> Output {
     let friendList = input.fetchFriends
       .flatMap { [weak self] _ -> Observable<[User.Friend]> in
@@ -87,11 +71,11 @@ final class FriendListViewModel: ViewModelType {
           .flatMap { user -> Observable<Bool> in
             if user != nil {
               if user?.userId ?? "" == loggedUserId {
-                return Observable.just(false)
+                return Observable.just(true)
               }
               return Observable.just(true)
             } else {
-              return self.addFriend(nickName: nickname)
+              return Observable.just(true)
             }
           }
       }
