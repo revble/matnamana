@@ -82,9 +82,13 @@ final class FriendListViewModel: ViewModelType {
     let searchResult = input.searchText
       .flatMap { [weak self] nickname -> Observable<Bool> in
         guard let self else { return Observable.just(false) }
+        guard let loggedUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return Observable.just(false) }
         return self.searchFriend(by: nickname)
           .flatMap { user -> Observable<Bool> in
             if user != nil {
+              if user?.userId ?? "" == loggedUserId {
+                return Observable.just(false)
+              }
               return Observable.just(true)
             } else {
               return self.addFriend(nickName: nickname)
