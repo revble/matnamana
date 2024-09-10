@@ -9,7 +9,18 @@ import UIKit
 import RxSwift
 
 class AcceptRequestController: FriendListController {
-  private let viewModel = AcceptRequestViewModel()
+  
+  private let viewModel: AcceptRequestViewModel
+  
+  init(viewModel: AcceptRequestViewModel) {
+    self.viewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     friendListView.friendList.allowsMultipleSelection = true
@@ -22,13 +33,19 @@ class AcceptRequestController: FriendListController {
     friendListView.friendList.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
         guard let self = self else { return }
-        self.viewModel.selectItem(at: indexPath)
+        if let cell = self.friendListView.friendList.cellForRow(at: indexPath) as? FriendListCell {
+          guard let selectedFriends = cell.userName.text else { return }
+          self.viewModel.selectItem(selectedFriends: selectedFriends)
+        }
       }).disposed(by: disposeBag)
     
     friendListView.friendList.rx.itemDeselected
       .subscribe(onNext: { [weak self] indexPath in
         guard let self = self else { return }
-        self.viewModel.removeItem(at: indexPath)
+        if let cell = self.friendListView.friendList.cellForRow(at: indexPath) as? FriendListCell {
+          guard let selectedFriends = cell.userName.text else { return }
+          self.viewModel.removeItem(at: indexPath, selectedFriends: selectedFriends)
+        }
       }).disposed(by: disposeBag)
     
     viewModel.selectedItems
@@ -40,8 +57,11 @@ class AcceptRequestController: FriendListController {
           self.viewModel.removeFirstItem()
         }
         allIndexPaths.forEach { indexPath in
-          if !selectedItems.contains(indexPath) {
-            self.friendListView.friendList.deselectRow(at: indexPath, animated: true)
+          if let cell = self.friendListView.friendList.cellForRow(at: indexPath) as? FriendListCell {
+            guard let selectedFriends = cell.userName.text else { return }
+            if !selectedItems.contains(selectedFriends) {
+              self.friendListView.friendList.deselectRow(at: indexPath, animated: true)
+            }
           }
         }
         print("현재 선택된 항목들: \(selectedItems)")
@@ -56,7 +76,7 @@ class AcceptRequestController: FriendListController {
       .asDriver()
       .drive(onNext: { [weak self] in
         guard let self else { return }
-        // 친구 보내기
+        self.viewModel.sendData()
         dismiss(animated: true)
       }).disposed(by: disposeBag)
     

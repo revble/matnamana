@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4F1E88652C8E89CD00F09A36 /* AcceptRequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88642C8E89CD00F09A36 /* AcceptRequestController.swift */; };
 		4F1E88682C8E99B300F09A36 /* AcceptRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */; };
-		4F1E886A2C8FE7FD00F09A36 /* ReputationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88692C8FE7FD00F09A36 /* ReputationController.swift */; };
 		4F63D6E12C870C7800B0F65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */; };
 		4F63D7212C8A8CF500B0F65C /* ReputaionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D7202C8A8CF500B0F65C /* ReputaionController.swift */; };
 		4F63D7232C8A8D5F00B0F65C /* ReputationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D7222C8A8D5F00B0F65C /* ReputationView.swift */; };
@@ -125,7 +124,6 @@
 		4F1E885F2C8BEE1700F09A36 /* ReputaionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputaionViewModel.swift; sourceTree = "<group>"; };
 		4F1E88642C8E89CD00F09A36 /* AcceptRequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestController.swift; sourceTree = "<group>"; };
 		4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewModel.swift; sourceTree = "<group>"; };
-		4F1E88692C8FE7FD00F09A36 /* ReputationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationController.swift; sourceTree = "<group>"; };
 		4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4F63D7202C8A8CF500B0F65C /* ReputaionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputaionController.swift; sourceTree = "<group>"; };
 		4F63D7222C8A8D5F00B0F65C /* ReputationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationView.swift; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				4F1E88642C8E89CD00F09A36 /* AcceptRequestController.swift */,
-				4F1E88692C8FE7FD00F09A36 /* ReputationController.swift */,
 			);
 			path = AcceptRequest;
 			sourceTree = "<group>";
@@ -747,7 +744,6 @@
 				4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
-				4F1E886A2C8FE7FD00F09A36 /* ReputationController.swift in Sources */,
 				DA3A56132C8A967C00459343 /* TTest.swift in Sources */,
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
 				DD9470FA2C899058009BF95E /* TotalQuestionView.swift in Sources */,
