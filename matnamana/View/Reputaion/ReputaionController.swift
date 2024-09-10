@@ -48,6 +48,7 @@ final class ReputaionController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    viewModel.fetchFriendsReputation()
     viewModel.fetchMyRequestReputation()
     viewModel.fetchRequestedReputation()
   }
@@ -71,6 +72,7 @@ final class ReputaionController: BaseViewController {
         guard let self else { return }
         let deafaultOffset = self.reputationView.collecitonView.contentOffset.y
         if deafaultOffset < -100 {
+          viewModel.fetchFriendsReputation()
           viewModel.fetchRequestedReputation()
           viewModel.fetchMyRequestReputation()
         }
@@ -88,6 +90,7 @@ final class ReputaionController: BaseViewController {
             for: indexPath) as? FriendRequestCell else {
             return UICollectionViewCell()
           }
+          cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
           return cell
         case Section.myRequests.rawValue:
           guard let cell = collecitonView.dequeueReusableCell(
@@ -136,14 +139,12 @@ final class ReputaionController: BaseViewController {
           print("myRequests: \(indexPath.row)")
           
         case Section.receivedRequests.rawValue:
-          
           print("receivedRequests: \(indexPath.row)")
           
           self.presentModally(UINavigationController(rootViewController: AcceptRequestController(viewModel: acceptViewModel)))
           if let cell = self.reputationView.collecitonView.cellForItem(at: indexPath) as? ReceivedRequestCell {
             if let name = cell.name {
               self.acceptViewModel.selectName(name)
-              print(name)
             }
           }
           
@@ -154,11 +155,15 @@ final class ReputaionController: BaseViewController {
       .disposed(by: disposeBag)
     
     Observable.combineLatest(
+      viewModel.friendReputationDataRelay,
       viewModel.myRequestedReputationDataRelay,
       viewModel.receivedReputationDataRelay
     )
       .observe(on: MainScheduler.instance)
-      .map { (myRequestedData, receivedData) -> [SectionModel<String, Item>] in
+      .map { (friendData, myRequestedData, receivedData) -> [SectionModel<String, Item>] in
+        let friendReputationItems = friendData.map { (profileImage, userNickName) in
+          Item(userNickName: userNickName, profileImageUrl: profileImage)
+        }
         let myRequestedItems = myRequestedData.map { (profileImage, userNickName) in
           Item(userNickName: userNickName, profileImageUrl: profileImage)
         }
@@ -167,7 +172,7 @@ final class ReputaionController: BaseViewController {
         }
         return [
           SectionModel(model: Section.friendRequest.title,
-                       items: Array(repeating: Item(userNickName: "", profileImageUrl: ""), count: 5)),
+                       items: friendReputationItems),
           SectionModel(model: Section.myRequests.title,
                        items: myRequestedItems),
           SectionModel(model: Section.receivedRequests.title,

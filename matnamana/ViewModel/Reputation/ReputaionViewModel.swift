@@ -17,9 +17,81 @@ final class ReputaionViewModel {
   
   private let db = FirebaseManager.shared.db
   
+  var friendReputationDataRelay = BehaviorRelay(value: [(String, String)]())
   var receivedReputationDataRelay = BehaviorRelay(value: [(String, String)]())
   var myRequestedReputationDataRelay = BehaviorRelay(value: [(String, String)]())
-  var reputationDataRelay = BehaviorRelay(value: [(String, String)]())
+  
+  func fetchFriendsReputation() {
+    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
+    db.collection("users").document(userId).getDocument { [weak self] document, error in
+      if let error = error {
+        print("error")
+      } else {
+        guard let self,
+              let userNickName = document?.get("info.nickName") as? String
+        else { return }
+        db.collection("reputationRequests").whereField("selectedFriends", arrayContains: userNickName)
+          .getDocuments { [weak self] querySnapshot, error in
+            guard let self,
+                  let querySnapshot else { return }
+            if let error {
+              print("error")
+            } else {
+              var friendReputation: [(String, String)] = []
+              for document in querySnapshot.documents {
+                self.db.collection("reputationRequests").document(document.documentID)
+                  .getDocument { documentSnapshot, error in
+                    let nickName = documentSnapshot?.get("targetId")
+                    self.db.collection("users").whereField("info.nickName", isEqualTo: nickName)
+                      .getDocuments { querySnapshot, error in
+                        guard let querySnapshot else { return }
+                        for query in querySnapshot.documents{
+                          self.db.collection("users").document(query.documentID)
+                            .getDocument { documentSnapshot, error in
+                              guard let profileImage = 
+                                      documentSnapshot?.get("info.profileImage") as? String 
+                              else { return }
+                              friendReputation.append((profileImage, userNickName))
+                              self.friendReputationDataRelay.accept(friendReputation)
+                            }
+                        }
+                      }
+                  }
+              }
+            }
+          }
+      }
+    }
+  }
+  
+  func fetchMyRequestReputation() {
+    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
+    db.collection("reputationRequests").document(userId).getDocument { [weak self] document, error in
+      if let error = error {
+        print("error")
+      } else {
+        guard let self,
+              let userNickName = document?.get("targetId") as? String
+        else { return }
+        db.collection("users").whereField("info.nickName", isEqualTo: userNickName)
+          .getDocuments { [weak self] querySnapshot, error in
+            guard let self else { return }
+            var myRequestData: [(String, String)] = []
+            for document in querySnapshot!.documents {
+              db.collection("users").document(document.documentID)
+                .getDocument { documentSnapshot, error in
+                  guard let profileImage = document.get("info.profileImage") as? String else {
+                    return
+                  }
+                  myRequestData.append((profileImage,userNickName))
+                  self.myRequestedReputationDataRelay.accept(myRequestData)
+                }
+            }
+            
+          }
+      }
+    }
+  }
   
   func fetchRequestedReputation() {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
@@ -67,24 +139,7 @@ final class ReputaionViewModel {
       }
     }
   }
-  
-  func fetchMyRequestReputation() {
-    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
-    db.collection("reputationRequests").document(userId).getDocument { [weak self] document, error in
-      if let error = error {
-        print("error")
-      } else {
-        guard let self,
-              let userNickName = document?.get("targetId") as? String
-        else { return }
-        var myRequestData: [(String, String)] = []
-        myRequestData.append(("",userNickName))
-        self.myRequestedReputationDataRelay.accept(myRequestData)
-      }
-    }
-  }
-  
-  
+
 }
 
 
