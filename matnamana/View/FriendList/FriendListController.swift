@@ -40,8 +40,9 @@ final class FriendListController: BaseViewController {
     let output = viewModel.transform(input: input)
     
     let dataSource = RxTableViewSectionedReloadDataSource<FriendsSection>(
-      configureCell: { dataSource, tableView, indexPath, friend in
+      configureCell: { [weak self] dataSource, tableView, indexPath, friend in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendListCell.self), for: indexPath) as? FriendListCell else { return UITableViewCell() }
+        cell.disposeBag = DisposeBag()
         let friend = dataSource[indexPath]
         cell.configureCell(nickName: friend.friendId,
                            relation: friend.type.rawValue,
@@ -69,7 +70,7 @@ final class FriendListController: BaseViewController {
           cell.acceptButton.rx.tap
             .map { friend }
             .bind(to: acceptTapSubject)
-            .disposed(by: self.disposeBag)
+            .disposed(by: cell.disposeBag)
         } else {
           cell.acceptButton.isHidden = true
           cell.refuseButton.isHidden = true

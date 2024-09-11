@@ -27,10 +27,10 @@ final class FriendListViewModel: ViewModelType {
   private var friends = BehaviorRelay<[User.Friend]>(value: [])
   var disposeBag = DisposeBag()
   private var fetchFriendsSubject = PublishSubject<Void>()
-
-    func fetchFriends() {
-      fetchFriendsSubject.onNext(())
-    }
+  
+  func fetchFriends() {
+    fetchFriendsSubject.onNext(())
+  }
   
   func fetchFriendList() -> Observable<[User.Friend]> {
     guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
@@ -81,14 +81,41 @@ final class FriendListViewModel: ViewModelType {
         var updatedFriends = self.friends.value
         if let index = updatedFriends.firstIndex(where: { $0.friendId == friend.friendId }) {
           updatedFriends[index].status = .accepted
+          self.friends.accept(updatedFriends)
 
-          // Firestore에 상태 업데이트
           return Observable<Void>.create { observer in
-            FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends) { success, error in
+            FirebaseManager.shared.getUserDocumentId(nickName: friend.friendId) { friendDocumentId, error in
               if let error = error {
                 observer.onError(error)
+                return
+              }
+              
+              if let friendDocumentId = friendDocumentId {
+                FirebaseManager.shared.readUser(documentId: friendDocumentId) { user, error in
+                  if let error = error {
+                    observer.onError(error)
+                    return
+                  }
+                  
+                  if let user = user {
+                    var friendUpdatedFriends = user.friendList
+                    if let friendIndex = friendUpdatedFriends.firstIndex(where: { $0.friendId == id }) {
+                      friendUpdatedFriends[friendIndex].status = .accepted
+                      
+                      FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends, friendUserId: friendDocumentId, friendNewFriendList: friendUpdatedFriends) { success, error in
+                        if let error = error {
+                          observer.onError(error)
+                        } else {
+                          observer.onNext(())
+                          observer.onCompleted()
+                        }
+                      }
+                    } else {
+                      observer.onCompleted()
+                    }
+                  }
+                }
               } else {
-                observer.onNext(())
                 observer.onCompleted()
               }
             }
@@ -98,16 +125,11 @@ final class FriendListViewModel: ViewModelType {
           return .empty()
         }
       }
-      .flatMapLatest { [weak self] _ -> Observable<[User.Friend]> in
-        guard let self = self else { return .just([]) }
-        return self.fetchFriendList() // 업데이트된 친구 목록을 가져옴
-      }
-      .subscribe(onNext: { [weak self] updatedFriends in
-        guard let self = self else { return }
-        self.friends.accept(updatedFriends) // BehaviorRelay를 통해 UI 업데이트
+      .subscribe(onNext: { [weak self] _ in
+        self?.fetchFriends()
       })
       .disposed(by: disposeBag)
-
+    
     let friendList = friends
       .map { friends -> [FriendsSection] in
         guard let id = UserDefaults.standard.string(forKey: "loggedInUserId"),
