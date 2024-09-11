@@ -26,9 +26,8 @@ final class FriendListViewModel: ViewModelType {
   
   private var friends = BehaviorRelay<[User.Friend]>(value: [])
   var disposeBag = DisposeBag()
-  private var fetchFriendsSubject = PublishSubject<Void>() // 추가된 Subject
+  private var fetchFriendsSubject = PublishSubject<Void>()
 
-    // 최신 친구 목록을 가져오기 위한 메서드 추가
     func fetchFriends() {
       fetchFriendsSubject.onNext(())
     }
@@ -87,10 +86,8 @@ final class FriendListViewModel: ViewModelType {
           return Observable<Void>.create { observer in
             FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends) { success, error in
               if let error = error {
-                print("Failed to update friend list: \(error.localizedDescription)")
                 observer.onError(error)
               } else {
-                print("Friend list updated successfully.")
                 observer.onNext(())
                 observer.onCompleted()
               }
@@ -124,7 +121,7 @@ final class FriendListViewModel: ViewModelType {
         
         return [
           FriendsSection(header: "내가 보낸 요청", items: myRequest),
-          FriendsSection(header: "친구수락 대기중", items: pendingFriends),
+          FriendsSection(header: "받은 친구 요청", items: pendingFriends),
           FriendsSection(header: "친구 목록", items: acceptedFriends)
         ]
       }

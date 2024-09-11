@@ -47,7 +47,14 @@ final class FriendListController: BaseViewController {
                            relation: friend.type.rawValue,
                            friendImage: friend.friendImage)
         
-        if dataSource[indexPath.section].header == "내가 보낸 요청" {
+        cell.acceptButton.isHidden = true
+        cell.refuseButton.isHidden = true
+        cell.userName.isHidden = false
+        cell.userRelation.isHidden = false
+        cell.sendRequestLabel.isHidden = true
+        cell.backgroundColor = .white
+        
+        if dataSource[indexPath.section].header == "보낸 친구 요청" {
           cell.acceptButton.isHidden = true
           cell.refuseButton.isHidden = true
           cell.userName.isHidden = true
@@ -55,7 +62,7 @@ final class FriendListController: BaseViewController {
           cell.sendRequestLabel.isHidden = false
           cell.backgroundColor = UIColor(red: 239/255, green: 248/255, blue: 225/255, alpha: 1)
           cell.updateRequestLabel(name: friend.name)
-        } else if dataSource[indexPath.section].header == "친구수락 대기중" {
+        } else if dataSource[indexPath.section].header == "받은 친구 요청" {
           cell.acceptButton.isHidden = false
           cell.refuseButton.isHidden = false
           cell.sendRequestLabel.isHidden = true
@@ -66,7 +73,7 @@ final class FriendListController: BaseViewController {
         } else {
           cell.acceptButton.isHidden = true
           cell.refuseButton.isHidden = true
-          cell.sendRequestLabel.isHidden = false
+          cell.sendRequestLabel.isHidden = true
         }
         return cell
       },
