@@ -120,7 +120,7 @@ final class FriendListViewModel: ViewModelType {
         let myRequest = friends.filter { $0.status == .pending && $0.targetId == id }
         
         return [
-          FriendsSection(header: "내가 보낸 요청", items: myRequest),
+          FriendsSection(header: "보낸 친구 요청", items: myRequest),
           FriendsSection(header: "받은 친구 요청", items: pendingFriends),
           FriendsSection(header: "친구 목록", items: acceptedFriends)
         ]
