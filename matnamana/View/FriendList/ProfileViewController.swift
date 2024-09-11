@@ -42,7 +42,7 @@ final class ProfileViewController: BaseViewController {
     FirebaseManager.shared.readUser(documentId: userId) { [weak self] documentSnapshot, error in
       guard let self else { return }
       guard let snapshot = documentSnapshot else { return }
-      let isFriend = snapshot.friendList.contains { $0.nickname == self.userInfo }
+      let isFriend = snapshot.friendList.contains { $0.friendId == self.userInfo }
       
       if isFriend {
         self.profileView.requestFriend.isHidden = true
@@ -69,7 +69,9 @@ final class ProfileViewController: BaseViewController {
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
         guard let userImage = self.userImage else { return }
-        let modalVC = AddFriendViewController(userInfo: self.userInfo, userImage: userImage)
+        let modalVC = AddFriendViewController(userInfo: self.userInfo,
+                                              userImage: userImage,
+                                              userName: profileView.userName.text ?? "")
         modalVC.modalPresentationStyle = .overFullScreen
         self.present(modalVC, animated: true)
       }).disposed(by: disposeBag)

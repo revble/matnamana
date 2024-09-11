@@ -12,6 +12,17 @@ final class TabBarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     viewConfig()
+    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
+    FirebaseManager.shared.readUser(documentId: userId) { user, error in
+      if let error = error {
+        return
+      } else if let user = user {
+        let myNickName = user.info.nickName
+        let myName = user.info.name
+        UserDefaults.standard.setValue(myNickName, forKey: "userNickName")
+        UserDefaults.standard.setValue(myName, forKey: "userName")
+      }
+    }
   }
   
   private func viewConfig() {

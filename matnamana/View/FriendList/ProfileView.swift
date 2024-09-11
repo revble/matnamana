@@ -32,7 +32,7 @@ final class ProfileView: UIView {
     $0.clipsToBounds = true
   }
   
-  private let userName: UILabel = UILabel().then {
+  let userName: UILabel = UILabel().then {
     $0.text = ""
     $0.textAlignment = .center
     $0.font = .boldSystemFont(ofSize: 20)

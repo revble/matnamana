@@ -19,6 +19,7 @@ final class FriendListController: BaseViewController {
     super.setupView()
     friendListView = FriendListView(frame: UIScreen.main.bounds)
     self.view = friendListView
+    self.friendListView.friendList.reloadData()
   }
   
   override func bind() {
@@ -38,22 +39,30 @@ final class FriendListController: BaseViewController {
       configureCell: { dataSource, tableView, indexPath, friend in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendListCell.self), for: indexPath) as? FriendListCell else { return UITableViewCell() }
         let friend = dataSource[indexPath]
-        cell.configureCell(nickName: friend.nickname,
+        cell.configureCell(nickName: friend.friendId,
                            relation: friend.type.rawValue,
                            friendImage: friend.friendImage)
         
-        if dataSource[indexPath.section].header == "친구수락 대기중" {
+        if dataSource[indexPath.section].header == "내가 보낸 요청" {
+          cell.acceptButton.isHidden = true
+          cell.refuseButton.isHidden = true
+          cell.userName.isHidden = true
+          cell.userRelation.isHidden = true
+          cell.sendRequestLabel.isHidden = false
+          cell.backgroundColor = UIColor(red: 239/255, green: 248/255, blue: 225/255, alpha: 1)
+          cell.updateRequestLabel(name: friend.name)
+        } else if dataSource[indexPath.section].header == "친구수락 대기중" {
           cell.acceptButton.isHidden = false
           cell.refuseButton.isHidden = false
-          
+          cell.sendRequestLabel.isHidden = true
           cell.acceptButton.rx.tap
             .map { friend }
             .bind(to: acceptTapSubject)
             .disposed(by: self.disposeBag)
-          
         } else {
           cell.acceptButton.isHidden = true
           cell.refuseButton.isHidden = true
+          cell.sendRequestLabel.isHidden = false
         }
         return cell
       },

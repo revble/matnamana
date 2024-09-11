@@ -111,29 +111,65 @@ final class FirebaseManager {
                  friendType: String,
                  friendImage: String,
                  status: String,
+                 friendName: String,
+                 targetId: String,
                  completion: @escaping (Bool, Error?) -> Void) {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else {
       print("userID없음 확인안됨")
       return
     }
     guard let type = User.Friend.FriendType(rawValue: friendType) else { return }
-    let newFriend = User.Friend(nickname: friendId,
+    let newFriend = User.Friend(name: friendName,
                                 type: type,
                                 friendId: friendId,
                                 friendImage: friendImage,
-                                status: .pending)
+                                status: .pending, targetId: targetId)
+    guard let myName = UserDefaults.standard.string(forKey: "userName") else { return }
+    guard let myNickName = UserDefaults.standard.string(forKey: "userNickName") else { return }
+    
+    let currentUser = User.Friend(name: myName,
+                                  type: type,
+                                  friendId: myNickName,
+                                  friendImage: "",
+                                  status: .pending,
+                                  targetId: targetId)
     
     guard let friendData = newFriend.asDictionary else { return }
+    guard let userData = currentUser.asDictionary else { return }
     
     let userDocument = db.collection("users").document(userId)
+    let friendDocument = db.collection("users").whereField("info.nickName", isEqualTo: friendId)
     
-    userDocument.updateData([
-      "friendList": FieldValue.arrayUnion([friendData])
-    ]) { error in
-      if let error = error {
-        completion(false, error)
-      } else {
-        completion(true, nil)
+    friendDocument.getDocuments { (snapshot, error) in
+      
+      guard let snapshot = snapshot, !snapshot.isEmpty else {
+        completion(false, nil)
+        return
+      }
+      
+      if let document = snapshot.documents.first {
+        let friendUUID = document.documentID
+        
+        let friendCollection = self.db.collection("users").document(friendUUID)
+        
+        friendCollection.updateData([
+          "friendList": FieldValue.arrayUnion([userData])
+        ]) { error in
+          if let error = error {
+            completion(false, error)
+            return
+          }
+          
+          userDocument.updateData([
+            "friendList": FieldValue.arrayUnion([friendData])
+          ]) { error in
+            if let error = error {
+              completion(false, error)
+            } else {
+              completion(true, nil)
+            }
+          }
+        }
       }
     }
   }
@@ -153,6 +189,22 @@ final class FirebaseManager {
         completion(nil, error)
       }
     }
+  }
+  
+  func updateFriendList(userId: String, newFriendList: [User.Friend], completion: @escaping (Bool, Error?) -> Void) {
+      let userDocument = db.collection("users").document(userId)
+      let friendListData = newFriendList.map { $0.asDictionary }
+      userDocument.updateData([
+          "friendList": friendListData
+      ]) { error in
+          if let error = error {
+              print("Error updating friend list: \(error.localizedDescription)")
+              completion(false, error)
+          } else {
+              print("Successfully updated friend list.")
+              completion(true, nil)
+          }
+      }
   }
 }
 

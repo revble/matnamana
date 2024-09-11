@@ -69,49 +69,68 @@ final class FriendListViewModel: ViewModelType {
       .disposed(by: disposeBag)
     
     input.acceptTap
-      .subscribe(onNext: { [weak self] friend in
-        guard let self = self else { return }
-        
+      .flatMapLatest { [weak self] friend -> Observable<Void> in
+        guard let self = self else { return .empty() }
+        guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
+
         var updatedFriends = self.friends.value
         if let index = updatedFriends.firstIndex(where: { $0.friendId == friend.friendId }) {
           updatedFriends[index].status = .accepted
-          self.friends.accept(updatedFriends)
+
+          // Firestore에 상태 업데이트
+          return Observable<Void>.create { observer in
+            FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends) { success, error in
+              if let error = error {
+                print("Failed to update friend list: \(error.localizedDescription)")
+                observer.onError(error)
+              } else {
+                print("Friend list updated successfully.")
+                observer.onNext(())
+                observer.onCompleted()
+              }
+            }
+            return Disposables.create()
+          }
+        } else {
+          return .empty()
         }
+      }
+      .flatMapLatest { [weak self] _ -> Observable<[User.Friend]> in
+        guard let self = self else { return .just([]) }
+        return self.fetchFriendList() // 업데이트된 친구 목록을 가져옴
+      }
+      .subscribe(onNext: { [weak self] updatedFriends in
+        guard let self = self else { return }
+        self.friends.accept(updatedFriends) // BehaviorRelay를 통해 UI 업데이트
       })
       .disposed(by: disposeBag)
-    
+
     let friendList = friends
       .map { friends -> [FriendsSection] in
+        guard let id = UserDefaults.standard.string(forKey: "loggedInUserId"),
+              !id.isEmpty else {
+          return []
+        }
+        print(id)
         let acceptedFriends = friends.filter { $0.status == .accepted }
-        let pendingFriends = friends.filter { $0.status == .pending }
+        let pendingFriends = friends.filter { $0.status == .pending && $0.targetId != id }
+        let myRequest = friends.filter { $0.status == .pending && $0.targetId == id }
         
         return [
+          FriendsSection(header: "내가 보낸 요청", items: myRequest),
           FriendsSection(header: "친구수락 대기중", items: pendingFriends),
           FriendsSection(header: "친구 목록", items: acceptedFriends)
         ]
       }
       .asDriver(onErrorJustReturn: [])
     
-    
-//    let searchResult = input.searchText
-//      .flatMap { [weak self] nickname -> Observable<Bool> in
-//        guard let self else { return Observable.just(false) }
-//        return self.searchFriend(by: nickname)
-//          .map { user in
-//            if let user = user, user.userId == UserDefaults.standard.string(forKey: "loggedInUserId") {
-//              return true
-//            }
-//            return false
-//          }
-//      }
-//      .asDriver(onErrorJustReturn: false)
     let searchResult = input.searchText
       .flatMapLatest { [weak self] nickname -> Observable<Bool> in
         guard let self = self else { return Observable.just(false) }
-        guard let loggedUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return Observable.just(false) }
+        guard UserDefaults.standard.string(forKey: "loggedInUserId") != nil else { return Observable.just(false) }
         return self.searchFriend(by: nickname)
           .map { user -> Bool in
-            if let user = user {
+            if user != nil {
               return true
             } else {
               return false
@@ -119,7 +138,7 @@ final class FriendListViewModel: ViewModelType {
           }
       }
       .asDriver(onErrorJustReturn: false)
-            
+    
     let errorMessage = input.searchText
       .flatMap { [weak self] nickname -> Observable<String> in
         guard let self = self else { return Observable.just("") }

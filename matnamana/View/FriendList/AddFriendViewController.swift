@@ -18,10 +18,12 @@ final class AddFriendViewController: BaseViewController {
   private let viewModel = AddFriendViewModel()
   var userInfo: String
   var userImage: String
+  var userName: String
   
-  init(userInfo: String, userImage: String) {
+  init(userInfo: String, userImage: String, userName: String) {
     self.userInfo = userInfo
     self.userImage = userImage
+    self.userName = userName
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -76,7 +78,12 @@ final class AddFriendViewController: BaseViewController {
     addFriendView.sendButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        let input = AddFriendViewModel.Input(addFriend: .just([userInfo, self.friendType, userImage, self.status]))
+        let input = AddFriendViewModel.Input(addFriend: .just([userInfo,
+                                                               self.friendType,
+                                                               userImage,
+                                                               self.status,
+                                                               self.userName
+                                                              ]))
         let output = self.viewModel.transform(input: input)
         
         output.addFriendResult

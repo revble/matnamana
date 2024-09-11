@@ -17,11 +17,11 @@ final class FriendListCell: UITableViewCell {
     $0.contentMode = .scaleAspectFit
   }
   
-  private let userName = UILabel().then {
+  let userName = UILabel().then {
     $0.text = ""
   }
   
-  private let userRelation = UILabel().then {
+  let userRelation = UILabel().then {
     $0.text = "친구"
   }
   
@@ -43,6 +43,10 @@ final class FriendListCell: UITableViewCell {
     $0.backgroundColor = .gray
   }
   
+  let sendRequestLabel = UILabel().then {
+    $0.text = ""
+  }
+  
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,7 +59,8 @@ final class FriendListCell: UITableViewCell {
       userImage,
       userName,
       userRelation,
-      stackView
+      stackView,
+      sendRequestLabel
     ].forEach { contentView.addSubview($0) }
     setConstraints()
   }
@@ -86,6 +91,11 @@ final class FriendListCell: UITableViewCell {
       $0.leading.equalTo(userName.snp.trailing).offset(30)
       $0.centerY.equalToSuperview()
     }
+    
+    sendRequestLabel.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.leading.equalTo(userImage.snp.trailing).offset(20)
+    }
   }
   
   func configureCell(nickName: String, relation: String, friendImage: String) {
@@ -105,5 +115,9 @@ final class FriendListCell: UITableViewCell {
     default:
       userRelation.text = relation
     }
+  }
+  
+  func updateRequestLabel(name: String) {
+    sendRequestLabel.text = "\(name)님에게 친구 요청을 보냈습니다"
   }
 }
