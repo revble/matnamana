@@ -81,40 +81,12 @@ final class FriendListViewModel: ViewModelType {
         var updatedFriends = self.friends.value
         if let index = updatedFriends.firstIndex(where: { $0.friendId == friend.friendId }) {
           updatedFriends[index].status = .accepted
-          self.friends.accept(updatedFriends)
 
+          // Firestore에 상태 업데이트
           return Observable<Void>.create { observer in
-            FirebaseManager.shared.getUserDocumentId(nickName: friend.friendId) { friendDocumentId, error in
+            FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends) { success, error in
               if let error = error {
                 observer.onError(error)
-                return
-              }
-              
-              if let friendDocumentId = friendDocumentId {
-                FirebaseManager.shared.readUser(documentId: friendDocumentId) { user, error in
-                  if let error = error {
-                    observer.onError(error)
-                    return
-                  }
-                  
-                  if let user = user {
-                    var friendUpdatedFriends = user.friendList
-                    if let friendIndex = friendUpdatedFriends.firstIndex(where: { $0.friendId == id }) {
-                      friendUpdatedFriends[friendIndex].status = .accepted
-                      
-                      FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends, friendUserId: friendDocumentId, friendNewFriendList: friendUpdatedFriends) { success, error in
-                        if let error = error {
-                          observer.onError(error)
-                        } else {
-                          observer.onNext(())
-                          observer.onCompleted()
-                        }
-                      }
-                    } else {
-                      observer.onCompleted()
-                    }
-                  }
-                }
               } else {
                 observer.onNext(())
                 observer.onCompleted()
@@ -126,11 +98,16 @@ final class FriendListViewModel: ViewModelType {
           return .empty()
         }
       }
-      .subscribe(onNext: { [weak self] _ in
-        self?.fetchFriends()
+      .flatMapLatest { [weak self] _ -> Observable<[User.Friend]> in
+        guard let self = self else { return .just([]) }
+        return self.fetchFriendList()
+      }
+      .subscribe(onNext: { [weak self] updatedFriends in
+        guard let self = self else { return }
+        self.friends.accept(updatedFriends)
       })
       .disposed(by: disposeBag)
-    
+
     let friendList = friends
       .map { friends -> [FriendsSection] in
         guard let id = UserDefaults.standard.string(forKey: "loggedInUserId"),

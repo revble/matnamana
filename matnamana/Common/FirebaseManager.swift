@@ -191,50 +191,20 @@ final class FirebaseManager {
     }
   }
   
-  func updateFriendList(userId: String, newFriendList: [User.Friend], friendUserId: String, friendNewFriendList: [User.Friend], completion: @escaping (Bool, Error?) -> Void) {
-    let userDocument = db.collection("users").document(userId)
-    let friendDocument = db.collection("users").document(friendUserId)
-    
-    let friendListData = newFriendList.map { $0.asDictionary }
-    let friendUserListData = friendNewFriendList.map { $0.asDictionary }
-    
-    let batch = db.batch()  // Firestore Batch 사용하여 두 문서 업데이트
-    
-    // 내 친구 목록 업데이트
-    batch.updateData([
-      "friendList": friendListData
-    ], forDocument: userDocument)
-    
-    // 친구의 친구 목록 업데이트
-    batch.updateData([
-      "friendList": friendUserListData
-    ], forDocument: friendDocument)
-    
-    batch.commit { error in
-      if let error = error {
-        print("Failed to update both friend lists: \(error.localizedDescription)")
-        completion(false, error)
-      } else {
-        print("Successfully updated both friend lists.")
-        completion(true, nil)
+  func updateFriendList(userId: String, newFriendList: [User.Friend], completion: @escaping (Bool, Error?) -> Void) {
+      let userDocument = db.collection("users").document(userId)
+      let friendListData = newFriendList.map { $0.asDictionary }
+      userDocument.updateData([
+          "friendList": friendListData
+      ]) { error in
+          if let error = error {
+              print("Error updating friend list: \(error.localizedDescription)")
+              completion(false, error)
+          } else {
+              print("Successfully updated friend list.")
+              completion(true, nil)
+          }
       }
-    }
-  }
-  
-  func getUserDocumentId(nickName: String, completion: @escaping (String?, Error?) -> Void) {
-    let query = db.collection("users").whereField("info.nickName", isEqualTo: nickName)
-    query.getDocuments { snapshot, error in
-      if let error = error {
-        completion(nil, error)
-        return
-      }
-      
-      if let document = snapshot?.documents.first {
-        completion(document.documentID, nil)
-      } else {
-        completion(nil, nil)
-      }
-    }
   }
 }
 
