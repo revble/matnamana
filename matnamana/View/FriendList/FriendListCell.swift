@@ -25,12 +25,37 @@ final class FriendListCell: UITableViewCell {
     $0.text = "친구"
   }
   
+  private let stackView = UIStackView().then {
+    $0.axis = .horizontal
+    $0.spacing = 10
+    $0.distribution = .fillEqually
+  }
+  
+  let acceptButton = UIButton().then {
+    $0.setTitle("수락하기", for: .normal)
+    $0.layer.cornerRadius = 8
+    $0.backgroundColor = .manaMainColor
+  }
+  
+  let refuseButton = UIButton().then {
+    $0.setTitle("거절하기", for: .normal)
+    $0.layer.cornerRadius = 8
+    $0.backgroundColor = .gray
+  }
+  
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     [
+      acceptButton,
+      refuseButton
+    ].forEach { stackView.addArrangedSubview($0) }
+    
+    [
       userImage,
       userName,
-      userRelation
+      userRelation,
+      stackView
     ].forEach { contentView.addSubview($0) }
     setConstraints()
   }
@@ -54,6 +79,12 @@ final class FriendListCell: UITableViewCell {
     userRelation.snp.makeConstraints {
       $0.top.equalTo(userName.snp.bottom).offset(5)
       $0.leading.equalTo(userName.snp.leading)
+    }
+    
+    stackView.snp.makeConstraints {
+      $0.trailing.equalToSuperview().offset(-10)
+      $0.leading.equalTo(userName.snp.trailing).offset(30)
+      $0.centerY.equalToSuperview()
     }
   }
   

@@ -6,8 +6,9 @@
 
 import UIKit
 
-import RxSwift
 import RxCocoa
+import RxDataSources
+import RxSwift
 
 final class FriendListController: BaseViewController {
   
@@ -22,23 +23,48 @@ final class FriendListController: BaseViewController {
   
   override func bind() {
     super.bind()
+    let acceptTapSubject = PublishSubject<User.Friend>()
     let input = FriendListViewModel.Input(
       fetchFriends: Observable.just(()),
       searchText: friendListView.searchBar.rx.searchButtonClicked
         .withLatestFrom(friendListView.searchBar.rx.text.orEmpty)
-        .filter { !$0.isEmpty }
+        .filter { !$0.isEmpty },
+      acceptTap: acceptTapSubject.asObservable()
     )
     
     let output = viewModel.transform(input: input)
     
-    output.friendList
-      .drive(friendListView.friendList.rx.items(
-        cellIdentifier: String(describing: FriendListCell.self),
-        cellType: FriendListCell.self)) { row, friend, cell in
+    let dataSource = RxTableViewSectionedReloadDataSource<FriendsSection>(
+      configureCell: { dataSource, tableView, indexPath, friend in
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendListCell.self), for: indexPath) as? FriendListCell else { return UITableViewCell() }
+        let friend = dataSource[indexPath]
         cell.configureCell(nickName: friend.nickname,
                            relation: friend.type.rawValue,
-                           friendImage: friend.friendImage
-        )}.disposed(by: disposeBag)
+                           friendImage: friend.friendImage)
+        
+        if dataSource[indexPath.section].header == "친구수락 대기중" {
+          cell.acceptButton.isHidden = false
+          cell.refuseButton.isHidden = false
+          
+          cell.acceptButton.rx.tap
+            .map { friend }
+            .bind(to: acceptTapSubject)
+            .disposed(by: self.disposeBag)
+          
+        } else {
+          cell.acceptButton.isHidden = true
+          cell.refuseButton.isHidden = true
+        }
+        return cell
+      },
+      titleForHeaderInSection: { dataSource, index in
+        return dataSource[index].header
+      }
+    )
+    
+    output.friendList
+      .drive(friendListView.friendList.rx.items(dataSource: dataSource))
+      .disposed(by: disposeBag)
     
     output.searchResult
       .drive(onNext: { [weak self] userExists in
@@ -57,10 +83,8 @@ final class FriendListController: BaseViewController {
     
     output.errorMessage
       .drive(onNext: { [weak self] message in
-        guard
-          let self,
-          !message.isEmpty
-        else { return }
+        guard let self else { return }
+        guard !message.isEmpty else { return }
         
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default))

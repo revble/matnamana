@@ -39,7 +39,7 @@ extension User {
     let type: FriendType
     let friendId: String
     let friendImage: String
-    let status: StatusType
+    var status: StatusType
   }
 }
 

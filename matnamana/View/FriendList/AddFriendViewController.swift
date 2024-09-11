@@ -75,7 +75,7 @@ final class AddFriendViewController: BaseViewController {
     
     addFriendView.sendButton.rx.tap
       .subscribe(onNext: { [weak self] in
-        guard let self else { return }
+        guard let self = self else { return }
         let input = AddFriendViewModel.Input(addFriend: .just([userInfo, self.friendType, userImage, self.status]))
         let output = self.viewModel.transform(input: input)
         
@@ -87,20 +87,7 @@ final class AddFriendViewController: BaseViewController {
             } else {
               print("실패")
             }
-            let alertController = UIAlertController(title: "친구 신청 완료",
-                                                    message: "친구 신청이 완료되었습니다.",
-                                                    preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-              guard let self else { return }
-              self.navigationController?.popViewController(animated: true)
-            }
-            alertController.addAction(confirmAction)
-            
-            // dismiss 완료 후 알림 표시
-            self.dismiss(animated: true, completion: { [weak self] in
-              self?.present(alertController, animated: true, completion: nil)
-            })
-            
+            self.dismiss(animated: true)
           }).disposed(by: self.disposeBag)
       }).disposed(by: disposeBag)
   }

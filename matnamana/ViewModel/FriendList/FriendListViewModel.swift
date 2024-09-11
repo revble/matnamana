@@ -15,13 +15,17 @@ final class FriendListViewModel: ViewModelType {
   struct Input {
     let fetchFriends: Observable<Void>
     let searchText: Observable<String>
+    let acceptTap: Observable<User.Friend>
   }
   
   struct Output {
-    let friendList: Driver<[User.Friend]>
+    let friendList: Driver<[FriendsSection]>
     let searchResult: Driver<Bool>
     let errorMessage: Driver<String>
   }
+  
+  private var friends = BehaviorRelay<[User.Friend]>(value: [])
+  var disposeBag = DisposeBag()
   
   private func fetchFriendList() -> Observable<[User.Friend]> {
     guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
@@ -56,40 +60,72 @@ final class FriendListViewModel: ViewModelType {
   }
   
   func transform(input: Input) -> Output {
-    let friendList = input.fetchFriends
-      .flatMap { [weak self] _ -> Observable<[User.Friend]> in
-        guard let self else { return Observable.just([]) }
+    input.fetchFriends
+      .flatMapLatest { [weak self] _ -> Observable<[User.Friend]> in
+        guard let self = self else { return Observable.just([]) }
         return self.fetchFriendList()
+      }
+      .bind(to: friends)
+      .disposed(by: disposeBag)
+    
+    input.acceptTap
+      .subscribe(onNext: { [weak self] friend in
+        guard let self = self else { return }
+        
+        var updatedFriends = self.friends.value
+        if let index = updatedFriends.firstIndex(where: { $0.friendId == friend.friendId }) {
+          updatedFriends[index].status = .accepted
+          self.friends.accept(updatedFriends)
+        }
+      })
+      .disposed(by: disposeBag)
+    
+    let friendList = friends
+      .map { friends -> [FriendsSection] in
+        let acceptedFriends = friends.filter { $0.status == .accepted }
+        let pendingFriends = friends.filter { $0.status == .pending }
+        
+        return [
+          FriendsSection(header: "친구수락 대기중", items: pendingFriends),
+          FriendsSection(header: "친구 목록", items: acceptedFriends)
+        ]
       }
       .asDriver(onErrorJustReturn: [])
     
+    
+//    let searchResult = input.searchText
+//      .flatMap { [weak self] nickname -> Observable<Bool> in
+//        guard let self else { return Observable.just(false) }
+//        return self.searchFriend(by: nickname)
+//          .map { user in
+//            if let user = user, user.userId == UserDefaults.standard.string(forKey: "loggedInUserId") {
+//              return true
+//            }
+//            return false
+//          }
+//      }
+//      .asDriver(onErrorJustReturn: false)
     let searchResult = input.searchText
-      .flatMap { [weak self] nickname -> Observable<Bool> in
-        guard let self else { return Observable.just(false) }
+      .flatMapLatest { [weak self] nickname -> Observable<Bool> in
+        guard let self = self else { return Observable.just(false) }
         guard let loggedUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return Observable.just(false) }
         return self.searchFriend(by: nickname)
-          .flatMap { user -> Observable<Bool> in
-            if user != nil {
-              if user?.userId ?? "" == loggedUserId {
-                return Observable.just(true)
-              }
-              return Observable.just(true)
+          .map { user -> Bool in
+            if let user = user {
+              return true
             } else {
-              return Observable.just(true)
+              return false
             }
           }
       }
       .asDriver(onErrorJustReturn: false)
-    
+            
     let errorMessage = input.searchText
-      .flatMap { nickname -> Observable<String> in
+      .flatMap { [weak self] nickname -> Observable<String> in
+        guard let self = self else { return Observable.just("") }
         return self.searchFriend(by: nickname)
-          .flatMap { user -> Observable<String> in
-            if user == nil {
-              return Observable.just("해당 닉네임의 사용자가 없습니다.")
-            } else {
-              return Observable.empty()
-            }
+          .compactMap { user in
+            return user == nil ? "해당 닉네임의 사용자가 없습니다." : nil
           }
       }
       .asDriver(onErrorJustReturn: "")
