@@ -27,10 +27,10 @@ final class FriendListViewModel: ViewModelType {
   private var friends = BehaviorRelay<[User.Friend]>(value: [])
   var disposeBag = DisposeBag()
   private var fetchFriendsSubject = PublishSubject<Void>()
-  
-  func fetchFriends() {
-    fetchFriendsSubject.onNext(())
-  }
+
+    func fetchFriends() {
+      fetchFriendsSubject.onNext(())
+    }
   
   func fetchFriendList() -> Observable<[User.Friend]> {
     guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
@@ -116,6 +116,7 @@ final class FriendListViewModel: ViewModelType {
                   }
                 }
               } else {
+                observer.onNext(())
                 observer.onCompleted()
               }
             }
@@ -142,7 +143,7 @@ final class FriendListViewModel: ViewModelType {
         let myRequest = friends.filter { $0.status == .pending && $0.targetId == id }
         
         return [
-          FriendsSection(header: "보낸 친구 요청", items: myRequest),
+          FriendsSection(header: "내가 보낸 요청", items: myRequest),
           FriendsSection(header: "받은 친구 요청", items: pendingFriends),
           FriendsSection(header: "친구 목록", items: acceptedFriends)
         ]
