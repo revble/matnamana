@@ -10,11 +10,18 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 import Kingfisher
-import RxSwift
 import RxCocoa
+import RxSwift
 
-final class ReputaionViewModel {
+final class ReputationViewModel: ViewModelType {
   
+  struct Input {
+    let refreshGesture: ControlProperty<CGPoint>
+  }
+  
+  struct Output {
+    let fetchTrigger: Observable<Void>
+  }
   private let db = FirebaseManager.shared.db
   
   var friendReputationDataRelay = BehaviorRelay(value: [(String, String)]())
@@ -62,6 +69,15 @@ final class ReputaionViewModel {
         self.myRequestedReputationDataRelay.accept(myRequestedReputationData)
       }
     }
+  }
+  
+  func transform(input: Input) -> Output {
+    
+    let fetchTrigger = input.refreshGesture
+      .filter { $0.y < -100 }
+      .map { _ in () }
+    
+    return Output(fetchTrigger: fetchTrigger)
   }
   
 }
