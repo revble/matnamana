@@ -16,7 +16,7 @@ import Then
 final class ReputaionController: BaseViewController {
   private var reputationView = ReputationView(frame: .zero)
   private let acceptViewModel: AcceptRequestViewModel
-  private let viewModel = ReputaionViewModel()
+  private let viewModel = ReputationViewModel()
   
   init(acceptViewModel: AcceptRequestViewModel) {
     self.acceptViewModel = acceptViewModel
@@ -36,26 +36,39 @@ final class ReputaionController: BaseViewController {
   override func setNavigation() {
     super.setNavigation()
     self.navigationItem.title = "평판 조회"
-    
     navigationItem.rightBarButtonItem = moveToSearchButton()
   }
   
   override func bind() {
     super.bind()
+    
+    let input = ReputationViewModel.Input(
+    
+      refreshGesture: reputationView.collecitonView.rx.contentOffset
+      
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    output.fetchTrigger
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
+        self.viewModel.fetchReputationInfo()
+      }).disposed(by: disposeBag)
+  
+    
     bindCollectionView()
-    refreshingGesture()
+
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    viewModel.fetchFriendsReputation()
-    viewModel.fetchMyRequestReputation()
-    viewModel.fetchRequestedReputation()
+    viewModel.fetchReputationInfo()
+    
   }
   
   private func moveToSearchButton() -> UIBarButtonItem {
     let button = reputationView.searchFriend
-    
     button.rx.tap
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] in
@@ -64,20 +77,6 @@ final class ReputaionController: BaseViewController {
       }).disposed(by: disposeBag)
     
     return UIBarButtonItem(customView: button)
-  }
-  
-  private func refreshingGesture() {
-    reputationView.collecitonView.rx.contentOffset
-      .subscribe(onNext: { [weak self] contentOffset in
-        guard let self else { return }
-        let deafaultOffset = self.reputationView.collecitonView.contentOffset.y
-        if deafaultOffset < -100 {
-          viewModel.fetchFriendsReputation()
-          viewModel.fetchRequestedReputation()
-          viewModel.fetchMyRequestReputation()
-        }
-        print(deafaultOffset)
-      }).disposed(by: disposeBag)
   }
   
   private func bindCollectionView() {
@@ -134,7 +133,6 @@ final class ReputaionController: BaseViewController {
         switch indexPath.section {
         case Section.friendRequest.rawValue:
           print("friendRequest: \(indexPath.row)")
-          
         case Section.myRequests.rawValue:
           print("myRequests: \(indexPath.row)")
           
@@ -181,6 +179,5 @@ final class ReputaionController: BaseViewController {
       }
       .bind(to: reputationView.collecitonView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
-    
   }
 }

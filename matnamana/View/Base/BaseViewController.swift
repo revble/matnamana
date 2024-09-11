@@ -28,6 +28,7 @@ class BaseViewController: UIViewController {
     overrideUserInterfaceStyle = .light
     view.backgroundColor = .systemBackground
 
+
   }
   
   func setNavigation() {
