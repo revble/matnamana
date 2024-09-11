@@ -8,7 +8,7 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     viewConfig()
@@ -42,7 +42,9 @@ extension TabBarController {
       case .friendList:
         return FriendListController()
       case .reputation:
-        return ReputaionController()
+        let viewModel = AcceptRequestViewModel()
+        let freindListViewModel = FriendListViewModel()
+        return ReputaionController(acceptViewModel: viewModel)
       case .profile:
         return ProfileController()
       }

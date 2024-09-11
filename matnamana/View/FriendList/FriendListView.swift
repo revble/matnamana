@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class FriendListView: BaseView {
+class FriendListView: BaseView {
   
   private let friendCount = UILabel().then {
     $0.text = ""
