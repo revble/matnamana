@@ -26,8 +26,14 @@ final class FriendListViewModel: ViewModelType {
   
   private var friends = BehaviorRelay<[User.Friend]>(value: [])
   var disposeBag = DisposeBag()
+  private var fetchFriendsSubject = PublishSubject<Void>() // 추가된 Subject
+
+    // 최신 친구 목록을 가져오기 위한 메서드 추가
+    func fetchFriends() {
+      fetchFriendsSubject.onNext(())
+    }
   
-  private func fetchFriendList() -> Observable<[User.Friend]> {
+  func fetchFriendList() -> Observable<[User.Friend]> {
     guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
     return Observable.create { observer in
       FirebaseManager.shared.readUser(documentId: loggedInUserId) { user, error in
@@ -60,7 +66,7 @@ final class FriendListViewModel: ViewModelType {
   }
   
   func transform(input: Input) -> Output {
-    input.fetchFriends
+    Observable.merge([input.fetchFriends, fetchFriendsSubject.asObservable()])
       .flatMapLatest { [weak self] _ -> Observable<[User.Friend]> in
         guard let self = self else { return Observable.just([]) }
         return self.fetchFriendList()

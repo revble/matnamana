@@ -19,7 +19,11 @@ final class FriendListController: BaseViewController {
     super.setupView()
     friendListView = FriendListView(frame: UIScreen.main.bounds)
     self.view = friendListView
-    self.friendListView.friendList.reloadData()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    viewModel.fetchFriends()
   }
   
   override func bind() {
