@@ -48,9 +48,8 @@ final class ReputaionController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    viewModel.fetchFriendsReputation()
-    viewModel.fetchMyRequestReputation()
-    viewModel.fetchRequestedReputation()
+    viewModel.fetchReputationInfo()
+    
   }
   
   private func moveToSearchButton() -> UIBarButtonItem {
@@ -72,9 +71,7 @@ final class ReputaionController: BaseViewController {
         guard let self else { return }
         let deafaultOffset = self.reputationView.collecitonView.contentOffset.y
         if deafaultOffset < -100 {
-          viewModel.fetchFriendsReputation()
-          viewModel.fetchRequestedReputation()
-          viewModel.fetchMyRequestReputation()
+          viewModel.fetchReputationInfo()
         }
         print(deafaultOffset)
       }).disposed(by: disposeBag)
@@ -134,7 +131,6 @@ final class ReputaionController: BaseViewController {
         switch indexPath.section {
         case Section.friendRequest.rawValue:
           print("friendRequest: \(indexPath.row)")
-          
         case Section.myRequests.rawValue:
           print("myRequests: \(indexPath.row)")
           
