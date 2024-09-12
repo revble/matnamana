@@ -180,6 +180,35 @@ final class FirebaseManager {
       }
     }
   }
+  
+  func fetchquestionList(userId: String, targetNickName: String, completion: @escaping ([ReputationRequest]?, Error?) -> Void) {
+    db.collection("reputationRequests").whereFilter(Filter.orFilter([
+      Filter.whereField("target.nickName", isEqualTo: targetNickName),
+      Filter.whereField("selectedFriends.userId", isEqualTo: userId)
+    ]))
+    .getDocuments { querySnapshot, error in
+      if let error = error {
+        completion(nil, error)
+        return
+      }
+      guard let querySnapshot = querySnapshot else {
+        completion([], error)
+        return
+      }
+      var reputationRequests: [ReputationRequest] = []
+      for document in querySnapshot.documents {
+        do {
+          let reputation = try document.data(as: ReputationRequest.self)
+          reputationRequests.append(reputation)
+          completion(reputationRequests, nil)
+        } catch {
+          completion(nil, error)
+          return
+        }
+      }
+    }
+  }
+  
 }
 
 extension Encodable {
