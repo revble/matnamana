@@ -24,6 +24,9 @@ extension UIViewController {
   func pushViewController(_ viewController: UIViewController) {
     navigationController?.pushViewController(viewController, animated: true)
   }
+  func popViewController() {
+    navigationController?.popViewController(animated: true)
+  }
   
   func presentModally(
     _ viewController: UIViewController,

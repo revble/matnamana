@@ -7,9 +7,6 @@
 
 import Foundation
 
-import FirebaseCore
-import FirebaseFirestore
-import Kingfisher
 import RxCocoa
 import RxSwift
 
@@ -22,11 +19,11 @@ final class ReputationViewModel: ViewModelType {
   struct Output {
     let fetchTrigger: Observable<Void>
   }
-  private let db = FirebaseManager.shared.db
   
   var friendReputationDataRelay = BehaviorRelay(value: [(String, String)]())
   var myRequestedReputationDataRelay = BehaviorRelay(value: [(String, String)]())
   var receivedReputationDataRelay = BehaviorRelay(value: [(String, String)]())
+  
   
   func fetchReputationInfo() {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
