@@ -13,7 +13,12 @@ import Then
 final class TotalQuestionView: UIView {
   
   let questionList = UITableView().then {
-    $0.register(QuestionListCell.self, forCellReuseIdentifier: QuestionListCell.identifier)
+    $0.register(QuestionListCell.self, forCellReuseIdentifier: String(describing: QuestionListCell.self)/* QuestionListCell.identifier*/)
+  }
+  
+  let questionSegement = UISegmentedControl(items: ["팩트 질문", "가치관 질문", "커리어 질문"]).then {
+    $0.selectedSegmentIndex = 0
+    $0.selectedSegmentTintColor = .manaMainColor
   }
   
   override init(frame: CGRect) {
@@ -27,12 +32,23 @@ final class TotalQuestionView: UIView {
   }
   
   private func configureUI() {
-    self.addSubview(questionList)
+    [
+      questionSegement,
+      questionList
+    ].forEach { self.addSubview($0) }
   }
   
   private func setConstraints() {
+    
+    questionSegement.snp.makeConstraints {
+      $0.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide).offset(10)
+      $0.height.equalTo(40)
+    }
+    
     questionList.snp.makeConstraints {
-      $0.edges.equalTo(self.safeAreaLayoutGuide).inset(20)
+      $0.top.equalTo(questionSegement.snp.bottom).offset(10)
+      $0.bottom.equalTo(self.safeAreaLayoutGuide)
+      $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(20)
     }
   }
 }

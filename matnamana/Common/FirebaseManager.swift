@@ -213,7 +213,7 @@ final class FirebaseManager {
             }
           }
           let friendListData = newFriendList.map { $0.asDictionary }
-
+          
           document.reference.updateData([
             "friendList": friendListData
           ]) { error in
@@ -243,7 +243,10 @@ final class FirebaseManager {
         completion(false, error)
       } else {
         completion(true, nil)
-        
+      }
+    }
+  }
+  
   func fetchReputationInfo(userId: String, completion: @escaping ([ReputationRequest]?, Error?) -> Void) {
     db.collection("reputationRequests").whereFilter(Filter.orFilter([
       Filter.whereField("requester.userId", isEqualTo: userId),
