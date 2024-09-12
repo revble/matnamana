@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class ReputationView: UIView {
+final class ReputationView: BaseView {
   
   let searchFriend = UIButton(type: .system).then {
     let image = UIImage(systemName: "magnifyingglass.circle")
@@ -29,16 +29,6 @@ final class ReputationView: UIView {
     $0.register(ReputaionSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: ReputaionSectionHeaderView.id)
-  }
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    configureUI()
-    setConstraints()
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
   
   private func createLayout() -> UICollectionViewLayout {
@@ -132,12 +122,12 @@ final class ReputationView: UIView {
     return section
   }
   
-  private func configureUI() {
+  override func configureUI() {
     self.addSubview(collecitonView)
 
   }
   
-  private func setConstraints() {
+  override func setConstraints() {
     collecitonView.snp.makeConstraints {
       $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(20)
       $0.centerX.equalToSuperview()

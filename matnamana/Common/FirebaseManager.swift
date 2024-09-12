@@ -233,21 +233,7 @@ final class FirebaseManager {
         completion(false, nil)
       }
     }
-    //    getUserInfo(nickName: friendId) { user, error in
-    //      guard let user = user, error == nil else {
-    //        completion(false, error)
-    //        return
-    //      }
-    //      var newFriendList = user.friendList
-    //      for (index, friend) in newFriendList.enumerated() {
-    //        if friend.targetId == userId {
-    //          newFriendList[index].status = .accepted
-    //          break
-    //        }
-    //      }
-    //      let friendList = newFriendList.map { $0.asDictionary }
-    //
-    //    }
+    
     let friendListData = newFriendList.map { $0.asDictionary }
     userDocument.updateData([
       "friendList": friendListData
@@ -257,6 +243,32 @@ final class FirebaseManager {
         completion(false, error)
       } else {
         completion(true, nil)
+        
+  func fetchReputationInfo(userId: String, completion: @escaping ([ReputationRequest]?, Error?) -> Void) {
+    db.collection("reputationRequests").whereFilter(Filter.orFilter([
+      Filter.whereField("requester.userId", isEqualTo: userId),
+      Filter.whereField("target.userId", isEqualTo: userId),
+      Filter.whereField("selectedFriends.userId", isEqualTo: userId)
+    ]))
+    .getDocuments { querySnapshot, error in
+      if let error = error {
+        completion(nil, error)
+        return
+      }
+      guard let querySnapshot = querySnapshot else {
+        completion([], error)
+        return
+      }
+      var reputationRequests: [ReputationRequest] = []
+      for document in querySnapshot.documents {
+        do {
+          let reputation = try document.data(as: ReputationRequest.self)
+          reputationRequests.append(reputation)
+          completion(reputationRequests, nil)
+        } catch {
+          completion(nil, error)
+          return
+        }
       }
     }
   }

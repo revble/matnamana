@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F1E88652C8E89CD00F09A36 /* AcceptRequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88642C8E89CD00F09A36 /* AcceptRequestController.swift */; };
+		4F1E88682C8E99B300F09A36 /* AcceptRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */; };
 		4F63D6E12C870C7800B0F65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */; };
 		4F63D7212C8A8CF500B0F65C /* ReputaionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D7202C8A8CF500B0F65C /* ReputaionController.swift */; };
 		4F63D7232C8A8D5F00B0F65C /* ReputationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D7222C8A8D5F00B0F65C /* ReputationView.swift */; };
@@ -119,6 +121,8 @@
 
 /* Begin PBXFileReference section */
 		4F1E885F2C8BEE1700F09A36 /* ReputaionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputaionViewModel.swift; sourceTree = "<group>"; };
+		4F1E88642C8E89CD00F09A36 /* AcceptRequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestController.swift; sourceTree = "<group>"; };
+		4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewModel.swift; sourceTree = "<group>"; };
 		4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4F63D7202C8A8CF500B0F65C /* ReputaionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputaionController.swift; sourceTree = "<group>"; };
 		4F63D7222C8A8D5F00B0F65C /* ReputationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationView.swift; sourceTree = "<group>"; };
@@ -243,6 +247,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F1E88632C8E897600F09A36 /* AcceptRequest */ = {
+			isa = PBXGroup;
+			children = (
+				4F1E88642C8E89CD00F09A36 /* AcceptRequestController.swift */,
+			);
+			path = AcceptRequest;
+			sourceTree = "<group>";
+		};
+		4F1E88662C8E998E00F09A36 /* Reputation */ = {
+			isa = PBXGroup;
+			children = (
+				DD94711B2C8D7522009BF95E /* ReputaionViewModel.swift */,
+				4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */,
+			);
+			path = Reputation;
+			sourceTree = "<group>";
+		};
 		4F63D6DF2C870A3000B0F65C /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +282,7 @@
 				4F63D7242C8A912700B0F65C /* MyRequestsCell.swift */,
 				4F63D7262C8A913E00B0F65C /* ReceivedRequestCell.swift */,
 				4F63D72A2C8A935B00B0F65C /* ReputaionSectionHeaderView.swift */,
+				4F1E88632C8E897600F09A36 /* AcceptRequest */,
 			);
 			path = Reputaion;
 			sourceTree = "<group>";
@@ -364,7 +386,7 @@
 				DD94710B2C8C4943009BF95E /* MainPage */,
 				DD94710A2C8C490C009BF95E /* FriendList */,
 				4F83D3232C80D9F60076AE2A /* RequiredInformaitionViewModel.swift */,
-				DD94711B2C8D7522009BF95E /* ReputaionViewModel.swift */,
+				4F1E88662C8E998E00F09A36 /* Reputation */,
 				DA3A55F52C7F141800459343 /* Profile */,
 				4F83D3252C80DA360076AE2A /* LoginViewModel.swift */,
 			);
@@ -387,8 +409,8 @@
 				DA3A56092C855BC400459343 /* ProfileUIView.swift */,
 				DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */,
 				DA3A56052C85565B00459343 /* ProfileEditViewController.swift */,
-				DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */,
 				DA3A560D2C868BCC00459343 /* profileEditTable.swift */,
+				DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */,
 				DA3A56122C8A967B00459343 /* TTest.swift */,
 			);
 			path = Profile;
@@ -676,6 +698,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD94711D2C8D781C009BF95E /* MainQuestionController.swift in Sources */,
+				4F1E88652C8E89CD00F09A36 /* AcceptRequestController.swift in Sources */,
 				4F63D6E12C870C7800B0F65C /* SceneDelegate.swift in Sources */,
 				DDCF93362C7EEE33005DB62F /* FirebaseManager.swift in Sources */,
 				DA3A56062C85565B00459343 /* ProfileEditViewController.swift in Sources */,
@@ -706,6 +729,7 @@
 				4F63D7292C8A917000B0F65C /* FriendRequestCell.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
 				4F63D7272C8A913E00B0F65C /* ReceivedRequestCell.swift in Sources */,
+				4F1E88682C8E99B300F09A36 /* AcceptRequestViewModel.swift in Sources */,
 				4F83D3412C85A4680076AE2A /* KakaoLoginService.swift in Sources */,
 				DDE043552C773E3500DA099A /* AppDelegate.swift in Sources */,
 				4F63D7252C8A912700B0F65C /* MyRequestsCell.swift in Sources */,

@@ -70,7 +70,10 @@ final class FriendRequestCell: UICollectionViewCell {
     }
   }
   
-  func configure(systemImage: String) {
-    imageView.image = UIImage(systemName: systemImage)
+  func configure(imageUrl: String, name: String) {
+    if let url = URL(string: imageUrl) {
+      imageView.kf.setImage(with: url)
+    }
+    nameLabel.text = "\(name)"
   }
 }
