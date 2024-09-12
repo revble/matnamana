@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 final class ReputationView: BaseView {
+  private let viewModel = ReputationViewModel()
   
   let searchFriend = UIButton(type: .system).then {
     let image = UIImage(systemName: "magnifyingglass.circle")
@@ -20,6 +21,8 @@ final class ReputationView: BaseView {
   
   lazy var collecitonView = UICollectionView(frame: .zero,
                                                      collectionViewLayout: createLayout()).then {
+    $0.register(DefaultCell.self,
+                forCellWithReuseIdentifier: DefaultCell.id)
     $0.register(FriendRequestCell.self,
                 forCellWithReuseIdentifier: FriendRequestCell.id)
     $0.register(MyRequestsCell.self,
@@ -35,6 +38,7 @@ final class ReputationView: BaseView {
     let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
     
       switch Section(rawValue: sectionIndex) {
+
       case .friendRequest:
         return self.collectionViewLayout()
       case .myRequests:
@@ -47,6 +51,7 @@ final class ReputationView: BaseView {
     }
     return layout
   }
+
   
   private func collectionViewLayout() -> NSCollectionLayoutSection {
     let itemSize = NSCollectionLayoutSize(

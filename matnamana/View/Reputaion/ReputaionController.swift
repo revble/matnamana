@@ -43,9 +43,7 @@ final class ReputaionController: BaseViewController {
     super.bind()
     
     let input = ReputationViewModel.Input(
-    
       refreshGesture: reputationView.collecitonView.rx.contentOffset
-      
     )
     
     let output = viewModel.transform(input: input)
@@ -55,7 +53,6 @@ final class ReputaionController: BaseViewController {
         guard let self else { return }
         self.viewModel.fetchReputationInfo()
       }).disposed(by: disposeBag)
-  
     
     bindCollectionView()
 
@@ -84,29 +81,62 @@ final class ReputaionController: BaseViewController {
       configureCell: { dataSource, collecitonView, indexPath, item in
         switch indexPath.section {
         case Section.friendRequest.rawValue:
-          guard let cell = collecitonView.dequeueReusableCell(
-            withReuseIdentifier: FriendRequestCell.id,
-            for: indexPath) as? FriendRequestCell else {
-            return UICollectionViewCell()
+          if item.userNickName == "" {
+            guard let cell = collecitonView.dequeueReusableCell(
+              withReuseIdentifier: DefaultCell.id,
+              for: indexPath) as? DefaultCell else {
+              return UICollectionViewCell()
+            }
+            cell.configure(text: "친구에 대한 질문을 기다리고 있어요! \n친구를 도와주러 가볼까요?")
+
+            return cell
+          } else {
+            guard let cell = collecitonView.dequeueReusableCell(
+              withReuseIdentifier: FriendRequestCell.id,
+              for: indexPath) as? FriendRequestCell else {
+              return UICollectionViewCell()
+            }
+            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
+            return cell
           }
-          cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
-          return cell
+          
         case Section.myRequests.rawValue:
-          guard let cell = collecitonView.dequeueReusableCell(
-            withReuseIdentifier: MyRequestsCell.id,
-            for: indexPath) as? MyRequestsCell else {
-            return UICollectionViewCell()
+          if item.userNickName == "" {
+            guard let cell = collecitonView.dequeueReusableCell(
+              withReuseIdentifier: DefaultCell.id,
+              for: indexPath) as? DefaultCell else {
+              return UICollectionViewCell()
+            }
+            cell.configure(text: "상대에 대해 궁금한 당신! \n지금 맞나만나하러 가볼까요?")
+            return cell
+          } else {
+            guard let cell = collecitonView.dequeueReusableCell(
+              withReuseIdentifier: MyRequestsCell.id,
+              for: indexPath) as? MyRequestsCell else {
+              return UICollectionViewCell()
+            }
+            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
+            return cell
           }
-          cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
-          return cell
+          
         case Section.receivedRequests.rawValue:
-          guard let cell = collecitonView.dequeueReusableCell(
-            withReuseIdentifier: ReceivedRequestCell.id,
-            for: indexPath) as? ReceivedRequestCell else {
-            return UICollectionViewCell()
+          if item.userNickName == "" {
+            guard let cell = collecitonView.dequeueReusableCell(
+              withReuseIdentifier: DefaultCell.id,
+              for: indexPath) as? DefaultCell else {
+              return UICollectionViewCell()
+            }
+            cell.configure(text: "맞나만나가 곧 도착할 거에요!")
+            return cell
+          } else {
+            guard let cell = collecitonView.dequeueReusableCell(
+              withReuseIdentifier: ReceivedRequestCell.id,
+              for: indexPath) as? ReceivedRequestCell else {
+              return UICollectionViewCell()
+            }
+            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
+            return cell
           }
-          cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
-          return cell
         default:
           return UICollectionViewCell()
         }
@@ -133,6 +163,12 @@ final class ReputaionController: BaseViewController {
         switch indexPath.section {
         case Section.friendRequest.rawValue:
           print("friendRequest: \(indexPath.row)")
+          if let cell =
+              self.reputationView.collecitonView.cellForItem(at: indexPath) as? FriendRequestCell {
+            pushViewController(ReplyController(name: cell.nameLabel.text ?? ""))
+          }
+          
+          
         case Section.myRequests.rawValue:
           print("myRequests: \(indexPath.row)")
           
@@ -159,15 +195,22 @@ final class ReputaionController: BaseViewController {
     )
       .observe(on: MainScheduler.instance)
       .map { (friendData, myRequestedData, receivedData) -> [SectionModel<String, Item>] in
-        let friendReputationItems = friendData.map { (profileImage, userNickName) in
+        let friendReputationItems = friendData.isEmpty 
+        ? [Item(userNickName: "", profileImageUrl: "")]
+        : friendData.map { (profileImage, userNickName) in
           Item(userNickName: userNickName, profileImageUrl: profileImage)
         }
-        let myRequestedItems = myRequestedData.map { (profileImage, userNickName) in
+        let myRequestedItems = myRequestedData.isEmpty
+        ? [Item(userNickName: "", profileImageUrl: "")]
+        : myRequestedData.map { (profileImage, userNickName) in
           Item(userNickName: userNickName, profileImageUrl: profileImage)
         }
-        let receivedRequestItems = receivedData.map { (profileImage, userNickName) in
+        let receivedRequestItems = receivedData.isEmpty
+        ? [Item(userNickName: "", profileImageUrl: "")]
+        : receivedData.map { (profileImage, userNickName) in
           Item(userNickName: userNickName, profileImageUrl: profileImage)
         }
+
         return [
           SectionModel(model: Section.friendRequest.title,
                        items: friendReputationItems),

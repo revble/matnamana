@@ -22,7 +22,7 @@ final class FriendRequestCell: UICollectionViewCell {
     $0.layer.cornerRadius = 40
   }
   
-  private let nameLabel = UILabel().then {
+  let nameLabel = UILabel().then {
     $0.text = "이지은"
     $0.textAlignment = .center
     $0.font = .boldSystemFont(ofSize: 18)
