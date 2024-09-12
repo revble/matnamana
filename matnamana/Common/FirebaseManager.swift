@@ -110,27 +110,66 @@ final class FirebaseManager {
   func addFriend(friendId: String,
                  friendType: String,
                  friendImage: String,
+                 status: String,
+                 friendName: String,
+                 targetId: String,
                  completion: @escaping (Bool, Error?) -> Void) {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else {
       print("userID없음 확인안됨")
       return
     }
     guard let type = User.Friend.FriendType(rawValue: friendType) else { return }
-    let newFriend = User.Friend(nickname: friendId,
+    let newFriend = User.Friend(name: friendName,
                                 type: type,
-                                friendId: friendId, friendImage: friendImage)
+                                friendId: friendId,
+                                friendImage: friendImage,
+                                status: .pending, targetId: targetId)
+    guard let myName = UserDefaults.standard.string(forKey: "userName") else { return }
+    guard let myNickName = UserDefaults.standard.string(forKey: "userNickName") else { return }
+    
+    let currentUser = User.Friend(name: myName,
+                                  type: type,
+                                  friendId: myNickName,
+                                  friendImage: "",
+                                  status: .pending,
+                                  targetId: targetId)
     
     guard let friendData = newFriend.asDictionary else { return }
+    guard let userData = currentUser.asDictionary else { return }
     
-    let userDocument = Firestore.firestore().collection("users").document(userId)
+    let userDocument = db.collection("users").document(userId)
+    let friendDocument = db.collection("users").whereField("info.nickName", isEqualTo: friendId)
     
-    userDocument.updateData([
-      "friendList": FieldValue.arrayUnion([friendData])
-    ]) { error in
-      if let error = error {
-        completion(false, error)
-      } else {
-        completion(true, nil)
+    friendDocument.getDocuments { (snapshot, error) in
+      
+      guard let snapshot = snapshot, !snapshot.isEmpty else {
+        completion(false, nil)
+        return
+      }
+      
+      if let document = snapshot.documents.first {
+        let friendUUID = document.documentID
+        
+        let friendCollection = self.db.collection("users").document(friendUUID)
+        
+        friendCollection.updateData([
+          "friendList": FieldValue.arrayUnion([userData])
+        ]) { error in
+          if let error = error {
+            completion(false, error)
+            return
+          }
+        }
+        
+        userDocument.updateData([
+          "friendList": FieldValue.arrayUnion([friendData])
+        ]) { error in
+          if let error = error {
+            completion(false, error)
+          } else {
+            completion(true, nil)
+          }
+        }
       }
     }
   }
@@ -148,6 +187,88 @@ final class FirebaseManager {
       } catch {
         print(error)
         completion(nil, error)
+      }
+    }
+  }
+  
+  func updateFriendList(userId: String, newFriendList: [User.Friend], friendId: String, completion: @escaping (Bool, Error?) -> Void) {
+    let userDocument = db.collection("users").document(userId)
+    let query = db.collection("users").whereField("info.nickName", isEqualTo: friendId)
+    guard let userNickName = UserDefaults.standard.string(forKey: "userNickName") else { return }
+    
+    query.getDocuments { (snapshot, error) in
+      guard let snapshot = snapshot, error == nil else {
+        completion(false, error)
+        return
+      }
+      
+      if let document = snapshot.documents.first {
+        do {
+          let user = try document.data(as: User.self)
+          var newFriendList = user.friendList
+          for (index, friend) in newFriendList.enumerated() {
+            if friend.friendId == userNickName {
+              newFriendList[index].status = .accepted
+              break
+            }
+          }
+          let friendListData = newFriendList.map { $0.asDictionary }
+
+          document.reference.updateData([
+            "friendList": friendListData
+          ]) { error in
+            if let error = error {
+              completion(false, error)
+            } else {
+              completion(true, nil)
+            }
+          }
+          
+        } catch {
+          print("Error decoding user data: \(error)")
+          completion(false, error)
+        }
+      } else {
+        print("No document found with the provided friendId.")
+        completion(false, nil)
+      }
+    }
+    
+    let friendListData = newFriendList.map { $0.asDictionary }
+    userDocument.updateData([
+      "friendList": friendListData
+    ]) { error in
+      if let error = error {
+        print(error)
+        completion(false, error)
+      } else {
+        completion(true, nil)
+        
+  func fetchReputationInfo(userId: String, completion: @escaping ([ReputationRequest]?, Error?) -> Void) {
+    db.collection("reputationRequests").whereFilter(Filter.orFilter([
+      Filter.whereField("requester.userId", isEqualTo: userId),
+      Filter.whereField("target.userId", isEqualTo: userId),
+      Filter.whereField("selectedFriends.userId", isEqualTo: userId)
+    ]))
+    .getDocuments { querySnapshot, error in
+      if let error = error {
+        completion(nil, error)
+        return
+      }
+      guard let querySnapshot = querySnapshot else {
+        completion([], error)
+        return
+      }
+      var reputationRequests: [ReputationRequest] = []
+      for document in querySnapshot.documents {
+        do {
+          let reputation = try document.data(as: ReputationRequest.self)
+          reputationRequests.append(reputation)
+          completion(reputationRequests, nil)
+        } catch {
+          completion(nil, error)
+          return
+        }
       }
     }
   }

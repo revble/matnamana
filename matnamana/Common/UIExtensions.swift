@@ -12,6 +12,7 @@ extension UIColor {
   static let manaSkin = UIColor(red: 255/255, green: 235/255, blue: 216/255, alpha: 1)
   static let manaMint = UIColor(red: 199/255, green: 220/255, blue: 167/255, alpha: 1)
   static let manaGreen = UIColor(red: 137/255, green: 185/255, blue: 173/255, alpha: 1)
+  static let manaMainColor = UIColor(red: 0/255, green: 168/255, blue: 226/255, alpha: 1)
 }
 extension UIViewController {
   func transitionToViewController(_ viewController: UIViewController) {
@@ -24,13 +25,22 @@ extension UIViewController {
   func pushViewController(_ viewController: UIViewController) {
     navigationController?.pushViewController(viewController, animated: true)
   }
+  
+  func presentModally(
+    _ viewController: UIViewController,
+    animated: Bool = true,
+    modalPresentationStyle: UIModalPresentationStyle = .formSheet
+  ) {
+    viewController.modalPresentationStyle = modalPresentationStyle
+    self.present(viewController, animated: animated)
+  }
 }
 
 extension UIView {
   func setupShadow() {
     self.layer.masksToBounds = false
-    self.layer.shadowOpacity = 0.8
-    self.layer.shadowOffset = CGSize(width: -2, height: 2)
-    self.layer.shadowRadius = 5
+    self.layer.shadowOpacity = 0.2
+    self.layer.shadowOffset = CGSize(width: 2, height: 2)
+    self.layer.shadowRadius = 2
   }
 }

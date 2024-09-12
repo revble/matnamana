@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     guard let windowScene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: windowScene)
-
+    
     let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
     
     if isLoggedIn {
@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       window.rootViewController = LoginController()
     }
     
-    UserDefaults.standard.set("UzhyIQp6J2a0JxORcwabPec4qUf1", forKey: "loggedInUserId")
+//    UserDefaults.standard.set("UzhyIQp6J2a0JxORcwabPec4qUf1", forKey: "loggedInUserId")
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
       window.makeKeyAndVisible()

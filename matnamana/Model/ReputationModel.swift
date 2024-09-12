@@ -6,12 +6,11 @@
 //
 
 struct ReputationRequest: Codable {
-  let requestId: String
-  let requesterId: String
-  let targetId: String
-  let questionList: [Question.Content]
-  let status: RequestStatus
-  let selectedFriends: [User.Friend]
+  let requester: UserProfile?
+  let target: UserProfile?
+  let questionList: [Question.Content]?
+  let status: RequestStatus?
+  let selectedFriends: [UserProfile]?
 }
 
 extension ReputationRequest {
@@ -20,4 +19,10 @@ extension ReputationRequest {
     case approved
     case rejected
   }
+}
+
+struct UserProfile: Codable {
+  let nickName: String?
+  let profileImage: String?
+  let userId: String?
 }

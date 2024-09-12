@@ -14,6 +14,8 @@ final class ReceivedRequestCell: UICollectionViewCell {
   ///String(describing: )
   static let id = "ReceivedRequestViewCell"
   
+  var name: String?
+  
   private let imageView = UIImageView().then {
     $0.image = UIImage()
     $0.contentMode = .scaleAspectFill
@@ -97,5 +99,7 @@ final class ReceivedRequestCell: UICollectionViewCell {
       imageView.kf.setImage(with: url)
     }
     nameLabel.text = "\(name) -> 나"
+    self.name = name
   }
+  
 }

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class RequiredInformationView: UIView {
+class RequiredInformationView: BaseView {
   
   private let descriptionLabel = UILabel().then {
     $0.text = "서로를 알아볼 수 있는 정보를 입력해주세요."
@@ -62,16 +62,6 @@ class RequiredInformationView: UIView {
     $0.backgroundColor = .manaGreen
   }
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    configureUI()
-    setConstraint()
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
   func pickNickname() -> String {
     guard let nickname = nickNameTextField.text else { return "" }
     return nickname
@@ -90,7 +80,7 @@ class RequiredInformationView: UIView {
     duplicateCheckLabel.isHidden = true
   }
 
-  private func configureUI() {
+  override func configureUI() {
     self.backgroundColor = .white
     [
       descriptionLabel,
@@ -103,7 +93,7 @@ class RequiredInformationView: UIView {
     ].forEach { self.addSubview($0) }
   }
   
-  private func setConstraint() {
+  override func setConstraints() {
     descriptionLabel.snp.makeConstraints {
       $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(150)
       $0.leading.equalToSuperview().inset(20)
