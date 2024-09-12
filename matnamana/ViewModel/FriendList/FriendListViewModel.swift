@@ -82,9 +82,8 @@ final class FriendListViewModel: ViewModelType {
         if let index = updatedFriends.firstIndex(where: { $0.friendId == friend.friendId }) {
           updatedFriends[index].status = .accepted
 
-          // Firestore에 상태 업데이트
           return Observable<Void>.create { observer in
-            FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends) { success, error in
+            FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends, friendId: friend.friendId) { success, error in
               if let error = error {
                 observer.onError(error)
               } else {
@@ -120,7 +119,7 @@ final class FriendListViewModel: ViewModelType {
         let myRequest = friends.filter { $0.status == .pending && $0.targetId == id }
         
         return [
-          FriendsSection(header: "내가 보낸 요청", items: myRequest),
+          FriendsSection(header: "보낸 친구 요청", items: myRequest),
           FriendsSection(header: "받은 친구 요청", items: pendingFriends),
           FriendsSection(header: "친구 목록", items: acceptedFriends)
         ]

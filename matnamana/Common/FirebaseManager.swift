@@ -159,15 +159,15 @@ final class FirebaseManager {
             completion(false, error)
             return
           }
-          
-          userDocument.updateData([
-            "friendList": FieldValue.arrayUnion([friendData])
-          ]) { error in
-            if let error = error {
-              completion(false, error)
-            } else {
-              completion(true, nil)
-            }
+        }
+        
+        userDocument.updateData([
+          "friendList": FieldValue.arrayUnion([friendData])
+        ]) { error in
+          if let error = error {
+            completion(false, error)
+          } else {
+            completion(true, nil)
           }
         }
       }
@@ -191,20 +191,74 @@ final class FirebaseManager {
     }
   }
   
-  func updateFriendList(userId: String, newFriendList: [User.Friend], completion: @escaping (Bool, Error?) -> Void) {
-      let userDocument = db.collection("users").document(userId)
-      let friendListData = newFriendList.map { $0.asDictionary }
-      userDocument.updateData([
-          "friendList": friendListData
-      ]) { error in
-          if let error = error {
-              print("Error updating friend list: \(error.localizedDescription)")
-              completion(false, error)
-          } else {
-              print("Successfully updated friend list.")
-              completion(true, nil)
-          }
+  func updateFriendList(userId: String, newFriendList: [User.Friend], friendId: String, completion: @escaping (Bool, Error?) -> Void) {
+    let userDocument = db.collection("users").document(userId)
+    let query = db.collection("users").whereField("info.nickName", isEqualTo: friendId)
+    guard let userNickName = UserDefaults.standard.string(forKey: "userNickName") else { return }
+    
+    query.getDocuments { (snapshot, error) in
+      guard let snapshot = snapshot, error == nil else {
+        completion(false, error)
+        return
       }
+      
+      if let document = snapshot.documents.first {
+        do {
+          let user = try document.data(as: User.self)
+          var newFriendList = user.friendList
+          for (index, friend) in newFriendList.enumerated() {
+            if friend.friendId == userNickName {
+              newFriendList[index].status = .accepted
+              break
+            }
+          }
+          let friendListData = newFriendList.map { $0.asDictionary }
+
+          document.reference.updateData([
+            "friendList": friendListData
+          ]) { error in
+            if let error = error {
+              completion(false, error)
+            } else {
+              completion(true, nil)
+            }
+          }
+          
+        } catch {
+          print("Error decoding user data: \(error)")
+          completion(false, error)
+        }
+      } else {
+        print("No document found with the provided friendId.")
+        completion(false, nil)
+      }
+    }
+    //    getUserInfo(nickName: friendId) { user, error in
+    //      guard let user = user, error == nil else {
+    //        completion(false, error)
+    //        return
+    //      }
+    //      var newFriendList = user.friendList
+    //      for (index, friend) in newFriendList.enumerated() {
+    //        if friend.targetId == userId {
+    //          newFriendList[index].status = .accepted
+    //          break
+    //        }
+    //      }
+    //      let friendList = newFriendList.map { $0.asDictionary }
+    //
+    //    }
+    let friendListData = newFriendList.map { $0.asDictionary }
+    userDocument.updateData([
+      "friendList": friendListData
+    ]) { error in
+      if let error = error {
+        print(error)
+        completion(false, error)
+      } else {
+        completion(true, nil)
+      }
+    }
   }
 }
 
