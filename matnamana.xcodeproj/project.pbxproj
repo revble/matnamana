@@ -44,6 +44,8 @@
 		DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560D2C868BCC00459343 /* profileEditTable.swift */; };
 		DA3A56102C881AF900459343 /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A560F2C881AF900459343 /* RxKeyboard */; };
 		DA3A56132C8A967C00459343 /* TTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56122C8A967B00459343 /* TTest.swift */; };
+		DD0CE9E42C92CD5D008B5A68 /* CustomQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */; };
+		DD0CE9E62C92D55E008B5A68 /* CustomQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */; };
 		DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470ED2C882F68009BF95E /* BaseViewController.swift */; };
 		DD9470F02C885D8B009BF95E /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470EF2C885D8B009BF95E /* Protocol.swift */; };
 		DD9470F62C898FD6009BF95E /* TotalQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9470F52C898FD6009BF95E /* TotalQuestionViewModel.swift */; };
@@ -153,6 +155,8 @@
 		DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		DA3A560D2C868BCC00459343 /* profileEditTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditTable.swift; sourceTree = "<group>"; };
 		DA3A56122C8A967B00459343 /* TTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTest.swift; sourceTree = "<group>"; };
+		DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionController.swift; sourceTree = "<group>"; };
+		DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionView.swift; sourceTree = "<group>"; };
 		DD9470ED2C882F68009BF95E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DD9470EF2C885D8B009BF95E /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		DD9470F52C898FD6009BF95E /* TotalQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalQuestionViewModel.swift; sourceTree = "<group>"; };
@@ -427,6 +431,8 @@
 				DD9471082C8C482E009BF95E /* MainCollectionCell.swift */,
 				DD94710E2C8C5F50009BF95E /* TypeQuestionController.swift */,
 				DD9471102C8C5F7B009BF95E /* TypeQuestionView.swift */,
+				DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */,
+				DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */,
 			);
 			path = MyQuestion;
 			sourceTree = "<group>";
@@ -700,6 +706,7 @@
 				DD94711D2C8D781C009BF95E /* MainQuestionController.swift in Sources */,
 				4F1E88652C8E89CD00F09A36 /* AcceptRequestController.swift in Sources */,
 				4F63D6E12C870C7800B0F65C /* SceneDelegate.swift in Sources */,
+				DD0CE9E62C92D55E008B5A68 /* CustomQuestionView.swift in Sources */,
 				DDCF93362C7EEE33005DB62F /* FirebaseManager.swift in Sources */,
 				DA3A56062C85565B00459343 /* ProfileEditViewController.swift in Sources */,
 				DD9471092C8C482E009BF95E /* MainCollectionCell.swift in Sources */,
@@ -763,6 +770,7 @@
 				DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */,
 				4F63D7212C8A8CF500B0F65C /* ReputaionController.swift in Sources */,
 				4FEB36952C7EC9240066998E /* LoginView.swift in Sources */,
+				DD0CE9E42C92CD5D008B5A68 /* CustomQuestionController.swift in Sources */,
 				DA3A55F72C7F144500459343 /* ProfileViewModel.swift in Sources */,
 				DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */,
 				DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */,

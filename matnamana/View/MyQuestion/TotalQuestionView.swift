@@ -21,6 +21,13 @@ final class TotalQuestionView: UIView {
     $0.selectedSegmentTintColor = .manaMainColor
   }
   
+  let customButton = UIButton().then {
+    let buttonImage = UIImage(systemName: "list.bullet.rectangle")
+    $0.imageView?.contentMode = .scaleAspectFit
+    $0.setImage(buttonImage, for: .normal)
+    $0.contentMode = .scaleToFill
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configureUI()
@@ -50,5 +57,11 @@ final class TotalQuestionView: UIView {
       $0.bottom.equalTo(self.safeAreaLayoutGuide)
       $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(20)
     }
+    
+//    customButton.snp.makeConstraints {
+//      $0.bottom.equalTo(questionSegement.snp.top).offset(20)
+//      $0.trailing.equalToSuperview().inset(20)
+//      $0.height.width.equalTo(50)
+//    }
   }
 }
