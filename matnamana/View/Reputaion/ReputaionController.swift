@@ -14,51 +14,69 @@ import SnapKit
 import Then
 
 final class ReputaionController: BaseViewController {
-  private var reputaionView = ReputationView(frame: .zero)
-  private let viewModel = ReputaionViewModel()
+  private var reputationView = ReputationView(frame: .zero)
+  private let acceptViewModel: AcceptRequestViewModel
+  private let viewModel = ReputationViewModel()
+  
+  init(acceptViewModel: AcceptRequestViewModel) {
+    self.acceptViewModel = acceptViewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func setupView() {
     super.setupView()
-    reputaionView = ReputationView(frame: UIScreen.main.bounds)
-    self.view = reputaionView
+    reputationView = ReputationView(frame: UIScreen.main.bounds)
+    self.view = reputationView
   }
   
   override func setNavigation() {
     super.setNavigation()
     self.navigationItem.title = "평판 조회"
-    
     navigationItem.rightBarButtonItem = moveToSearchButton()
   }
   
   override func bind() {
     super.bind()
+    
+    let input = ReputationViewModel.Input(
+    
+      refreshGesture: reputationView.collecitonView.rx.contentOffset
+      
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    output.fetchTrigger
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
+        self.viewModel.fetchReputationInfo()
+      }).disposed(by: disposeBag)
+  
+    
     bindCollectionView()
-    refreshingGesture()
+
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    viewModel.fetchReputationInfo()
+    
   }
   
   private func moveToSearchButton() -> UIBarButtonItem {
-    let button = reputaionView.searchFriend
-    
+    let button = reputationView.searchFriend
     button.rx.tap
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] in
-        guard let self = self else { return }
+        guard let self else { return }
         //self.pushViewController(SearchViewController())
       }).disposed(by: disposeBag)
     
     return UIBarButtonItem(customView: button)
-  }
-  
-  private func refreshingGesture() {
-    reputaionView.collecitonView.rx.contentOffset
-      .subscribe(onNext: { [weak self] contentOffset in
-        guard let self else { return }
-        let deafaultOffset = self.reputaionView.collecitonView.contentOffset.y
-        if deafaultOffset < -100 {
-          viewModel.fetchRequestedReputation()
-        }
-        print(deafaultOffset)
-      }).disposed(by: disposeBag)
   }
   
   private func bindCollectionView() {
@@ -71,6 +89,7 @@ final class ReputaionController: BaseViewController {
             for: indexPath) as? FriendRequestCell else {
             return UICollectionViewCell()
           }
+          cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
           return cell
         case Section.myRequests.rawValue:
           guard let cell = collecitonView.dequeueReusableCell(
@@ -78,6 +97,7 @@ final class ReputaionController: BaseViewController {
             for: indexPath) as? MyRequestsCell else {
             return UICollectionViewCell()
           }
+          cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
           return cell
         case Section.receivedRequests.rawValue:
           guard let cell = collecitonView.dequeueReusableCell(
@@ -106,22 +126,58 @@ final class ReputaionController: BaseViewController {
         return headerView
       }
     )
-    viewModel.reputationDataRelay
+    
+    reputationView.collecitonView.rx.itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        guard let self else { return }
+        switch indexPath.section {
+        case Section.friendRequest.rawValue:
+          print("friendRequest: \(indexPath.row)")
+        case Section.myRequests.rawValue:
+          print("myRequests: \(indexPath.row)")
+          
+        case Section.receivedRequests.rawValue:
+          print("receivedRequests: \(indexPath.row)")
+          
+          self.presentModally(UINavigationController(rootViewController: AcceptRequestController(viewModel: acceptViewModel)))
+          if let cell = self.reputationView.collecitonView.cellForItem(at: indexPath) as? ReceivedRequestCell {
+            if let name = cell.name {
+              self.acceptViewModel.selectName(name)
+            }
+          }
+          
+        default:
+          break
+        }
+      })
+      .disposed(by: disposeBag)
+    
+    Observable.combineLatest(
+      viewModel.friendReputationDataRelay,
+      viewModel.myRequestedReputationDataRelay,
+      viewModel.receivedReputationDataRelay
+    )
       .observe(on: MainScheduler.instance)
-      .map { data -> [SectionModel<String, Item>] in
-        let receivedRequestItems = data.map { (profileImage, userNickName) in
+      .map { (friendData, myRequestedData, receivedData) -> [SectionModel<String, Item>] in
+        let friendReputationItems = friendData.map { (profileImage, userNickName) in
+          Item(userNickName: userNickName, profileImageUrl: profileImage)
+        }
+        let myRequestedItems = myRequestedData.map { (profileImage, userNickName) in
+          Item(userNickName: userNickName, profileImageUrl: profileImage)
+        }
+        let receivedRequestItems = receivedData.map { (profileImage, userNickName) in
           Item(userNickName: userNickName, profileImageUrl: profileImage)
         }
         return [
           SectionModel(model: Section.friendRequest.title,
-                       items: Array(repeating: Item(userNickName: "", profileImageUrl: ""), count: 5)),
+                       items: friendReputationItems),
           SectionModel(model: Section.myRequests.title,
-                       items: Array(repeating: Item(userNickName: "", profileImageUrl: ""), count: 5)),
+                       items: myRequestedItems),
           SectionModel(model: Section.receivedRequests.title,
                        items: receivedRequestItems)
         ]
       }
-      .bind(to: reputaionView.collecitonView.rx.items(dataSource: dataSource))
+      .bind(to: reputationView.collecitonView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
   }
 }

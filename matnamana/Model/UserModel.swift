@@ -35,10 +35,12 @@ extension User {
   }
   
   struct Friend: Codable {
-    let nickname: String
+    let name: String
     let type: FriendType
     let friendId: String
     let friendImage: String
+    var status: StatusType
+    let targetId: String
   }
 }
 
@@ -47,5 +49,10 @@ extension User.Friend {
     case family
     case colleague
     case friend
+  }
+  
+  enum StatusType: String, Codable {
+    case pending
+    case accepted
   }
 }

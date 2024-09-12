@@ -31,3 +31,17 @@ struct Item {
     }
 }
 
+
+struct FriendsSection {
+  var header: String
+  var items: [User.Friend]
+}
+
+extension FriendsSection: SectionModelType {
+  typealias Item = User.Friend
+  
+  init(original: FriendsSection, items: [User.Friend]) {
+    self = original
+    self.items = items
+  }
+}

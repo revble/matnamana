@@ -75,7 +75,10 @@ final class MyRequestsCell: UICollectionViewCell {
     }
   }
   
-  func configure(systemImage: String) {
-    imageView.image = UIImage(systemName: systemImage)
+  func configure(imageUrl: String, name: String) {
+    if let url = URL(string: imageUrl) {
+      imageView.kf.setImage(with: url)
+    }
+    nameLabel.text = "나 -> \(name)"
   }
 }

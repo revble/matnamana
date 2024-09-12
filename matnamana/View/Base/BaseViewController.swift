@@ -24,8 +24,11 @@ class BaseViewController: UIViewController {
     bind()
     setNavigation()
     setupKeyboardHandling()
+
     overrideUserInterfaceStyle = .light
     view.backgroundColor = .systemBackground
+
+
   }
   
   func setNavigation() {
