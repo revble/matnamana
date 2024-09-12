@@ -13,7 +13,7 @@ import Then
 final class TotalQuestionView: UIView {
   
   let questionList = UITableView().then {
-    $0.register(QuestionListCell.self, forCellReuseIdentifier: String(describing: QuestionListCell.self)/* QuestionListCell.identifier*/)
+    $0.register(QuestionListCell.self, forCellReuseIdentifier: String(describing: QuestionListCell.self))
   }
   
   let questionSegement = UISegmentedControl(items: ["팩트 질문", "가치관 질문", "커리어 질문"]).then {
