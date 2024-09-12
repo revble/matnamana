@@ -13,8 +13,6 @@ import Then
 
 final class FriendListCell: UITableViewCell {
   
-  var disposeBag = DisposeBag()
-  
   private let userImage = UIImageView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 25
