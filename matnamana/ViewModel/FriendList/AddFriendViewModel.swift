@@ -24,7 +24,10 @@ final class AddFriendViewModel: ViewModelType {
     let addFriendResult = input.addFriend
       .flatMap { [weak self] friend -> Observable<Bool> in
         guard let self = self else { return .just(false) }
-        return self.addFriend(friendId: friend[0], friendType: friend[1], friendImage: friend[2])
+        return self.addFriend(friendId: friend[0],
+                              friendType: friend[1],
+                              friendImage: friend[2],
+                              friendName: friend[4], status: friend[3])
       }
       .asDriver(onErrorJustReturn: false)
     
@@ -33,11 +36,16 @@ final class AddFriendViewModel: ViewModelType {
   
   private func addFriend(friendId: String,
                          friendType: String,
-                         friendImage: String) -> Observable<Bool> {
+                         friendImage: String,
+                         friendName: String,
+                         status: String) -> Observable<Bool> {
     return Observable.create { observer in
+      let userNickName = UserDefaults.standard.string(forKey: "loggedInUserId") ?? ""
       FirebaseManager.shared.addFriend(friendId: friendId,
                                        friendType: friendType,
-                                       friendImage: friendImage) { success, error in
+                                       friendImage: friendImage,
+                                       status: status, friendName: friendName, targetId: userNickName
+      ) { success, error in
         if let error = error {
           observer.onError(error)
         } else {
