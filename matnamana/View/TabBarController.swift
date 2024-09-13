@@ -31,9 +31,11 @@ final class TabBarController: UITabBarController {
       let vc = item.viewController
       vc.view.backgroundColor = .systemBackground
       vc.navigationItem.title = item.navigtaionItemTitle
+      vc.navigationItem.largeTitleDisplayMode = .always
       let nav = UINavigationController(rootViewController: vc)
       nav.title = item.navigtaionItemTitle
       nav.tabBarItem.image = UIImage(systemName: item.tabbarImageName)
+      
       return nav
     }
     setViewControllers(viewControllers, animated: false)
@@ -55,7 +57,6 @@ extension TabBarController {
         return FriendListController()
       case .reputation:
         let viewModel = AcceptRequestViewModel()
-        let freindListViewModel = FriendListViewModel()
         return ReputaionController(acceptViewModel: viewModel)
       case .profile:
         return ProfileController()
@@ -82,7 +83,7 @@ extension TabBarController {
       case .friendList:
         return "친구 목록"
       case .reputation:
-        return "평판 조회"
+        return "맞나만나"
       case .profile:
         return "나의 정보"
       }

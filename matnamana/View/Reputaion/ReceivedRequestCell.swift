@@ -57,8 +57,6 @@ final class ReceivedRequestCell: UICollectionViewCell {
   }
   
   private func configureUI() {
-    self.backgroundColor = .manaPink
-    self.layer.cornerRadius = 10
     setupShadow()
     [
       acceptButton,
