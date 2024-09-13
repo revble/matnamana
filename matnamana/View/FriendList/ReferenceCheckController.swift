@@ -1,8 +1,14 @@
+//////
+//////  ReferenceCheckController.swift
+//////  matnamana
+//////
+//////  Created by 김윤홍 on 9/6/24.
+//////
 ////
-////  ReferenceCheckController.swift
-////  matnamana
+////import UIKit
 ////
-////  Created by 김윤홍 on 9/6/24.
+////import RxCocoa
+////import RxSwift
 ////
 //
 //import UIKit
@@ -26,9 +32,8 @@
 //  }
 //  
 //  var request = ReputationRequest(
-//    requestId: "",
-//    requesterId: "",
-//    targetId: "",
+//    requester: UserProfile(nickName: "", profileImage: "", userId: ""),
+//    target: UserProfile(nickName: "", profileImage: "", userId: ""),
 //    questionList: [Question.Content](),
 //    status: .pending,
 //    selectedFriends: []
@@ -54,6 +59,11 @@
 //                                       data: request,
 //                                       documentId: request.requestId
 //        )
+//        let alert = UIAlertController(title: "평판조회가 신청되었습니다.", message: nil, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+//          self.navigationController?.popToRootViewController(animated: true)
+//        }))
+//        self.present(alert, animated: true)
 //      }).disposed(by: disposeBag)
 //    
 //    output.questionList
@@ -66,6 +76,7 @@
 //        }
 //        
 //        guard let requestId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
+//        
 //        request = ReputationRequest(
 //          requestId: requestId,
 //          requesterId: requestId,
@@ -74,6 +85,7 @@
 //          status: .pending,
 //          selectedFriends: []
 //        )
-//      }).disposed(by: disposeBag)
+//      })
+//      .disposed(by: disposeBag)
 //  }
 //}

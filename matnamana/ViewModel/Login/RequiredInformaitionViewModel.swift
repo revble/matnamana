@@ -43,6 +43,9 @@ final class RequiredInfoViewModel {
 
   func makeUserInformation(name: String, nickName: String, completion: @escaping (User) -> Void ) {
     guard let appleUser = Auth.auth().currentUser else { return }
+    UserDefaults.standard.setValue(name, forKey: "userName")
+    UserDefaults.standard.setValue(nickName, forKey: "userNickName")
+    UserDefaults.standard.setValue("", forKey: "userImage")
     let user = User(
       info: User.Info(
         career: "",

@@ -26,11 +26,25 @@ struct Item {
   let requesterId: String
   let targetId: String
   
-  init(userNickName: String, profileImageUrl: String, requesterId: String, targetId: String) {
     self.userNickName = userNickName
     self.profileImageUrl = profileImageUrl
     self.requesterId = requesterId
     self.targetId = targetId
   }
   
+}
+
+
+struct FriendsSection {
+  var header: String
+  var items: [User.Friend]
+}
+
+extension FriendsSection: SectionModelType {
+  typealias Item = User.Friend
+  
+  init(original: FriendsSection, items: [User.Friend]) {
+    self = original
+    self.items = items
+  }
 }

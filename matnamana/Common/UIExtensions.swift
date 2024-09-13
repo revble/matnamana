@@ -12,6 +12,7 @@ extension UIColor {
   static let manaSkin = UIColor(red: 255/255, green: 235/255, blue: 216/255, alpha: 1)
   static let manaMint = UIColor(red: 199/255, green: 220/255, blue: 167/255, alpha: 1)
   static let manaGreen = UIColor(red: 137/255, green: 185/255, blue: 173/255, alpha: 1)
+  static let manaMainColor = UIColor(red: 0/255, green: 168/255, blue: 226/255, alpha: 1)
 }
 extension UIViewController {
   func transitionToViewController(_ viewController: UIViewController) {
