@@ -4,7 +4,7 @@
 //
 //  Created by pc on 9/2/24.
 //
-
+import RxDataSources
 
 enum Section: Int, CaseIterable {
   case friendRequest
@@ -26,12 +26,12 @@ struct Item {
   let requesterId: String
   let targetId: String
   
+  init(userNickName: String, profileImageUrl: String, requesterId: String, targetId: String) {
     self.userNickName = userNickName
     self.profileImageUrl = profileImageUrl
     self.requesterId = requesterId
     self.targetId = targetId
   }
-  
 }
 
 

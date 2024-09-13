@@ -219,7 +219,7 @@
 		DDE043542C773E3500DA099A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDE043582C773E3500DA099A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DDE0435B2C773E3500DA099A /* matnamana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = matnamana.xcdatamodel; sourceTree = "<group>"; };
-		DDE0435D2C773E3700DA099A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DDE0435D2C773E3700DA099A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = matnamana/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		DDE043622C773E3700DA099A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDE043672C773E3700DA099A /* matnamanaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = matnamanaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDE0436B2C773E3700DA099A /* matnamanaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matnamanaTests.swift; sourceTree = "<group>"; };
@@ -859,7 +859,6 @@
 				DDCF923C2C78552C005DB62F /* ProfileController.swift in Sources */,
 				DD0CE9E82C933091008B5A68 /* BannerCell.swift in Sources */,
 				DDCF93212C7D8C6D005DB62F /* UserModel.swift in Sources */,
-				DDF2A0242C80AB4B001B1DB7 /* SearchViewModel.swift in Sources */,
 				4FDF00182C92704E000B7873 /* ReplyController.swift in Sources */,
 				4FDF001C2C927270000B7873 /* ReplyView.swift in Sources */,
 				DDF2A01C2C8031F8001B1DB7 /* ProfileView.swift in Sources */,

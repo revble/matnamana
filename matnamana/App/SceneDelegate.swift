@@ -25,7 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     } else {
       window.rootViewController = LoginController()
     }
-    window.rootViewController = LoginController()
     
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
