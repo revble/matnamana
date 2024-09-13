@@ -39,25 +39,25 @@ final class ProfileViewModel: ViewModelType {
   }
   
   private func calculateAge(from birth: String) -> String {
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyyMMdd"  // 올바른 형식 설정
-
-      guard let birthDate = dateFormatter.date(from: birth) else { 
-          return "00"  // 생년월일이 잘못된 형식일 경우 기본값 반환
-      }
-
-      let calendar = Calendar.current
-      let now = Date()
-      let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)  // 현재 날짜와 비교하여 나이 계산
-
-      if let age = ageComponents.year {  // 년도 차이를 사용하여 나이 계산
-          return "\(age)"
-      } else {
-          return "00"
-      }
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyyMMdd"  // 올바른 형식 설정
+    
+    guard let birthDate = dateFormatter.date(from: birth) else { 
+      return "00"  // 생년월일이 잘못된 형식일 경우 기본값 반환
+    }
+    
+    let calendar = Calendar.current
+    let now = Date()
+    let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)  // 현재 날짜와 비교하여 나이 계산
+    
+    if let age = ageComponents.year {  // 년도 차이를 사용하여 나이 계산
+      return "\(age)"
+    } else {
+      return "00"
+    }
   }
-
-
+  
+  
   func transform(input: Input) -> Output {
     let profileData = input.fetchProfile
       .flatMap { [weak self] _ -> Observable<User.Info> in
@@ -65,14 +65,14 @@ final class ProfileViewModel: ViewModelType {
         return self.fetchProfileData()
       }
       .asDriver(onErrorJustReturn: User.Info.empty)
-
+    
     let userAge = profileData
       .map { [weak self] info -> String in
         guard let self = self else {return "00"}
         return self.calculateAge(from: info.birth)
       }
       .asDriver(onErrorJustReturn: "00")
-
+    
     return Output(profileData: profileData, userAge: userAge)
   }
 }

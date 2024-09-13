@@ -70,11 +70,11 @@ final class ProfileEditView: UIView {
   
   private func configureUI() {
     [
-     profileImageView,
-     nameTextField,
-     nickNameTextField,
-     introduceTextField,
-     tableView
+      profileImageView,
+      nameTextField,
+      nickNameTextField,
+      introduceTextField,
+      tableView
     ].forEach {
       addSubview($0)
     }
