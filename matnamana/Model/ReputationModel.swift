@@ -11,6 +11,7 @@ struct ReputationRequest: Codable {
   let questionList: [Question.Content]?
   let status: RequestStatus?
   let selectedFriends: [UserProfile]?
+  let selectedFriendsUserIds: [String]?
 }
 
 extension ReputationRequest {

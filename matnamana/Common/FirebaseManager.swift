@@ -155,7 +155,7 @@ final class FirebaseManager {
     db.collection("reputationRequests").whereFilter(Filter.orFilter([
       Filter.whereField("requester.userId", isEqualTo: userId),
       Filter.whereField("target.userId", isEqualTo: userId),
-      Filter.whereField("selectedFriends.userId", isEqualTo: userId)
+      Filter.whereField("selectedFriendsUserIds", arrayContains: userId)
     ]))
     .getDocuments { querySnapshot, error in
       if let error = error {
@@ -171,19 +171,19 @@ final class FirebaseManager {
         do {
           let reputation = try document.data(as: ReputationRequest.self)
           reputationRequests.append(reputation)
-          completion(reputationRequests, nil)
         } catch {
           completion(nil, error)
           return
         }
       }
+      completion(reputationRequests, nil)
     }
   }
   
   func fetchquestionList(userId: String, targetNickName: String, completion: @escaping ([ReputationRequest]?, Error?) -> Void) {
-    db.collection("reputationRequests").whereFilter(Filter.orFilter([
+    db.collection("reputationRequests").whereFilter(Filter.andFilter([
       Filter.whereField("target.nickName", isEqualTo: targetNickName),
-      Filter.whereField("selectedFriends.userId", isEqualTo: userId)
+      Filter.whereField("selectedFriendsUserIds", arrayContains: userId)
     ]))
     .getDocuments { querySnapshot, error in
       if let error = error {
