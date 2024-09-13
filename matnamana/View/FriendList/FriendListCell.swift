@@ -49,7 +49,6 @@ final class FriendListCell: UITableViewCell {
     $0.text = ""
   }
   
-  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     [

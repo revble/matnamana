@@ -14,13 +14,14 @@ final class TabBarController: UITabBarController {
     viewConfig()
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
     FirebaseManager.shared.readUser(documentId: userId) { user, error in
-      if let error = error {
+      if error != nil {
         return
       } else if let user = user {
         let myNickName = user.info.nickName
         let myName = user.info.name
         UserDefaults.standard.setValue(myNickName, forKey: "userNickName")
         UserDefaults.standard.setValue(myName, forKey: "userName")
+        self.navigationItem.largeTitleDisplayMode = .always
       }
     }
   }
