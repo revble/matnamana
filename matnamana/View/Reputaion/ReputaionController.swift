@@ -96,7 +96,7 @@ final class ReputaionController: BaseViewController {
               for: indexPath) as? FriendRequestCell else {
               return UICollectionViewCell()
             }
-            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
+            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName, requester: item.requesterId, target: item.targetId)
             return cell
           }
           
@@ -165,7 +165,10 @@ final class ReputaionController: BaseViewController {
           print("friendRequest: \(indexPath.row)")
           if let cell =
               self.reputationView.collecitonView.cellForItem(at: indexPath) as? FriendRequestCell {
-            pushViewController(ReplyController(name: cell.nameLabel.text ?? ""))
+            let nickName = cell.nameLabel.text ?? ""
+            let requesterId = cell.requesterId
+            let targetId = cell.targetId
+            pushViewController(ReplyController(name: nickName, requester: requesterId, target: targetId))
           }
           
           
@@ -196,19 +199,19 @@ final class ReputaionController: BaseViewController {
       .observe(on: MainScheduler.instance)
       .map { (friendData, myRequestedData, receivedData) -> [SectionModel<String, Item>] in
         let friendReputationItems = friendData.isEmpty 
-        ? [Item(userNickName: "", profileImageUrl: "")]
-        : friendData.map { (profileImage, userNickName) in
-          Item(userNickName: userNickName, profileImageUrl: profileImage)
+        ? [Item(userNickName: "", profileImageUrl: "", requesterId: "", targetId: "")]
+        : friendData.map { (profileImage, userNickName, requesterId , targetId) in
+          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: requesterId, targetId: targetId)
         }
         let myRequestedItems = myRequestedData.isEmpty
-        ? [Item(userNickName: "", profileImageUrl: "")]
+        ? [Item(userNickName: "", profileImageUrl: "", requesterId: "", targetId: "")]
         : myRequestedData.map { (profileImage, userNickName) in
-          Item(userNickName: userNickName, profileImageUrl: profileImage)
+          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: "", targetId: "")
         }
         let receivedRequestItems = receivedData.isEmpty
-        ? [Item(userNickName: "", profileImageUrl: "")]
+        ? [Item(userNickName: "", profileImageUrl: "", requesterId: "", targetId: "")]
         : receivedData.map { (profileImage, userNickName) in
-          Item(userNickName: userNickName, profileImageUrl: profileImage)
+          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: "", targetId: "")
         }
 
         return [

@@ -13,11 +13,15 @@ import RxSwift
 final class ReplyController: BaseViewController {
   
   private var name: String
+  private var requester: String
+  private var target: String
   private let viewModel = ReplyViewModel()
   private var replyView = ReplyView(frame: .zero)
   
-  init(name: String) {
+  init(name: String, requester: String, target: String) {
     self.name = name
+    self.requester = requester
+    self.target = target
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -39,8 +43,7 @@ final class ReplyController: BaseViewController {
         cell.textLabel?.text = text
         cell.textLabel?.textAlignment = .left
         cell.textLabel?.numberOfLines = 0
-      }
-      .disposed(by: disposeBag)
+      }.disposed(by: disposeBag)
     
     replyView.tableView.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
@@ -51,12 +54,22 @@ final class ReplyController: BaseViewController {
         }
         let answerController = AnswerController(replyViewModel: viewModel, name: name, question: selectedQuestion)
         pushViewController(answerController)
-      })
+      }).disposed(by: disposeBag)
     
     replyView.sendButton.rx.tap
       .subscribe(onNext: { [weak self] text in
         guard let self else { return }        
-        self.viewModel.sendAnswers(nickName: name)
+        self.viewModel.sendAnswers(requester: requester, target: target)
+        self.popViewController()
+      }).disposed(by: disposeBag)
+    
+    viewModel.answerDataRelay
+      .observe(on: MainScheduler.instance)
+      .filter { $0.count == 5 }
+      .subscribe(onNext: { [weak self] _ in
+        guard let self else { return }
+        self.replyView.sendButton.isEnabled = true
+        self.replyView.sendButton.backgroundColor = .manaGreen
       }).disposed(by: disposeBag)
   }
   

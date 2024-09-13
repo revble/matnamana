@@ -84,9 +84,6 @@ final class KakaoLoginService {
       }
       else {
         print("me() success.")
-        //do something
-        let userName = kakaoAccount.name
-        let userEmail = kakaoAccount.email
       }
     }
   }

@@ -23,10 +23,14 @@ enum Section: Int, CaseIterable {
 struct Item {
   let userNickName: String
   let profileImageUrl: String
+  let requesterId: String
+  let targetId: String
   
-  init(userNickName: String, profileImageUrl: String) {
+  init(userNickName: String, profileImageUrl: String, requesterId: String, targetId: String) {
     self.userNickName = userNickName
     self.profileImageUrl = profileImageUrl
+    self.requesterId = requesterId
+    self.targetId = targetId
   }
   
 }

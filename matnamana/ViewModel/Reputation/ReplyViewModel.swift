@@ -46,10 +46,10 @@ final class ReplyViewModel {
       self.questionDataRelay.accept(questionData)
     }
   }
-  func sendAnswers(nickName: String) {
-    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
+  func sendAnswers(requester: String, target: String) {
+    let documentId = "\(requester)-\(target)"
 
-    let reputationRequest = db.collection("reputationRequests").document("보내는 사람-받는 사람")
+    let reputationRequest = db.collection("reputationRequests").document(documentId)
     
     let answers = answerDataRelay.value
   

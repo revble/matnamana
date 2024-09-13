@@ -34,7 +34,6 @@ final class FirebaseManager {
   }
   
   func addData<T: Codable>(to collectionName: CollectionName, data: T, documentId: String) {
-    
     if let dataDictionary = data.asDictionary {
       db.collection(collectionName.rawValue).document(documentId).setData(dataDictionary) { error in
         if let error = error {
