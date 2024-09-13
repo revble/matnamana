@@ -34,7 +34,6 @@ final class FirebaseManager {
   }
   
   func addData<T: Codable>(to collectionName: CollectionName, data: T, documentId: String) {
-    
     if let dataDictionary = data.asDictionary {
       db.collection(collectionName.rawValue).document(documentId).setData(dataDictionary) { error in
         if let error = error {
@@ -251,7 +250,35 @@ final class FirebaseManager {
     db.collection("reputationRequests").whereFilter(Filter.orFilter([
       Filter.whereField("requester.userId", isEqualTo: userId),
       Filter.whereField("target.userId", isEqualTo: userId),
-      Filter.whereField("selectedFriends.userId", isEqualTo: userId)
+      Filter.whereField("selectedFriendsUserIds", arrayContains: userId)
+    ]))
+    .getDocuments { querySnapshot, error in
+      if let error = error {
+        completion(nil, error)
+        return
+      }
+      guard let querySnapshot = querySnapshot else {
+        completion([], error)
+        return
+      }
+      var reputationRequests: [ReputationRequest] = []
+      for document in querySnapshot.documents {
+        do {
+          let reputation = try document.data(as: ReputationRequest.self)
+          reputationRequests.append(reputation)
+        } catch {
+          completion(nil, error)
+          return
+        }
+      }
+      completion(reputationRequests, nil)
+    }
+  }
+  
+  func fetchquestionList(userId: String, targetNickName: String, completion: @escaping ([ReputationRequest]?, Error?) -> Void) {
+    db.collection("reputationRequests").whereFilter(Filter.andFilter([
+      Filter.whereField("target.nickName", isEqualTo: targetNickName),
+      Filter.whereField("selectedFriendsUserIds", arrayContains: userId)
     ]))
     .getDocuments { querySnapshot, error in
       if let error = error {
@@ -275,6 +302,7 @@ final class FirebaseManager {
       }
     }
   }
+  
 }
 
 extension Encodable {

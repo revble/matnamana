@@ -39,16 +39,14 @@ final class LoginView: BaseView {
   }
   
   let loginButton = UIButton().then {
-    $0.setTitle("Apple로 로그인", for: .normal)
+    $0.setImage(UIImage(named: "appleLogin"), for: .normal)
     $0.setTitleColor(.white, for: .normal)
-    $0.backgroundColor = .black
     $0.layer.cornerRadius = 10
   }
   
   let kakaoLoginButton = UIButton().then {
     $0.setImage(UIImage(named: "kakaoLogin"), for: .normal)
     $0.setTitleColor(.white, for: .normal)
-    $0.backgroundColor = .black
     $0.layer.cornerRadius = 10
   }
   
@@ -93,17 +91,19 @@ final class LoginView: BaseView {
     }
     
     loginButton.snp.makeConstraints {
-      $0.bottom.equalToSuperview().inset(200)
+      $0.bottom.equalToSuperview().inset(150)
       $0.centerX.equalToSuperview()
-      $0.width.equalTo(160)
-      $0.height.equalTo(35)
+      $0.left.equalToSuperview().offset(16)
+      $0.right.equalToSuperview().offset(-16)
+      $0.height.equalTo(56)
     }
     
     kakaoLoginButton.snp.makeConstraints {
-      $0.bottom.equalToSuperview().inset(150)
+      $0.bottom.equalTo(loginButton.snp.top).offset(-20)
       $0.centerX.equalToSuperview()
-      $0.width.equalTo(160)
-      $0.height.equalTo(35)
+      $0.left.equalToSuperview().offset(16)
+      $0.right.equalToSuperview().offset(-16)
+      $0.height.equalTo(56)
     }
   }
 }
