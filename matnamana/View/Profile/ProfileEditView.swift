@@ -11,13 +11,6 @@ import SnapKit
 
 final class ProfileEditView: UIView {
   
-  let profilePage: UILabel = {
-    let label = UILabel()
-    label.text = "나의 정보"
-    label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-    return label
-  }()
-  
   let profileImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(named: "profile")
@@ -76,25 +69,21 @@ final class ProfileEditView: UIView {
   }
   
   private func configureUI() {
-    [profilePage,
-     profileImageView,
-     nameTextField,
-     nickNameTextField,
-     introduceTextField,
-     tableView
+    [
+      profileImageView,
+      nameTextField,
+      nickNameTextField,
+      introduceTextField,
+      tableView
     ].forEach {
       addSubview($0)
     }
   }
   
   private func setConstraints() {
-    profilePage.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(100)
-      $0.leading.equalToSuperview().offset(24)
-    }
     
     profileImageView.snp.makeConstraints {
-      $0.top.equalTo(profilePage.snp.bottom).offset(20)
+      $0.top.equalToSuperview().offset(80)
       $0.centerX.equalToSuperview()
       $0.width.height.equalTo(100)
     }

@@ -11,19 +11,19 @@ import RxCocoa
 import RxSwift
 
 final class FriendListViewModel: ViewModelType {
-  
+
   struct Input {
     let fetchFriends: Observable<Void>
     let searchText: Observable<String>
     let acceptTap: Observable<User.Friend>
   }
-  
+
   struct Output {
     let friendList: Driver<[FriendsSection]>
     let searchResult: Driver<Bool>
     let errorMessage: Driver<String>
   }
-  
+
   private var friends = BehaviorRelay<[User.Friend]>(value: [])
   var disposeBag = DisposeBag()
   private var fetchFriendsSubject = PublishSubject<Void>()
@@ -31,7 +31,7 @@ final class FriendListViewModel: ViewModelType {
     func fetchFriends() {
       fetchFriendsSubject.onNext(())
     }
-  
+
   func fetchFriendList() -> Observable<[User.Friend]> {
     guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
     return Observable.create { observer in
@@ -49,7 +49,7 @@ final class FriendListViewModel: ViewModelType {
       return Disposables.create()
     }
   }
-  
+
   private func searchFriend(by nickname: String) -> Observable<User?> {
     return Observable.create { observer in
       FirebaseManager.shared.getUserInfo(nickName: nickname) { user, error in
@@ -63,7 +63,7 @@ final class FriendListViewModel: ViewModelType {
       return Disposables.create()
     }
   }
-  
+
   func transform(input: Input) -> Output {
     Observable.merge([input.fetchFriends, fetchFriendsSubject.asObservable()])
       .flatMapLatest { [weak self] _ -> Observable<[User.Friend]> in
@@ -72,7 +72,7 @@ final class FriendListViewModel: ViewModelType {
       }
       .bind(to: friends)
       .disposed(by: disposeBag)
-    
+
     input.acceptTap
       .flatMapLatest { [weak self] friend -> Observable<Void> in
         guard let self = self else { return .empty() }
@@ -117,7 +117,7 @@ final class FriendListViewModel: ViewModelType {
         let acceptedFriends = friends.filter { $0.status == .accepted }
         let pendingFriends = friends.filter { $0.status == .pending && $0.targetId != id }
         let myRequest = friends.filter { $0.status == .pending && $0.targetId == id }
-        
+
         return [
           FriendsSection(header: "보낸 친구 요청", items: myRequest),
           FriendsSection(header: "받은 친구 요청", items: pendingFriends),
@@ -125,7 +125,7 @@ final class FriendListViewModel: ViewModelType {
         ]
       }
       .asDriver(onErrorJustReturn: [])
-    
+
     let searchResult = input.searchText
       .flatMapLatest { [weak self] nickname -> Observable<Bool> in
         guard let self = self else { return Observable.just(false) }
@@ -140,7 +140,7 @@ final class FriendListViewModel: ViewModelType {
           }
       }
       .asDriver(onErrorJustReturn: false)
-    
+
     let errorMessage = input.searchText
       .flatMap { [weak self] nickname -> Observable<String> in
         guard let self = self else { return Observable.just("") }
@@ -150,7 +150,7 @@ final class FriendListViewModel: ViewModelType {
           }
       }
       .asDriver(onErrorJustReturn: "")
-    
+
     return Output(friendList: friendList,
                   searchResult: searchResult,
                   errorMessage: errorMessage)

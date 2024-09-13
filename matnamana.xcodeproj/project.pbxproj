@@ -44,6 +44,10 @@
 		DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560D2C868BCC00459343 /* profileEditTable.swift */; };
 		DA3A56102C881AF900459343 /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A560F2C881AF900459343 /* RxKeyboard */; };
 		DA3A56132C8A967C00459343 /* TTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56122C8A967B00459343 /* TTest.swift */; };
+		DA59CFE02C93F0490052D050 /* myPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFDF2C93F0490052D050 /* myPageView.swift */; };
+		DA59CFE22C93F06F0052D050 /* myPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFE12C93F06F0052D050 /* myPageController.swift */; };
+		DA59CFE42C93F0840052D050 /* myPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFE32C93F0840052D050 /* myPageCell.swift */; };
+		DA59CFE72C93F6A60052D050 /* myPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFE62C93F6A60052D050 /* myPageViewModel.swift */; };
 		DD0CE9E42C92CD5D008B5A68 /* CustomQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */; };
 		DD0CE9E62C92D55E008B5A68 /* CustomQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */; };
 		DD0CE9E82C933091008B5A68 /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E72C933091008B5A68 /* BannerCell.swift */; };
@@ -159,6 +163,10 @@
 		DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		DA3A560D2C868BCC00459343 /* profileEditTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditTable.swift; sourceTree = "<group>"; };
 		DA3A56122C8A967B00459343 /* TTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTest.swift; sourceTree = "<group>"; };
+		DA59CFDF2C93F0490052D050 /* myPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageView.swift; sourceTree = "<group>"; };
+		DA59CFE12C93F06F0052D050 /* myPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageController.swift; sourceTree = "<group>"; };
+		DA59CFE32C93F0840052D050 /* myPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageCell.swift; sourceTree = "<group>"; };
+		DA59CFE62C93F6A60052D050 /* myPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageViewModel.swift; sourceTree = "<group>"; };
 		DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionController.swift; sourceTree = "<group>"; };
 		DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionView.swift; sourceTree = "<group>"; };
 		DD0CE9E72C933091008B5A68 /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
@@ -324,10 +332,29 @@
 			children = (
 				DA3A55F62C7F144500459343 /* ProfileViewModel.swift */,
 				DA3A56002C84B95100459343 /* ProfileEditViewModel.swift */,
+				DA59CFE52C93F64A0052D050 /* myPage */,
 			);
 			name = Profile;
 			path = matnamana/ViewModel/Profile;
 			sourceTree = SOURCE_ROOT;
+		};
+		DA59CFDE2C93EF9C0052D050 /* myPage */ = {
+			isa = PBXGroup;
+			children = (
+				DA59CFDF2C93F0490052D050 /* myPageView.swift */,
+				DA59CFE12C93F06F0052D050 /* myPageController.swift */,
+				DA59CFE32C93F0840052D050 /* myPageCell.swift */,
+			);
+			path = myPage;
+			sourceTree = "<group>";
+		};
+		DA59CFE52C93F64A0052D050 /* myPage */ = {
+			isa = PBXGroup;
+			children = (
+				DA59CFE62C93F6A60052D050 /* myPageViewModel.swift */,
+			);
+			path = myPage;
+			sourceTree = "<group>";
 		};
 		DD9471012C8A89E2009BF95E /* Base */ = {
 			isa = PBXGroup;
@@ -378,10 +405,10 @@
 		DDCF92C82C7C8A6B005DB62F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DDCF93182C7D533D005DB62F /* MainPage */,
 				DDE043582C773E3500DA099A /* TabBarController.swift */,
 				DD9471012C8A89E2009BF95E /* Base */,
 				4F83D32A2C8552CD0076AE2A /* HomePage */,
-				DDCF93182C7D533D005DB62F /* MainPage */,
 				DDCF93192C7D5356005DB62F /* Profile */,
 				DDCF931A2C7D53FD005DB62F /* MyQuestion */,
 				DDCF931B2C7D5406005DB62F /* FriendList */,
@@ -420,10 +447,11 @@
 				DDCF923B2C78552C005DB62F /* ProfileController.swift */,
 				DA3A56092C855BC400459343 /* ProfileUIView.swift */,
 				DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */,
-				DA3A56052C85565B00459343 /* ProfileEditViewController.swift */,
 				DA3A560D2C868BCC00459343 /* profileEditTable.swift */,
+				DA3A56052C85565B00459343 /* ProfileEditViewController.swift */,
 				DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */,
 				DA3A56122C8A967B00459343 /* TTest.swift */,
+				DA59CFDE2C93EF9C0052D050 /* myPage */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -715,6 +743,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA59CFE72C93F6A60052D050 /* myPageViewModel.swift in Sources */,
+				DA59CFE22C93F06F0052D050 /* myPageController.swift in Sources */,
 				DD94711D2C8D781C009BF95E /* MainQuestionController.swift in Sources */,
 				4F1E88652C8E89CD00F09A36 /* AcceptRequestController.swift in Sources */,
 				4F63D6E12C870C7800B0F65C /* SceneDelegate.swift in Sources */,
@@ -747,7 +777,9 @@
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
 				DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */,
 				4F63D7292C8A917000B0F65C /* FriendRequestCell.swift in Sources */,
+				DA59CFE02C93F0490052D050 /* myPageView.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
+				DA59CFE42C93F0840052D050 /* myPageCell.swift in Sources */,
 				4F63D7272C8A913E00B0F65C /* ReceivedRequestCell.swift in Sources */,
 				4F1E88682C8E99B300F09A36 /* AcceptRequestViewModel.swift in Sources */,
 				4F83D3412C85A4680076AE2A /* KakaoLoginService.swift in Sources */,
