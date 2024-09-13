@@ -53,5 +53,17 @@ class BaseViewController: UIViewController {
   func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
     
   }
+  
+  func setupDismissKeyboardGesture() {
+    let tapGesture = UITapGestureRecognizer()
+    self.view.addGestureRecognizer(tapGesture)
+    
+    tapGesture.rx.event
+      .bind(onNext: { [weak self] _ in
+        guard let self else { return }
+        self.view.endEditing(true) // 키보드를 숨기기
+      })
+      .disposed(by: disposeBag)
+  }
 }
 

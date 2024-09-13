@@ -39,7 +39,6 @@ final class AnswerController: BaseViewController {
         self.popViewController()
       }).disposed(by: disposeBag)
     
-      
   }
   
   override func setupView() {
@@ -48,15 +47,5 @@ final class AnswerController: BaseViewController {
     self.view = answerView
     answerView.selectedQuestion(name: name, question: question)
   }
-  func setupDismissKeyboardGesture() {
-    let tapGesture = UITapGestureRecognizer()
-    self.view.addGestureRecognizer(tapGesture)
-    
-    tapGesture.rx.event
-      .bind(onNext: { [weak self] _ in
-        guard let self else { return }
-        self.view.endEditing(true) // 키보드를 숨기기
-      })
-      .disposed(by: disposeBag)
-  }
+  
 }
