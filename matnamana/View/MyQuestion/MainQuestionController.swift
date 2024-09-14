@@ -86,7 +86,6 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
     switch indexPath.section {
     case 0:
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BannerCell.self), for: indexPath) as? BannerCell else { return UICollectionViewCell() }
-      cell.configure(with: UIImage(named: "exampleImage") ?? UIImage())
       return cell
     case 1:
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: QuestionCell.self), for: indexPath) as? QuestionCell else { return UICollectionViewCell() }
