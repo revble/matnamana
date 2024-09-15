@@ -12,7 +12,7 @@ import Then
 
 final class myPageCell: UITableViewCell {
 
-  let myPageCellLabel = UILabel().then {
+  private let myPageCellLabel = UILabel().then {
     $0.text = ""
   }
 
@@ -20,17 +20,20 @@ final class myPageCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     configureUI()
     setConstraints()
+    setupAccessoryType()
   }
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+
   private func configureUI() {
     contentView.addSubview(myPageCellLabel)
   }
+
   private func setConstraints() {
     myPageCellLabel.snp.makeConstraints {
-      $0.center.equalToSuperview()
+      $0.centerY.equalToSuperview()
       $0.leading.equalToSuperview().inset(20)
     }
   }
@@ -39,4 +42,7 @@ final class myPageCell: UITableViewCell {
     myPageCellLabel.text = myPageCell
   }
 
+  private func setupAccessoryType() {
+    self.accessoryType = .disclosureIndicator
+  }
 }

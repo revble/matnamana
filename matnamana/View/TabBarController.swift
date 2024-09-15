@@ -59,7 +59,7 @@ extension TabBarController {
         let viewModel = AcceptRequestViewModel()
         return ReputaionController(acceptViewModel: viewModel)
       case .profile:
-        return ProfileController()
+        return myPageController()
       }
     }
     

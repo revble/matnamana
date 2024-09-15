@@ -15,7 +15,6 @@ class BaseViewController: UIViewController {
   var disposeBag = DisposeBag()
   
   override func loadView() {
-    
     setupView()
   }
   
@@ -27,8 +26,6 @@ class BaseViewController: UIViewController {
     
     overrideUserInterfaceStyle = .light
     view.backgroundColor = .systemBackground
-    
-    
   }
   
   func setNavigation() {

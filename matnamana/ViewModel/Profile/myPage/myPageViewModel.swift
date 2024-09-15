@@ -16,4 +16,7 @@ class myPageViewModel {
     myPageTable = ["나의 히스토리", "공지", "자주 묻는 질문", "맞나만나에 문의하기","맞나만나 정보"]
   }
 
+  func getCellData() -> Observable<[String]> {
+    return Observable.of(myPageTable)
+  }
 }
