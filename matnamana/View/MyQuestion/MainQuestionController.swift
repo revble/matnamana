@@ -20,6 +20,7 @@ final class MainQuestionViewController: BaseViewController {
     mainQuestionView = MainQuestionView(frame: UIScreen.main.bounds)
     self.view = mainQuestionView
   }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupCollectionView()
@@ -31,20 +32,61 @@ final class MainQuestionViewController: BaseViewController {
     mainQuestionView.mainCollection.dataSource = self
   }
   
+  func bindCell(cell: QuestionCell) {
+    let input = MainQuestionViewModel.Input(
+      totalButtonTap: cell.totalButtonTap,
+      coupleButtonTap: cell.coupleButtonTap,
+      simpleMannamButtonTap: cell.simpleMannamButtonTap,
+      businessButtonTap: cell.businessButtonTap
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    output.navigateTo
+      .subscribe(onNext: { [weak self] destination in
+        guard let self else { return }
+
+        let vc: UIViewController
+        
+        switch destination {
+        case .totalQuestion:
+          vc = TotalQuestionController()
+        case .coupleQuestion:
+          let viewModel = TypeQuestionViewModel(questionId: "BestMeeting")
+          vc = TypeQuestionController(viewModel: viewModel, title: "연애 질문")
+          
+        case .simpleMannam:
+          let viewModel = TypeQuestionViewModel(questionId: "IceBreaking")
+          vc = TypeQuestionController(viewModel: viewModel, title: "느슨한 만남")
+          
+        case .business:
+          let viewModel = TypeQuestionViewModel(questionId: "BestCoworker")
+          vc = TypeQuestionController(viewModel: viewModel, title: "비즈니스")
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+      })
+      .disposed(by: disposeBag)
+  }
+  
+  //    let viewModel = TypeQuestionViewModel(questionId: documentId)
+  //    let vc = TypeQuestionController(viewModel: viewModel, title: title)
+  //    self.navigationController?.pushViewController(vc, animated: true)
+  
   //  override func bind() {
   //    super.bind()
   //    let input = MainQuestionViewModel.Input(
   //      totalListButtonTap: mainQuestionView.totalListButton.rx.tap.asObservable()
   //    )
-  //    
+  //
   //    let output = viewModel.transform(input: input)
-  //    
+  //
   //    output.moveTotalList
   //      .drive(onNext: { [weak self] in
   //        guard let self else { return }
   //        self.navigationController?.pushViewController(TotalQuestionController(), animated: true)
   //      }).disposed(by: disposeBag)
-  //    
+  //
   //    output.questionItems
   //      .drive(mainQuestionView.questionCollection.rx
   //        .items(cellIdentifier: MainCollectionCell.identifier, cellType: MainCollectionCell.self)) { index, item, cell in
@@ -53,7 +95,7 @@ final class MainQuestionViewController: BaseViewController {
   //          cell.titleLabel.frame = cell.contentView.bounds
   //          cell.contentView.backgroundColor = .manaSkin
   //        }.disposed(by: disposeBag)
-  //    
+  //
   //    mainQuestionView.questionCollection.rx.itemSelected
   //      .observe(on: MainScheduler.instance)
   //      .subscribe(onNext: { [weak self] indexPath in
@@ -65,7 +107,7 @@ final class MainQuestionViewController: BaseViewController {
   //        }
   //      }).disposed(by: disposeBag)
   //  }
-  //  
+  //
   //  private func movePage(documentId: String, title: String) {
   //    let viewModel = TypeQuestionViewModel(questionId: documentId)
   //    let vc = TypeQuestionController(viewModel: viewModel, title: title)
@@ -73,6 +115,13 @@ final class MainQuestionViewController: BaseViewController {
   //  }
 }
 extension MainQuestionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if indexPath.section == 0 && indexPath.item == 0 {
+      if let url = URL(string: "https://teaminpact.com/projects/") {    UIApplication.shared.open(url, options: [:])
+      }
+    }
+  }
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 3
@@ -89,10 +138,10 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
       return cell
     case 1:
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: QuestionCell.self), for: indexPath) as? QuestionCell else { return UICollectionViewCell() }
+      bindCell(cell: cell)
       return cell
     case 2:
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CustomQuestionCell.self), for: indexPath) as? CustomQuestionCell else { return UICollectionViewCell() }
-      cell.configure(with: "Custom Question")
       return cell
     default:
       fatalError("default cell")

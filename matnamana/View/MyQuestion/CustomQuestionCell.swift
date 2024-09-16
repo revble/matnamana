@@ -11,29 +11,32 @@ import SnapKit
 import Then
 
 final class CustomQuestionCell: UICollectionViewCell {
-  private let customQuestionLabel = UILabel().then {
-    $0.font = UIFont.systemFont(ofSize: 16)
-    $0.numberOfLines = 0
-    $0.textColor = .black
+  
+  let customQuestionButton = UIButton().then {
+    $0.backgroundColor = .manaMainColor
+    $0.setTitle("아이스 브레이킹 질문", for: .normal)
+    $0.layer.cornerRadius = 16
   }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    setupUI()
+    configureUI()
+    setConstraints()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private func setupUI() {
-    contentView.addSubview(customQuestionLabel)
-    customQuestionLabel.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(10)
-    }
+  private func configureUI() {
+    self.addSubview(customQuestionButton)
   }
   
-  func configure(with text: String) {
-    customQuestionLabel.text = text
+  private func setConstraints() {
+    
+    customQuestionButton.snp.makeConstraints {
+      $0.horizontalEdges.equalToSuperview().inset(16)
+      $0.height.equalTo(56)
+    }
   }
 }

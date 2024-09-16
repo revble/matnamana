@@ -52,6 +52,4 @@ final class TypeQuestionViewModel: ViewModelType {
       .asDriver(onErrorJustReturn: [])
     return Output(questionList: questionList)
   }
-  
-  
 }

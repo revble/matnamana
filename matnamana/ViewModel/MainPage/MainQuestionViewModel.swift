@@ -11,22 +11,31 @@ import RxCocoa
 final class MainQuestionViewModel {
   
   struct Input {
-    let totalListButtonTap: Observable<Void>
+    let totalButtonTap: Observable<Void>
+    let coupleButtonTap: Observable<Void>
+    let simpleMannamButtonTap: Observable<Void>
+    let businessButtonTap: Observable<Void>
   }
   
   struct Output {
-    let moveTotalList: Driver<Void>
-    let questionItems: Driver<[String]>
+    let navigateTo: Observable<Destination>
+  }
+  
+  enum Destination {
+    case totalQuestion
+    case coupleQuestion
+    case simpleMannam
+    case business
   }
   
   func transform(input: Input) -> Output {
-    let moveTotalList = input.totalListButtonTap
-      .asDriver(onErrorDriveWith: .empty())
-
-    let questionItems = Observable.just([
-      "IceBreaking", "BestFriend", "BestFamily", "BestMeeting", "BestCoworker"
-    ]).asDriver(onErrorJustReturn: [])
+    let navigateTo = Observable.merge(
+      input.totalButtonTap.map { Destination.totalQuestion },
+      input.coupleButtonTap.map { Destination.coupleQuestion },
+      input.simpleMannamButtonTap.map { Destination.simpleMannam },
+      input.businessButtonTap.map { Destination.business }
+    )
     
-    return Output(moveTotalList: moveTotalList, questionItems: questionItems)
+    return Output(navigateTo: navigateTo)
   }
 }

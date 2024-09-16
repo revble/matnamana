@@ -7,29 +7,47 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
 final class QuestionCell: UICollectionViewCell {
   
-  private let totalQuestionButton = UIButton().then {
+  var totalButtonTap: Observable<Void> {
+    return totalQuestionButton.rx.tap.asObservable()
+  }
+  
+  var coupleButtonTap: Observable<Void> {
+    return coupleQuestonButton.rx.tap.asObservable()
+  }
+  
+  var simpleMannamButtonTap: Observable<Void> {
+    return simpleMannamButton.rx.tap.asObservable()
+  }
+  
+  var businessButtonTap: Observable<Void> {
+    return bussinessButton.rx.tap.asObservable()
+  }
+  
+  let totalQuestionButton = UIButton().then {
     let buttonImage = UIImage(named: "mainBannerImage")
     $0.backgroundColor = .manaMainColor
     $0.layer.cornerRadius = 16
     $0.setTitle("전체 질문 리스트", for: .normal)
   }
   
-  private let coupleQuestonButton = UIButton().then {
+  let coupleQuestonButton = UIButton().then {
     let buttonImage = UIImage(named: "coupleImage")
     $0.setImage(buttonImage, for: .normal)
   }
   
-  private let simpleMannamButton = UIButton().then {
+  let simpleMannamButton = UIButton().then {
     let buttonImage = UIImage(named: "mannamImage")
     $0.setImage(buttonImage, for: .normal)
   }
   
-  private let bussinessButton = UIButton().then {
+  let bussinessButton = UIButton().then {
     let buttonImage = UIImage(named: "bussinessImage")
     $0.setImage(buttonImage, for: .normal)
   }
@@ -95,7 +113,7 @@ final class QuestionCell: UICollectionViewCell {
     
     totalQuestionButton.snp.makeConstraints {
       $0.top.horizontalEdges.equalToSuperview().inset(20)
-      $0.height.equalTo(40)
+      $0.height.equalTo(56)
     }
     
     buttonStackView.snp.makeConstraints {
