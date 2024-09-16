@@ -52,44 +52,44 @@ extension UIView {
   }
 }
 
-extension UILabel {
-  func screenTitle(fontSize: CGFloat = 34) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+extension UIFont {
+  static func screenTitle(fontSize: CGFloat = 34) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .bold)
   }
   
-  func title1(fontSize: CGFloat = 28) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+  static func title1(fontSize: CGFloat = 28) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .bold)
   }
   
-  func title2(fontSize: CGFloat = 22) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+  static func title2(fontSize: CGFloat = 22) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .bold)
   }
   
-  func title3(fontSize: CGFloat = 20) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .semibold)
+  static func title3(fontSize: CGFloat = 20) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .semibold)
   }
   
-  func headLine(fontSize: CGFloat = 17) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .semibold)
+  static func headLine(fontSize: CGFloat = 17) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .semibold)
   }
   
-  func bonmoon(fontSize: CGFloat = 17) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+  static func bonmoon(fontSize: CGFloat = 17) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .regular)
   }
   
-  func callOut(fontSize: CGFloat = 16) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .semibold)
+  static func callOut(fontSize: CGFloat = 16) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .semibold)
   }
   
-  func subHeadLine(fontSize: CGFloat = 15) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+  static func subHeadLine(fontSize: CGFloat = 15) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .regular)
   }
   
-  func footNote(fontSize: CGFloat = 13) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+  static func footNote(fontSize: CGFloat = 13) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .regular)
   }
   
-  func caption(fontSize: CGFloat = 12) {
-    self.font = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+  static func caption(fontSize: CGFloat = 12) -> UIFont {
+    return UIFont.systemFont(ofSize: fontSize, weight: .regular)
   }
 }
