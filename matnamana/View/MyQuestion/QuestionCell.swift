@@ -13,20 +13,46 @@ import Then
 final class QuestionCell: UICollectionViewCell {
   
   private let totalQuestionButton = UIButton().then {
+    let buttonImage = UIImage(named: "mainBannerImage")
     $0.backgroundColor = .manaMainColor
+    $0.layer.cornerRadius = 16
     $0.setTitle("전체 질문 리스트", for: .normal)
   }
   
   private let coupleQuestonButton = UIButton().then {
-    $0.setTitle("연애질문", for: .normal)
+    let buttonImage = UIImage(named: "coupleImage")
+    $0.setImage(buttonImage, for: .normal)
   }
   
   private let simpleMannamButton = UIButton().then {
-    $0.setTitle("느슨한 만남", for: .normal)
+    let buttonImage = UIImage(named: "mannamImage")
+    $0.setImage(buttonImage, for: .normal)
   }
   
   private let bussinessButton = UIButton().then {
-    $0.setTitle("비즈니스", for: .normal)
+    let buttonImage = UIImage(named: "bussinessImage")
+    $0.setImage(buttonImage, for: .normal)
+  }
+  
+  private let coupleLabel = UILabel().then {
+    $0.text = "연애 질문"
+    $0.textAlignment = .center
+  }
+  
+  private let mannamLabel = UILabel().then {
+    $0.text = "느슨한 만남"
+    $0.textAlignment = .center
+  }
+  
+  private let bussinessLabel = UILabel().then {
+    $0.text = "비즈니스"
+    $0.textAlignment = .center
+  }
+  
+  private let labelStackView = UIStackView().then {
+    $0.axis = .horizontal
+    $0.spacing = 10
+    $0.distribution = .fillEqually
   }
   
   private let buttonStackView = UIStackView().then {
@@ -53,20 +79,34 @@ final class QuestionCell: UICollectionViewCell {
     ].forEach { buttonStackView.addArrangedSubview($0) }
     
     [
+      coupleLabel,
+      mannamLabel,
+      bussinessLabel
+    ].forEach { labelStackView.addArrangedSubview($0) }
+    
+    [
       totalQuestionButton,
-      buttonStackView
+      buttonStackView,
+      labelStackView
     ].forEach { contentView.addSubview($0) }
   }
   
   private func setConstraints() {
     
     totalQuestionButton.snp.makeConstraints {
-      $0.top.horizontalEdges.equalToSuperview()
+      $0.top.horizontalEdges.equalToSuperview().inset(20)
+      $0.height.equalTo(40)
     }
     
     buttonStackView.snp.makeConstraints {
       $0.top.equalTo(totalQuestionButton.snp.bottom).offset(10)
-      $0.horizontalEdges.equalToSuperview().offset(20)
+      $0.horizontalEdges.equalToSuperview().inset(20)
+      $0.height.equalTo(110)
+    }
+    
+    labelStackView.snp.makeConstraints {
+      $0.top.equalTo(buttonStackView.snp.bottom).offset(10)
+      $0.horizontalEdges.equalToSuperview().inset(20)
       $0.bottom.equalToSuperview()
     }
   }
