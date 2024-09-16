@@ -25,7 +25,7 @@ final class ReplyView: BaseView {
   
   let sendButton = UIButton().then {
     $0.setTitle("보내기", for: .normal)
-    $0.backgroundColor = .gray
+    $0.backgroundColor = .manaMainColor
     $0.layer.cornerRadius = 10
     $0.isEnabled = false
   }

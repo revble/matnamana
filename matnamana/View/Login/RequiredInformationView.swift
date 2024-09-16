@@ -28,9 +28,12 @@ class RequiredInformationView: BaseView {
   private let nameTextField = UITextField().then {
     $0.placeholder = "실명을 입력해주세요."
     $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+    $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
+    $0.leftViewMode = .always
     $0.layer.cornerRadius = 10
     $0.layer.borderWidth = 1
     $0.layer.borderColor = UIColor(.gray).cgColor
+  
   }
   
   private let nickNameLabel = UILabel().then {
@@ -42,6 +45,8 @@ class RequiredInformationView: BaseView {
   private let nickNameTextField = UITextField().then {
     $0.placeholder = "닉네임을 입력해주세요."
     $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+    $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
+    $0.leftViewMode = .always
     $0.layer.cornerRadius = 10
     $0.layer.borderWidth = 1
     $0.layer.borderColor = UIColor(.gray).cgColor

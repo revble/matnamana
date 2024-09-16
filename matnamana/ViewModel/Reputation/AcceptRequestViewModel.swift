@@ -42,30 +42,53 @@ final class AcceptRequestViewModel {
     currentItems.remove(at: 0)
     selectedItems.accept(currentItems)
   }
+  
   func selectName(_ name: String) {
     currentname.accept(name)
     print(name)
   }
   
-  func sendData() {
+  func sendData(requester: String, target: String) {
     print(selectedItems.value)
+    let documentId = "\(requester)-\(target)"
+    var friendList: [User] = []
     
-    let nickName = currentname.value
-    print(nickName)
-    
-    db.collection("users").whereField("info.nickName", isEqualTo: nickName)
-      .getDocuments { [weak self] querySnapshot, error in
-        if let error = error {
-          print("error")
-        } else {
-          guard let self else { return }
-          for uId in querySnapshot!.documents {
-            db.collection("reputationRequests").document(uId.documentID)
-              .updateData([
-                "selectedFriends": selectedItems.value
-              ])
+    let dispatchGroup = DispatchGroup()
+    for selectedItem in selectedItems.value {
+      print(selectedItem)
+      dispatchGroup.enter()
+      db.collection("users").whereField("info.nickName", isEqualTo: selectedItem)
+        .getDocuments { querySnapshot, error in
+          guard let querySnapshot,
+                error == nil
+          else { return }
+          if let document = querySnapshot.documents.first {
+            do {
+              let user = try document.data(as: User.self)
+              
+              print(user)
+              friendList.append(user)
+            } catch {
+              
+            }
           }
+          dispatchGroup.leave()
         }
-      }
+      
+    }
+    dispatchGroup.notify(queue: .main) {
+      self.db.collection("reputationRequests").document(documentId)
+        .updateData([
+          "selectedFriends": friendList.map { friend in
+            [
+              "nickName": friend.info.nickName,
+              "profileImage": friend.info.profileImage,
+              "userId": friend.userId
+            ]
+          },
+          "selectedFriendsUserIds": friendList.map { $0.userId }
+        ])
+    }
   }
+  
 }

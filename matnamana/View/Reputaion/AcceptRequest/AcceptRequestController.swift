@@ -11,9 +11,14 @@ import RxSwift
 class AcceptRequestController: FriendListController {
   
   private let viewModel: AcceptRequestViewModel
+  private let requester: String
+  private let target: String
   
-  init(viewModel: AcceptRequestViewModel) {
+  
+  init(viewModel: AcceptRequestViewModel, requester: String, target: String) {
     self.viewModel = viewModel
+    self.requester = requester
+    self.target = target
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -71,12 +76,11 @@ class AcceptRequestController: FriendListController {
   private func sendButton() -> UIBarButtonItem {
     let button = UIButton(type: .system)
     button.setTitle("보내기", for: .normal)
-    
     button.rx.tap
       .asDriver()
       .drive(onNext: { [weak self] in
         guard let self else { return }
-        self.viewModel.sendData()
+        self.viewModel.sendData(requester: requester, target: target)
         dismiss(animated: true)
       }).disposed(by: disposeBag)
     

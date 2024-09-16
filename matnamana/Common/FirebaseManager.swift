@@ -271,6 +271,7 @@ final class FirebaseManager {
           return
         }
       }
+      print()
       completion(reputationRequests, nil)
     }
   }
