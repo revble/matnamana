@@ -12,10 +12,8 @@ import Then
 
 final class CustomQuestionCell: UICollectionViewCell {
   
-  let customQuestionButton = UIButton().then {
-    $0.backgroundColor = .manaMainColor
-    $0.setTitle("아이스 브레이킹 질문", for: .normal)
-    $0.layer.cornerRadius = 16
+  let customQuestionLabel = UILabel().then {
+    $0.text = ""
   }
   
   override init(frame: CGRect) {
@@ -29,14 +27,18 @@ final class CustomQuestionCell: UICollectionViewCell {
   }
   
   private func configureUI() {
-    self.addSubview(customQuestionButton)
+    self.addSubview(customQuestionLabel)
   }
   
   private func setConstraints() {
     
-    customQuestionButton.snp.makeConstraints {
+    customQuestionLabel.snp.makeConstraints {
       $0.horizontalEdges.equalToSuperview().inset(16)
       $0.height.equalTo(56)
     }
+  }
+  
+  func configure(title: String) {
+    customQuestionLabel.text = title
   }
 }

@@ -14,6 +14,17 @@ final class TotalQuestionController: BaseViewController {
   
   private var viewModel = TotalQuestionViewModel()
   private var totalQuestionView = TotalQuestionView(frame: .zero)
+  private let isCustom: Bool
+  var onQuestionSelected: ((String) -> Void)?
+  
+  init(isCustom: Bool) {
+    self.isCustom = isCustom
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func setupView() {
     super.setupView()
@@ -23,17 +34,6 @@ final class TotalQuestionController: BaseViewController {
   
   override func setNavigation() {
     super.setNavigation()
-    let customButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet.rectangle"), style: .plain, target: nil, action: nil)
-    customButton.tintColor = .systemBlue
-    
-    navigationItem.rightBarButtonItem = customButton
-    
-    customButton.rx.tap
-      .subscribe(onNext: { [weak self] in
-        guard let self = self else { return }
-        let customQuestionController = CustomQuestionController()
-        self.navigationController?.pushViewController(customQuestionController, animated: true)
-      }).disposed(by: disposeBag)
     self.title = "전체 질문 리스트"
   }
   
@@ -47,8 +47,25 @@ final class TotalQuestionController: BaseViewController {
     output.questionList
       .drive(totalQuestionView.questionList.rx
         .items(cellIdentifier: String(describing: QuestionListCell.self),
-               cellType: QuestionListCell.self)) { row, question, cell in
+               cellType: QuestionListCell.self)) { [weak self] row, question, cell in
+        guard let self else { return }
+        if self.isCustom {
+          cell.customButton.isHidden = false
+        } else {
+          cell.customButton.isHidden = true
+        }
         cell.configureCell(questionCell: question.contentDescription)
       }.disposed(by: disposeBag)
+    
+    totalQuestionView.questionList.rx.itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        guard let self = self else { return }
+        if let selectedCell = self.totalQuestionView.questionList.cellForRow(at: indexPath) as? QuestionListCell {
+          let selectedQuestion = selectedCell.questionLabel.text ?? ""
+          self.onQuestionSelected?(selectedQuestion)
+        }
+        
+        self.navigationController?.popViewController(animated: true)
+      }).disposed(by: disposeBag)
   }
 }

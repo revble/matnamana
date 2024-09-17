@@ -47,6 +47,29 @@ final class FirebaseManager {
     }
   }
   
+  func getPresetList(documentId: String, completion: @escaping ([User.PresetQuestion]?, Error?) -> Void) {
+    db.collection("users").document(documentId).getDocument { snapshot, error in
+      if let error = error {
+        completion(nil, error)
+        print(error)
+        return
+      }
+      guard let data = snapshot?.data() else {
+        completion([], nil)
+        print("60")
+        return
+      }
+      
+      do {
+        let user = try Firestore.Decoder().decode(User.self, from: data)
+        completion(user.preset, nil)
+      } catch {
+        completion(nil, error)
+        print("error")
+      }
+    }
+  }
+  
   func readUser(documentId: String, completion: @escaping (User?, Error?) -> Void) {
     db.collection("users").document(documentId).getDocument { (documentSnapshot, error) in
       guard let document = documentSnapshot, document.exists, error == nil else {

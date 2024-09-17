@@ -19,7 +19,7 @@ final class TypeQuestionView: BaseView {
   }
   
   let questionTable = UITableView().then {
-    $0.register(QuestionListCell.self, forCellReuseIdentifier: QuestionListCell.identifier)
+    $0.register(QuestionListCell.self, forCellReuseIdentifier: String(describing: QuestionListCell.self))
     $0.rowHeight = 50
   }
   
