@@ -9,7 +9,7 @@ import UIKit
 
 class CustomQuestionView: BaseView {
   
-  private let questionTitle = UILabel().then {
+  let questionTitle = UILabel().then {
     $0.text = "새로운 질문"
     $0.font = .boldSystemFont(ofSize: 28)
     $0.textAlignment = .center
@@ -20,7 +20,7 @@ class CustomQuestionView: BaseView {
     $0.backgroundColor = .black
   }
   
-  private let saveButton = UIButton().then {
+  let saveButton = UIButton().then {
     $0.setTitle("저장하기", for: .normal)
     $0.backgroundColor = .manaMainColor
   }

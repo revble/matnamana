@@ -15,9 +15,11 @@ class CustomQuestionController: BaseViewController {
   private var customQuestion = CustomQuestionView(frame: .zero)
   private let viewModel: CustomQuestionViewModel
   private var selectedIndexPath: IndexPath?
+  private var presetTitle: String
   
-  init(viewModel: CustomQuestionViewModel) {
+  init(viewModel: CustomQuestionViewModel, presetTitle: String) {
     self.viewModel = viewModel
+    self.presetTitle = presetTitle
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -38,8 +40,10 @@ class CustomQuestionController: BaseViewController {
     let output = viewModel.transform(input: input)
     
     output.questions
-      .drive(customQuestion.customTable.rx.items(cellIdentifier: String(describing: QuestionListCell.self), cellType: QuestionListCell.self)) { row, question, cell in
+      .drive(customQuestion.customTable.rx.items(cellIdentifier: String(describing: QuestionListCell.self), cellType: QuestionListCell.self)) { [weak self] row, question, cell in
         cell.configureCell(questionCell: question)
+        guard let self else { return }
+        customQuestion.questionTitle.text = self.presetTitle
       }
       .disposed(by: disposeBag)
     
@@ -47,14 +51,33 @@ class CustomQuestionController: BaseViewController {
       .subscribe(onNext: { [weak self] indexPath in
         guard let self else { return }
         self.selectedIndexPath = indexPath
+        
         let totalQuestionController = TotalQuestionController(isCustom: true)
         totalQuestionController.onQuestionSelected = { [weak self] selectedQuestion in
-          guard let self = self, let selectedIndexPath = self.selectedIndexPath else { return }
+          guard let self,
+                let selectedIndexPath = self.selectedIndexPath else { return }
+          self.viewModel.updateQuestion(at: selectedIndexPath.row, with: selectedQuestion)
           self.updateSelectedCell(at: selectedIndexPath, with: selectedQuestion)
         }
         
         self.navigationController?.pushViewController(totalQuestionController, animated: true)
       }).disposed(by: disposeBag)
+    
+    customQuestion.saveButton.rx.tap
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
+        
+        guard let id = UserDefaults.standard.string(forKey: "loggedInUserId"),
+              let updatedQuestions = UserDefaults.standard.array(forKey: "savedQuestions") else { return }
+        FirebaseManager.shared.updateField(in: .user, documentId: id, field: "preset", value: updatedQuestions) { success, error in
+          if success {
+            print("presetUpdate 성공")
+          } else {
+            print("실패")
+          }
+        }
+      })
+      .disposed(by: disposeBag)
   }
   
   private func updateSelectedCell(at indexPath: IndexPath, with question: String) {

@@ -104,8 +104,8 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
     
     if indexPath.section == 2 {
       let selectedQuestion = presetQuestions[indexPath.row]
-      let viewModel = CustomQuestionViewModel(presetTitle: selectedQuestion.presetTitle, presetQuestions: selectedQuestion.presetQuestion)
-      let vc = CustomQuestionController(viewModel: viewModel)
+      let viewModel = CustomQuestionViewModel(presetQuestions: selectedQuestion.presetQuestion)
+      let vc = CustomQuestionController(viewModel: viewModel, presetTitle: selectedQuestion.presetTitle)
       navigationController?.pushViewController(vc, animated: true)
     }
   }

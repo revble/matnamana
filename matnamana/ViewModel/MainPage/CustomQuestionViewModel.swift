@@ -5,36 +5,46 @@
 //  Created by 김윤홍 on 9/17/24.
 //
 
+import Foundation
+
 import RxCocoa
 import RxSwift
 
 class CustomQuestionViewModel {
   
-  init(presetTitle: String, presetQuestions: [String]) {
-    self.presetTitle = presetTitle
-    self.presetQuestions = presetQuestions
-  }
+  private var questions: [String]
+  private let questionsRelay = BehaviorRelay<[String]>(value: [])
+  private let userDefaultsKey = "savedQuestions"
   
-  private var presetTitle: String
-  private var presetQuestions: [String]
+  init(presetQuestions: [String]) {
+    if let savedQuestions = UserDefaults.standard.array(forKey: userDefaultsKey) as? [String] {
+      self.questions = savedQuestions
+    } else {
+      self.questions = presetQuestions
+    }
+    self.questionsRelay.accept(questions)
+  }
   
   struct Input {
     let questions: Observable<Void>
   }
   
   struct Output {
-    let title: Driver<String>
     let questions: Driver<[String]>
   }
   
   func transform(input: Input) -> Output {
-    let title = Observable.just(presetTitle)
-      .asDriver(onErrorJustReturn: "")
-    
-    let questions = input.questions
-      .map { self.presetQuestions }
-      .asDriver(onErrorJustReturn: [])
-    
-    return Output(title: title, questions: questions)
+    let questionsDriver = questionsRelay.asDriver(onErrorJustReturn: [])
+    return Output(questions: questionsDriver)
+  }
+  
+  func updateQuestion(at index: Int, with question: String) {
+    questions[index] = question
+    questionsRelay.accept(questions)
+    saveQuestions()
+  }
+  
+  private func saveQuestions() {
+    UserDefaults.standard.set(questions, forKey: userDefaultsKey)
   }
 }
