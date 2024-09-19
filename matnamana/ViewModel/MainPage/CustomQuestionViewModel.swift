@@ -12,16 +12,11 @@ import RxSwift
 
 class CustomQuestionViewModel {
   
-  private var questions: [String]
+  var questions: [String]
   private let questionsRelay = BehaviorRelay<[String]>(value: [])
-  private let userDefaultsKey = "savedQuestions"
   
   init(presetQuestions: [String]) {
-    if let savedQuestions = UserDefaults.standard.array(forKey: userDefaultsKey) as? [String] {
-      self.questions = savedQuestions
-    } else {
-      self.questions = presetQuestions
-    }
+    self.questions = presetQuestions
     self.questionsRelay.accept(questions)
   }
   
@@ -39,12 +34,12 @@ class CustomQuestionViewModel {
   }
   
   func updateQuestion(at index: Int, with question: String) {
+    if questions.count < 5 {
+      let emptyQuestions = Array(repeating: "새로운 질문을 추가해 보세요", count: 5 - questions.count)
+      questions.append(contentsOf: emptyQuestions)
+    }
+    
     questions[index] = question
     questionsRelay.accept(questions)
-    saveQuestions()
-  }
-  
-  private func saveQuestions() {
-    UserDefaults.standard.set(questions, forKey: userDefaultsKey)
   }
 }

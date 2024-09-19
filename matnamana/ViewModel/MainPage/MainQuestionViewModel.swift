@@ -33,7 +33,7 @@ final class MainQuestionViewModel {
     case business
   }
   
-  private func fetchQuestionList() -> Observable<[User.PresetQuestion]> {
+  func fetchQuestionList() -> Observable<[User.PresetQuestion]> {
     guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return Observable.just([]) }
     return Observable.create { observer in
       FirebaseManager.shared.getPresetList(documentId: id) { question, error in
@@ -42,7 +42,7 @@ final class MainQuestionViewModel {
           observer.onError(error)
         } else if let question = question {
           observer.onNext(question)
-          print(question)
+          print("Firebase data fetched: \(question)")
           observer.onCompleted()
         } else {
           print("no")
@@ -67,7 +67,8 @@ final class MainQuestionViewModel {
         guard let self else { return Observable.just([]) }
         return self.fetchQuestionList()
       }
-      .share()
+      .share(replay: 1)
+      .debug("preset debug")
     let presetTitles = preset
       .map { $0.map { $0.presetTitle} }
       .asDriver(onErrorJustReturn: [])

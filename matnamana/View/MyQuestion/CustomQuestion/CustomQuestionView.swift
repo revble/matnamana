@@ -10,7 +10,8 @@ import UIKit
 class CustomQuestionView: BaseView {
   
   let questionTitle = UILabel().then {
-    $0.text = "새로운 질문"
+    $0.text = ""
+    $0.textColor = .black
     $0.font = .boldSystemFont(ofSize: 28)
     $0.textAlignment = .center
   }

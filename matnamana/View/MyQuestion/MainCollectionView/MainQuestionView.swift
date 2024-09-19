@@ -17,6 +17,7 @@ final class MainQuestionView: BaseView {
     $0.register(QuestionCell.self, forCellWithReuseIdentifier: String(describing: QuestionCell.self))
     $0.register(CustomQuestionCell.self, forCellWithReuseIdentifier: String(describing: CustomQuestionCell.self))
     $0.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: HeaderView.self))
+    $0.register(AddNewQuestionCell.self, forCellWithReuseIdentifier: String(describing: AddNewQuestionCell.self))
   }
   
   override func configureUI() {
@@ -42,6 +43,8 @@ final class MainQuestionView: BaseView {
         return self.createSecondSection()
       case 2:
         return self.createThirdSectionWithHeader()
+      case 3:
+        return self.createFourthSection()
       default:
         return nil
       }
@@ -72,18 +75,31 @@ final class MainQuestionView: BaseView {
   }
   
   private static func createThirdSectionWithHeader() -> NSCollectionLayoutSection {
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+    let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+    
+    let section = NSCollectionLayoutSection(group: group)
+        
+    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
+    let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    section.boundarySupplementaryItems = [header]
+    section.interGroupSpacing = 10
+    return section
+  }
+  
+  private static func createFourthSection() -> NSCollectionLayoutSection {
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.33))
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
     let section = NSCollectionLayoutSection(group: group)
     
-    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
-    let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-    section.boundarySupplementaryItems = [header]
-    
+    section.interGroupSpacing = 0
     return section
   }
 }

@@ -16,10 +16,12 @@ class CustomQuestionController: BaseViewController {
   private let viewModel: CustomQuestionViewModel
   private var selectedIndexPath: IndexPath?
   private var presetTitle: String
+  private var addMode: Bool
   
-  init(viewModel: CustomQuestionViewModel, presetTitle: String) {
+  init(viewModel: CustomQuestionViewModel, presetTitle: String, addMode: Bool) {
     self.viewModel = viewModel
     self.presetTitle = presetTitle
+    self.addMode = addMode
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -40,8 +42,21 @@ class CustomQuestionController: BaseViewController {
     let output = viewModel.transform(input: input)
     
     output.questions
+      .asObservable()
+      .map { questions -> [(String, Bool)] in
+        let emptyQuestions = Array(repeating: ("새로운 질문을 추가해 보세요", true), count: max(0, 5 - questions.count))
+        let actualQuestions = questions.map { ($0, false) }
+        return actualQuestions + emptyQuestions
+      }
+      .asDriver(onErrorJustReturn: [])
       .drive(customQuestion.customTable.rx.items(cellIdentifier: String(describing: QuestionListCell.self), cellType: QuestionListCell.self)) { [weak self] row, question, cell in
-        cell.configureCell(questionCell: question)
+        let (questionText, isEmptyQuestion) = question
+        cell.configureCell(questionCell: questionText)
+        
+        if isEmptyQuestion {
+          cell.questionLabel.textColor = .gray
+        }
+        
         guard let self else { return }
         customQuestion.questionTitle.text = self.presetTitle
       }
@@ -52,7 +67,7 @@ class CustomQuestionController: BaseViewController {
         guard let self else { return }
         self.selectedIndexPath = indexPath
         
-        let totalQuestionController = TotalQuestionController(isCustom: true)
+        let totalQuestionController = TotalQuestionController(isCustom: true, addQuestion: false)
         totalQuestionController.onQuestionSelected = { [weak self] selectedQuestion in
           guard let self,
                 let selectedIndexPath = self.selectedIndexPath else { return }
@@ -60,20 +75,26 @@ class CustomQuestionController: BaseViewController {
           self.updateSelectedCell(at: selectedIndexPath, with: selectedQuestion)
         }
         
-        self.navigationController?.pushViewController(totalQuestionController, animated: true)
+        if addMode {
+          self.navigationController?.popViewController(animated: true)
+        } else {
+          self.navigationController?.pushViewController(totalQuestionController, animated: true)
+        }
       }).disposed(by: disposeBag)
     
     customQuestion.saveButton.rx.tap
-      .subscribe(onNext: { [weak self] in
-        guard let self else { return }
+      .subscribe(onNext: {
+        guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else {
+          return
+        }
         
-        guard let id = UserDefaults.standard.string(forKey: "loggedInUserId"),
-              let updatedQuestions = UserDefaults.standard.array(forKey: "savedQuestions") else { return }
-        FirebaseManager.shared.updateField(in: .user, documentId: id, field: "preset", value: updatedQuestions) { success, error in
+        let presetQuestions = [User.PresetQuestion(presetTitle: self.presetTitle, presetQuestion: self.viewModel.questions)]
+        
+        FirebaseManager.shared.updatePresetQuestions(for: id, presetQuestions: presetQuestions) { success, error in
           if success {
-            print("presetUpdate 성공")
+            print("preset질문 추가성공")
           } else {
-            print("실패")
+            print("preset질문 추가 실패")
           }
         }
       })

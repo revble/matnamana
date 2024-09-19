@@ -26,9 +26,20 @@ final class MainQuestionViewController: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupCollectionView()
+    fetchData()
   }
   
-  // 컬렉션 뷰 설정
+  private func fetchData() {
+    viewModel.fetchQuestionList()
+      .subscribe(onNext: { [weak self] questions in
+        guard let self = self else { return }
+        self.presetQuestions = questions
+        print("=====")
+        self.mainQuestionView.mainCollection.reloadData()
+      })
+      .disposed(by: disposeBag)
+  }
+  
   private func setupCollectionView() {
     mainQuestionView.mainCollection.delegate = self
     mainQuestionView.mainCollection.dataSource = self
@@ -47,20 +58,19 @@ final class MainQuestionViewController: BaseViewController {
     
     output.presetTitles
       .drive(onNext: { [weak self] titles in
-        print(titles)
-        self?.presetTitles = titles
-        self?.mainQuestionView.mainCollection.reloadSections(IndexSet(integer: 2))
+        guard let self else { return }
+        self.presetTitles = titles
+        self.mainQuestionView.mainCollection.reloadSections(IndexSet(integer: 2))
       })
       .disposed(by: disposeBag)
     
     output.presetQuestions
       .drive(onNext: { [weak self] questions in
-        self?.presetQuestions = questions
-        print(questions)
-        self?.mainQuestionView.mainCollection.reloadSections(IndexSet(integer: 2))
+        guard let self else { return }
+        self.presetQuestions = questions
+        self.mainQuestionView.mainCollection.reloadSections(IndexSet(integer: 2))
       })
       .disposed(by: disposeBag)
-    
     
     output.navigateTo
       .subscribe(onNext: { [weak self] destination in
@@ -70,7 +80,7 @@ final class MainQuestionViewController: BaseViewController {
         
         switch destination {
         case .totalQuestion:
-          vc = TotalQuestionController(isCustom: false)
+          vc = TotalQuestionController(isCustom: false, addQuestion: false)
         case .coupleQuestion:
           let viewModel = TypeQuestionViewModel(questionId: "BestMeeting")
           vc = TypeQuestionController(viewModel: viewModel, title: "연애 질문")
@@ -89,8 +99,34 @@ final class MainQuestionViewController: BaseViewController {
       .disposed(by: disposeBag)
   }
   
-  override func bind() {
-    super.bind()
+  func bindCell(cell: CustomQuestionCell) {
+    let input = MainQuestionViewModel.Input(
+      totalButtonTap: Observable.empty(),
+      coupleButtonTap: Observable.empty(),
+      simpleMannamButtonTap: Observable.empty(),
+      businessButtonTap: Observable.empty(),
+      fetchQuestions: Observable.empty()
+    )
+    
+    let output = viewModel.transform(input: input)
+    
+    output.presetTitles
+      .drive(onNext: { [weak self] titles in
+        guard let self = self else { return }
+        print(titles)
+        self.presetTitles = titles
+        self.mainQuestionView.mainCollection.reloadSections(IndexSet(integer: 2))
+      })
+      .disposed(by: disposeBag)
+    
+    cell.buttonTap
+      .subscribe(onNext: { [weak self] in
+        guard let self = self, let selectedQuestion = cell.selectedQuestion else { return }
+        let viewModel = CustomQuestionViewModel(presetQuestions: selectedQuestion.presetQuestion)
+        let vc = CustomQuestionController(viewModel: viewModel, presetTitle: selectedQuestion.presetTitle, addMode: false)
+        self.navigationController?.pushViewController(vc, animated: true)
+      })
+      .disposed(by: disposeBag)
   }
 }
 
@@ -98,20 +134,17 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.section == 0 && indexPath.item == 0 {
-      if let url = URL(string: "https://teaminpact.com/projects/") {    UIApplication.shared.open(url, options: [:])
+      if let url = URL(string: "https://teaminpact.com") {
+        UIApplication.shared.open(url, options: [:])
       }
     }
-    
-    if indexPath.section == 2 {
-      let selectedQuestion = presetQuestions[indexPath.row]
-      let viewModel = CustomQuestionViewModel(presetQuestions: selectedQuestion.presetQuestion)
-      let vc = CustomQuestionController(viewModel: viewModel, presetTitle: selectedQuestion.presetTitle)
-      navigationController?.pushViewController(vc, animated: true)
+    if indexPath.section == 3 {
+      navigationController?.pushViewController(TotalQuestionController(isCustom: true, addQuestion: true), animated: true)
     }
   }
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 3
+    return 4
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -120,6 +153,8 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
       return 1
     case 2:
       return presetTitles.count
+    case 3:
+      return 1
     default:
       return 0
     }
@@ -135,8 +170,13 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
       bindCell(cell: cell)
       return cell
     case 2:
+      let selectedQuestion = presetQuestions[indexPath.row]
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CustomQuestionCell.self), for: indexPath) as? CustomQuestionCell else { return UICollectionViewCell() }
-      cell.configure(title: presetTitles[indexPath.row])
+      cell.configure(title: presetTitles[indexPath.row], question: selectedQuestion)
+      bindCell(cell: cell)
+      return cell
+    case 3:
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: AddNewQuestionCell.self), for: indexPath) as? AddNewQuestionCell else { return UICollectionViewCell() }
       return cell
     default:
       fatalError("default cell")

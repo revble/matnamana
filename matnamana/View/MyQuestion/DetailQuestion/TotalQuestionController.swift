@@ -15,10 +15,13 @@ final class TotalQuestionController: BaseViewController {
   private var viewModel = TotalQuestionViewModel()
   private var totalQuestionView = TotalQuestionView(frame: .zero)
   private let isCustom: Bool
+  private let addQuestion: Bool
+  private var selectedQuestions = [String]()
   var onQuestionSelected: ((String) -> Void)?
   
-  init(isCustom: Bool) {
+  init(isCustom: Bool, addQuestion: Bool) {
     self.isCustom = isCustom
+    self.addQuestion = addQuestion
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -35,6 +38,21 @@ final class TotalQuestionController: BaseViewController {
   override func setNavigation() {
     super.setNavigation()
     self.title = "전체 질문 리스트"
+    
+    if addQuestion {
+      let rightButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet.rectangle.portrait"), style: .plain, target: nil, action: nil)
+      navigationItem.rightBarButtonItem = rightButton
+      
+      rightButton.rx.tap
+        .subscribe(onNext: { [weak self] in
+          guard let self else { return }
+          let viewModel = CustomQuestionViewModel(presetQuestions: selectedQuestions)
+          self.navigationController?.pushViewController(CustomQuestionController(viewModel: viewModel, presetTitle: "새로운 질문", addMode: true), animated: true)
+          
+          
+        })
+        .disposed(by: disposeBag)
+    }
   }
   
   override func bind() {
@@ -59,13 +77,22 @@ final class TotalQuestionController: BaseViewController {
     
     totalQuestionView.questionList.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
-        guard let self = self else { return }
+        guard let self else { return }
         if let selectedCell = self.totalQuestionView.questionList.cellForRow(at: indexPath) as? QuestionListCell {
           let selectedQuestion = selectedCell.questionLabel.text ?? ""
           self.onQuestionSelected?(selectedQuestion)
         }
-        
-        self.navigationController?.popViewController(animated: true)
+        if !addQuestion {
+          self.navigationController?.popViewController(animated: true)
+        } else {
+          if let selectedCell = self.totalQuestionView.questionList.cellForRow(at: indexPath) as? QuestionListCell {
+            let selectedQuestion = selectedCell.questionLabel.text ?? ""
+            if !selectedQuestions.contains(selectedQuestion) {
+              self.selectedQuestions.append(selectedQuestion)
+            }
+            self.onQuestionSelected?(selectedQuestion)
+          }
+        }
       }).disposed(by: disposeBag)
   }
 }

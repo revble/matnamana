@@ -106,6 +106,7 @@
 		DDE043762C773E3700DA099A /* matnamanaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043752C773E3700DA099A /* matnamanaUITests.swift */; };
 		DDE043782C773E3700DA099A /* matnamanaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043772C773E3700DA099A /* matnamanaUITestsLaunchTests.swift */; };
 		DDE309062C997B3A003ED62D /* CustomQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE309052C997B3A003ED62D /* CustomQuestionViewModel.swift */; };
+		DDE3090C2C9BCBA6003ED62D /* AddNewQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE3090B2C9BCBA6003ED62D /* AddNewQuestionCell.swift */; };
 		DDF2A01A2C8031EE001B1DB7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */; };
 		DDF2A01C2C8031F8001B1DB7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */; };
 		DDF2A01E2C8034A1001B1DB7 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A01D2C8034A1001B1DB7 /* UIExtensions.swift */; };
@@ -226,6 +227,7 @@
 		DDE043752C773E3700DA099A /* matnamanaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matnamanaUITests.swift; sourceTree = "<group>"; };
 		DDE043772C773E3700DA099A /* matnamanaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matnamanaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DDE309052C997B3A003ED62D /* CustomQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionViewModel.swift; sourceTree = "<group>"; };
+		DDE3090B2C9BCBA6003ED62D /* AddNewQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewQuestionCell.swift; sourceTree = "<group>"; };
 		DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DDF2A01D2C8034A1001B1DB7 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 				DD0CE9E92C9330A1008B5A68 /* QuestionCell.swift */,
 				DD0CE9EB2C9330AE008B5A68 /* CustomQuestionCell.swift */,
 				DD0CE9ED2C935838008B5A68 /* HeaderView.swift */,
+				DDE3090B2C9BCBA6003ED62D /* AddNewQuestionCell.swift */,
 			);
 			path = MainCollectionView;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				4F83D3302C8556570076AE2A /* FriendReputationRequestCell.swift in Sources */,
 				DD9470F92C899058009BF95E /* QuestionListCell.swift in Sources */,
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
+				DDE3090C2C9BCBA6003ED62D /* AddNewQuestionCell.swift in Sources */,
 				DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */,
 				4F63D7292C8A917000B0F65C /* FriendRequestCell.swift in Sources */,
 				DA59CFE02C93F0490052D050 /* myPageView.swift in Sources */,

@@ -7,13 +7,23 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
 final class CustomQuestionCell: UICollectionViewCell {
   
-  let customQuestionLabel = UILabel().then {
-    $0.text = ""
+  var selectedQuestion: User.PresetQuestion?
+  
+  var buttonTap: Observable<Void> {
+    return customQuestionButton.rx.tap.asObservable()
+  }
+  
+  let customQuestionButton = UIButton().then {
+    $0.setTitle("", for: .normal)
+    $0.backgroundColor = .manaMainColor
+    $0.layer.cornerRadius = 16
   }
   
   override init(frame: CGRect) {
@@ -27,18 +37,19 @@ final class CustomQuestionCell: UICollectionViewCell {
   }
   
   private func configureUI() {
-    self.addSubview(customQuestionLabel)
+    self.addSubview(customQuestionButton)
   }
   
   private func setConstraints() {
     
-    customQuestionLabel.snp.makeConstraints {
+    customQuestionButton.snp.makeConstraints {
       $0.horizontalEdges.equalToSuperview().inset(16)
       $0.height.equalTo(56)
     }
   }
   
-  func configure(title: String) {
-    customQuestionLabel.text = title
+  func configure(title: String, question: User.PresetQuestion) {
+    customQuestionButton.setTitle(title, for: .normal)
+    selectedQuestion = question
   }
 }
