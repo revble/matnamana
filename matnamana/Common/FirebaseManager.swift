@@ -47,6 +47,62 @@ final class FirebaseManager {
     }
   }
   
+  func updateField(in collectionName: CollectionName, documentId: String, field: String, value: Any, completion: @escaping (Bool, Error?) -> Void) {
+    db.collection(collectionName.rawValue).document(documentId).updateData([field: value]) { error in
+      if let error = error {
+        print("\(collectionName.rawValue) \(field) 업데이트 실패: \(error.localizedDescription)")
+        completion(false, error)
+      } else {
+        print("\(collectionName.rawValue) \(field) 업데이트 성공")
+        completion(true, nil)
+      }
+    }
+  }
+  
+  func updatePresetQuestions(for userId: String, presetQuestions: [User.PresetQuestion], completion: @escaping (Bool, Error?) -> Void) {
+    let data: [[String: Any]] = presetQuestions.map { question in
+      return [
+        "presetTitle": question.presetTitle,
+        "presetQuestion": question.presetQuestion
+      ]
+    }
+    
+    db.collection("users").document(userId).updateData([
+      "preset": data
+    ]) { error in
+      if let error = error {
+        print("preset 업데이트 실패: \(error.localizedDescription)")
+        completion(false, error)
+      } else {
+        print("preset 업데이트 성공")
+        completion(true, nil)
+      }
+    }
+  }
+  
+  func getPresetList(documentId: String, completion: @escaping ([User.PresetQuestion]?, Error?) -> Void) {
+    db.collection("users").document(documentId).getDocument { snapshot, error in
+      if let error = error {
+        completion(nil, error)
+        print(error)
+        return
+      }
+      guard let data = snapshot?.data() else {
+        completion([], nil)
+        print("60")
+        return
+      }
+      
+      do {
+        let user = try Firestore.Decoder().decode(User.self, from: data)
+        completion(user.preset, nil)
+      } catch {
+        completion(nil, error)
+        print("error")
+      }
+    }
+  }
+  
   func readUser(documentId: String, completion: @escaping (User?, Error?) -> Void) {
     db.collection("users").document(documentId).getDocument { (documentSnapshot, error) in
       guard let document = documentSnapshot, document.exists, error == nil else {

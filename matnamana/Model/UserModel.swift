@@ -7,7 +7,7 @@
 
 struct User: Codable {
   let info: Info
-  let preset: [String]
+  let preset: [PresetQuestion]
   let friendList: [Friend]
   let userId: String
 //  let reputationId: String
@@ -29,10 +29,10 @@ extension User {
     let companyName: String
   }
   
-//  struct PresetQuestion: Codable {
-//    let presetTitle: String
-//    let indice: [Int]
-//  }
+  struct PresetQuestion: Codable {
+    let presetTitle: String
+    let presetQuestion: [String]
+  }
   
   struct Friend: Codable {
     let name: String

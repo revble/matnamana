@@ -14,18 +14,12 @@ final class TotalQuestionView: UIView {
   
   let questionList = UITableView().then {
     $0.register(QuestionListCell.self, forCellReuseIdentifier: String(describing: QuestionListCell.self))
+    $0.rowHeight = 80
   }
   
   let questionSegement = UISegmentedControl(items: ["팩트 질문", "가치관 질문", "커리어 질문"]).then {
     $0.selectedSegmentIndex = 0
     $0.selectedSegmentTintColor = .manaMainColor
-  }
-  
-  let customButton = UIButton().then {
-    let buttonImage = UIImage(systemName: "list.bullet.rectangle")
-    $0.imageView?.contentMode = .scaleAspectFit
-    $0.setImage(buttonImage, for: .normal)
-    $0.contentMode = .scaleToFill
   }
   
   override init(frame: CGRect) {
@@ -48,7 +42,7 @@ final class TotalQuestionView: UIView {
   private func setConstraints() {
     
     questionSegement.snp.makeConstraints {
-      $0.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide).offset(10)
+      $0.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(10)
       $0.height.equalTo(40)
     }
     

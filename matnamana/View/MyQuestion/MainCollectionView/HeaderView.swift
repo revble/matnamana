@@ -20,17 +20,22 @@ final class HeaderView: UICollectionReusableView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    setupUI()
+    configureUI()
+    setConstraints()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private func setupUI() {
+  private func configureUI() {
     addSubview(titleLabel)
-    titleLabel.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(10)
+  }
+  
+  private func setConstraints() {
+    
+    titleLabel.snp.makeConstraints {
+      $0.edges.equalToSuperview().inset(16)
     }
   }
   

@@ -14,6 +14,7 @@ final class AddFriendView: BaseView {
   
   private let relationView = UIView().then {
     $0.backgroundColor = .white
+    $0.layer.cornerRadius = 16
   }
   
   let closeButton = UIButton().then {
@@ -23,72 +24,76 @@ final class AddFriendView: BaseView {
   }
   
   let friendButton = UIButton().then {
-    $0.backgroundColor = .manaPink
+    $0.backgroundColor = .white
+    $0.setTitleColor(.black, for: .normal)
     $0.setTitle("친구", for: .normal)
-    $0.layer.cornerRadius = 10
+    $0.layer.borderWidth = 1
   }
   
   let familyButton = UIButton().then {
-    $0.backgroundColor = .manaMint
+    $0.backgroundColor = .white
+    $0.setTitleColor(.black, for: .normal)
     $0.setTitle("가족", for: .normal)
-    $0.layer.cornerRadius = 10
+    $0.layer.borderWidth = 1
   }
   
   let colleagueButton = UIButton().then {
-    $0.backgroundColor = .manaGreen
+    $0.setTitleColor(.black, for: .normal)
+    $0.backgroundColor = .white
     $0.setTitle("동료", for: .normal)
-    $0.layer.cornerRadius = 10
+    $0.layer.borderWidth = 1
   }
   
   let sendButton = UIButton().then {
-    $0.backgroundColor = .manaGreen
+    $0.backgroundColor = .manaMainColor
     $0.setTitle("보내기", for: .normal)
-    $0.layer.cornerRadius = 10
+    $0.layer.cornerRadius = 16
   }
   
   private let label = UILabel().then {
-    $0.textColor = .lightGray
-    $0.textAlignment = .center
-    $0.text = "상대방의 관계"
+    $0.textColor = .black
+    $0.textAlignment = .left
+    $0.text = "관계"
     $0.font = .boldSystemFont(ofSize: 25)
-  }
-  
-  private let stackView = UIStackView().then {
-    $0.axis = .vertical
-    $0.spacing = 20
-    $0.distribution = .fillEqually
   }
   
   private let horizontalStackView = UIStackView().then {
     $0.axis = .horizontal
-    $0.spacing = 15
+    $0.spacing = 0
     $0.distribution = .fillEqually
+    $0.layer.cornerRadius = 16
   }
   
   override func configureUI() {
     super.configureUI()
     self.addSubview(relationView)
     [
+      label,
       closeButton,
-      stackView,
+      horizontalStackView,
       sendButton
     ].forEach { relationView.addSubview($0) }
     
     [
-      label,
-      horizontalStackView,
-    ].forEach { stackView.addArrangedSubview($0) }
+      familyButton,
+      friendButton,
+      colleagueButton
+    ].forEach { horizontalStackView.addArrangedSubview($0) }
     
-    
-    [familyButton, friendButton, colleagueButton].forEach { horizontalStackView.addArrangedSubview($0) }
   }
   
   override func setConstraints() {
     super.setConstraints()
+    
     relationView.snp.makeConstraints {
       $0.center.equalToSuperview()
       $0.horizontalEdges.equalToSuperview().inset(20)
-      $0.verticalEdges.equalToSuperview().inset(300)
+      $0.height.equalTo(200)
+    }
+    
+    label.snp.makeConstraints {
+      $0.leading.equalToSuperview().inset(20)
+      $0.top.equalToSuperview().offset(10)
     }
     
     closeButton.snp.makeConstraints {
@@ -96,13 +101,13 @@ final class AddFriendView: BaseView {
       $0.height.width.equalTo(20)
     }
     
-    stackView.snp.makeConstraints {
+    horizontalStackView.snp.makeConstraints {
       $0.top.equalTo(closeButton.snp.bottom).offset(10)
       $0.horizontalEdges.equalToSuperview().inset(10)
     }
     
     sendButton.snp.makeConstraints {
-      $0.top.equalTo(stackView.snp.bottom).offset(20)
+      $0.top.equalTo(horizontalStackView.snp.bottom).offset(20)
       $0.width.equalTo(200)
       $0.height.equalTo(50)
       $0.centerX.equalToSuperview()
