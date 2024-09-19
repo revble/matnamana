@@ -21,8 +21,8 @@ final class ReputationViewModel: ViewModelType {
   }
   
   var friendReputationDataRelay = BehaviorRelay(value: [(String, String, String, String)]())
-  var myRequestedReputationDataRelay = BehaviorRelay(value: [(String, String)]())
-  var receivedReputationDataRelay = BehaviorRelay(value: [(String, String)]())
+  var myRequestedReputationDataRelay = BehaviorRelay(value: [(String, String, String, String)]())
+  var receivedReputationDataRelay = BehaviorRelay(value: [(String, String, String, String)]())
   
   
   func fetchReputationInfo() {
@@ -34,8 +34,8 @@ final class ReputationViewModel: ViewModelType {
       guard let reputationRequests else { return }
       
       var friendReputationData: [(String, String, String, String)] = []
-      var myRequestedReputationData: [(String, String)] = []
-      var receivedReputationData: [(String, String)] = []
+      var myRequestedReputationData: [(String, String, String, String)] = []
+      var receivedReputationData: [(String, String, String, String)] = []
 
       for reputationRequest in reputationRequests {
         
@@ -44,23 +44,25 @@ final class ReputationViewModel: ViewModelType {
               let selectedFriends = reputationRequest.selectedFriends
         else { return }
         
+        let requesterId = requester.userId ?? ""
+        let targetId = target.userId ?? ""
+        
         if userId == target.userId {
           let profileImage = requester.profileImage ?? ""
           let nickName = requester.nickName ?? ""
-          receivedReputationData.append((profileImage, nickName))
+          receivedReputationData.append((profileImage, nickName, requesterId, targetId))
         }
         
         if userId == requester.userId {
           let profileImage = target.profileImage ?? ""
           let nickName = target.nickName ?? ""
-          myRequestedReputationData.append((profileImage, nickName))
+          myRequestedReputationData.append((profileImage, nickName, requesterId, targetId))
         }
         
         if selectedFriends.contains(where: { $0.userId == userId }) {
           let profileImage = target.profileImage ?? ""
           let nickName = target.nickName ?? ""
-          let requesterId = requester.userId ?? ""
-          let targetId = target.userId ?? ""
+          
           friendReputationData.append((profileImage, nickName, requesterId, targetId))
         }
 

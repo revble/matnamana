@@ -16,6 +16,9 @@ final class MyRequestsCell: UICollectionViewCell {
   ///String(describing: )
   static let id = "MyRequestsViewCell"
   
+  var requesterId = ""
+  var targetId = ""
+  
   private let imageView = UIImageView().then {
     $0.image = UIImage(named: "profile")
     $0.contentMode = .scaleAspectFill
@@ -24,7 +27,7 @@ final class MyRequestsCell: UICollectionViewCell {
     $0.layer.cornerRadius = 40
   }
   
-  private let nameLabel = UILabel().then {
+  let nameLabel = UILabel().then {
     $0.text = "이지은 -> 박동현"
     $0.textAlignment = .center
     $0.font = .boldSystemFont(ofSize: 18)
@@ -74,10 +77,12 @@ final class MyRequestsCell: UICollectionViewCell {
     }
   }
   
-  func configure(imageUrl: String, name: String) {
+  func configure(imageUrl: String, name: String, requester: String, target: String) {
     if let url = URL(string: imageUrl) {
       imageView.kf.setImage(with: url)
     }
-    nameLabel.text = "나 -> \(name)"
+    nameLabel.text = "\(name) -> 박동현"
+    requesterId = requester
+    targetId = target
   }
 }

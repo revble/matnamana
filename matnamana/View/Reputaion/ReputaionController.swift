@@ -115,7 +115,7 @@ final class ReputaionController: BaseViewController {
               for: indexPath) as? MyRequestsCell else {
               return UICollectionViewCell()
             }
-            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
+            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName, requester: item.requesterId, target: item.targetId)
             return cell
           }
           
@@ -134,7 +134,7 @@ final class ReputaionController: BaseViewController {
               for: indexPath) as? ReceivedRequestCell else {
               return UICollectionViewCell()
             }
-            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName)
+            cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName, requester: item.requesterId, target: item.targetId)
             return cell
           }
         default:
@@ -174,15 +174,24 @@ final class ReputaionController: BaseViewController {
           
         case Section.myRequests.rawValue:
           print("myRequests: \(indexPath.row)")
+          if let cell = self.reputationView.collecitonView.cellForItem(at: indexPath) as?
+              MyRequestsCell {
+            let nickName = cell.nameLabel.text ?? ""
+            let requesterId = cell.requesterId
+            let targetId = cell.targetId
+            
+            pushViewController(AnswerListController(nickName: nickName, requester: requesterId, target: targetId))
+          }
+          
+          
           
         case Section.receivedRequests.rawValue:
           print("receivedRequests: \(indexPath.row)")
-          
-          self.presentModally(UINavigationController(rootViewController: AcceptRequestController(viewModel: acceptViewModel)))
           if let cell = self.reputationView.collecitonView.cellForItem(at: indexPath) as? ReceivedRequestCell {
-            if let name = cell.name {
-              self.acceptViewModel.selectName(name)
-            }
+            let requesterId = cell.requesterId
+            let targetId = cell.targetId
+            
+            self.presentModally(UINavigationController(rootViewController: AcceptRequestController(viewModel: acceptViewModel, requester: requesterId, target: targetId)))
           }
           
         default:
@@ -205,13 +214,13 @@ final class ReputaionController: BaseViewController {
         }
         let myRequestedItems = myRequestedData.isEmpty
         ? [Item(userNickName: "", profileImageUrl: "", requesterId: "", targetId: "")]
-        : myRequestedData.map { (profileImage, userNickName) in
-          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: "", targetId: "")
+        : myRequestedData.map { (profileImage, userNickName, requesterId , targetId) in
+          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: requesterId, targetId: targetId)
         }
         let receivedRequestItems = receivedData.isEmpty
         ? [Item(userNickName: "", profileImageUrl: "", requesterId: "", targetId: "")]
-        : receivedData.map { (profileImage, userNickName) in
-          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: "", targetId: "")
+        : receivedData.map { (profileImage, userNickName, requesterId , targetId) in
+          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: requesterId, targetId: targetId)
         }
 
         return [

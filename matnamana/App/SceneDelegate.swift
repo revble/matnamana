@@ -26,7 +26,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       window.rootViewController = LoginController()
     }
     
-    
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
       window.makeKeyAndVisible()
     }

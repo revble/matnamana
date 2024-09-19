@@ -27,10 +27,14 @@ final class AnswerController: BaseViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    answerView.textView.becomeFirstResponder()
+  }
+  
   override func bind() {
     super.bind()
-    setupDismissKeyboardGesture()
-    
+
     answerView.sendButton.rx.tap
       .withLatestFrom(answerView.textView.rx.text.orEmpty)
       .subscribe(onNext: { [weak self] text in
