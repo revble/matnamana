@@ -174,6 +174,16 @@ final class ReputaionController: BaseViewController {
           
         case Section.myRequests.rawValue:
           print("myRequests: \(indexPath.row)")
+          if let cell = self.reputationView.collecitonView.cellForItem(at: indexPath) as?
+              MyRequestsCell {
+            let nickName = cell.nameLabel.text ?? ""
+            let requesterId = cell.requesterId
+            let targetId = cell.targetId
+            
+            pushViewController(AnswerListController(nickName: nickName, requester: requesterId, target: targetId))
+          }
+          
+          
           
         case Section.receivedRequests.rawValue:
           print("receivedRequests: \(indexPath.row)")

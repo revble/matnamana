@@ -44,7 +44,7 @@ class RequiredInformationView: BaseView {
   
   private let nickNameTextField = UITextField().then {
     $0.placeholder = "닉네임을 입력해주세요.(최대 20자 알파벳)"
-    $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+    $0.font = UIFont.callOut()
     $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 0))
     $0.leftViewMode = .always
     $0.layer.cornerRadius = 15
@@ -68,7 +68,7 @@ class RequiredInformationView: BaseView {
   
   private let shortDescriptionTextField = UITextField().then {
     $0.placeholder = "나를 소개하는 단어 또는 한마디(최대 10자)."
-    $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+    $0.font = UIFont.callOut()
     $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 0))
     $0.leftViewMode = .always
     $0.layer.cornerRadius = 15
@@ -81,7 +81,7 @@ class RequiredInformationView: BaseView {
   let joinButton = UIButton().then {
     $0.setTitle("맞나만나 회원가입", for: .normal)
     $0.setTitleColor(.white, for: .normal)
-    $0.titleLabel?.font = UIFont.title2()
+    $0.titleLabel?.font = UIFont.headLine()
     $0.backgroundColor = .manaMainColor
     $0.layer.cornerRadius = 15
   }
@@ -94,6 +94,11 @@ class RequiredInformationView: BaseView {
   func pickName() -> String {
     guard let name = nameTextField.text else { return "" }
     return name
+  }
+  
+  func pickShortDescription() -> String {
+    guard let shorTDescription = shortDescriptionTextField.text else { return "" }
+    return shorTDescription
   }
   
   func showduplicateCheck() {

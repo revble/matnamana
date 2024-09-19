@@ -11,6 +11,9 @@
 		4F1E88682C8E99B300F09A36 /* AcceptRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */; };
 		4F4EDB262C958B9E00BFF74F /* ReadAnserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EDB252C958B9E00BFF74F /* ReadAnserController.swift */; };
 		4F4EDB282C958BA700BFF74F /* ReadAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EDB272C958BA700BFF74F /* ReadAnswerView.swift */; };
+		4F4EDB2A2C997DAA00BFF74F /* AnswerListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EDB292C997DAA00BFF74F /* AnswerListController.swift */; };
+		4F4EDB2C2C997DB700BFF74F /* AnswerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EDB2B2C997DB700BFF74F /* AnswerListView.swift */; };
+		4F4EDB2E2C9B9A9600BFF74F /* AnswerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EDB2D2C9B9A9600BFF74F /* AnswerListCell.swift */; };
 		4F63D6E12C870C7800B0F65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */; };
 		4F63D7212C8A8CF500B0F65C /* ReputaionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D7202C8A8CF500B0F65C /* ReputaionController.swift */; };
 		4F63D7232C8A8D5F00B0F65C /* ReputationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63D7222C8A8D5F00B0F65C /* ReputationView.swift */; };
@@ -41,6 +44,7 @@
 		4FDF00202C927F88000B7873 /* ReplyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDF001F2C927F88000B7873 /* ReplyViewModel.swift */; };
 		4FEB36952C7EC9240066998E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36942C7EC9240066998E /* LoginView.swift */; };
 		4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB36972C7F07120066998E /* AppleLoginService.swift */; };
+		4FFD99B92C9BC6B90029B643 /* AnswerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFD99B82C9BC6B90029B643 /* AnswerListViewModel.swift */; };
 		DA3A55F72C7F144500459343 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A55F62C7F144500459343 /* ProfileViewModel.swift */; };
 		DA3A55F92C802EA800459343 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A55F82C802EA800459343 /* FirebaseStorage */; };
 		DA3A55FB2C802EA800459343 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */; };
@@ -143,6 +147,9 @@
 		4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewModel.swift; sourceTree = "<group>"; };
 		4F4EDB252C958B9E00BFF74F /* ReadAnserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAnserController.swift; sourceTree = "<group>"; };
 		4F4EDB272C958BA700BFF74F /* ReadAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAnswerView.swift; sourceTree = "<group>"; };
+		4F4EDB292C997DAA00BFF74F /* AnswerListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListController.swift; sourceTree = "<group>"; };
+		4F4EDB2B2C997DB700BFF74F /* AnswerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListView.swift; sourceTree = "<group>"; };
+		4F4EDB2D2C9B9A9600BFF74F /* AnswerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListCell.swift; sourceTree = "<group>"; };
 		4F63D6E02C870C7800B0F65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4F63D7202C8A8CF500B0F65C /* ReputaionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputaionController.swift; sourceTree = "<group>"; };
 		4F63D7222C8A8D5F00B0F65C /* ReputationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationView.swift; sourceTree = "<group>"; };
@@ -170,6 +177,7 @@
 		4FEB36942C7EC9240066998E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4FEB36962C7F05BB0066998E /* matnamana.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = matnamana.entitlements; sourceTree = "<group>"; };
 		4FEB36972C7F07120066998E /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
+		4FFD99B82C9BC6B90029B643 /* AnswerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListViewModel.swift; sourceTree = "<group>"; };
 		DA3A55F62C7F144500459343 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DA3A55FC2C81AC6A00459343 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
@@ -297,6 +305,7 @@
 				DD94711B2C8D7522009BF95E /* ReputaionViewModel.swift */,
 				4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */,
 				4FDF001F2C927F88000B7873 /* ReplyViewModel.swift */,
+				4FFD99B82C9BC6B90029B643 /* AnswerListViewModel.swift */,
 			);
 			path = Reputation;
 			sourceTree = "<group>";
@@ -345,6 +354,9 @@
 				4FDF001B2C927270000B7873 /* ReplyView.swift */,
 				4FDF001D2C927B34000B7873 /* AnswerView.swift */,
 				4F4EDB252C958B9E00BFF74F /* ReadAnserController.swift */,
+				4F4EDB292C997DAA00BFF74F /* AnswerListController.swift */,
+				4F4EDB2B2C997DB700BFF74F /* AnswerListView.swift */,
+				4F4EDB2D2C9B9A9600BFF74F /* AnswerListCell.swift */,
 				4F4EDB272C958BA700BFF74F /* ReadAnswerView.swift */,
 			);
 			path = reply;
@@ -805,12 +817,14 @@
 				DD9471072C8C4383009BF95E /* MainQuestionView.swift in Sources */,
 				4F83D32E2C8554C50076AE2A /* HomeController.swift in Sources */,
 				DD9471032C8A96D1009BF95E /* ReferenceViewModel.swift in Sources */,
+				4F4EDB2C2C997DB700BFF74F /* AnswerListView.swift in Sources */,
 				DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */,
 				4F63D72B2C8A935B00B0F65C /* ReputaionSectionHeaderView.swift in Sources */,
 				DDE043592C773E3500DA099A /* TabBarController.swift in Sources */,
 				4FDF00202C927F88000B7873 /* ReplyViewModel.swift in Sources */,
 				4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */,
 				DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */,
+				4F4EDB2E2C9B9A9600BFF74F /* AnswerListCell.swift in Sources */,
 				DA3A55FF2C81C1EE00459343 /* ProfileEditView.swift in Sources */,
 				DDF2A02D2C846927001B1DB7 /* AddFriendViewModel.swift in Sources */,
 				DD0CE9EE2C935838008B5A68 /* HeaderView.swift in Sources */,
@@ -819,6 +833,7 @@
 				DD9470F92C899058009BF95E /* QuestionListCell.swift in Sources */,
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
 				DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */,
+				4FFD99B92C9BC6B90029B643 /* AnswerListViewModel.swift in Sources */,
 				4F63D7292C8A917000B0F65C /* FriendRequestCell.swift in Sources */,
 				DA59CFE02C93F0490052D050 /* myPageView.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
@@ -847,6 +862,7 @@
 				DDF2A02B2C843CF8001B1DB7 /* AddFriendView.swift in Sources */,
 				DD9471112C8C5F7B009BF95E /* TypeQuestionView.swift in Sources */,
 				DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */,
+				4F4EDB2A2C997DAA00BFF74F /* AnswerListController.swift in Sources */,
 				DD9470FE2C8A834D009BF95E /* ReferenceView.swift in Sources */,
 				DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
