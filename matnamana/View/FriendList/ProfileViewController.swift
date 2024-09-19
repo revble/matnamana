@@ -80,10 +80,10 @@ final class ProfileViewController: BaseViewController {
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
         
-//        self.navigationController?.pushViewController(
-//          ReferenceCheckController(targetId: self.userInfo),
-//          animated: true
-//        )
+        self.navigationController?.pushViewController(
+          ReferenceCheckController(targetId: self.userInfo),
+          animated: true
+        )
       }).disposed(by: disposeBag)
   }
 }
