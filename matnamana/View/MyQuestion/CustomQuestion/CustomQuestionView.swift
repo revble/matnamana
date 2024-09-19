@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomQuestionView: BaseView {
+final class CustomQuestionView: BaseView {
   
   let questionTitle = UITextField().then {
     $0.text = ""

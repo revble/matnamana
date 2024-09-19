@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CustomQuestionController: BaseViewController {
+final class CustomQuestionController: BaseViewController {
   
   private var customQuestion = CustomQuestionView(frame: .zero)
   private let viewModel: CustomQuestionViewModel
