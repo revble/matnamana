@@ -193,7 +193,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
       .subscribe(onNext: { [weak self] existingUser in
         guard let self = self else { return }
         
-        // 입력된 사용자 정보로 업데이트
+        // 입력된 사용자 정보로 업데이트ㄱ
         let name = self.profileEditView.nameTextField.text ?? ""
         let nickname = self.profileEditView.nickNameTextField.text ?? ""
         let shortDescription = self.profileEditView.introduceTextField.text ?? ""

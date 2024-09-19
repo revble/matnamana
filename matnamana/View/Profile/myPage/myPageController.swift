@@ -15,27 +15,68 @@ final class myPageController: BaseViewController {
   let myPageTable = ["나의 히스토리", "공지", "자주 묻는 질문", "맞나만나에 문의하기", "맞나만나 정보"]
 
   var myPageView = MyPageView(frame: .zero)
-  
+
   override func setupView() {
     super.setupView()
     myPageView = MyPageView(frame: UIScreen.main.bounds)
     self.view = myPageView
   }
-  override func bind() {
-    super.bind()
-    bindTableView()
+  override func viewWillAppear(_ animated: Bool) {
+    bindMyInfo()
 
-    myPageView.myPageButton.rx.tap
-      .subscribe(onNext: { [weak self] in
-        guard let self else { return }
-        self.navigationController?.pushViewController(ProfileController(), animated: true)
-      }).disposed(by: disposeBag)
+    func fetchUserInfo() -> Observable<User.Info> {
+      guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else {
+        return .empty()
+      }
+
+      return Observable.create { observer in
+        FirebaseManager.shared.readUser(documentId: loggedInUserId) { user, error in
+          if let error = error {
+            observer.onError(error)
+          } else if let user = user {
+            observer.onNext(user.info)
+            observer.onCompleted()
+          } else {
+            observer.onError(NSError(domain: "UserNotFound", code: -1, userInfo: nil))
+          }
+        }
+        return Disposables.create()
+      }
+    }
+
+     func bindMyInfo() {
+      fetchUserInfo()
+        .observe(on: MainScheduler.instance)
+        .subscribe(onNext: { [weak self] userInfo in
+          guard let self = self else { return }
+          self.myPageView.nameLabel.text = userInfo.name
+          self.myPageView.nicknameLabel.text = "(\(userInfo.nickName))"
+          self.myPageView.introduceLabel.text = userInfo.shortDescription
+        }, onError: { error in
+          print("Error fetching user info: \(error)")
+        })
+        .disposed(by: disposeBag)
+    }
   }
 
-  private func bindTableView() {
-    myPageView.tableView.dataSource = self
-    myPageView.tableView.delegate = self
-  }
+override func bind() {
+  super.bind()
+  bindTableView()
+
+  myPageView.myPageButton.rx.tap
+    .subscribe(onNext: { [weak self] in
+      guard let self else { return }
+      self.navigationController?.pushViewController(ProfileController(), animated: true)
+    }).disposed(by: disposeBag)
+
+}
+
+
+
+private func bindTableView() {
+  myPageView.tableView.dataSource = self
+  myPageView.tableView.delegate = self
+}
 }
 
 extension myPageController: UITableViewDataSource, UITableViewDelegate {

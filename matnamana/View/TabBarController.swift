@@ -27,19 +27,24 @@ final class TabBarController: UITabBarController {
   }
   
   private func viewConfig() {
-    let viewControllers = TabbarItem.allCases.map { item -> UINavigationController in
-      let vc = item.viewController
-      vc.view.backgroundColor = .systemBackground
-      vc.navigationItem.title = item.navigtaionItemTitle
-      vc.navigationItem.largeTitleDisplayMode = .always
-      let nav = UINavigationController(rootViewController: vc)
-      nav.title = item.navigtaionItemTitle
-      nav.tabBarItem.image = UIImage(systemName: item.tabbarImageName)
-      
-      return nav
-    }
-    setViewControllers(viewControllers, animated: false)
+      let viewControllers = TabbarItem.allCases.map { item -> UINavigationController in
+          let vc = item.viewController
+          vc.view.backgroundColor = .systemBackground
+          vc.navigationItem.title = item.navigtaionItemTitle
+          vc.navigationItem.largeTitleDisplayMode = .always
+
+          let nav = UINavigationController(rootViewController: vc)
+          nav.title = item.navigtaionItemTitle
+          nav.tabBarItem.image = UIImage(systemName: item.tabbarImageName)
+
+          // Large Title 설정
+          nav.navigationBar.prefersLargeTitles = true
+
+          return nav
+      }
+      setViewControllers(viewControllers, animated: false)
   }
+
 }
 extension TabBarController {
   
@@ -47,8 +52,8 @@ extension TabBarController {
     case mainPage
     case friendList
     case reputation
-    case profile
-    
+    case myPage
+
     var viewController: UIViewController {
       switch self {
       case .mainPage:
@@ -58,7 +63,7 @@ extension TabBarController {
       case .reputation:
         let viewModel = AcceptRequestViewModel()
         return ReputaionController(acceptViewModel: viewModel)
-      case .profile:
+      case .myPage:
         return myPageController()
       }
     }
@@ -71,7 +76,7 @@ extension TabBarController {
         return "person.2.fill"
       case .reputation:
         return "list.bullet.rectangle.portrait.fill"
-      case .profile:
+      case .myPage:
         return "person.fill"
       }
     }
@@ -84,8 +89,8 @@ extension TabBarController {
         return "친구 목록"
       case .reputation:
         return "맞나만나"
-      case .profile:
-        return "나의 정보"
+      case .myPage:
+        return "마이페이지"
       }
     }
   }

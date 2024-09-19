@@ -29,8 +29,8 @@ class BaseViewController: UIViewController {
   }
   
   func setNavigation() {
-    navigationController?.navigationBar.prefersLargeTitles = true
-    navigationItem.largeTitleDisplayMode = .always
+//    navigationController?.navigationBar.prefersLargeTitles = true
+//    navigationItem.largeTitleDisplayMode = .always
   }
   
   func bind() {
