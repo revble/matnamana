@@ -21,13 +21,6 @@ final class TotalQuestionView: UIView {
     $0.selectedSegmentTintColor = .manaMainColor
   }
   
-  let customButton = UIButton().then {
-    let buttonImage = UIImage(systemName: "list.bullet.rectangle")
-    $0.imageView?.contentMode = .scaleAspectFit
-    $0.setImage(buttonImage, for: .normal)
-    $0.contentMode = .scaleToFill
-  }
-  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configureUI()
