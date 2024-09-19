@@ -14,6 +14,8 @@ import Then
 
 final class QuestionCell: UICollectionViewCell {
   
+  var disposeBag = DisposeBag()
+  
   var totalButtonTap: Observable<Void> {
     return totalQuestionButton.rx.tap.asObservable()
   }

@@ -23,10 +23,14 @@ final class MainQuestionViewController: BaseViewController {
     self.view = mainQuestionView
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    fetchData()
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupCollectionView()
-    fetchData()
   }
   
   private func fetchData() {
@@ -46,6 +50,9 @@ final class MainQuestionViewController: BaseViewController {
   }
   
   func bindCell(cell: QuestionCell) {
+    
+    cell.disposeBag = DisposeBag()
+    
     let input = MainQuestionViewModel.Input(
       totalButtonTap: cell.totalButtonTap,
       coupleButtonTap: cell.coupleButtonTap,
@@ -62,7 +69,7 @@ final class MainQuestionViewController: BaseViewController {
         self.presetTitles = titles
         self.mainQuestionView.mainCollection.reloadSections(IndexSet(integer: 2))
       })
-      .disposed(by: disposeBag)
+      .disposed(by: cell.disposeBag)
     
     output.presetQuestions
       .drive(onNext: { [weak self] questions in
@@ -70,7 +77,7 @@ final class MainQuestionViewController: BaseViewController {
         self.presetQuestions = questions
         self.mainQuestionView.mainCollection.reloadSections(IndexSet(integer: 2))
       })
-      .disposed(by: disposeBag)
+      .disposed(by: cell.disposeBag)
     
     output.navigateTo
       .subscribe(onNext: { [weak self] destination in
@@ -96,10 +103,13 @@ final class MainQuestionViewController: BaseViewController {
         
         self.navigationController?.pushViewController(vc, animated: true)
       })
-      .disposed(by: disposeBag)
+      .disposed(by: cell.disposeBag)
   }
   
   func bindCell(cell: CustomQuestionCell) {
+    
+    cell.disposeBag = DisposeBag()
+    
     let input = MainQuestionViewModel.Input(
       totalButtonTap: Observable.empty(),
       coupleButtonTap: Observable.empty(),
@@ -117,7 +127,7 @@ final class MainQuestionViewController: BaseViewController {
         self.presetTitles = titles
         self.mainQuestionView.mainCollection.reloadSections(IndexSet(integer: 2))
       })
-      .disposed(by: disposeBag)
+      .disposed(by: cell.disposeBag)
     
     cell.buttonTap
       .subscribe(onNext: { [weak self] in
@@ -126,7 +136,18 @@ final class MainQuestionViewController: BaseViewController {
         let vc = CustomQuestionController(viewModel: viewModel, presetTitle: selectedQuestion.presetTitle, addMode: false)
         self.navigationController?.pushViewController(vc, animated: true)
       })
-      .disposed(by: disposeBag)
+      .disposed(by: cell.disposeBag)
+  }
+  
+  private func bindCell(cell: AddNewQuestionCell) {
+    
+    cell.disposeBag = DisposeBag()
+    
+    cell.buttonTap
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
+        self.navigationController?.pushViewController(TotalQuestionController(isCustom: true, addQuestion: true), animated: true)
+      }).disposed(by: cell.disposeBag)
   }
 }
 
@@ -138,9 +159,9 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
         UIApplication.shared.open(url, options: [:])
       }
     }
-    if indexPath.section == 3 {
-      navigationController?.pushViewController(TotalQuestionController(isCustom: true, addQuestion: true), animated: true)
-    }
+//    if indexPath.section == 3 {
+//      navigationController?.pushViewController(TotalQuestionController(isCustom: true, addQuestion: true), animated: true)
+//    }
   }
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -177,6 +198,7 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
       return cell
     case 3:
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: AddNewQuestionCell.self), for: indexPath) as? AddNewQuestionCell else { return UICollectionViewCell() }
+      bindCell(cell: cell)
       return cell
     default:
       fatalError("default cell")

@@ -67,8 +67,11 @@ final class TotalQuestionController: BaseViewController {
         .items(cellIdentifier: String(describing: QuestionListCell.self),
                cellType: QuestionListCell.self)) { [weak self] row, question, cell in
         guard let self else { return }
-        if self.isCustom {
+        if self.addQuestion {
           cell.customButton.isHidden = false
+          let image = UIImage(systemName: "plus")
+          cell.customButton.setImage(image, for: .normal)
+          cell.customButton.setTitle("", for: .normal)
         } else {
           cell.customButton.isHidden = true
         }

@@ -15,6 +15,7 @@ import Then
 final class CustomQuestionCell: UICollectionViewCell {
   
   var selectedQuestion: User.PresetQuestion?
+  var disposeBag = DisposeBag()
   
   var buttonTap: Observable<Void> {
     return customQuestionButton.rx.tap.asObservable()

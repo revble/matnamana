@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 final class QuestionListCell: UITableViewCell {
-
+  
   static var identifier: String {
     return String(describing: self)
   }
@@ -19,14 +19,12 @@ final class QuestionListCell: UITableViewCell {
   let questionLabel = UILabel().then {
     $0.text = ""
     $0.numberOfLines = 0
-    $0.font = .boldSystemFont(ofSize: 15)
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
   }
   
   let customButton = UIButton().then {
-    let buttonImage = UIImage(systemName: "plus")
-    $0.imageView?.contentMode = .scaleAspectFit
-    $0.setImage(buttonImage, for: .normal)
-    $0.contentMode = .scaleToFill
+    $0.setTitle("수정", for: .normal)
+    $0.setTitleColor(.manaMainColor, for: .normal)
   }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -47,14 +45,17 @@ final class QuestionListCell: UITableViewCell {
   }
   
   private func setConstraints() {
-    questionLabel.snp.makeConstraints {
-      $0.centerY.equalToSuperview()
-      $0.leading.equalToSuperview().inset(20)
-    }
     
     customButton.snp.makeConstraints {
       $0.centerY.equalToSuperview()
-      $0.trailing.equalToSuperview().inset(10)
+      $0.trailing.equalToSuperview()
+      $0.width.equalTo(35)
+    }
+    
+    questionLabel.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.leading.equalToSuperview()
+      $0.trailing.equalTo(customButton.snp.leading).offset(-10)
     }
   }
   

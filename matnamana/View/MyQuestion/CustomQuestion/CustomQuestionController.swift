@@ -50,14 +50,12 @@ class CustomQuestionController: BaseViewController {
       }
       .asDriver(onErrorJustReturn: [])
       .drive(customQuestion.customTable.rx.items(cellIdentifier: String(describing: QuestionListCell.self), cellType: QuestionListCell.self)) { [weak self] row, question, cell in
+        guard let self else { return }
         let (questionText, isEmptyQuestion) = question
         cell.configureCell(questionCell: questionText)
-        
         if isEmptyQuestion {
-          cell.questionLabel.textColor = .gray
+          cell.questionLabel.textColor = .lightGray
         }
-        
-        guard let self else { return }
         customQuestion.questionTitle.text = self.presetTitle
       }
       .disposed(by: disposeBag)
@@ -83,20 +81,31 @@ class CustomQuestionController: BaseViewController {
       }).disposed(by: disposeBag)
     
     customQuestion.saveButton.rx.tap
-      .subscribe(onNext: {
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
         guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else {
           return
         }
         
-        let presetQuestions = [User.PresetQuestion(presetTitle: self.presetTitle, presetQuestion: self.viewModel.questions)]
-        
-        FirebaseManager.shared.updatePresetQuestions(for: id, presetQuestions: presetQuestions) { success, error in
-          if success {
-            print("preset질문 추가성공")
-          } else {
-            print("preset질문 추가 실패")
+        FirebaseManager.shared.getPresetList(documentId: id) { question, error in
+          if error != nil {
+            return
+          }
+          
+          var updatedQuestions = question ?? []
+          let presetQuestions = User.PresetQuestion(presetTitle: self.customQuestion.questionTitle.text ?? "새로운 질문", presetQuestion: self.viewModel.questions)
+          
+            updatedQuestions.append(presetQuestions)
+          
+          FirebaseManager.shared.updatePresetQuestions(for: id, presetQuestions: updatedQuestions) { success, error in
+            if success {
+              print("preset질문 추가성공")
+            } else {
+              print("preset질문 추가 실패")
+            }
           }
         }
+        self.navigationController?.popViewController(animated: true)
       })
       .disposed(by: disposeBag)
   }

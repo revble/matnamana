@@ -7,8 +7,19 @@
 
 import UIKit
 
-class AddNewQuestionCell: UICollectionViewCell {
+import RxCocoa
+import RxSwift
+import SnapKit
+import Then
 
+final class AddNewQuestionCell: UICollectionViewCell {
+
+  var disposeBag = DisposeBag()
+  
+  var buttonTap: Observable<Void> {
+    return addNewQuestion.rx.tap.asObservable()
+  }
+  
   let addNewQuestion = UIButton().then {
     $0.setTitle("+ 새 질문 만들기", for: .normal)
     $0.setTitleColor(UIColor.manaMainColor, for: .normal)

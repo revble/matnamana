@@ -26,6 +26,11 @@ final class TypeQuestionController: BaseViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func setNavigation() {
+    super.setNavigation()
+    self.title = titleLabel
+  }
+  
   override func setupView() {
     super.setupView()
     typeQuestionView = TypeQuestionView(frame: UIScreen.main.bounds)
@@ -36,13 +41,15 @@ final class TypeQuestionController: BaseViewController {
     super.bind()
     let input = TypeQuestionViewModel.Input(fetchQuestions: Observable.just(()))
     let output = viewModel.transform(input: input)
-    typeQuestionView.questionLabel.text = titleLabel
     
     output.questionList
       .drive(typeQuestionView.questionTable.rx
         .items(cellIdentifier: QuestionListCell.identifier,
-               cellType: QuestionListCell.self)) { row, question, cell in
-        cell.configureCell(questionCell: question.contentDescription)
+               cellType: QuestionListCell.self)) { [weak self] row, question, cell in
+        guard let self else { return }
+        cell.configureCell(questionCell: String("\(row + 1). \(question.contentDescription)"))
+        cell.customButton.isHidden = true
+        self.typeQuestionView.questionTable.separatorStyle = .none
       }.disposed(by: disposeBag)
   }
 }

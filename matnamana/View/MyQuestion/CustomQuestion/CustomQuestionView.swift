@@ -9,25 +9,33 @@ import UIKit
 
 class CustomQuestionView: BaseView {
   
-  let questionTitle = UILabel().then {
+  let questionTitle = UITextField().then {
     $0.text = ""
     $0.textColor = .black
     $0.font = .boldSystemFont(ofSize: 28)
     $0.textAlignment = .center
+    $0.borderStyle = .none
   }
   
   let customTable = UITableView().then {
     $0.register(QuestionListCell.self, forCellReuseIdentifier: String(describing: QuestionListCell.self))
-    $0.backgroundColor = .black
+    $0.rowHeight = 80
+    $0.separatorStyle = .none
+  }
+  
+  let bottomBorder = UIView().then {
+    $0.backgroundColor = .lightGray
   }
   
   let saveButton = UIButton().then {
-    $0.setTitle("저장하기", for: .normal)
+    $0.setTitle("작성완료", for: .normal)
     $0.backgroundColor = .manaMainColor
+    $0.layer.cornerRadius = 16
   }
-
+  
   override func configureUI() {
     super.configureUI()
+    [bottomBorder].forEach { questionTitle.addSubview($0) }
     [
       questionTitle,
       customTable,
@@ -51,8 +59,15 @@ class CustomQuestionView: BaseView {
     
     saveButton.snp.makeConstraints {
       $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(50)
-      $0.height.equalTo(50)
+      $0.height.equalTo(56)
+      $0.horizontalEdges.equalToSuperview().inset(104)
       $0.centerX.equalToSuperview()
+    }
+    
+    bottomBorder.snp.makeConstraints {
+      $0.height.equalTo(1)
+      $0.horizontalEdges.equalToSuperview().inset(104)
+      $0.bottom.equalToSuperview()
     }
   }
 }
