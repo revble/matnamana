@@ -15,7 +15,6 @@ class BaseViewController: UIViewController {
   var disposeBag = DisposeBag()
   
   override func loadView() {
-    
     setupView()
   }
   
@@ -27,13 +26,11 @@ class BaseViewController: UIViewController {
     
     overrideUserInterfaceStyle = .light
     view.backgroundColor = .systemBackground
-    
-    
   }
   
   func setNavigation() {
-    navigationController?.navigationBar.prefersLargeTitles = true
-    navigationItem.largeTitleDisplayMode = .always
+//    navigationController?.navigationBar.prefersLargeTitles = true
+//    navigationItem.largeTitleDisplayMode = .always
   }
   
   func bind() {
