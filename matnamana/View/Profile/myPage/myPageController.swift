@@ -52,6 +52,7 @@ final class myPageController: BaseViewController {
           self.myPageView.nameLabel.text = userInfo.name
           self.myPageView.nicknameLabel.text = "(\(userInfo.nickName))"
           self.myPageView.introduceLabel.text = userInfo.shortDescription
+          self.myPageView.profileImageView.loadImage(from: userInfo.profileImage)
         }, onError: { error in
           print("Error fetching user info: \(error)")
         })
@@ -85,17 +86,17 @@ extension myPageController: UITableViewDataSource, UITableViewDelegate {
 
     switch indexPath.row {
     case 1:
-      if let url = URL(string: "https://matnamana.com") {  UIApplication.shared.open(url, options: [:])
+      if let url = URL(string: "https://matnamana.com/notice/") {  UIApplication.shared.open(url, options: [:])
       }
     case 2:
-      if let url = URL(string: "https://matnamana.com") {  UIApplication.shared.open(url, options: [:])
+      if let url = URL(string: "https://matnamana.com/faq/") {  UIApplication.shared.open(url, options: [:])
       }
     case 3:
-      if let url = URL(string: "https://matnamana.com") {  UIApplication.shared.open(url, options: [:])
+      if let url = URL(string: "https://matnamana.com/contact/") {  UIApplication.shared.open(url, options: [:])
       }
     case 4:
-      if let url = URL(string: "https://matnamana.com") {  UIApplication.shared.open(url, options: [:])
-      }
+       let myPageInfoController = MyPageInfoController()
+      self.navigationController?.pushViewController(myPageInfoController, animated: true)
     default:
       print(indexPath.row)
     }

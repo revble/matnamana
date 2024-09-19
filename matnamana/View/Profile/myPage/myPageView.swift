@@ -68,7 +68,7 @@ final class MyPageView: BaseView {
 
   let tableView = UITableView().then {
     $0.register(myPageCell.self, forCellReuseIdentifier: String(describing: myPageCell.self))
-    $0.rowHeight = 50
+    $0.rowHeight = 48
   }
 
   // MARK: - Initialization

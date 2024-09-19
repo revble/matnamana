@@ -1,8 +1,8 @@
 //
-//  myPageCell.swift
+//  MypageInfoCell.swift
 //  matnamana
 //
-//  Created by 이진규 on 9/13/24.
+//  Created by 이진규 on 9/19/24.
 //
 
 import UIKit
@@ -10,9 +10,9 @@ import UIKit
 import SnapKit
 import Then
 
-final class myPageCell: UITableViewCell {
+final class MypageInfoCell: UITableViewCell {
 
-  private let myPageCellLabel = UILabel().then {
+  private let MypageInfoCellLabel = UILabel().then {
     $0.text = ""
   }
 
@@ -28,21 +28,22 @@ final class myPageCell: UITableViewCell {
   }
 
   private func configureUI() {
-    contentView.addSubview(myPageCellLabel)
+    contentView.addSubview(MypageInfoCellLabel)
   }
 
   private func setConstraints() {
-    myPageCellLabel.snp.makeConstraints {
+    MypageInfoCellLabel.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.leading.equalToSuperview().inset(20)
     }
   }
 
-  func configureCell(myPageCell: String) {
-    myPageCellLabel.text = myPageCell
+  func configureCell(myPageInfoCell: String) {
+    MypageInfoCellLabel.text = myPageInfoCell
   }
 
   private func setupAccessoryType() {
     self.accessoryType = .disclosureIndicator
   }
 }
+

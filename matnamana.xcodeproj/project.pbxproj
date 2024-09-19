@@ -54,6 +54,9 @@
 		DA59CFE22C93F06F0052D050 /* myPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFE12C93F06F0052D050 /* myPageController.swift */; };
 		DA59CFE42C93F0840052D050 /* myPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFE32C93F0840052D050 /* myPageCell.swift */; };
 		DA59CFE72C93F6A60052D050 /* myPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFE62C93F6A60052D050 /* myPageViewModel.swift */; };
+		DA59CFE92C9BAE9F0052D050 /* MyPageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFE82C9BAE9F0052D050 /* MyPageInfoView.swift */; };
+		DA59CFEB2C9BAED80052D050 /* MyPageInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFEA2C9BAED80052D050 /* MyPageInfoController.swift */; };
+		DA59CFED2C9BAF630052D050 /* MypageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFEC2C9BAF630052D050 /* MypageInfoCell.swift */; };
 		DD0CE9E42C92CD5D008B5A68 /* CustomQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */; };
 		DD0CE9E62C92D55E008B5A68 /* CustomQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */; };
 		DD0CE9E82C933091008B5A68 /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E72C933091008B5A68 /* BannerCell.swift */; };
@@ -179,6 +182,9 @@
 		DA59CFE12C93F06F0052D050 /* myPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageController.swift; sourceTree = "<group>"; };
 		DA59CFE32C93F0840052D050 /* myPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageCell.swift; sourceTree = "<group>"; };
 		DA59CFE62C93F6A60052D050 /* myPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageViewModel.swift; sourceTree = "<group>"; };
+		DA59CFE82C9BAE9F0052D050 /* MyPageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoView.swift; sourceTree = "<group>"; };
+		DA59CFEA2C9BAED80052D050 /* MyPageInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoController.swift; sourceTree = "<group>"; };
+		DA59CFEC2C9BAF630052D050 /* MypageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageInfoCell.swift; sourceTree = "<group>"; };
 		DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionController.swift; sourceTree = "<group>"; };
 		DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionView.swift; sourceTree = "<group>"; };
 		DD0CE9E72C933091008B5A68 /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
@@ -379,6 +385,9 @@
 				DA59CFDF2C93F0490052D050 /* MyPageView.swift */,
 				DA59CFE12C93F06F0052D050 /* myPageController.swift */,
 				DA59CFE32C93F0840052D050 /* myPageCell.swift */,
+				DA59CFE82C9BAE9F0052D050 /* MyPageInfoView.swift */,
+				DA59CFEA2C9BAED80052D050 /* MyPageInfoController.swift */,
+				DA59CFEC2C9BAF630052D050 /* MypageInfoCell.swift */,
 			);
 			path = myPage;
 			sourceTree = "<group>";
@@ -813,6 +822,7 @@
 				DDF2A0202C80A072001B1DB7 /* AnswerModel.swift in Sources */,
 				DDF2A0292C843986001B1DB7 /* AddFriendViewController.swift in Sources */,
 				4F63D7292C8A917000B0F65C /* FriendRequestCell.swift in Sources */,
+				DA59CFE92C9BAE9F0052D050 /* MyPageInfoView.swift in Sources */,
 				DA59CFE02C93F0490052D050 /* MyPageView.swift in Sources */,
 				DDCF93232C7D8C8B005DB62F /* QuestionModel.swift in Sources */,
 				DA59CFE42C93F0840052D050 /* myPageCell.swift in Sources */,
@@ -848,6 +858,7 @@
 				DD94711C2C8D7522009BF95E /* ReputaionViewModel.swift in Sources */,
 				DD9470FC2C8A82D9009BF95E /* ReferenceCheckController.swift in Sources */,
 				DDCF923A2C7854E8005DB62F /* MainPageController.swift in Sources */,
+				DA59CFEB2C9BAED80052D050 /* MyPageInfoController.swift in Sources */,
 				DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */,
 				DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */,
 				DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */,
@@ -864,6 +875,7 @@
 				DDF2A01C2C8031F8001B1DB7 /* ProfileView.swift in Sources */,
 				4FDF001A2C9270D8000B7873 /* AnswerController.swift in Sources */,
 				DD9471132C8C8D48009BF95E /* TypeQuestionViewModel.swift in Sources */,
+				DA59CFED2C9BAF630052D050 /* MypageInfoCell.swift in Sources */,
 				DDCF93272C7DD3AA005DB62F /* MainPageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
