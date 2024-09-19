@@ -29,7 +29,7 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
   }
   override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
-      bindProfileData() 
+      bindProfileData()
 
     func bindProfileData(){
       let input = ProfileViewModel.Input(fetchProfile: Observable.just(()))
