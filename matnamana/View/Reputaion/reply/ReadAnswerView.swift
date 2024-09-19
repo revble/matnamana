@@ -7,28 +7,32 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 final class ReadAnswerView: BaseView {
+  
   private let titleLabel = UILabel().then {
-    $0.text = "박동현님은 어떤 분인가요?"
+    $0.text = "님은 이런 분입니다!"
     $0.font = .boldSystemFont(ofSize: 28)
   }
   
-  let sendButton = UIButton().then {
-    $0.setTitle("보내기", for: .normal)
-    $0.backgroundColor = .manaMainColor
-    $0.layer.cornerRadius = 10
-    $0.isEnabled = false
+  var tableVIew = UITableView().then {
+    $0.register(QandACell.self, forCellReuseIdentifier: String(describing: QandACell.self))
+    $0.estimatedRowHeight = 100
+    $0.rowHeight = 70
   }
+
   
   func reName(name: String) {
-    titleLabel.text = "\(name)님은 어떤 분인가요?"
+    titleLabel.text = "\(name)님은 이런 분입니다!"
   }
   
   override func configureUI() {
     super.configureUI()
     [
       titleLabel,
-      sendButton
+      tableVIew
     ].forEach { self.addSubview($0) }
   }
   
@@ -38,14 +42,15 @@ final class ReadAnswerView: BaseView {
       $0.top.equalTo(self.safeAreaLayoutGuide)
       $0.centerX.equalToSuperview()
     }
-
-    
-    sendButton.snp.makeConstraints {
-      $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(150)
-      $0.height.equalTo(40)
-      $0.width.equalTo(200)
-      $0.centerX.equalToSuperview()
+    tableVIew.snp.makeConstraints {
+      $0.top.equalTo(titleLabel.snp.bottom).offset(100)
+      $0.leading.equalToSuperview().offset(40)
+      $0.trailing.equalToSuperview().inset(40)
+      $0.height.equalTo(400)
     }
+
   }
+  
+  
   
 }

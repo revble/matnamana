@@ -69,7 +69,7 @@ final class ReplyController: BaseViewController {
       .subscribe(onNext: { [weak self] _ in
         guard let self else { return }
         self.replyView.sendButton.isEnabled = true
-        self.replyView.sendButton.backgroundColor = .manaGreen
+        self.replyView.sendButton.backgroundColor = .manaMainColor
       }).disposed(by: disposeBag)
   }
   

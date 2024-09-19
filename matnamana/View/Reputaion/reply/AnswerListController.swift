@@ -29,6 +29,17 @@ final class AnswerListController: BaseViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    viewModel.fetchFriendList(requester: requester, target: target)
+
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+  }
+  
   override func setupView() {
     super.setupView()
     answerListView = AnswerListView(frame: UIScreen.main.bounds)
@@ -39,9 +50,22 @@ final class AnswerListController: BaseViewController {
   override func bind() {
     super.bind()
     
-//    answerListView.tableView.rx
-//      .items(cellIdentifier: String(describing: AnswerListCell.self), cellType: AnswerListCell.self) {
-//        
-//      }
+    
+    
+    viewModel.reputationRequest
+      .bind(to: answerListView.tableView.rx.items(cellIdentifier: String(describing: AnswerListCell.self), cellType: AnswerListCell.self)) { row, reputation, cell in
+        cell.configure(with: reputation)
+      }.disposed(by: disposeBag)
+    
+    answerListView.tableView.rx.itemSelected
+      .subscribe { [weak self] indexPath in
+        guard let self else { return }
+        if let cell = self.answerListView.tableView.cellForRow(at: indexPath) as? AnswerListCell {
+          let nickName = cell.userName.text ?? ""
+          pushViewController(ReadAnserController(name: nickName, requester: requester, target: target))
+        }
+
+      }.disposed(by: disposeBag)
   }
+  
 }

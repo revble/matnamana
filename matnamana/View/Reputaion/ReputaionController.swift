@@ -215,7 +215,7 @@ final class ReputaionController: BaseViewController {
         let myRequestedItems = myRequestedData.isEmpty
         ? [Item(userNickName: "", profileImageUrl: "", requesterId: "", targetId: "")]
         : myRequestedData.map { (profileImage, userNickName, requesterId , targetId) in
-          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: userNickName, targetId: targetId)
+          Item(userNickName: userNickName, profileImageUrl: profileImage, requesterId: requesterId, targetId: targetId)
         }
         let receivedRequestItems = receivedData.isEmpty
         ? [Item(userNickName: "", profileImageUrl: "", requesterId: "", targetId: "")]

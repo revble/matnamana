@@ -20,11 +20,15 @@ final class AnswerListCell: UITableViewCell {
   
   let userName = UILabel().then {
     $0.text = ""
+    $0.textColor = .black
   }
   
   let userRelation = UILabel().then {
     $0.text = "친구"
+    $0.textColor = .black
   }
+  
+  
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,6 +37,7 @@ final class AnswerListCell: UITableViewCell {
      userName,
      userRelation
     ].forEach { contentView.addSubview($0) }
+    setConstraints()
   }
   
   required init?(coder: NSCoder) {
@@ -56,22 +61,12 @@ final class AnswerListCell: UITableViewCell {
       $0.leading.equalTo(userName.snp.leading)
     }
   }
-  func configureCell(nickName: String, relation: String, friendImage: String) {
-    userName.text = nickName
-    
-    if let url = URL(string: friendImage) {
+  
+  
+  func configure(with reputation: UserProfile) {
+    if let url = URL(string: reputation.profileImage ?? "") {
       userImage.kf.setImage(with: url)
     }
-    
-    switch relation.lowercased() {
-    case "friend":
-      userRelation.text = "친구"
-    case "family":
-      userRelation.text = "가족"
-    case "colleague":
-      userRelation.text = "동료"
-    default:
-      userRelation.text = relation
-    }
+    userName.text = reputation.nickName
   }
 }

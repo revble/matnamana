@@ -12,15 +12,32 @@ import RxSwift
 
 final class AcceptRequestViewModel {
   
-  init() {}
+  
   
   var currentname = BehaviorRelay<String>(value: "")
   var selectedItems = BehaviorRelay<[String]>(value: [])
+  var friendList = BehaviorRelay<[User]>(value: [])
+  
+  var disposeBag = DisposeBag()
+  
+  init() {
+    // friendList의 변화 감지 및 count가 2일 때 실행
+    friendList
+      .map { $0.count } // friendList의 count를 감지
+      .filter { $0 == 2 } // count가 2가 되면 진행
+      .subscribe(onNext: { [weak self] _ in
+        self?.sendReputationRequest()
+      })
+      .disposed(by: disposeBag)
+  }
   
   private let db = FirebaseManager.shared.db
   
   private let reputationView = ReputationView()
   private let friendListView = FriendListView()
+  
+  private var requesterId: String?
+  private var targetId: String?
   
   func selectItem(selectedFriends: String) {
     var currentItems = selectedItems.value
@@ -50,45 +67,62 @@ final class AcceptRequestViewModel {
   
   func sendData(requester: String, target: String) {
     print(selectedItems.value)
+    requesterId = requester
+    targetId = target
     let documentId = "\(requester)-\(target)"
-    var friendList: [User] = []
     
-    let dispatchGroup = DispatchGroup()
     for selectedItem in selectedItems.value {
       print(selectedItem)
-      dispatchGroup.enter()
+      
       db.collection("users").whereField("info.nickName", isEqualTo: selectedItem)
-        .getDocuments { querySnapshot, error in
+        .getDocuments { [weak self] querySnapshot, error in
+          guard let self = self else { return }
           guard let querySnapshot,
                 error == nil
           else { return }
+          
           if let document = querySnapshot.documents.first {
             do {
               let user = try document.data(as: User.self)
-              
               print(user)
-              friendList.append(user)
-            } catch {
               
+              // friendList 업데이트
+              var currentFriendList = self.friendList.value
+              currentFriendList.append(user)
+              self.friendList.accept(currentFriendList) // BehaviorRelay 업데이트
+              
+            } catch {
+              print("Error decoding user: \(error)")
             }
           }
-          dispatchGroup.leave()
         }
-      
     }
-    dispatchGroup.notify(queue: .main) {
-      self.db.collection("reputationRequests").document(documentId)
-        .updateData([
-          "selectedFriends": friendList.map { friend in
-            [
-              "nickName": friend.info.nickName,
-              "profileImage": friend.info.profileImage,
-              "userId": friend.userId
-            ]
-          },
-          "selectedFriendsUserIds": friendList.map { $0.userId }
-        ])
-    }
+  }
+  
+  // friendList count가 2가 되면 실행될 메서드
+  private func sendReputationRequest() {
+    guard let requester = requesterId,
+          let target = targetId else { return }
+    
+    let documentId = "\(requester)-\(target)"
+    
+    db.collection("reputationRequests").document(documentId)
+      .updateData([
+        "selectedFriends": friendList.value.map { friend in
+          [
+            "nickName": friend.info.nickName,
+            "profileImage": friend.info.profileImage,
+            "userId": friend.userId
+          ]
+        },
+        "selectedFriendsUserIds": friendList.value.map { $0.userId }
+      ]) { error in
+        if let error = error {
+          print("Error updating reputationRequests: \(error)")
+        } else {
+          print("Reputation request successfully updated")
+        }
+      }
   }
   
 }

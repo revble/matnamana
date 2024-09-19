@@ -18,8 +18,10 @@ final class AnswerListView: BaseView {
     $0.textColor = .orange
   }
   
-  lazy var tableView = UITableView().then {
+  var tableView = UITableView().then {
     $0.register(AnswerListCell.self, forCellReuseIdentifier: String(describing: AnswerListCell.self))
+    $0.estimatedRowHeight = 100
+    $0.rowHeight = UITableView.automaticDimension
   }
   
   let button = UIButton(type: .system).then {
@@ -48,6 +50,8 @@ final class AnswerListView: BaseView {
     
     tableView.snp.makeConstraints {
       $0.center.equalToSuperview()
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(300)
     }
     
     button.snp.makeConstraints {
