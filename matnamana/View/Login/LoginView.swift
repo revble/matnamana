@@ -27,7 +27,7 @@ final class LoginView: BaseView {
   }
   
   private let quicklyReferenceCheck = UILabel().then {
-    $0.text = "가장 빠르고 신뢰있는 평판조회서비스"
+    $0.text = "빠르고 안전한 평판조회"
     $0.textColor = .gray
     $0.font = UIFont.systemFont(ofSize: 15)
   }

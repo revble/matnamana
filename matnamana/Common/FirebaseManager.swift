@@ -323,10 +323,12 @@ final class FirebaseManager {
           let reputation = try document.data(as: ReputationRequest.self)
           reputationRequests.append(reputation)
         } catch {
+          print(error)
           completion(nil, error)
           return
         }
       }
+      print()
       completion(reputationRequests, nil)
     }
   }

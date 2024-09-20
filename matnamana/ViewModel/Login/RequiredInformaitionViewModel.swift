@@ -41,7 +41,7 @@ final class RequiredInfoViewModel {
     UserDefaults.standard.set(userId, forKey: "loggedInUserId")
   }
 
-  func makeUserInformation(name: String, nickName: String, completion: @escaping (User) -> Void ) {
+  func makeUserInformation(name: String, nickName: String, shortDescription: String, completion: @escaping (User) -> Void ) {
     guard let appleUser = Auth.auth().currentUser else { return }
     UserDefaults.standard.setValue(name, forKey: "userName")
     UserDefaults.standard.setValue(nickName, forKey: "userNickName")
@@ -54,7 +54,7 @@ final class RequiredInfoViewModel {
         location: "",
         name: name,
         phoneNumber: "",
-        shortDescription: "",
+        shortDescription: shortDescription,
         profileImage: "",
         nickName: nickName,
         birth: "",

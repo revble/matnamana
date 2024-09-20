@@ -47,6 +47,7 @@ final class ReplyViewModel {
     }
   }
   func sendAnswers(requester: String, target: String) {
+    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
     let documentId = "\(requester)-\(target)"
 
     let reputationRequest = db.collection("reputationRequests").document(documentId)
@@ -58,7 +59,9 @@ final class ReplyViewModel {
         [
           "contentType": "",
           "contentDescription": answerTuple.0,
-          "answer": answerTuple.1
+          "answer": [
+            userId: answerTuple.1
+          ]
         ]
       }
     ]
