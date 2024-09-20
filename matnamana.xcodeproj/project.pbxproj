@@ -119,6 +119,12 @@
 		DDE043782C773E3700DA099A /* matnamanaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE043772C773E3700DA099A /* matnamanaUITestsLaunchTests.swift */; };
 		DDE309062C997B3A003ED62D /* CustomQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE309052C997B3A003ED62D /* CustomQuestionViewModel.swift */; };
 		DDE3090C2C9BCBA6003ED62D /* AddNewQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE3090B2C9BCBA6003ED62D /* AddNewQuestionCell.swift */; };
+		DDE3090E2C9CAA77003ED62D /* RequestMyQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE3090D2C9CAA77003ED62D /* RequestMyQuestionController.swift */; };
+		DDE309102C9CAA8A003ED62D /* RequestMyQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE3090F2C9CAA8A003ED62D /* RequestMyQuestionView.swift */; };
+		DDE309122C9CB54F003ED62D /* RequestMyQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE309112C9CB54F003ED62D /* RequestMyQuestionViewModel.swift */; };
+		DDE309142C9CC40E003ED62D /* RequestMyQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE309132C9CC40E003ED62D /* RequestMyQuestionCell.swift */; };
+		DDE309162C9CCD0F003ED62D /* AddPresetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE309152C9CCD0F003ED62D /* AddPresetCell.swift */; };
+		DDE309182C9D0949003ED62D /* ReputationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE309172C9D0948003ED62D /* ReputationListCell.swift */; };
 		DDF2A01A2C8031EE001B1DB7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */; };
 		DDF2A01C2C8031F8001B1DB7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */; };
 		DDF2A01E2C8034A1001B1DB7 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF2A01D2C8034A1001B1DB7 /* UIExtensions.swift */; };
@@ -252,6 +258,12 @@
 		DDE043772C773E3700DA099A /* matnamanaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matnamanaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DDE309052C997B3A003ED62D /* CustomQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionViewModel.swift; sourceTree = "<group>"; };
 		DDE3090B2C9BCBA6003ED62D /* AddNewQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewQuestionCell.swift; sourceTree = "<group>"; };
+		DDE3090D2C9CAA77003ED62D /* RequestMyQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMyQuestionController.swift; sourceTree = "<group>"; };
+		DDE3090F2C9CAA8A003ED62D /* RequestMyQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMyQuestionView.swift; sourceTree = "<group>"; };
+		DDE309112C9CB54F003ED62D /* RequestMyQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMyQuestionViewModel.swift; sourceTree = "<group>"; };
+		DDE309132C9CC40E003ED62D /* RequestMyQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMyQuestionCell.swift; sourceTree = "<group>"; };
+		DDE309152C9CCD0F003ED62D /* AddPresetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetCell.swift; sourceTree = "<group>"; };
+		DDE309172C9D0948003ED62D /* ReputationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationListCell.swift; sourceTree = "<group>"; };
 		DDF2A0192C8031ED001B1DB7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DDF2A01B2C8031F8001B1DB7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DDF2A01D2C8034A1001B1DB7 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
@@ -445,6 +457,7 @@
 				DDF2A0262C842978001B1DB7 /* UserProfileViewModel.swift */,
 				DDCF932C2C7E2163005DB62F /* FriendListViewModel.swift */,
 				DD9471022C8A96D1009BF95E /* ReferenceViewModel.swift */,
+				DDE309112C9CB54F003ED62D /* RequestMyQuestionViewModel.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -551,6 +564,11 @@
 				DDF2A0282C843986001B1DB7 /* AddFriendViewController.swift */,
 				DD9470FB2C8A82D9009BF95E /* ReferenceCheckController.swift */,
 				DD9470FD2C8A834D009BF95E /* ReferenceView.swift */,
+				DDE3090D2C9CAA77003ED62D /* RequestMyQuestionController.swift */,
+				DDE3090F2C9CAA8A003ED62D /* RequestMyQuestionView.swift */,
+				DDE309132C9CC40E003ED62D /* RequestMyQuestionCell.swift */,
+				DDE309152C9CCD0F003ED62D /* AddPresetCell.swift */,
+				DDE309172C9D0948003ED62D /* ReputationListCell.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -842,6 +860,7 @@
 			files = (
 				DA59CFE72C93F6A60052D050 /* myPageViewModel.swift in Sources */,
 				DA59CFE22C93F06F0052D050 /* myPageController.swift in Sources */,
+				DDE309182C9D0949003ED62D /* ReputationListCell.swift in Sources */,
 				DD94711D2C8D781C009BF95E /* MainQuestionController.swift in Sources */,
 				4F1E88652C8E89CD00F09A36 /* AcceptRequestController.swift in Sources */,
 				4FDF001E2C927B34000B7873 /* AnswerView.swift in Sources */,
@@ -865,6 +884,7 @@
 				DDE0435C2C773E3500DA099A /* matnamana.xcdatamodeld in Sources */,
 				4F63D72B2C8A935B00B0F65C /* ReputaionSectionHeaderView.swift in Sources */,
 				DDE043592C773E3500DA099A /* TabBarController.swift in Sources */,
+				DDE3090E2C9CAA77003ED62D /* RequestMyQuestionController.swift in Sources */,
 				4FDF00202C927F88000B7873 /* ReplyViewModel.swift in Sources */,
 				4F83D3242C80D9F60076AE2A /* RequiredInformaitionViewModel.swift in Sources */,
 				DDCF932D2C7E2163005DB62F /* FriendListViewModel.swift in Sources */,
@@ -872,6 +892,7 @@
 				DA3A55FF2C81C1EE00459343 /* ProfileEditView.swift in Sources */,
 				DDF2A02D2C846927001B1DB7 /* AddFriendViewModel.swift in Sources */,
 				DD0CE9EE2C935838008B5A68 /* HeaderView.swift in Sources */,
+				DDE309122C9CB54F003ED62D /* RequestMyQuestionViewModel.swift in Sources */,
 				DDF2A0272C842978001B1DB7 /* UserProfileViewModel.swift in Sources */,
 				4F83D3302C8556570076AE2A /* FriendReputationRequestCell.swift in Sources */,
 				DD9470F92C899058009BF95E /* QuestionListCell.swift in Sources */,
@@ -897,6 +918,7 @@
 				DD0CE9EC2C9330AE008B5A68 /* CustomQuestionCell.swift in Sources */,
 				DD9470F62C898FD6009BF95E /* TotalQuestionViewModel.swift in Sources */,
 				4F83D3322C8559470076AE2A /* SectionHeaderView.swift in Sources */,
+				DDE309102C9CAA8A003ED62D /* RequestMyQuestionView.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
 				4F4EDB262C958B9E00BFF74F /* ReadAnserController.swift in Sources */,
@@ -926,6 +948,7 @@
 				4F4877D12C9D359E0060C1B7 /* ReputationReviewView.swift in Sources */,
 				DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */,
 				DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */,
+				DDE309162C9CCD0F003ED62D /* AddPresetCell.swift in Sources */,
 				4F63D7212C8A8CF500B0F65C /* ReputaionController.swift in Sources */,
 				4FEB36952C7EC9240066998E /* LoginView.swift in Sources */,
 				DD0CE9E42C92CD5D008B5A68 /* CustomQuestionController.swift in Sources */,
@@ -939,6 +962,7 @@
 				DDF2A01C2C8031F8001B1DB7 /* ProfileView.swift in Sources */,
 				4FDF001A2C9270D8000B7873 /* AnswerController.swift in Sources */,
 				DD9471132C8C8D48009BF95E /* TypeQuestionViewModel.swift in Sources */,
+				DDE309142C9CC40E003ED62D /* RequestMyQuestionCell.swift in Sources */,
 				DA59CFED2C9BAF630052D050 /* MypageInfoCell.swift in Sources */,
 				DDCF93272C7DD3AA005DB62F /* MainPageView.swift in Sources */,
 			);
@@ -1104,7 +1128,7 @@
 				CODE_SIGN_ENTITLEMENTS = matnamana/matnamana.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N7NLN3LS82;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = matnamana/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1134,7 +1158,7 @@
 				CODE_SIGN_ENTITLEMENTS = matnamana/matnamana.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N7NLN3LS82;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = matnamana/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

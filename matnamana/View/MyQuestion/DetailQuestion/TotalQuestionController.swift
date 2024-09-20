@@ -48,8 +48,6 @@ final class TotalQuestionController: BaseViewController {
           guard let self else { return }
           let viewModel = CustomQuestionViewModel(presetQuestions: selectedQuestions)
           self.navigationController?.pushViewController(CustomQuestionController(viewModel: viewModel, presetTitle: "새로운 질문", addMode: true), animated: true)
-          
-          
         })
         .disposed(by: disposeBag)
     }

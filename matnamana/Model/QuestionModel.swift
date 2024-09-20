@@ -15,7 +15,6 @@ extension Question {
     //    let contentType: QuestionType
     let contentType: String
     let contentDescription: String
-    let answer: [String: String]
   }
 }
 

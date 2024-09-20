@@ -38,7 +38,6 @@ final class MainQuestionViewController: BaseViewController {
       .subscribe(onNext: { [weak self] questions in
         guard let self = self else { return }
         self.presetQuestions = questions
-        print("=====")
         self.mainQuestionView.mainCollection.reloadData()
       })
       .disposed(by: disposeBag)
@@ -159,9 +158,6 @@ extension MainQuestionViewController: UICollectionViewDataSource, UICollectionVi
         UIApplication.shared.open(url, options: [:])
       }
     }
-//    if indexPath.section == 3 {
-//      navigationController?.pushViewController(TotalQuestionController(isCustom: true, addQuestion: true), animated: true)
-//    }
   }
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {

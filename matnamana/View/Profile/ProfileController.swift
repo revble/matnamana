@@ -19,7 +19,7 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
   // MARK: - Data
 
   private let userInfoKeys = ["휴대번호", "이메일", "거주지", "생년월일", "직업", "회사명", "최종학력", "대학교"]
-  private var userValues = ["", "", "", "", "", "", "", ""]
+  private var userValues = ["", "", "", "", "", "", "", "", "", ""]
 
   // MARK: - Lifecycle
 
@@ -28,9 +28,9 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
     self.view = profileView
   }
   override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(animated)
-      bindProfileData()
-
+    super.viewDidAppear(animated)
+    bindProfileData()
+  }
     func bindProfileData(){
       let input = ProfileViewModel.Input(fetchProfile: Observable.just(()))
       let output = viewModel.transform(input: input)
@@ -52,7 +52,8 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
             profile.career,
             profile.companyName,
             profile.education,
-            profile.university
+            profile.university,
+
           ]
           self.profileView.tableView.reloadData()
         })
@@ -64,7 +65,7 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
         })
         .disposed(by: disposeBag)
     }
-  }
+
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -72,7 +73,6 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
 
     profileView.tableView.dataSource = self
     profileView.tableView.delegate = self
-
 
   }
 
