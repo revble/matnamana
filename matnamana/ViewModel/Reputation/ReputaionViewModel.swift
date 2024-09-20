@@ -62,14 +62,14 @@ final class ReputationViewModel: ViewModelType {
         if userId == target.userId {
           let profileImage = requester.profileImage ?? ""
           let nickName = requester.nickName ?? ""
-          let status = reputationRequest.status ?? ""
+          let status = reputationRequest.status.rawValue
           receivedReputationData.append((profileImage, nickName, requesterId, targetId, status))
         }
         
         if userId == requester.userId {
           let profileImage = target.profileImage ?? ""
           let nickName = target.nickName ?? ""
-          let status = reputationRequest.status ?? ""
+          let status = reputationRequest.status.rawValue
           myRequestedReputationData.append((profileImage, nickName, requesterId, targetId, status))
         }
         
