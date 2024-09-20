@@ -6,6 +6,7 @@
 //
 import UIKit
 
+import RxSwift
 import Kingfisher
 import SnapKit
 import Then
@@ -14,12 +15,14 @@ final class ReceivedRequestCell: UICollectionViewCell {
   ///String(describing: )
   static let id = "ReceivedRequestViewCell"
   
+  var disposeBag = DisposeBag()
+  
   var requesterId = ""
   var targetId = ""
   
   
   private let imageView = UIImageView().then {
-    $0.image = UIImage()
+    $0.image = UIImage(named: "profile")
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 40
@@ -39,9 +42,13 @@ final class ReceivedRequestCell: UICollectionViewCell {
   
   private let acceptButton = UIButton().then {
     $0.setTitle("수락하기", for: .normal)
+    $0.backgroundColor = .manaMainColor
+    $0.layer.cornerRadius = 10
   }
-  private let cancelButton = UIButton().then {
+  let cancelButton = UIButton().then {
     $0.setTitle("무시하기", for: .normal)
+    $0.backgroundColor = .lightGray
+    $0.layer.cornerRadius = 10
   }
   
   private let buttonStackView = UIStackView().then {
@@ -56,6 +63,12 @@ final class ReceivedRequestCell: UICollectionViewCell {
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    // 재사용될 때 disposeBag 초기화
+    disposeBag = DisposeBag()
   }
   
   private func configureUI() {
@@ -94,12 +107,18 @@ final class ReceivedRequestCell: UICollectionViewCell {
     }
   }
   
-  func configure(imageUrl: String, name: String, requester: String, target: String) {
+  func configure(imageUrl: String, name: String, requester: String, target: String, status: String) {
     if let url = URL(string: imageUrl) {
       imageView.kf.setImage(with: url)
     }
     nameLabel.text = "\(name)"
     requesterId = requester
     targetId = target
+    
+    if status == "approved" {
+      self.isHidden = true
+    } else {
+      self.isHidden = false
+    }
   }
 }

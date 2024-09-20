@@ -23,7 +23,6 @@ final class MyRequestsCell: UICollectionViewCell {
     $0.image = UIImage(named: "profile")
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
-    $0.backgroundColor = .white
     $0.layer.cornerRadius = 40
   }
   
@@ -33,7 +32,7 @@ final class MyRequestsCell: UICollectionViewCell {
     $0.font = .boldSystemFont(ofSize: 18)
   }
   
-  private let statusLabel = UILabel().then {
+  let statusLabel = UILabel().then {
     $0.text = "상대방 수락 대기중"
     $0.textAlignment = .center
     $0.font = .systemFont(ofSize: 16)
@@ -77,12 +76,15 @@ final class MyRequestsCell: UICollectionViewCell {
     }
   }
   
-  func configure(imageUrl: String, name: String, requester: String, target: String) {
+  func configure(imageUrl: String, name: String, requester: String, target: String, status: String) {
     if let url = URL(string: imageUrl) {
       imageView.kf.setImage(with: url)
     }
     nameLabel.text = "\(name) -> 박동현"
     requesterId = requester
     targetId = target
+    if status == "approved" {
+      statusLabel.text = "답변 대기중"
+    }
   }
 }

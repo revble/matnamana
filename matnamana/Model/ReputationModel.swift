@@ -9,17 +9,9 @@ struct ReputationRequest: Codable {
   let requester: UserProfile?
   let target: UserProfile?
   let questionList: [Question.Content]?
-  let status: RequestStatus?
+  let status: String?
   let selectedFriends: [UserProfile]?
   let selectedFriendsUserIds: [String]?
-}
-
-extension ReputationRequest {
-  enum RequestStatus: String, Codable {
-    case pending
-    case approved
-    case rejected
-  }
 }
 
 struct UserProfile: Codable {

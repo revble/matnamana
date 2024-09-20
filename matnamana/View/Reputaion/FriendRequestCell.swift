@@ -21,7 +21,6 @@ final class FriendRequestCell: UICollectionViewCell {
     $0.image = UIImage(named: "profile")
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
-    $0.backgroundColor = .white
     $0.layer.cornerRadius = 40
   }
   

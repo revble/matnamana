@@ -82,6 +82,7 @@ class AcceptRequestController: FriendListController {
         guard let self else { return }
         self.viewModel.sendData(requester: requester, target: target)
         dismiss(animated: true)
+        self.viewModel.updateStatus(requester: requester, target: target)
       }).disposed(by: disposeBag)
     
     return UIBarButtonItem(customView: button)
