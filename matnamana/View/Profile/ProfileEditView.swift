@@ -28,25 +28,25 @@ final class ProfileEditView: UIView {
     return uiLabel
   }()
 
-  let nickNameTextField: UITextField = {
-    let textField = UITextField()
-    textField.layer.borderWidth = 1.0
-    textField.layer.borderColor = UIColor.black.cgColor
-    textField.layer.cornerRadius = 5
-    textField.clearButtonMode = .always
-    textField.placeholder = "닉네임을 입력해주세요"
-    return textField
-  }()
-
-  let introduceTextField: UITextField = {
-    let textField = UITextField()
-    textField.layer.borderWidth = 1.0
-    textField.layer.borderColor = UIColor.black.cgColor
-    textField.layer.cornerRadius = 5
-    textField.clearButtonMode = .always
-    textField.placeholder = "자기소개를 입력해주세요"
-    return textField
-  }()
+//  let nickNameTextField: UITextField = {
+//    let textField = UITextField()
+//    textField.layer.borderWidth = 1.0
+//    textField.layer.borderColor = UIColor.black.cgColor
+//    textField.layer.cornerRadius = 5
+//    textField.clearButtonMode = .always
+//    textField.placeholder = "닉네임을 입력해주세요"
+//    return textField
+//  }()
+//
+//  let introduceTextField: UITextField = {
+//    let textField = UITextField()
+//    textField.layer.borderWidth = 1.0
+//    textField.layer.borderColor = UIColor.black.cgColor
+//    textField.layer.cornerRadius = 5
+//    textField.clearButtonMode = .always
+//    textField.placeholder = "자기소개를 입력해주세요"
+//    return textField
+//  }()
 
   let tableView: UITableView = {
     let tableView = UITableView()
@@ -70,8 +70,8 @@ final class ProfileEditView: UIView {
     [
       profileImageView,
       nameTextField,
-      nickNameTextField,
-      introduceTextField,
+//      nickNameTextField,
+//      introduceTextField,
       tableView
     ].forEach {
       addSubview($0)
@@ -92,20 +92,20 @@ final class ProfileEditView: UIView {
 //      $0.leading.trailing.equalToSuperview().inset(20)
     }
 
-    nickNameTextField.snp.makeConstraints {
-      $0.top.equalTo(nameTextField.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview().inset(20)
-    }
-
-    introduceTextField.snp.makeConstraints {
-      $0.top.equalTo(nickNameTextField.snp.bottom).offset(8)
-      $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview().inset(20)
-    }
+//    nickNameTextField.snp.makeConstraints {
+//      $0.top.equalTo(nameTextField.snp.bottom).offset(8)
+//      $0.centerX.equalToSuperview()
+//      $0.leading.trailing.equalToSuperview().inset(20)
+//    }
+//
+//    introduceTextField.snp.makeConstraints {
+//      $0.top.equalTo(nickNameTextField.snp.bottom).offset(8)
+//      $0.centerX.equalToSuperview()
+//      $0.leading.trailing.equalToSuperview().inset(20)
+//    }
 
     tableView.snp.makeConstraints {
-      $0.top.equalTo(introduceTextField.snp.bottom).offset(20)
+      $0.top.equalTo(nameTextField.snp.bottom).offset(20)
       $0.leading.trailing.equalToSuperview().inset(20)
       $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
     }

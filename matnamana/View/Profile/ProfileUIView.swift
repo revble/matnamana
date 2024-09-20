@@ -8,20 +8,6 @@
 import UIKit
 import SnapKit
 
-class CustomLabel: UILabel {
-  var textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-  
-  override func drawText(in rect: CGRect) {
-    super.drawText(in: rect.inset(by: textInsets))
-  }
-  
-  override var intrinsicContentSize: CGSize {
-    let size = super.intrinsicContentSize
-    return CGSize(width: size.width + textInsets.left + textInsets.right,
-                  height: size.height + textInsets.top + textInsets.bottom)
-  }
-}
-
 class ProfileUIView: UIView {
   
   
@@ -66,13 +52,12 @@ class ProfileUIView: UIView {
     return label
   }()
   
-  let introduceLabel: CustomLabel = {
-    let label = CustomLabel()
+  let introduceLabel: UILabel = {
+    let label = UILabel()
     label.text = "자기소개"
-    label.layer.borderWidth = 1.0
-    label.layer.borderColor = UIColor.black.cgColor
-    label.layer.cornerRadius = 5
-    label.textAlignment = .center
+    label.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
+
+
     return label
   }()
   
@@ -136,7 +121,6 @@ class ProfileUIView: UIView {
     introduceLabel.snp.makeConstraints {
       $0.top.equalTo(nickNameLabel.snp.bottom).offset(3)
       $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview().inset(20)
     }
     
     tableView.snp.makeConstraints {

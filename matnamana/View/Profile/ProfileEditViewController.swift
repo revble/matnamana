@@ -24,7 +24,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
   private var profileImageUrl: String = ""
 
   // 사용자 정보 필드
-  private let userInfo = ["휴대번호", "이메일", "거주지", "생일", "직업", "회사", "최종학력", "대학교"]
+  private let userInfo = ["휴대번호", "닉네임", "소개", "이메일", "거주지", "생일", "직업", "회사", "최종학력", "대학교"]
 
   override func loadView() {
     profileEditView = ProfileEditView()
@@ -61,8 +61,8 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
 
     // 입력 필드와 Observable 생성
 
-    let nicknameText = profileEditView.nickNameTextField.rx.text.orEmpty.asObservable()
-    let shortDescriptionText = profileEditView.introduceTextField.rx.text.orEmpty.asObservable()
+//    let nicknameText = profileEditView.nickNameTextField.rx.text.orEmpty.asObservable()
+//    let shortDescriptionText = profileEditView.introduceTextField.rx.text.orEmpty.asObservable()
 
     // 사용자 정보 텍스트 필드 Observable 생성
     let userInfoTexts = Observable.just(userInfo).map { userInfo in
@@ -79,8 +79,8 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
 
     // "저장" 버튼 탭 이벤트 처리
     saveTap
-      .withLatestFrom(Observable.combineLatest( nicknameText, shortDescriptionText, userInfoTexts, profileImageObservable))
-      .subscribe(onNext: { [weak self] ( nickname, shortDescription, userDetails, profileImageUrl) in
+      .withLatestFrom(Observable.combineLatest( userInfoTexts, profileImageObservable))
+      .subscribe(onNext: { [weak self] ( userDetails, profileImageUrl) in
         guard let self = self else { return }
         self.saveUserData()  // 저장 메서드 호출
         self.navigateToProfileController()  // ProfileController로 이동
@@ -101,8 +101,8 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     let input = ProfileEditViewModel.Input(
       saveTap: navigationItem.rightBarButtonItem!.rx.tap.asObservable(),
 
-      nicknameText: profileEditView.nickNameTextField.rx.text.orEmpty.asObservable(),
-      shortDescriptionText: profileEditView.introduceTextField.rx.text.orEmpty.asObservable(),
+//      nicknameText: profileEditView.nickNameTextField.rx.text.orEmpty.asObservable(),
+//      shortDescriptionText: profileEditView.introduceTextField.rx.text.orEmpty.asObservable(),
       userInfoTexts: Observable.just(userInfo).map { userInfo in
         userInfo.reduce(into: [String: String]()) { result, field in
           if let rowIndex = userInfo.firstIndex(of: field),
@@ -123,14 +123,15 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
       .subscribe(onNext: { [weak self] profile in
         guard let self = self else { return }
         self.profileEditView.nameTextField.text = profile.name
-        self.profileEditView.nickNameTextField.text = profile.nickName
-        self.profileEditView.introduceTextField.text = profile.shortDescription
+          //        self.profileEditView.nickNameTextField.text = profile.nickName
+//        self.profileEditView.introduceTextField.text = profile.shortDescription
         self.profileEditView.profileImageView.loadImage(from: profile.profileImage)
 
         // TableView 데이터 업데이트
         let userDetails = [
-          profile.name,
           profile.phoneNumber,
+          profile.nickName,
+          profile.shortDescription,
           profile.email,
           profile.location,
           profile.birth,
@@ -203,8 +204,8 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
           guard let self = self else { return }
 
           // 입력된 사용자 정보로 업데이트ㄱ
-          let nickname = self.profileEditView.nickNameTextField.text ?? ""
-          let shortDescription = self.profileEditView.introduceTextField.text ?? ""
+//          let nickname = self.profileEditView.nickNameTextField.text ?? ""
+//          let shortDescription = self.profileEditView.introduceTextField.text ?? ""
           let name = UserDefaults.standard.string(forKey: "userName") ?? ""
           var userDetails: [String: String] = [:]
           for (index, key) in self.userInfo.enumerated() {
@@ -222,9 +223,9 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
             location: userDetails["거주지"] ?? existingUser.info.location,
             name:name,
             phoneNumber: userDetails["휴대번호"] ?? existingUser.info.phoneNumber,
-            shortDescription: shortDescription,
+            shortDescription: userDetails["소개"] ?? existingUser.info.shortDescription,
             profileImage: self.profileImageUrl,
-            nickName: nickname,
+            nickName: userDetails["닉네임"] ?? existingUser.info.nickName,
             birth: userDetails["생일"] ?? existingUser.info.birth,
             university: userDetails["대학교"] ?? existingUser.info.university,
             companyName: userDetails["회사"] ?? existingUser.info.companyName
