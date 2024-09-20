@@ -75,6 +75,8 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     }
 
     // 프로필 이미지 Observable 생성
+//    UserDefaults.standard.set(profileImageUrl, forKey: "userImage")
+//    print(profileImageUrl)
     let profileImageObservable = Observable.just(profileImageUrl)
 
     // "저장" 버튼 탭 이벤트 처리
@@ -176,20 +178,24 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     metaData.contentType = "image/jpeg"
 
     storage.reference().child(filePath).putData(imageData, metadata: metaData) { [weak self] metaData, error in
+      guard let self else { return }
       if let error = error {
         print("Error uploading image: \(error.localizedDescription)")
         return
       }
 
       print("Image successfully uploaded to Firebase Storage!")
-      self?.storage.reference().child(filePath).downloadURL { url, error in
+      self.storage.reference().child(filePath).downloadURL { [weak self] url, error in
+        guard let self else { return }
         if let error = error {
           print("Error fetching download URL: \(error.localizedDescription)")
           return
         }
+        UserDefaults.standard.setValue(self.profileImageUrl, forKey: "userImage")
+        print(profileImageUrl)
         guard let downloadUrl = url else { return }
-        self?.profileImageUrl = downloadUrl.absoluteString
-        print("Download URL: \(self?.profileImageUrl ?? "")")
+        self.profileImageUrl = downloadUrl.absoluteString
+        print("Download URL: \(self.profileImageUrl)")
       }
     }
   }
