@@ -12,6 +12,8 @@ import Then
 
 class RequiredInformationView: BaseView {
   
+  private let scrollView = UIScrollView()
+  
   private let descriptionLabel = UILabel().then {
     $0.text = "서로를 알아볼 수 있는 정보를 입력해주세요."
     $0.numberOfLines = 2
@@ -121,10 +123,15 @@ class RequiredInformationView: BaseView {
       shortDescriptionLabel,
       shortDescriptionTextField,
       joinButton
-    ].forEach { self.addSubview($0) }
+    ].forEach { scrollView.addSubview($0) }
+    self.addSubview(scrollView)
   }
   
   override func setConstraints() {
+    scrollView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+    
     descriptionLabel.snp.makeConstraints {
       $0.top.equalToSuperview().offset(116)
       $0.leading.equalToSuperview().inset(28)
@@ -138,7 +145,7 @@ class RequiredInformationView: BaseView {
     
     nameTextField.snp.makeConstraints {
       $0.top.equalTo(nameLabel.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview().inset(25)
+      $0.leading.trailing.equalTo(self).inset(25)
       $0.height.equalTo(62)
     }
     
@@ -149,7 +156,7 @@ class RequiredInformationView: BaseView {
     
     nickNameTextField.snp.makeConstraints {
       $0.top.equalTo(nickNameLabel.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview().inset(25)
+      $0.leading.trailing.equalTo(nameTextField)
       $0.height.equalTo(62)
     }
     
@@ -160,19 +167,20 @@ class RequiredInformationView: BaseView {
     
     shortDescriptionLabel.snp.makeConstraints {
       $0.top.equalTo(duplicateCheckLabel.snp.bottom).offset(32)
-      $0.leading.trailing.equalToSuperview().inset(25)
+      $0.leading.trailing.equalTo(nameTextField)
     }
     
     shortDescriptionTextField.snp.makeConstraints {
       $0.top.equalTo(shortDescriptionLabel.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview().inset(25)
+      $0.leading.trailing.equalTo(nameTextField)
       $0.height.equalTo(62)
     }
     
     joinButton.snp.makeConstraints {
-      $0.bottom.equalToSuperview().inset(74)
-      $0.leading.trailing.equalToSuperview().inset(16)
+      $0.top.equalTo(shortDescriptionTextField.snp.bottom).offset(32)
+      $0.leading.trailing.equalTo(nameTextField)
       $0.height.equalTo(56)
+      $0.bottom.equalToSuperview().offset(-30)
     }
   }
 }
