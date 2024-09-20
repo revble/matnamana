@@ -59,11 +59,11 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
         })
         .disposed(by: disposeBag)
 
-      output.userAge
-        .drive(onNext: { [weak self] age in
-          self?.profileView.ageLabel.text = "(나이: \(age)세)"
-        })
-        .disposed(by: disposeBag)
+//      output.userAge
+//        .drive(onNext: { [weak self] age in
+//          self?.profileView.ageLabel.text = "(나이: \(age)세)"
+//        })
+//        .disposed(by: disposeBag)
     }
 
 
