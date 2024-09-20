@@ -10,7 +10,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-class FriendListController: BaseViewController {
+class FriendListController: BaseViewController, UISearchBarDelegate {
   
   private let viewModel = FriendListViewModel()
   var friendListView = FriendListView(frame: .zero)
@@ -144,5 +144,9 @@ class FriendListController: BaseViewController {
         self.present(alert, animated: true)
       })
       .disposed(by: disposeBag)
+  }
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+      searchBar.resignFirstResponder()
   }
 }
