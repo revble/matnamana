@@ -4,7 +4,6 @@
 //
 //  Created by pc on 9/2/24.
 //
-
 import RxDataSources
 
 enum Section: Int, CaseIterable {
@@ -22,15 +21,18 @@ enum Section: Int, CaseIterable {
 }
 
 struct Item {
-    let userNickName: String
-    let profileImageUrl: String
-
-    init(userNickName: String, profileImageUrl: String) {
-        self.userNickName = userNickName
-        self.profileImageUrl = profileImageUrl
-    }
+  let userNickName: String
+  let profileImageUrl: String
+  let requesterId: String
+  let targetId: String
+  
+  init(userNickName: String, profileImageUrl: String, requesterId: String, targetId: String) {
+    self.userNickName = userNickName
+    self.profileImageUrl = profileImageUrl
+    self.requesterId = requesterId
+    self.targetId = targetId
+  }
 }
-
 
 struct FriendsSection {
   var header: String
@@ -41,6 +43,20 @@ extension FriendsSection: SectionModelType {
   typealias Item = User.Friend
   
   init(original: FriendsSection, items: [User.Friend]) {
+    self = original
+    self.items = items
+  }
+}
+
+struct PresetSection {
+  var header: String
+  var items: [Item]
+}
+
+extension PresetSection: SectionModelType {
+  typealias Item = String  // Item을 String으로 설정 (필요시 다른 타입 사용 가능)
+  
+  init(original: PresetSection, items: [Item]) {
     self = original
     self.items = items
   }

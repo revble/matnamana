@@ -3,6 +3,7 @@
 //  matnamana
 //
 //  Created by 이진규 on 9/2/24.
+
 import UIKit
 
 import SnapKit
@@ -12,7 +13,7 @@ import RxKeyboard
 import FirebaseStorage
 
 final class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate,
-                                 UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+                                       UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   // MARK: - UI Components
   private var profileEditView = ProfileEditView()
@@ -43,13 +44,9 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
   }
   
   override func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
-    // 키보드 높이에 따라 tableView의 bottomInset을 조정
-    UIView.animate(withDuration: 0.3) {
-      let inset = keyboardHeight > 0 ? keyboardHeight : 0
-      self.profileEditView.tableView.contentInset.bottom = inset
-      self.profileEditView.tableView.scrollIndicatorInsets.bottom = inset
-    }
+    super.adjustForKeyboardHeight(keyboardHeight)
   }
+  
   
   // MARK: - Setup Methods
   
@@ -85,7 +82,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
       .withLatestFrom(Observable.combineLatest(nameText, nicknameText, shortDescriptionText, userInfoTexts, profileImageObservable))
       .subscribe(onNext: { [weak self] (name, nickname, shortDescription, userDetails, profileImageUrl) in
         guard let self = self else { return }
-        self.saveUserData()
+        self.saveUserData()  // 저장 메서드 호출
         self.navigateToProfileController()  // ProfileController로 이동
       }).disposed(by: disposeBag)
   }
@@ -189,34 +186,53 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
   // MARK: - Save User Data
   
   private func saveUserData() {
-    let name = profileEditView.nameTextField.text ?? ""
-    let nickname = profileEditView.nickNameTextField.text ?? ""
-    let shortDescription = profileEditView.introduceTextField.text ?? ""
-    
-    var userDetails: [String: String] = [:]
-    for (index, key) in userInfo.enumerated() {
-      if let cell = profileEditView.tableView.cellForRow(at: IndexPath(row: index, section: 0)),
-         let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
-        userDetails[key] = textField.text ?? ""
-      }
-    }
     guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
-    let info = User(info: User.Info(
-      career: userDetails["직업"] ?? "",
-      education: userDetails["최종학력"] ?? "",
-      email: userDetails["이메일"] ?? "",
-      location: userDetails["거주지"] ?? "",
-      name: name,
-      phoneNumber: userDetails["휴대번호"] ?? "",
-      shortDescription: shortDescription,
-      profileImage: profileImageUrl,
-      nickName: nickname,
-      birth: userDetails["생일"] ?? "",
-      university: userDetails["대학교"] ?? "",
-      companyName:userDetails["회사"] ?? ""
-    ), preset: [], friendList: [], userId: id)
     
-    FirebaseManager.shared.addData(to: .user, data: info, documentId: id)
+    // 기존 사용자 데이터 불러오기
+    viewModel.fetchProfileData()
+      .subscribe(onNext: { [weak self] existingUser in
+        guard let self = self else { return }
+        
+        // 입력된 사용자 정보로 업데이트ㄱ
+        let name = self.profileEditView.nameTextField.text ?? ""
+        let nickname = self.profileEditView.nickNameTextField.text ?? ""
+        let shortDescription = self.profileEditView.introduceTextField.text ?? ""
+        
+        var userDetails: [String: String] = [:]
+        for (index, key) in self.userInfo.enumerated() {
+          if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: index, section: 0)),
+             let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
+            userDetails[key] = textField.text ?? ""
+          }
+        }
+        
+        // 기존 preset과 friendList를 유지하며 새로운 사용자 정보 생성
+        let updatedInfo = User.Info(
+          career: userDetails["직업"] ?? existingUser.info.career,
+          education: userDetails["최종학력"] ?? existingUser.info.education,
+          email: userDetails["이메일"] ?? existingUser.info.email,
+          location: userDetails["거주지"] ?? existingUser.info.location,
+          name: name,
+          phoneNumber: userDetails["휴대번호"] ?? existingUser.info.phoneNumber,
+          shortDescription: shortDescription,
+          profileImage: self.profileImageUrl,
+          nickName: nickname,
+          birth: userDetails["생일"] ?? existingUser.info.birth,
+          university: userDetails["대학교"] ?? existingUser.info.university,
+          companyName: userDetails["회사"] ?? existingUser.info.companyName
+        )
+        
+        let updatedUser = User(info: updatedInfo, preset: existingUser.preset, friendList: existingUser.friendList, userId: existingUser.userId)
+        
+        self.viewModel.saveUserData(user: updatedUser)
+          .subscribe(onNext: { success in
+            if success {
+              print("User data saved successfully")
+            } else {
+              print("Failed to save user data")
+            }
+          }).disposed(by: self.disposeBag)
+      }).disposed(by: disposeBag)
   }
   
   // MARK: - UITableViewDataSource Methods
@@ -245,7 +261,6 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     }
     return cell
   }
-  
   
   // MARK: - 네비게이션 메서드 추가
   

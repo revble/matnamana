@@ -1,14 +1,8 @@
-////
-////  ReferenceCheckController.swift
-////  matnamana
-////
-////  Created by 김윤홍 on 9/6/24.
-////
 //
-//import UIKit
+//  ReferenceCheckController.swift
+//  matnamana
 //
-//import RxCocoa
-//import RxSwift
+//  Created by 김윤홍 on 9/6/24.
 //
 
 import UIKit
@@ -21,9 +15,14 @@ final class ReferenceCheckController: BaseViewController {
   private var referenceView = ReferenceView(frame: .zero)
   private var viewModel = ReferenceViewModel()
   private var targetID: String
+  private var questions: [String]
+  private var presetTitle: String
+  private var mannamQuestion = [QuestionList(answer: ["" : ""], contentDescription: "")]
   
-  init(targetId: String) {
+  init(targetId: String, questions: [String], presetTitle: String) {
     self.targetID = targetId
+    self.questions = questions
+    self.presetTitle = presetTitle
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -32,61 +31,82 @@ final class ReferenceCheckController: BaseViewController {
   }
   
   var request = ReputationRequest(
-    requestId: "",
-    requesterId: "",
-    targetId: "",
-    questionList: [Question.Content](),
+    requester: UserProfile(nickName: "",
+                           profileImage: "",
+                           userId: ""),
+    target: UserProfile(nickName: "",
+                        profileImage: "",
+                        userId: ""),
+    questionList: [],
     status: .pending,
-    selectedFriends: []
+    selectedFriends: [],
+    selectedFriendsUserIds: []
   )
   
   override func setupView() {
     super.setupView()
     referenceView = ReferenceView(frame: UIScreen.main.bounds)
     self.view = referenceView
+    
+    referenceView.customTable.delegate = self
+    referenceView.customTable.dataSource = self
+    referenceView.questionTitle.text = presetTitle
   }
   
   override func bind() {
     super.bind()
-    let input = ReferenceViewModel.Input(fetchQuestions: Observable.just(()),
-                                         buttonInput: referenceView.sendButton.rx.tap)
-    let output = viewModel.transform(input: input)
     
     referenceView.sendButton.rx.tap
       .subscribe({ [weak self] _ in
         guard let self else { return }
-        
-        FirebaseManager.shared.addData(to: .reputationRequest,
-                                       data: request,
-                                       documentId: request.requestId
-        )
         let alert = UIAlertController(title: "평판조회가 신청되었습니다.", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
           self.navigationController?.popToRootViewController(animated: true)
         }))
         self.present(alert, animated: true)
-      }).disposed(by: disposeBag)
     
-    output.questionList
-      .drive(onNext: { [weak self] question in
-        guard let self else { return }
-        for (index, content) in question.enumerated() {
-          if index < self.referenceView.questions.count {
-            self.referenceView.questions[index].text = content.contentDescription
-          }
-        }
-        
         guard let requestId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
-        
-        request = ReputationRequest(
-          requestId: requestId,
-          requesterId: requestId,
-          targetId: targetID,
-          questionList: question,
-          status: .pending,
-          selectedFriends: []
-        )
-      })
-      .disposed(by: disposeBag)
+        guard let userNickName = UserDefaults.standard.string(forKey: "userNickName") else { return }
+        guard let userImage = UserDefaults.standard.string(forKey: "userImage") else { return }
+        FirebaseManager.shared.getUserInfo(nickName: targetID) { [weak self] snapShot, error in
+          guard let snapShot = snapShot else { return }
+          guard let self else { return }
+          
+//          for question in self.questions {
+//              let newQuestion = QuestionList(answer: ["a": "b"], contentDescription: question)
+//              mannamQuestion.append(newQuestion)
+//          }
+          let newQuestion = questions.map {
+            QuestionList(answer: nil, contentDescription: $0)
+          }
+          self.request = ReputationRequest(
+            requester: UserProfile(nickName: userNickName, profileImage: userImage, userId: requestId),
+            target: UserProfile(nickName: snapShot.info.nickName, profileImage: "targetImage", userId: snapShot.userId),
+            questionList: newQuestion,
+            status: .pending,
+            selectedFriends: [UserProfile(nickName: userNickName, profileImage: userImage, userId: requestId)],
+            selectedFriendsUserIds: [requestId]
+          )
+          print(self.request)
+          FirebaseManager.shared.addData(to: .reputationRequest,
+                                         data: request,
+                                         documentId: requestId + "-" + snapShot.userId
+          )
+        }
+      }).disposed(by: disposeBag)
+  }
+}
+
+extension ReferenceCheckController: UITableViewDelegate, UITableViewDataSource {
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = referenceView.customTable.dequeueReusableCell(withIdentifier: String(describing: ReputationListCell.self), for: indexPath) as? ReputationListCell else { return UITableViewCell() }
+    cell.configure(text: self.questions[indexPath.row])
+    print(self.questions[indexPath.row])
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 5
   }
 }

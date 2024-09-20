@@ -14,7 +14,9 @@ final class ReceivedRequestCell: UICollectionViewCell {
   ///String(describing: )
   static let id = "ReceivedRequestViewCell"
   
-  var name: String?
+  var requesterId = ""
+  var targetId = ""
+  
   
   private let imageView = UIImageView().then {
     $0.image = UIImage()
@@ -57,8 +59,6 @@ final class ReceivedRequestCell: UICollectionViewCell {
   }
   
   private func configureUI() {
-    self.backgroundColor = .manaPink
-    self.layer.cornerRadius = 10
     setupShadow()
     [
       acceptButton,
@@ -94,12 +94,12 @@ final class ReceivedRequestCell: UICollectionViewCell {
     }
   }
   
-  func configure(imageUrl: String, name: String) {
+  func configure(imageUrl: String, name: String, requester: String, target: String) {
     if let url = URL(string: imageUrl) {
       imageView.kf.setImage(with: url)
     }
-    nameLabel.text = "\(name) -> 나"
-    self.name = name
+    nameLabel.text = "\(name)"
+    requesterId = requester
+    targetId = target
   }
-  
 }

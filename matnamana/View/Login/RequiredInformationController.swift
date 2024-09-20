@@ -49,7 +49,8 @@ final class RequiredInformationController: BaseViewController {
           self.alertMessage()
           self.requiredInfoViewModel.makeUserInformation(
             name: self.requiredInformationView.pickName(),
-            nickName: self.requiredInformationView.pickNickname()) { user in
+            nickName: self.requiredInformationView.pickNickname(),
+            shortDescription: self.requiredInformationView.pickShortDescription()) { user in
               self.requiredInfoViewModel.saveLoginState(userId: user.userId)
             }
         }

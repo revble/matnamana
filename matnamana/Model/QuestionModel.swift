@@ -25,8 +25,15 @@ extension Question {
 //    case values
 //  }
 //}
+
+enum QuestionType: String {
+  case couple = "연애 질문"
+  case simpleMannam = "느슨한 만남"
+  case bussiness = "비즈니스"
+}
+
 enum DocumentTranslation: String {
-  case iceBreaking = "IceBreaking"
+  case iceBreaking = "iceBreaking"
   case bestFriend = "BestFriend"
   case bestFamily = "BestFamily"
   case bestMeeting = "BestMeeting"
@@ -35,7 +42,7 @@ enum DocumentTranslation: String {
   var koreanTranslation: String {
     switch self {
     case .iceBreaking:
-      return "아이스 브레이킹 질문"
+      return "느슨한 만남 질문"
     case .bestFriend:
       return "Best 친구 질문"
     case .bestFamily:

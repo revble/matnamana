@@ -16,6 +16,7 @@ final class FriendListViewModel: ViewModelType {
     let fetchFriends: Observable<Void>
     let searchText: Observable<String>
     let acceptTap: Observable<User.Friend>
+    let rejectTap: Observable<User.Friend>
   }
   
   struct Output {
@@ -27,10 +28,10 @@ final class FriendListViewModel: ViewModelType {
   private var friends = BehaviorRelay<[User.Friend]>(value: [])
   var disposeBag = DisposeBag()
   private var fetchFriendsSubject = PublishSubject<Void>()
-
-    func fetchFriends() {
-      fetchFriendsSubject.onNext(())
-    }
+  
+  func fetchFriends() {
+    fetchFriendsSubject.onNext(())
+  }
   
   func fetchFriendList() -> Observable<[User.Friend]> {
     guard let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
@@ -77,11 +78,11 @@ final class FriendListViewModel: ViewModelType {
       .flatMapLatest { [weak self] friend -> Observable<Void> in
         guard let self = self else { return .empty() }
         guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
-
+        
         var updatedFriends = self.friends.value
         if let index = updatedFriends.firstIndex(where: { $0.friendId == friend.friendId }) {
           updatedFriends[index].status = .accepted
-
+          
           return Observable<Void>.create { observer in
             FirebaseManager.shared.updateFriendList(userId: id, newFriendList: updatedFriends, friendId: friend.friendId) { success, error in
               if let error = error {
@@ -106,7 +107,42 @@ final class FriendListViewModel: ViewModelType {
         self.friends.accept(updatedFriends)
       })
       .disposed(by: disposeBag)
-
+    
+    input.rejectTap
+      .flatMapLatest { [weak self] friend -> Observable<Void> in
+        guard let self = self else { return .empty() }
+        guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else { return .empty() }
+        
+        var updatedFriends = self.friends.value
+        
+        if let index = updatedFriends.firstIndex(where: { $0.friendId == friend.friendId }) {
+          updatedFriends[index].status = .rejected
+          
+          return Observable<Void>.create { observer in
+            FirebaseManager.shared.deleteFriendList(userId: id, newFriendList: updatedFriends, friendId: friend.friendId) { success, error in
+              if let error = error {
+                observer.onError(error)
+              } else {
+                observer.onNext(())
+                observer.onCompleted()
+              }
+            }
+            return Disposables.create()
+          }
+        } else {
+          return .empty()
+        }
+      }
+      .flatMapLatest { [weak self] _ -> Observable<[User.Friend]> in
+        guard let self = self else { return .just([]) }
+        return self.fetchFriendList() // 변경된 친구 리스트를 다시 불러옴
+      }
+      .subscribe(onNext: { [weak self] updatedFriends in
+        guard let self = self else { return }
+        self.friends.accept(updatedFriends) // 업데이트된 친구 리스트 반영
+      })
+      .disposed(by: disposeBag)
+    
     let friendList = friends
       .map { friends -> [FriendsSection] in
         guard let id = UserDefaults.standard.string(forKey: "loggedInUserId"),

@@ -8,9 +8,15 @@
 struct ReputationRequest: Codable {
   let requester: UserProfile?
   let target: UserProfile?
-  let questionList: [Question.Content]?
+  let questionList: [QuestionList]
   let status: RequestStatus?
   let selectedFriends: [UserProfile]?
+  let selectedFriendsUserIds: [String]?
+}
+
+struct QuestionList: Codable {
+  let answer: [String : String]?
+  let contentDescription: String
 }
 
 extension ReputationRequest {

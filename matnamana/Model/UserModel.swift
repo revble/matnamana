@@ -31,7 +31,7 @@ extension User {
   
   struct PresetQuestion: Codable {
     let presetTitle: String
-    let indice: [Int]
+    let presetQuestion: [String]
   }
   
   struct Friend: Codable {
@@ -54,5 +54,6 @@ extension User.Friend {
   enum StatusType: String, Codable {
     case pending
     case accepted
+    case rejected
   }
 }

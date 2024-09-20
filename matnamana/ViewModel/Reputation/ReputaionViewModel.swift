@@ -7,9 +7,6 @@
 
 import Foundation
 
-import FirebaseCore
-import FirebaseFirestore
-import Kingfisher
 import RxCocoa
 import RxSwift
 
@@ -22,11 +19,11 @@ final class ReputationViewModel: ViewModelType {
   struct Output {
     let fetchTrigger: Observable<Void>
   }
-  private let db = FirebaseManager.shared.db
   
-  var friendReputationDataRelay = BehaviorRelay(value: [(String, String)]())
-  var myRequestedReputationDataRelay = BehaviorRelay(value: [(String, String)]())
-  var receivedReputationDataRelay = BehaviorRelay(value: [(String, String)]())
+  var friendReputationDataRelay = BehaviorRelay(value: [(String, String, String, String)]())
+  var myRequestedReputationDataRelay = BehaviorRelay(value: [(String, String, String, String)]())
+  var receivedReputationDataRelay = BehaviorRelay(value: [(String, String, String, String)]())
+  
   
   func fetchReputationInfo() {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
@@ -36,32 +33,37 @@ final class ReputationViewModel: ViewModelType {
       }
       guard let reputationRequests else { return }
       
-      var friendReputationData: [(String, String)] = []
-      var myRequestedReputationData: [(String, String)] = []
-      var receivedReputationData: [(String, String)] = []
+      var friendReputationData: [(String, String, String, String)] = []
+      var myRequestedReputationData: [(String, String, String, String)] = []
+      var receivedReputationData: [(String, String, String, String)] = []
 
       for reputationRequest in reputationRequests {
         
         guard let target = reputationRequest.target,
               let requester = reputationRequest.requester,
-              let selectedFriends = reputationRequest.selectedFriends else { return }
+              let selectedFriends = reputationRequest.selectedFriends
+        else { return }
+        
+        let requesterId = requester.userId ?? ""
+        let targetId = target.userId ?? ""
         
         if userId == target.userId {
           let profileImage = requester.profileImage ?? ""
           let nickName = requester.nickName ?? ""
-          receivedReputationData.append((profileImage, nickName))
+          receivedReputationData.append((profileImage, nickName, requesterId, targetId))
         }
         
         if userId == requester.userId {
           let profileImage = target.profileImage ?? ""
           let nickName = target.nickName ?? ""
-          myRequestedReputationData.append((profileImage, nickName))
+          myRequestedReputationData.append((profileImage, nickName, requesterId, targetId))
         }
         
         if selectedFriends.contains(where: { $0.userId == userId }) {
           let profileImage = target.profileImage ?? ""
           let nickName = target.nickName ?? ""
-          friendReputationData.append((profileImage, nickName))
+          
+          friendReputationData.append((profileImage, nickName, requesterId, targetId))
         }
 
         self.friendReputationDataRelay.accept(friendReputationData)

@@ -31,6 +31,11 @@ final class AddFriendViewController: BaseViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    view.backgroundColor = .gray
+  }
+  
   override func setupView() {
     super.setupView()
     addFriendView = AddFriendView(frame: UIScreen.main.bounds)
@@ -50,9 +55,12 @@ final class AddFriendViewController: BaseViewController {
         guard let self else { return }
         self.friendType = "family"
         self.status = "pending"
-        addFriendView.familyButton.backgroundColor = .green
-        addFriendView.friendButton.backgroundColor = .manaPink
-        addFriendView.colleagueButton.backgroundColor = .manaMint
+        addFriendView.familyButton.backgroundColor = .manatextColor
+        addFriendView.familyButton.setTitleColor(.white, for: .normal)
+        addFriendView.friendButton.backgroundColor = .white
+        addFriendView.colleagueButton.backgroundColor = .white
+        addFriendView.colleagueButton.setTitleColor(.manatextColor, for: .normal)
+        addFriendView.friendButton.setTitleColor(.manatextColor, for: .normal)
       }).disposed(by: disposeBag)
     
     addFriendView.friendButton.rx.tap
@@ -60,9 +68,12 @@ final class AddFriendViewController: BaseViewController {
         guard let self else { return }
         self.friendType = "friend"
         self.status = "pending"
-        addFriendView.familyButton.backgroundColor = .manaGreen
-        addFriendView.friendButton.backgroundColor = .systemPink
-        addFriendView.colleagueButton.backgroundColor = .manaMint
+        addFriendView.familyButton.backgroundColor = .white
+        addFriendView.friendButton.setTitleColor(.white, for: .normal)
+        addFriendView.friendButton.backgroundColor = .manatextColor
+        addFriendView.colleagueButton.backgroundColor = .white
+        addFriendView.colleagueButton.setTitleColor(.manatextColor, for: .normal)
+        addFriendView.familyButton.setTitleColor(.manatextColor, for: .normal)
       }).disposed(by: disposeBag)
     
     addFriendView.colleagueButton.rx.tap
@@ -70,9 +81,13 @@ final class AddFriendViewController: BaseViewController {
         guard let self else { return }
         self.friendType = "colleague"
         self.status = "pending"
-        addFriendView.familyButton.backgroundColor = .manaGreen
-        addFriendView.friendButton.backgroundColor = .manaPink
-        addFriendView.colleagueButton.backgroundColor = .systemMint
+        addFriendView.familyButton.backgroundColor = .white
+        addFriendView.colleagueButton.setTitleColor(.white, for: .normal)
+        addFriendView.friendButton.backgroundColor = .white
+        addFriendView.colleagueButton.backgroundColor = .manatextColor
+        addFriendView.friendButton.setTitleColor(.manatextColor, for: .normal)
+        addFriendView.familyButton.setTitleColor(.manatextColor, for: .normal)
+
       }).disposed(by: disposeBag)
     
     addFriendView.sendButton.rx.tap

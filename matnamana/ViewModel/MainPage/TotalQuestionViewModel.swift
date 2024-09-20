@@ -5,8 +5,8 @@
 //  Created by 김윤홍 on 9/5/24.
 //
 
-import FirebaseCore
-import FirebaseFirestore
+//import FirebaseCore
+//import FirebaseFirestore
 import RxCocoa
 import RxSwift
 
@@ -14,6 +14,7 @@ final class TotalQuestionViewModel: ViewModelType {
   
   struct Input {
     let fetchQuestions: Observable<Void>
+    let selectedSegment: Observable<Int>
   }
   
   struct Output {
@@ -43,7 +44,24 @@ final class TotalQuestionViewModel: ViewModelType {
         guard let self = self else { return Observable.just([]) }
         return self.fetchQuestionList()
       }
+    
+    let filteredQuestion = Observable.combineLatest(questionList, input.selectedSegment) { questions, selectedIndex in
+      return questions.filter { question in
+        switch selectedIndex {
+        case 0:
+          return question.contentType == "fact"
+        case 1:
+          return question.contentType == "value"
+        case 2:
+          return question.contentType == "career"
+        default:
+          return false
+        }
+      }
+      
+    }
+      
       .asDriver(onErrorJustReturn: [])
-    return Output(questionList: questionList)
+    return Output(questionList: filteredQuestion)
   }
 }

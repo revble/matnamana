@@ -29,12 +29,14 @@ class FriendListController: BaseViewController {
   override func bind() {
     super.bind()
     let acceptTapSubject = PublishSubject<User.Friend>()
+    let rejectTapSubject = PublishSubject<User.Friend>()
     let input = FriendListViewModel.Input(
       fetchFriends: Observable.just(()),
       searchText: friendListView.searchBar.rx.searchButtonClicked
         .withLatestFrom(friendListView.searchBar.rx.text.orEmpty)
         .filter { !$0.isEmpty },
-      acceptTap: acceptTapSubject.asObservable()
+      acceptTap: acceptTapSubject.asObservable(),
+      rejectTap: rejectTapSubject.asObservable()
     )
     
     let output = viewModel.transform(input: input)
@@ -66,9 +68,39 @@ class FriendListController: BaseViewController {
           cell.acceptButton.isHidden = false
           cell.refuseButton.isHidden = false
           cell.sendRequestLabel.isHidden = true
+          
           cell.acceptButton.rx.tap
             .map { friend }
             .bind(to: acceptTapSubject)
+            .disposed(by: self.disposeBag)
+          
+          cell.refuseButton.rx.tap
+            .flatMapLatest { [weak self] _ -> Observable<Bool> in
+              guard let self = self else { return .empty() }
+              
+              return Observable<Bool>.create { observer in
+                let alert = UIAlertController(title: "친구 요청 거절", message: "정말로 친구 요청을 거절하시겠습니까?", preferredStyle: .alert)
+                
+                let confirmAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+                  observer.onNext(true)
+                  observer.onCompleted()
+                }
+                
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+                  observer.onNext(false)
+                  observer.onCompleted()
+                }
+                
+                alert.addAction(confirmAction)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+                
+                return Disposables.create()
+              }
+            }
+            .filter { $0 }
+            .map { _ in friend }
+            .bind(to: rejectTapSubject)
             .disposed(by: self.disposeBag)
         } else {
           cell.acceptButton.isHidden = true
