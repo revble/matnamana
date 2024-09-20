@@ -24,6 +24,25 @@ final class RequiredInformationController: BaseViewController {
     self.view = requiredInformationView
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setupDismissKeyboardGesture()
+  }
+  
+//  override func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
+//    UIView.animate(withDuration: 0.3) {
+//      let inset = keyboardHeight > 0 ? keyboardHeight : 0
+//      // keyboardHeight가 0보다 클 때 뷰를 위로 이동
+//      if inset > 0 {
+//        // 키보드가 나타날 때 현재 뷰의 transform을 변경하여 올림
+//        self.view.transform = CGAffineTransform(translationX: 0, y: -200)
+//      } else {
+//        // 키보드가 사라질 때 transform 원래 상태로 복구
+//        self.view.transform = .identity
+//      }
+//    }
+//  }
+
   override func bind() {
     super.bind()
     bindJoinButton()
