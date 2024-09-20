@@ -11,6 +11,7 @@
 		4F1E88682C8E99B300F09A36 /* AcceptRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */; };
 		4F4877CD2C9C2A2E0060C1B7 /* QandACell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4877CC2C9C2A2E0060C1B7 /* QandACell.swift */; };
 		4F4877CF2C9C2D6B0060C1B7 /* ReadAnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4877CE2C9C2D6B0060C1B7 /* ReadAnswerViewModel.swift */; };
+		4F4877D12C9D359E0060C1B7 /* ReputationReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4877D02C9D359E0060C1B7 /* ReputationReviewView.swift */; };
 		4F4EDB262C958B9E00BFF74F /* ReadAnserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EDB252C958B9E00BFF74F /* ReadAnserController.swift */; };
 		4F4EDB282C958BA700BFF74F /* ReadAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EDB272C958BA700BFF74F /* ReadAnswerView.swift */; };
 		4F4EDB2A2C997DAA00BFF74F /* AnswerListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EDB292C997DAA00BFF74F /* AnswerListController.swift */; };
@@ -153,6 +154,7 @@
 		4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewModel.swift; sourceTree = "<group>"; };
 		4F4877CC2C9C2A2E0060C1B7 /* QandACell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QandACell.swift; sourceTree = "<group>"; };
 		4F4877CE2C9C2D6B0060C1B7 /* ReadAnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAnswerViewModel.swift; sourceTree = "<group>"; };
+		4F4877D02C9D359E0060C1B7 /* ReputationReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationReviewView.swift; sourceTree = "<group>"; };
 		4F4EDB252C958B9E00BFF74F /* ReadAnserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAnserController.swift; sourceTree = "<group>"; };
 		4F4EDB272C958BA700BFF74F /* ReadAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadAnswerView.swift; sourceTree = "<group>"; };
 		4F4EDB292C997DAA00BFF74F /* AnswerListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListController.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				4F4877CC2C9C2A2E0060C1B7 /* QandACell.swift */,
 				4F4EDB252C958B9E00BFF74F /* ReadAnserController.swift */,
 				4F4EDB272C958BA700BFF74F /* ReadAnswerView.swift */,
+				4F4877D02C9D359E0060C1B7 /* ReputationReviewView.swift */,
 			);
 			path = reply;
 			sourceTree = "<group>";
@@ -920,6 +923,7 @@
 				DA59CFEB2C9BAED80052D050 /* MyPageInfoController.swift in Sources */,
 				DD9470EE2C882F68009BF95E /* BaseViewController.swift in Sources */,
 				4F4877CD2C9C2A2E0060C1B7 /* QandACell.swift in Sources */,
+				4F4877D12C9D359E0060C1B7 /* ReputationReviewView.swift in Sources */,
 				DDCF93292C7E09ED005DB62F /* FriendListView.swift in Sources */,
 				DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */,
 				4F63D7212C8A8CF500B0F65C /* ReputaionController.swift in Sources */,

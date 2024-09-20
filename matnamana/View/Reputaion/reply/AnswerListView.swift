@@ -12,6 +12,12 @@ import SnapKit
 
 final class AnswerListView: BaseView {
   
+  let backgroundView = UIView().then {
+    $0.backgroundColor = .black.withAlphaComponent(0.5)
+    $0.isHidden = true
+  }
+  let reputationReview = ReputationReviewView()
+  
   private let descriptionLabel = UILabel().then {
     let imageAttachment = NSTextAttachment()
     let image = UIImage(systemName: "light.beacon.min")?.withTintColor(.orange, renderingMode:  .alwaysOriginal)
@@ -49,8 +55,10 @@ final class AnswerListView: BaseView {
     [
       descriptionLabel,
       tableView,
-      button
+      button,
+      backgroundView
     ].forEach { self.addSubview($0) }
+    backgroundView.addSubview(reputationReview)
   }
   
   override func setConstraints() {
@@ -76,6 +84,13 @@ final class AnswerListView: BaseView {
       $0.centerX.equalToSuperview()
     }
     
+    backgroundView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+    
+    reputationReview.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
   }
   
 }
