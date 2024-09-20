@@ -28,9 +28,9 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
     self.view = profileView
   }
   override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(animated)
-      bindProfileData()
+    super.viewDidAppear(animated)
 
+  }
     func bindProfileData(){
       let input = ProfileViewModel.Input(fetchProfile: Observable.just(()))
       let output = viewModel.transform(input: input)
@@ -64,7 +64,7 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
         })
         .disposed(by: disposeBag)
     }
-  }
+
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -72,7 +72,7 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
 
     profileView.tableView.dataSource = self
     profileView.tableView.delegate = self
-
+    bindProfileData()
 
   }
 

@@ -21,13 +21,11 @@ final class ProfileEditView: UIView {
     return imageView
   }()
 
-  let nameTextField: UITextField = {
-    let textField = UITextField()
-    textField.layer.borderWidth = 1.0
-    textField.layer.borderColor = UIColor.black.cgColor
-    textField.layer.cornerRadius = 5
-    textField.placeholder = "이름을 입력해주세요"
-    return textField
+  let nameTextField: UILabel = {
+    let uiLabel = UILabel()
+    uiLabel.text = "김민지"
+    uiLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+    return uiLabel
   }()
 
   let nickNameTextField: UITextField = {
@@ -91,7 +89,7 @@ final class ProfileEditView: UIView {
     nameTextField.snp.makeConstraints {
       $0.top.equalTo(profileImageView.snp.bottom).offset(20)
       $0.centerX.equalToSuperview()
-      $0.leading.trailing.equalToSuperview().inset(20)
+//      $0.leading.trailing.equalToSuperview().inset(20)
     }
 
     nickNameTextField.snp.makeConstraints {
