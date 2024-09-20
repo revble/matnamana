@@ -80,7 +80,7 @@ final class RequestMyQuestionController: BaseViewController {
     requestMyQuestion.myPresetQuestion.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
         guard let self else { return }
-        if presetTitles.isEmpty {
+        if presetTitles.count != 0 {
           let alert = UIAlertController(title: "알림", message: "저장된 preset질문이 없습니다.", preferredStyle: .alert)
           let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
           alert.addAction(okAction)
