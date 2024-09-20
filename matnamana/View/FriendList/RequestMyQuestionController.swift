@@ -80,12 +80,22 @@ final class RequestMyQuestionController: BaseViewController {
     requestMyQuestion.myPresetQuestion.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
         guard let self else { return }
-        let selectedPreset = self.presetQuestions[indexPath.row]
-        let selectedQuestions = selectedPreset.presetQuestion
-        let presetTitles = selectedPreset.presetTitle
-        let targetId = self.targetId
-        let referenceVC = ReferenceCheckController(targetId: targetId, questions: selectedQuestions, presetTitle: presetTitles)
-        self.navigationController?.pushViewController(referenceVC, animated: true)
+        if presetTitles.isEmpty {
+          let alert = UIAlertController(title: "알림", message: "저장된 preset질문이 없습니다.", preferredStyle: .alert)
+          let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+          alert.addAction(okAction)
+          self.present(alert, animated: true, completion: nil)
+          if let tabBarController = self.tabBarController {
+            tabBarController.selectedIndex = 0
+          }
+        } else {
+          let selectedPreset = self.presetQuestions[indexPath.row]
+          let selectedQuestions = selectedPreset.presetQuestion
+          let presetTitles = selectedPreset.presetTitle
+          let targetId = self.targetId
+          let referenceVC = ReferenceCheckController(targetId: targetId, questions: selectedQuestions, presetTitle: presetTitles)
+          self.navigationController?.pushViewController(referenceVC, animated: true)
+        }
       })
       .disposed(by: disposeBag)
   }

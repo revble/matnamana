@@ -84,8 +84,8 @@ final class ReferenceCheckController: BaseViewController {
             target: UserProfile(nickName: snapShot.info.nickName, profileImage: "targetImage", userId: snapShot.userId),
             questionList: newQuestion,
             status: .pending,
-            selectedFriends: [UserProfile(nickName: userNickName, profileImage: userImage, userId: requestId)],
-            selectedFriendsUserIds: [requestId]
+            selectedFriends: [UserProfile(nickName: "", profileImage: "", userId: "")],
+            selectedFriendsUserIds: [""]
           )
           print(self.request)
           FirebaseManager.shared.addData(to: .reputationRequest,

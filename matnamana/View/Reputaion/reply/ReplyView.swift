@@ -79,11 +79,10 @@ final class ReplyView: BaseView {
       $0.top.equalTo(titleLabel.snp.bottom).offset(68)
       $0.left.equalToSuperview().offset(30)
       $0.right.equalToSuperview().offset(-30)
-      $0.bottom.equalTo(sendButton.snp.top).offset(-30)
     }
     
     sendButton.snp.makeConstraints {
-      $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(150)
+      $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(80)
       $0.height.equalTo(40)
       $0.width.equalTo(200)
       $0.centerX.equalToSuperview()
