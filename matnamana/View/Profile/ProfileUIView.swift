@@ -37,13 +37,13 @@ class ProfileUIView: UIView {
     return label
   }()
   
-  let ageLabel: UILabel = {
-    let label = UILabel()
-    label.text = "나이: 00"
-    label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
-    label.textAlignment = .left
-    return label
-  }()
+//  let ageLabel: UILabel = {
+//    let label = UILabel()
+//    label.text = "나이: 00"
+//    label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+//    label.textAlignment = .left
+//    return label
+//  }()
   
   let nickNameLabel: UILabel = {
     let label = UILabel()
@@ -87,13 +87,13 @@ class ProfileUIView: UIView {
       tableView,
       nickNameLabel,
       introduceLabel,
-      ageLabel
+//      ageLabel
     ].forEach {
       addSubview($0)
     }
     [
       nameLabel,
-      ageLabel
+//      ageLabel
     ].forEach {
       nameAgeStackView.addArrangedSubview($0)
     }
