@@ -55,7 +55,7 @@ final class RequiredInfoViewModel {
         name: name,
         phoneNumber: "",
         shortDescription: shortDescription,
-        profileImage: "",
+        profileImage: "https://firebasestorage.googleapis.com/v0/b/matnamana-65c65.appspot.com/o/profile%20(1).png?alt=media&token=bcda4a76-95ff-4281-a4e1-b32f26a75bff",
         nickName: nickName,
         birth: "",
         university: "",
