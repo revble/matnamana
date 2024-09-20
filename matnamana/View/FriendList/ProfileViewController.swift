@@ -31,7 +31,7 @@ final class ProfileViewController: BaseViewController {
     profileView = ProfileView(frame: UIScreen.main.bounds)
     self.view = profileView
   }
-
+  
   override func bind() {
     super.bind()
     buttonClicked()
@@ -79,11 +79,8 @@ final class ProfileViewController: BaseViewController {
     profileView.requestReference.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
-        
-        self.navigationController?.pushViewController(
-          ReferenceCheckController(targetId: self.userInfo),
-          animated: true
-        )
+        let targetId = self.userInfo
+        self.navigationController?.pushViewController(RequestMyQuestionController(targetId: targetId), animated: true)
       }).disposed(by: disposeBag)
   }
 }

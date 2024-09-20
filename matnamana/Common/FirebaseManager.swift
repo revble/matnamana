@@ -103,6 +103,33 @@ final class FirebaseManager {
     }
   }
   
+  func listenToPresetList(documentId: String, completion: @escaping ([User.PresetQuestion]?, Error?) -> Void) -> ListenerRegistration {
+    let docRef = db.collection("users").document(documentId).collection("presetQuestions")
+    
+    // Firestore 리스너 추가
+    let listener = docRef.addSnapshotListener { snapshot, error in
+      if let error = error {
+        completion(nil, error)
+        return
+      }
+      
+      guard let documents = snapshot?.documents else {
+        completion([], nil)
+        return
+      }
+      
+      // Firestore 문서 데이터를 PresetQuestion 모델로 변환
+      let questions = documents.compactMap { doc -> User.PresetQuestion? in
+        try? doc.data(as: User.PresetQuestion.self) // Codable을 준수하는 경우
+      }
+      
+      // 변경된 데이터를 반환
+      completion(questions, nil)
+    }
+    
+    return listener
+  }
+  
   func readUser(documentId: String, completion: @escaping (User?, Error?) -> Void) {
     db.collection("users").document(documentId).getDocument { (documentSnapshot, error) in
       guard let document = documentSnapshot, document.exists, error == nil else {

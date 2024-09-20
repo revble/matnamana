@@ -37,9 +37,9 @@ final class ReplyViewModel {
         guard let questionList = reputationRequest.questionList else { return }
         
         for question in questionList {
-          let contentDescription = String(question.contentDescription)
+//          let contentDescription = String(question.contentDescription)
           
-          questionData.append(contentDescription)
+         /* questionData.append(contentDescription*///)
           
         }
       }

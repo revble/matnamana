@@ -24,7 +24,7 @@ final class ReadAnswerViewModel {
         do {
           if let reputation = try documentSnapshot?.data(as: ReputationRequest.self) {
             guard let qandaList = reputation.questionList else { return }
-            self.questionListRelay.accept(qandaList)
+//            self.questionListRelay.accept(qandaList)
           }
         } catch {
           print(error)

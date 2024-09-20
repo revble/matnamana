@@ -12,17 +12,22 @@ import Then
 
 final class ReferenceView: BaseView {
   
-  private let titleLabel = UILabel().then {
-    $0.text = "Best 질문"
+  let questionTitle = UITextField().then {
+    $0.text = ""
+    $0.textColor = .black
     $0.font = .boldSystemFont(ofSize: 28)
+    $0.textAlignment = .center
+    $0.borderStyle = .none
   }
   
-  let questions: [UILabel] = (0..<5).map { _ in
-    UILabel().then {
-      $0.text = "질문"
-      $0.textAlignment = .center
-      $0.numberOfLines = 0
-    }
+  let customTable = UITableView().then {
+    $0.register(ReputationListCell.self, forCellReuseIdentifier: String(describing: ReputationListCell.self))
+    $0.rowHeight = 80
+    $0.separatorStyle = .none
+  }
+  
+  let bottomBorder = UIView().then {
+    $0.backgroundColor = .lightGray
   }
   
   let sendButton = UIButton().then {
@@ -31,41 +36,41 @@ final class ReferenceView: BaseView {
     $0.layer.cornerRadius = 16
   }
   
-  private let questionStackView = UIStackView().then {
-    $0.axis = .vertical
-    $0.distribution = .fillEqually
-    $0.spacing = 10
-  }
-  
   override func configureUI() {
     super.configureUI()
+    [bottomBorder].forEach { questionTitle.addSubview($0) }
     [
-      titleLabel,
-      questionStackView,
+      questionTitle,
+      customTable,
       sendButton
     ].forEach { self.addSubview($0) }
-    
-    questions.forEach { questionStackView.addArrangedSubview($0) }
   }
   
   override func setConstraints() {
     super.setConstraints()
-    titleLabel.snp.makeConstraints {
-      $0.top.equalTo(self.safeAreaLayoutGuide)
-      $0.centerX.equalToSuperview()
+    
+    questionTitle.snp.makeConstraints {
+      $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
+      $0.horizontalEdges.equalToSuperview()
     }
     
-    questionStackView.snp.makeConstraints {
-      $0.top.equalTo(titleLabel.snp.bottom).offset(30)
-      $0.horizontalEdges.equalToSuperview()
-      $0.bottom.equalTo(sendButton.snp.top).offset(-30)
+    customTable.snp.makeConstraints {
+      $0.top.equalTo(questionTitle.snp.bottom).offset(20)
+      $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(16)
+      $0.height.equalTo(300)
     }
     
     sendButton.snp.makeConstraints {
-      $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(150)
-      $0.height.equalTo(40)
-      $0.width.equalTo(200)
+      $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(50)
+      $0.height.equalTo(56)
+      $0.horizontalEdges.equalToSuperview().inset(104)
       $0.centerX.equalToSuperview()
+    }
+    
+    bottomBorder.snp.makeConstraints {
+      $0.height.equalTo(1)
+      $0.horizontalEdges.equalToSuperview().inset(104)
+      $0.bottom.equalToSuperview()
     }
   }
 }
