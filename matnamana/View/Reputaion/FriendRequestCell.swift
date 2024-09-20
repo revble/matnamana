@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
@@ -21,7 +22,6 @@ final class FriendRequestCell: UICollectionViewCell {
     $0.image = UIImage(named: "profile")
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
-    $0.backgroundColor = .white
     $0.layer.cornerRadius = 40
   }
   
@@ -75,6 +75,8 @@ final class FriendRequestCell: UICollectionViewCell {
   func configure(imageUrl: String, name: String, requester: String, target: String) {
     if let url = URL(string: imageUrl) {
       imageView.kf.setImage(with: url)
+    } else {
+      imageView.image = UIImage(named: "profile")
     }
     nameLabel.text = "\(name)"
     requesterId = requester

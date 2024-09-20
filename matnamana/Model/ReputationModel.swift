@@ -14,6 +14,7 @@ struct ReputationRequest: Codable {
   let selectedFriendsUserIds: [String]?
 }
 
+
 struct QuestionList: Codable {
   let answer: [String : String]?
   let contentDescription: String

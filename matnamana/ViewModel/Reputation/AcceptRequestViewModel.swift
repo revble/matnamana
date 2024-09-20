@@ -125,4 +125,12 @@ final class AcceptRequestViewModel {
       }
   }
   
+  func updateStatus(requester: String, target: String) {
+    let docId = "\(requester)-\(target)"
+    db.collection("reputationRequests").document(docId)
+      .updateData([
+        "status": "approved"
+      ])
+  }
+  
 }
