@@ -23,7 +23,7 @@ class BaseViewController: UIViewController {
     bind()
     setNavigation()
     setupKeyboardHandling()
-    
+    setupDismissKeyboardGesture()
     overrideUserInterfaceStyle = .light
     view.backgroundColor = .systemBackground
   }
