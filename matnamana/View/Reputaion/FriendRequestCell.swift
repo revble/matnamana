@@ -48,7 +48,7 @@ final class FriendRequestCell: UICollectionViewCell {
   }
   
   private func configureUI() {
-    setupShadow()
+    
     [
       imageView,
       nameLabel,

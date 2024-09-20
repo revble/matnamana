@@ -46,9 +46,11 @@ final class ProfileViewController: BaseViewController {
       
       if isFriend {
         self.profileView.requestFriend.isHidden = true
+        self.profileView.deleteFriend.isHidden = true
       } else if self.userInfo == snapshot.info.nickName {
         self.profileView.requestFriend.isHidden = true
         self.profileView.requestReference.isHidden = true
+        self.profileView.deleteFriend.isHidden = true
       } else {
         self.profileView.deleteFriend.isHidden = true
       }

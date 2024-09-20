@@ -28,6 +28,7 @@ class FriendListController: BaseViewController {
   
   override func bind() {
     super.bind()
+    setupDismissKeyboardGesture()
     let acceptTapSubject = PublishSubject<User.Friend>()
     let rejectTapSubject = PublishSubject<User.Friend>()
     let input = FriendListViewModel.Input(

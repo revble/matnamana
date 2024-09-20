@@ -61,7 +61,7 @@ final class ReputationView: BaseView {
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     
     let groupSize = NSCollectionLayoutSize(
-      widthDimension: .absolute(120),
+      widthDimension: .absolute(130),
       heightDimension: .absolute(160)
     )
     

@@ -89,7 +89,8 @@ final class ReputaionController: BaseViewController {
               for: indexPath) as? DefaultCell else {
               return UICollectionViewCell()
             }
-            cell.configure(text: "친구에 대한 질문을 기다리고 있어요! \n친구를 도와주러 가볼까요?")
+            cell.configure(text: "친구를 도와주러 \n가볼까요?")
+            cell.label.font = .headLine()
 
             return cell
           } else {
