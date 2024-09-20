@@ -36,7 +36,7 @@ final class ReputaionController: BaseViewController {
   override func setNavigation() {
     super.setNavigation()
     self.navigationItem.title = "평판 조회"
-    navigationItem.rightBarButtonItem = moveToSearchButton()
+//    navigationItem.rightBarButtonItem = moveToSearchButton()
   }
   
   override func bind() {
