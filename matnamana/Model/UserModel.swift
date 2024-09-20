@@ -54,5 +54,6 @@ extension User.Friend {
   enum StatusType: String, Codable {
     case pending
     case accepted
+    case rejected
   }
 }

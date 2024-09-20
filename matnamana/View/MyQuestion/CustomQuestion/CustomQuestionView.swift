@@ -39,7 +39,7 @@ final class CustomQuestionView: BaseView {
     [
       questionTitle,
       customTable,
-      saveButton
+      saveButton,
     ].forEach { self.addSubview($0) }
   }
   

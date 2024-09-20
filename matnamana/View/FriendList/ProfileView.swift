@@ -66,13 +66,19 @@ final class ProfileView: UIView {
   let requestFriend: UIButton = UIButton().then {
     $0.setTitle("친구 요청", for: .normal)
     $0.backgroundColor = .manaMainColor
-    $0.layer.cornerRadius = 10
+    $0.layer.cornerRadius = 16
   }
   
   let requestReference: UIButton = UIButton().then {
     $0.setTitle("맞나만나 요청", for: .normal)
     $0.backgroundColor = .manaMainColor
-    $0.layer.cornerRadius = 10
+    $0.layer.cornerRadius = 16
+  }
+  
+  let deleteFriend: UIButton = UIButton().then {
+    $0.setTitle("친구 해제", for: .normal)
+    $0.backgroundColor = .manaMainColor
+    $0.layer.cornerRadius = 16
   }
   
   override init(frame: CGRect) {
@@ -102,6 +108,7 @@ final class ProfileView: UIView {
     ].forEach { verticalStackView.addArrangedSubview($0) }
     
     [
+      deleteFriend,
       requestFriend,
       requestReference
     ].forEach { horizontalStackView.addArrangedSubview($0) }

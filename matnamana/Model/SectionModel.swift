@@ -25,15 +25,16 @@ struct Item {
   let profileImageUrl: String
   let requesterId: String
   let targetId: String
+  let status: String
   
-  init(userNickName: String, profileImageUrl: String, requesterId: String, targetId: String) {
+  init(userNickName: String, profileImageUrl: String, requesterId: String, targetId: String, status: String) {
     self.userNickName = userNickName
     self.profileImageUrl = profileImageUrl
     self.requesterId = requesterId
     self.targetId = targetId
+    self.status = status
   }
 }
-
 
 struct FriendsSection {
   var header: String
@@ -44,6 +45,20 @@ extension FriendsSection: SectionModelType {
   typealias Item = User.Friend
   
   init(original: FriendsSection, items: [User.Friend]) {
+    self = original
+    self.items = items
+  }
+}
+
+struct PresetSection {
+  var header: String
+  var items: [Item]
+}
+
+extension PresetSection: SectionModelType {
+  typealias Item = String  // Item을 String으로 설정 (필요시 다른 타입 사용 가능)
+  
+  init(original: PresetSection, items: [Item]) {
     self = original
     self.items = items
   }

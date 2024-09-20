@@ -82,29 +82,41 @@ final class CustomQuestionController: BaseViewController {
     
     customQuestion.saveButton.rx.tap
       .subscribe(onNext: { [weak self] in
-        guard let self else { return }
+        guard let self = self else { return }
         guard let id = UserDefaults.standard.string(forKey: "loggedInUserId") else {
           return
         }
         
-        FirebaseManager.shared.getPresetList(documentId: id) { question, error in
+        FirebaseManager.shared.getPresetList(documentId: id) { questionList, error in
           if error != nil {
             return
           }
           
-          var updatedQuestions = question ?? []
-          let presetQuestions = User.PresetQuestion(presetTitle: self.customQuestion.questionTitle.text ?? "새로운 질문", presetQuestion: self.viewModel.questions)
+          var updatedQuestions = questionList ?? []
+          let newPresetTitle = self.customQuestion.questionTitle.text ?? "새로운 질문"
+          let presetQuestions = User.PresetQuestion(presetTitle: newPresetTitle, presetQuestion: self.viewModel.questions)
           
+          // 수정인지, 추가인지 구분하는 로직
+          if let existingIndex = updatedQuestions.firstIndex(where: { $0.presetTitle == newPresetTitle }) {
+            // 질문이 이미 존재하면 수정
+            updatedQuestions[existingIndex] = presetQuestions
+            print("기존 질문 수정")
+          } else {
+            // 질문이 존재하지 않으면 추가
             updatedQuestions.append(presetQuestions)
+            print("새로운 질문 추가")
+          }
           
+          // Firestore에 업데이트
           FirebaseManager.shared.updatePresetQuestions(for: id, presetQuestions: updatedQuestions) { success, error in
             if success {
-              print("preset질문 추가성공")
+              print("preset 질문 추가/수정 성공")
             } else {
-              print("preset질문 추가 실패")
+              print("preset 질문 추가/수정 실패")
             }
           }
         }
+        
         self.navigationController?.popViewController(animated: true)
       })
       .disposed(by: disposeBag)

@@ -11,6 +11,25 @@ import Then
 
 final class ReplyView: BaseView {
   
+  private let descriptionLabel = UILabel().then {
+    let imageAttachment = NSTextAttachment()
+    let image = UIImage(systemName: "light.beacon.min")?.withTintColor(.orange, renderingMode:  .alwaysOriginal)
+    imageAttachment.image = image
+    imageAttachment.bounds = CGRect(x: 0, y: -3, width: 20, height: 20)
+    
+    let attachmentString = NSAttributedString(attachment: imageAttachment)
+    
+    let fullString = NSMutableAttributedString()
+    fullString.append(attachmentString)
+    fullString.append(NSAttributedString(string: "\n"))
+    fullString.append(NSAttributedString(string: "작성된 답변은 친구에게 노출되지 않습니다."))
+    
+    $0.attributedText = fullString
+    $0.font = UIFont.headLine()
+    $0.textColor = .orange
+    $0.numberOfLines = 0
+  }
+  
   private let titleLabel = UILabel().then {
     $0.text = "박동현님은 어떤 분인가요?"
     $0.font = .boldSystemFont(ofSize: 28)
@@ -37,6 +56,7 @@ final class ReplyView: BaseView {
   override func configureUI() {
     super.configureUI()
     [
+      descriptionLabel,
       titleLabel,
       tableView,
       sendButton
@@ -45,13 +65,18 @@ final class ReplyView: BaseView {
   
   override func setConstraints() {
     super.setConstraints()
+    
+    descriptionLabel.snp.makeConstraints {
+      $0.top.equalToSuperview().inset(146)
+      $0.left.equalToSuperview().inset(40)
+    }
     titleLabel.snp.makeConstraints {
-      $0.top.equalTo(self.safeAreaLayoutGuide)
+      $0.top.equalTo(descriptionLabel.snp.bottom).offset(32)
       $0.centerX.equalToSuperview()
     }
     
     tableView.snp.makeConstraints {
-      $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+      $0.top.equalTo(titleLabel.snp.bottom).offset(68)
       $0.left.equalToSuperview().offset(30)
       $0.right.equalToSuperview().offset(-30)
       $0.bottom.equalTo(sendButton.snp.top).offset(-30)

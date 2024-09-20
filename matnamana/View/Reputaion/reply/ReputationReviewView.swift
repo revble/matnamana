@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class AddFriendView: BaseView {
+class ReputationReviewView: BaseView {
   
   private let relationView = UIView().then {
     $0.backgroundColor = .white
@@ -23,26 +23,19 @@ final class AddFriendView: BaseView {
     $0.tintColor = .lightGray
   }
   
-  let friendButton = UIButton().then {
+  let badButton = UIButton().then {
     $0.backgroundColor = .white
     $0.setTitleColor(.black, for: .normal)
-    $0.setTitle("친구", for: .normal)
+    $0.setTitle("도움이 안됨", for: .normal)
     $0.layer.borderWidth = 1
-    
   }
   
-  let familyButton = UIButton().then {
+  let goodButton = UIButton().then {
     $0.backgroundColor = .white
     $0.setTitleColor(.black, for: .normal)
-    $0.setTitle("가족", for: .normal)
-
+    $0.setTitle("도움이 됨", for: .normal)
   }
   
-  let colleagueButton = UIButton().then {
-    $0.setTitleColor(.black, for: .normal)
-    $0.backgroundColor = .white
-    $0.setTitle("동료", for: .normal)
-  }
   
   let sendButton = UIButton().then {
     $0.backgroundColor = .manaMainColor
@@ -53,8 +46,9 @@ final class AddFriendView: BaseView {
   private let label = UILabel().then {
     $0.textColor = .black
     $0.textAlignment = .left
-    $0.text = "관계"
-    $0.font = .boldSystemFont(ofSize: 25)
+    $0.text = "맞나만나가 완료되었습니다!. \n상대방 친구의 답변이 도움이 되었나요?"
+    $0.font = .headLine()
+    $0.numberOfLines = 0
   }
   
   private let horizontalStackView = UIStackView().then {
@@ -64,12 +58,12 @@ final class AddFriendView: BaseView {
     $0.layer.cornerRadius = 16
     $0.layer.borderWidth = 1
     $0.clipsToBounds = true
-    
   }
   
   override func configureUI() {
     super.configureUI()
     self.addSubview(relationView)
+    
     [
       label,
       closeButton,
@@ -78,9 +72,8 @@ final class AddFriendView: BaseView {
     ].forEach { relationView.addSubview($0) }
     
     [
-      familyButton,
-      friendButton,
-      colleagueButton
+      badButton,
+      goodButton
     ].forEach { horizontalStackView.addArrangedSubview($0) }
     
   }
@@ -91,12 +84,12 @@ final class AddFriendView: BaseView {
     relationView.snp.makeConstraints {
       $0.center.equalToSuperview()
       $0.horizontalEdges.equalToSuperview().inset(20)
-      $0.height.equalTo(200)
+      $0.height.equalTo(250)
     }
     
     label.snp.makeConstraints {
       $0.leading.equalToSuperview().inset(20)
-      $0.top.equalToSuperview().offset(10)
+      $0.top.equalToSuperview()
     }
     
     closeButton.snp.makeConstraints {
@@ -105,14 +98,15 @@ final class AddFriendView: BaseView {
     }
     
     horizontalStackView.snp.makeConstraints {
-      $0.top.equalTo(closeButton.snp.bottom).offset(10)
-      $0.horizontalEdges.equalToSuperview().inset(10)
+      $0.top.equalTo(label.snp.bottom).offset(5)
+      $0.height.equalTo(60)
+      $0.horizontalEdges.equalToSuperview().inset(30)
     }
     
     sendButton.snp.makeConstraints {
       $0.top.equalTo(horizontalStackView.snp.bottom).offset(20)
-      $0.width.equalTo(200)
-      $0.height.equalTo(50)
+      $0.width.equalTo(150)
+      $0.height.equalTo(40)
       $0.centerX.equalToSuperview()
       $0.bottom.equalToSuperview().inset(20)
     }

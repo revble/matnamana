@@ -103,6 +103,33 @@ final class FirebaseManager {
     }
   }
   
+  func listenToPresetList(documentId: String, completion: @escaping ([User.PresetQuestion]?, Error?) -> Void) -> ListenerRegistration {
+    let docRef = db.collection("users").document(documentId).collection("presetQuestions")
+    
+    // Firestore 리스너 추가
+    let listener = docRef.addSnapshotListener { snapshot, error in
+      if let error = error {
+        completion(nil, error)
+        return
+      }
+      
+      guard let documents = snapshot?.documents else {
+        completion([], nil)
+        return
+      }
+      
+      // Firestore 문서 데이터를 PresetQuestion 모델로 변환
+      let questions = documents.compactMap { doc -> User.PresetQuestion? in
+        try? doc.data(as: User.PresetQuestion.self) // Codable을 준수하는 경우
+      }
+      
+      // 변경된 데이터를 반환
+      completion(questions, nil)
+    }
+    
+    return listener
+  }
+  
   func readUser(documentId: String, completion: @escaping (User?, Error?) -> Void) {
     db.collection("users").document(documentId).getDocument { (documentSnapshot, error) in
       guard let document = documentSnapshot, document.exists, error == nil else {
@@ -264,6 +291,62 @@ final class FirebaseManager {
           for (index, friend) in newFriendList.enumerated() {
             if friend.friendId == userNickName {
               newFriendList[index].status = .accepted
+              break
+            }
+          }
+          let friendListData = newFriendList.map { $0.asDictionary }
+          
+          document.reference.updateData([
+            "friendList": friendListData
+          ]) { error in
+            if let error = error {
+              completion(false, error)
+            } else {
+              completion(true, nil)
+            }
+          }
+          
+        } catch {
+          print("Error decoding user data: \(error)")
+          completion(false, error)
+        }
+      } else {
+        print("No document found with the provided friendId.")
+        completion(false, nil)
+      }
+    }
+    
+    let friendListData = newFriendList.map { $0.asDictionary }
+    userDocument.updateData([
+      "friendList": friendListData
+    ]) { error in
+      if let error = error {
+        print(error)
+        completion(false, error)
+      } else {
+        completion(true, nil)
+      }
+    }
+  }
+  
+  func deleteFriendList(userId: String, newFriendList: [User.Friend], friendId: String, completion: @escaping (Bool, Error?) -> Void) {
+    let userDocument = db.collection("users").document(userId)
+    let query = db.collection("users").whereField("info.nickName", isEqualTo: friendId)
+    guard let userNickName = UserDefaults.standard.string(forKey: "userNickName") else { return }
+    
+    query.getDocuments { (snapshot, error) in
+      guard let snapshot = snapshot, error == nil else {
+        completion(false, error)
+        return
+      }
+      
+      if let document = snapshot.documents.first {
+        do {
+          let user = try document.data(as: User.self)
+          var newFriendList = user.friendList
+          for (index, friend) in newFriendList.enumerated() {
+            if friend.friendId == userNickName {
+              newFriendList[index].status = .rejected
               break
             }
           }

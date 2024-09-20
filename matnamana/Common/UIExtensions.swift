@@ -8,10 +8,7 @@
 import UIKit
 
 extension UIColor {
-  static let manaPink = UIColor(red: 255/255, green: 197/255, blue: 197/255, alpha: 1)
-  static let manaSkin = UIColor(red: 255/255, green: 235/255, blue: 216/255, alpha: 1)
-  static let manaMint = UIColor(red: 199/255, green: 220/255, blue: 167/255, alpha: 1)
-  static let manaGreen = UIColor(red: 137/255, green: 185/255, blue: 173/255, alpha: 1)
+  static let beaconColor = UIColor(red: 242/255, green: 132/255, blue: 30/255, alpha: 1)
   static let manaMainColor = UIColor(red: 0/255, green: 168/255, blue: 226/255, alpha: 1)
   static let manatextColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
 }
@@ -42,13 +39,13 @@ extension UIViewController {
 
 extension UIView {
   func setupShadow() {
-    self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.06)
+    self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.04)
     self.layer.cornerRadius = 10
     self.layer.masksToBounds = false
-    self.layer.shadowOpacity = 1
-    self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
-    self.layer.shadowOffset = CGSize(width: 2, height: 2)
-    self.layer.shadowRadius = 2
+//    self.layer.shadowOpacity = 1
+//    self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
+//    self.layer.shadowOffset = CGSize(width: 2, height: 2)
+//    self.layer.shadowRadius = 2
   }
 }
 

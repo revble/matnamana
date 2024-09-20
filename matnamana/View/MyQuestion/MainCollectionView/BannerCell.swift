@@ -15,7 +15,7 @@ final class BannerCell: UICollectionViewCell {
   private let bannerImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
-    $0.image = UIImage(named: "mainBannerImage")
+    $0.image = UIImage(named: "fill")
     $0.layer.cornerRadius = 16
   }
   
