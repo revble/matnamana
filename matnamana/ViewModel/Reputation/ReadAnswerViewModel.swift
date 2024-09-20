@@ -13,7 +13,7 @@ import RxSwift
 final class ReadAnswerViewModel {
   private let db = FirebaseManager.shared.db
 
-  let questionListRelay = BehaviorRelay<[Question.Content]>(value: [])
+  let questionListRelay = BehaviorRelay<[QuestionList]>(value: [])
   
   func fetchQandA(requester: String, target: String) {
     let documentName = "\(requester)-\(target)"
@@ -23,7 +23,7 @@ final class ReadAnswerViewModel {
         guard let self else { return }
         do {
           if let reputation = try documentSnapshot?.data(as: ReputationRequest.self) {
-            guard let qandaList = reputation.questionList else { return }
+            let qandaList = reputation.questionList
             self.questionListRelay.accept(qandaList)
           }
         } catch {

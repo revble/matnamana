@@ -14,7 +14,7 @@ final class ReferenceViewModel: ViewModelType {
   
   struct Input {
     let fetchQuestions: Observable<Void>
-    let buttonInput: ControlEvent<Void>
+    let buttonInput: Observable<Void>
   }
   
   struct Output {

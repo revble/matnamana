@@ -31,7 +31,7 @@ final class ProfileViewController: BaseViewController {
     profileView = ProfileView(frame: UIScreen.main.bounds)
     self.view = profileView
   }
-
+  
   override func bind() {
     super.bind()
     buttonClicked()
@@ -42,13 +42,15 @@ final class ProfileViewController: BaseViewController {
     FirebaseManager.shared.readUser(documentId: userId) { [weak self] documentSnapshot, error in
       guard let self else { return }
       guard let snapshot = documentSnapshot else { return }
-      let isFriend = snapshot.friendList.contains { $0.friendId == self.userInfo }
+      let isFriend = snapshot.friendList.contains { $0.friendId == self.userInfo && $0.status != .rejected }
       
       if isFriend {
         self.profileView.requestFriend.isHidden = true
       } else if self.userInfo == snapshot.info.nickName {
         self.profileView.requestFriend.isHidden = true
         self.profileView.requestReference.isHidden = true
+      } else {
+        self.profileView.deleteFriend.isHidden = true
       }
     }
     
@@ -76,14 +78,18 @@ final class ProfileViewController: BaseViewController {
         self.present(modalVC, animated: true)
       }).disposed(by: disposeBag)
     
-    profileView.requestReference.rx.tap
+    profileView.deleteFriend.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
         
-        self.navigationController?.pushViewController(
-          ReferenceCheckController(targetId: self.userInfo),
-          animated: true
-        )
+        self.navigationController?.popViewController(animated: true)
+      }).disposed(by: disposeBag)
+    
+    profileView.requestReference.rx.tap
+      .subscribe(onNext: { [weak self] in
+        guard let self else { return }
+        let targetId = self.userInfo
+        self.navigationController?.pushViewController(RequestMyQuestionController(targetId: targetId), animated: true)
       }).disposed(by: disposeBag)
   }
 }

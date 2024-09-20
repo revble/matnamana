@@ -34,7 +34,6 @@ struct Item {
   }
 }
 
-
 struct FriendsSection {
   var header: String
   var items: [User.Friend]
@@ -44,6 +43,20 @@ extension FriendsSection: SectionModelType {
   typealias Item = User.Friend
   
   init(original: FriendsSection, items: [User.Friend]) {
+    self = original
+    self.items = items
+  }
+}
+
+struct PresetSection {
+  var header: String
+  var items: [Item]
+}
+
+extension PresetSection: SectionModelType {
+  typealias Item = String  // Item을 String으로 설정 (필요시 다른 타입 사용 가능)
+  
+  init(original: PresetSection, items: [Item]) {
     self = original
     self.items = items
   }
