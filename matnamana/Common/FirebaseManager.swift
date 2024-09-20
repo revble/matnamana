@@ -329,6 +329,62 @@ final class FirebaseManager {
     }
   }
   
+  func deleteFriendList(userId: String, newFriendList: [User.Friend], friendId: String, completion: @escaping (Bool, Error?) -> Void) {
+    let userDocument = db.collection("users").document(userId)
+    let query = db.collection("users").whereField("info.nickName", isEqualTo: friendId)
+    guard let userNickName = UserDefaults.standard.string(forKey: "userNickName") else { return }
+    
+    query.getDocuments { (snapshot, error) in
+      guard let snapshot = snapshot, error == nil else {
+        completion(false, error)
+        return
+      }
+      
+      if let document = snapshot.documents.first {
+        do {
+          let user = try document.data(as: User.self)
+          var newFriendList = user.friendList
+          for (index, friend) in newFriendList.enumerated() {
+            if friend.friendId == userNickName {
+              newFriendList[index].status = .rejected
+              break
+            }
+          }
+          let friendListData = newFriendList.map { $0.asDictionary }
+          
+          document.reference.updateData([
+            "friendList": friendListData
+          ]) { error in
+            if let error = error {
+              completion(false, error)
+            } else {
+              completion(true, nil)
+            }
+          }
+          
+        } catch {
+          print("Error decoding user data: \(error)")
+          completion(false, error)
+        }
+      } else {
+        print("No document found with the provided friendId.")
+        completion(false, nil)
+      }
+    }
+    
+    let friendListData = newFriendList.map { $0.asDictionary }
+    userDocument.updateData([
+      "friendList": friendListData
+    ]) { error in
+      if let error = error {
+        print(error)
+        completion(false, error)
+      } else {
+        completion(true, nil)
+      }
+    }
+  }
+  
   func fetchReputationInfo(userId: String, completion: @escaping ([ReputationRequest]?, Error?) -> Void) {
     db.collection("reputationRequests").whereFilter(Filter.orFilter([
       Filter.whereField("requester.userId", isEqualTo: userId),

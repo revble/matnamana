@@ -79,8 +79,8 @@ final class QandACell: UITableViewCell {
     
   }
   
-  func configure(with questionList: Question.Content, userId: String) {
+  func configure(with questionList: QuestionList, userId: String) {
     questionText.text = questionList.contentDescription
-//    answerText.text = questionList.answer[userId]?.description
+    answerText.text = questionList.answer?[userId]?.description
   }
 }

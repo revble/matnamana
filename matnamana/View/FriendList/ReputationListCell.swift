@@ -30,7 +30,7 @@ final class ReputationListCell: UITableViewCell {
   private func setConstraints() {
     label.snp.makeConstraints {
       $0.centerY.equalToSuperview()
-      $0.leading.equalToSuperview().inset(16)
+      $0.horizontalEdges.equalToSuperview().inset(16)
     }
   }
   

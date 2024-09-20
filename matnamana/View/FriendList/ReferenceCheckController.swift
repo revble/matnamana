@@ -17,6 +17,7 @@ final class ReferenceCheckController: BaseViewController {
   private var targetID: String
   private var questions: [String]
   private var presetTitle: String
+  private var mannamQuestion = [QuestionList(answer: ["" : ""], contentDescription: "")]
   
   init(targetId: String, questions: [String], presetTitle: String) {
     self.targetID = targetId
@@ -70,14 +71,23 @@ final class ReferenceCheckController: BaseViewController {
         FirebaseManager.shared.getUserInfo(nickName: targetID) { [weak self] snapShot, error in
           guard let snapShot = snapShot else { return }
           guard let self else { return }
+          
+//          for question in self.questions {
+//              let newQuestion = QuestionList(answer: ["a": "b"], contentDescription: question)
+//              mannamQuestion.append(newQuestion)
+//          }
+          let newQuestion = questions.map {
+            QuestionList(answer: nil, contentDescription: $0)
+          }
           self.request = ReputationRequest(
             requester: UserProfile(nickName: userNickName, profileImage: userImage, userId: requestId),
-            target: UserProfile(nickName: snapShot.info.nickName, profileImage: snapShot.info.profileImage, userId: snapShot.userId),
-            questionList: self.questions,
+            target: UserProfile(nickName: snapShot.info.nickName, profileImage: "targetImage", userId: snapShot.userId),
+            questionList: newQuestion,
             status: .pending,
-            selectedFriends: [],
-            selectedFriendsUserIds: []
+            selectedFriends: [UserProfile(nickName: userNickName, profileImage: userImage, userId: requestId)],
+            selectedFriendsUserIds: [requestId]
           )
+          print(self.request)
           FirebaseManager.shared.addData(to: .reputationRequest,
                                          data: request,
                                          documentId: requestId + "-" + snapShot.userId
