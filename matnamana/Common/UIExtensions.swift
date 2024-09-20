@@ -39,7 +39,7 @@ extension UIViewController {
 
 extension UIView {
   func setupShadow() {
-    self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.12)
+    self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.04)
     self.layer.cornerRadius = 10
     self.layer.masksToBounds = false
 //    self.layer.shadowOpacity = 1
