@@ -142,6 +142,12 @@ final class ReputaionController: BaseViewController {
                 self.viewModel.deleteReputation(requester: item.requesterId, target: item.targetId)
               }).disposed(by: cell.disposeBag)
             
+            cell.acceptButton.rx.tap
+              .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.presentModally(UINavigationController(rootViewController: AcceptRequestController(viewModel: acceptViewModel, requester: item.requesterId, target: item.targetId)))
+              }).disposed(by: cell.disposeBag)
+            
             cell.configure(imageUrl: item.profileImageUrl, name: item.userNickName, requester: item.requesterId, target: item.targetId, status: item.status)
             return cell
           }
@@ -187,20 +193,13 @@ final class ReputaionController: BaseViewController {
             let nickName = cell.nameLabel.text ?? ""
             let requesterId = cell.requesterId
             let targetId = cell.targetId
-            
-            pushViewController(AnswerListController(nickName: nickName, requester: requesterId, target: targetId))
+            if cell.statusLabel.text != "상대방 수락 대기중" {
+              pushViewController(AnswerListController(nickName: nickName, requester: requesterId, target: targetId))
+            }
           }
-          
-          
           
         case Section.receivedRequests.rawValue:
           print("receivedRequests: \(indexPath.row)")
-          if let cell = self.reputationView.collecitonView.cellForItem(at: indexPath) as? ReceivedRequestCell {
-            let requesterId = cell.requesterId
-            let targetId = cell.targetId
-
-            self.presentModally(UINavigationController(rootViewController: AcceptRequestController(viewModel: acceptViewModel, requester: requesterId, target: targetId)))
-          }
           
         default:
           break

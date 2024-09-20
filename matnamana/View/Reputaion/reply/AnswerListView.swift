@@ -71,8 +71,8 @@ final class AnswerListView: BaseView {
     
     button.snp.makeConstraints {
       $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(50)
-      $0.leading.equalToSuperview().offset(40)
-      $0.trailing.equalToSuperview().offset(-40)
+      $0.width.equalTo(160)
+      $0.height.equalTo(40)
       $0.centerX.equalToSuperview()
     }
     

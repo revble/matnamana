@@ -40,13 +40,15 @@ final class ReceivedRequestCell: UICollectionViewCell {
     $0.font = .systemFont(ofSize: 16)
   }
   
-  private let acceptButton = UIButton().then {
+  let acceptButton = UIButton().then {
     $0.setTitle("수락하기", for: .normal)
+    $0.titleLabel?.font = UIFont.subHeadLine()
     $0.backgroundColor = .manaMainColor
     $0.layer.cornerRadius = 10
   }
   let cancelButton = UIButton().then {
     $0.setTitle("무시하기", for: .normal)
+    $0.titleLabel?.font = UIFont.subHeadLine()
     $0.backgroundColor = .lightGray
     $0.layer.cornerRadius = 10
   }
@@ -98,11 +100,11 @@ final class ReceivedRequestCell: UICollectionViewCell {
     
     statusLabel.snp.makeConstraints {
       $0.centerY.equalTo(imageView.snp.centerY)
-      $0.left.equalTo(imageView.snp.right).offset(20)
+      $0.right.equalToSuperview().offset(-40)
     }
     
     buttonStackView.snp.makeConstraints {
-      $0.top.equalTo(statusLabel.snp.bottom).offset(2)
+      $0.top.equalTo(statusLabel.snp.bottom).offset(10)
       $0.centerX.equalTo(statusLabel.snp.centerX)
     }
   }
@@ -110,15 +112,21 @@ final class ReceivedRequestCell: UICollectionViewCell {
   func configure(imageUrl: String, name: String, requester: String, target: String, status: String) {
     if let url = URL(string: imageUrl) {
       imageView.kf.setImage(with: url)
+    } else {
+      imageView.image = UIImage(named: "profile")
     }
-    nameLabel.text = "\(name)"
+    nameLabel.text = "\(name) -> 나"
     requesterId = requester
     targetId = target
     
     if status == "approved" {
-      self.isHidden = true
+      statusLabel.text = "맞나만나가 진행중입니다."
+      cancelButton.isHidden = true
+      acceptButton.isHidden = true
     } else {
-      self.isHidden = false
+      statusLabel.text = "맞나만나를 요청받았습니다."
+      cancelButton.isHidden = false
+      acceptButton.isHidden = false
     }
   }
 }
