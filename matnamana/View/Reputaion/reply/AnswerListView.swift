@@ -39,7 +39,6 @@ final class AnswerListView: BaseView {
   
   var tableView = UITableView().then {
     $0.register(AnswerListCell.self, forCellReuseIdentifier: String(describing: AnswerListCell.self))
-    $0.estimatedRowHeight = 100
     $0.rowHeight = 70
   }
   
@@ -71,10 +70,8 @@ final class AnswerListView: BaseView {
     
     tableView.snp.makeConstraints {
       $0.top.equalTo(descriptionLabel.snp.bottom).offset(100)
-      $0.centerX.equalToSuperview()
-      $0.leading.equalToSuperview().offset(40)
-      $0.trailing.equalToSuperview().inset(40)
-      $0.height.equalTo(300)
+      $0.horizontalEdges.equalToSuperview().inset(40)
+      $0.bottom.equalTo(button.snp.top)
     }
     
     button.snp.makeConstraints {

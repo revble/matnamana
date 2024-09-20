@@ -39,7 +39,7 @@ final class ReplyView: BaseView {
     $0.register(UITableViewCell.self, forCellReuseIdentifier: "QuestionCell")
     $0.rowHeight = UITableView.automaticDimension
     $0.estimatedRowHeight = 44
-    $0.isScrollEnabled = false
+
   }
   
   let sendButton = UIButton().then {
@@ -79,6 +79,7 @@ final class ReplyView: BaseView {
       $0.top.equalTo(titleLabel.snp.bottom).offset(68)
       $0.left.equalToSuperview().offset(30)
       $0.right.equalToSuperview().offset(-30)
+      $0.height.equalTo(300)
     }
     
     sendButton.snp.makeConstraints {
