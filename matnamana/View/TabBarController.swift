@@ -34,9 +34,10 @@ final class TabBarController: UITabBarController {
           vc.navigationItem.title = item.navigtaionItemTitle
           vc.navigationItem.largeTitleDisplayMode = .always
 
+
           let nav = UINavigationController(rootViewController: vc)
           nav.title = item.navigtaionItemTitle
-          nav.tabBarItem.image = UIImage(systemName: item.tabbarImageName)
+        nav.tabBarItem.image = item.tabbarImage
 
           // Large Title 설정
           nav.navigationBar.prefersLargeTitles = true
@@ -44,11 +45,13 @@ final class TabBarController: UITabBarController {
           return nav
       }
       setViewControllers(viewControllers, animated: false)
+    tabBar.tintColor = UIColor.manaMainColor
   }
 
 }
 extension TabBarController {
-  
+
+
   enum TabbarItem: CaseIterable {
     case mainPage
     case friendList
@@ -69,19 +72,19 @@ extension TabBarController {
       }
     }
     
-    var tabbarImageName: String {
-      switch self {
-      case .mainPage:
-        return "house.fill"
-      case .friendList:
-        return "person.2.fill"
-      case .reputation:
-        return "list.bullet.rectangle.portrait.fill"
-      case .myPage:
-        return "person.fill"
-      }
+    var tabbarImage: UIImage? {
+        switch self {
+        case .mainPage:
+            return UIImage(systemName: "house.fill")  // SF Symbols 사용
+        case .friendList:
+            return UIImage(systemName: "person.2.fill")
+        case .reputation:
+            return UIImage(named: "tapbbar")  // matnamanaLogo 이미지 사용
+        case .myPage:
+            return UIImage(systemName: "person.fill")
+        }
     }
-    
+
     var navigtaionItemTitle: String {
       switch self {
       case .mainPage:

@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "splash4545 2.jpg",
+      "filename" : "tapbbar.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "splash4545 1.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "splash4545.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
