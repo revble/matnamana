@@ -36,7 +36,7 @@ final class ReputaionController: BaseViewController {
   override func setNavigation() {
     super.setNavigation()
     self.navigationItem.title = "평판 조회"
-    navigationItem.rightBarButtonItem = moveToSearchButton()
+//    navigationItem.rightBarButtonItem = moveToSearchButton()
   }
   
   override func bind() {
@@ -56,8 +56,6 @@ final class ReputaionController: BaseViewController {
     
     bindCollectionView()
     
-    
-
   }
   
   override func viewDidLoad() {
@@ -89,7 +87,8 @@ final class ReputaionController: BaseViewController {
               for: indexPath) as? DefaultCell else {
               return UICollectionViewCell()
             }
-            cell.configure(text: "친구에 대한 질문을 기다리고 있어요! \n친구를 도와주러 가볼까요?")
+            cell.configure(text: "친구를 도와주러 \n가볼까요?")
+            cell.label.font = .headLine()
 
             return cell
           } else {
@@ -195,6 +194,12 @@ final class ReputaionController: BaseViewController {
             let targetId = cell.targetId
             if cell.statusLabel.text != "상대방 수락 대기중" {
               pushViewController(AnswerListController(nickName: nickName, requester: requesterId, target: targetId))
+            }
+          }
+          
+          if let cell = self.reputationView.collecitonView.cellForItem(at: indexPath) as? DefaultCell {
+            if let tabBarController = self.tabBarController {
+              tabBarController.selectedIndex = 1
             }
           }
           

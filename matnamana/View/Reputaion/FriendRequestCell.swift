@@ -48,7 +48,7 @@ final class FriendRequestCell: UICollectionViewCell {
   }
   
   private func configureUI() {
-    setupShadow()
+    
     [
       imageView,
       nameLabel,
@@ -75,8 +75,6 @@ final class FriendRequestCell: UICollectionViewCell {
   func configure(imageUrl: String, name: String, requester: String, target: String) {
     if let url = URL(string: imageUrl) {
       imageView.kf.setImage(with: url)
-    } else {
-      imageView.image = UIImage(named: "profile")
     }
     nameLabel.text = "\(name)"
     requesterId = requester

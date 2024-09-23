@@ -112,8 +112,6 @@ final class ReceivedRequestCell: UICollectionViewCell {
   func configure(imageUrl: String, name: String, requester: String, target: String, status: String) {
     if let url = URL(string: imageUrl) {
       imageView.kf.setImage(with: url)
-    } else {
-      imageView.image = UIImage(named: "profile")
     }
     nameLabel.text = "\(name) -> 나"
     requesterId = requester

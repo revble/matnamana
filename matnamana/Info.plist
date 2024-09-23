@@ -19,6 +19,8 @@
 		<string>kakaolink</string>
 		<string>kakaoplus</string>
 	</array>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0.0</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationPreferredDefaultSceneSessionRole</key>

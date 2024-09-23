@@ -6,6 +6,8 @@
 //
 
 import UIKit
+
+import RxCocoa
 import RxSwift
 
 class AcceptRequestController: FriendListController {
@@ -80,12 +82,27 @@ class AcceptRequestController: FriendListController {
       .asDriver()
       .drive(onNext: { [weak self] in
         guard let self else { return }
-        self.viewModel.sendData(requester: requester, target: target)
-        dismiss(animated: true)
-        self.viewModel.updateStatus(requester: requester, target: target)
+        if viewModel.selectedItems.value.count < 2 {
+          self.viewModel.removeFirstItem()
+          self.alertMessage()
+        } else {
+          self.viewModel.sendData(requester: requester, target: target)
+          self.viewModel.updateStatus(requester: requester, target: target)
+          dismiss(animated: true)
+        }
       }).disposed(by: disposeBag)
     
     return UIBarButtonItem(customView: button)
+  }
+  private func alertMessage() {
+    let alertMessage = UIAlertController(title: "두명의 친구를 선택해 주세요!",
+                                         message: "",
+                                         preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "확인", style: .default) {_ in
+      self.transitionToViewController(TabBarController())
+    }
+    alertMessage.addAction(okAction)
+    present(alertMessage, animated: true, completion: nil)
   }
   
 }
