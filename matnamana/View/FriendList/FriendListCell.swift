@@ -21,10 +21,12 @@ final class FriendListCell: UITableViewCell {
   
   let userName = UILabel().then {
     $0.text = ""
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
   }
   
   let userRelation = UILabel().then {
     $0.text = "친구"
+    $0.font = .systemFont(ofSize: 17)
   }
   
   private let stackView = UIStackView().then {

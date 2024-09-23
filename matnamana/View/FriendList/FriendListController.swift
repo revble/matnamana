@@ -45,7 +45,7 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
       configureCell: { dataSource, tableView, indexPath, friend in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendListCell.self), for: indexPath) as? FriendListCell else { return UITableViewCell() }
         let friend = dataSource[indexPath]
-        cell.configureCell(nickName: friend.friendId,
+        cell.configureCell(nickName: friend.name,
                            relation: friend.type.rawValue,
                            friendImage: friend.friendImage)
         
@@ -125,7 +125,7 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
         if userExists {
           FirebaseManager.shared.getUserInfo(nickName: userNickName) { user, error in
             if let user = user {
-              let profileVC = ProfileViewController(userInfo: user.info.nickName)
+              let profileVC = ProfileViewController(userInfo: user.info.nickName, isCellClicked: false)
               profileVC.userInfo = user.info.nickName
               self.navigationController?.pushViewController(profileVC, animated: true)
             }
@@ -143,6 +143,19 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
         self.present(alert, animated: true)
       })
       .disposed(by: disposeBag)
+    
+    friendListView.friendList.rx.itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        guard let self else { return }
+        
+        guard let cell = self.friendListView.friendList.cellForRow(at: indexPath) as? FriendListCell else {
+          return
+        }
+        print(cell.userName.text ?? "")
+        let profileVC = ProfileViewController(userInfo: cell.userName.text ?? "", isCellClicked: true)
+        profileVC.userInfo = cell.userName.text ?? ""
+        self.navigationController?.pushViewController(profileVC, animated: true)
+      }).disposed(by: disposeBag)
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

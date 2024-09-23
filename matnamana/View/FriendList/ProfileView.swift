@@ -120,6 +120,7 @@ final class ProfileView: UIView {
     self.nickName.text = nickName
     
     if let url = URL(string: imageURL) {
+      profileImage.kf.setImage(with: url, placeholder: UIImage(named: "profile"))
       profileImage.kf.setImage(with: url)
     }
   }

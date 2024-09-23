@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class CustomQuestionController: BaseViewController {
+final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
   
   private var customQuestion = CustomQuestionView(frame: .zero)
   private let viewModel: CustomQuestionViewModel
@@ -102,12 +102,15 @@ final class CustomQuestionController: BaseViewController {
             updatedQuestions[existingIndex] = presetQuestions
             print("기존 질문 수정")
           } else {
-            // 질문이 존재하지 않으면 추가
-            updatedQuestions.append(presetQuestions)
-            print("새로운 질문 추가")
+            if updatedQuestions.count < 5 {
+              updatedQuestions.append(presetQuestions)
+            } else {
+              if let lastIndex = updatedQuestions.indices.last {
+                updatedQuestions[lastIndex] = presetQuestions
+              }
+            }
           }
           
-          // Firestore에 업데이트
           FirebaseManager.shared.updatePresetQuestions(for: id, presetQuestions: updatedQuestions) { success, error in
             if success {
               print("preset 질문 추가/수정 성공")
@@ -126,5 +129,13 @@ final class CustomQuestionController: BaseViewController {
     if let cell = customQuestion.customTable.cellForRow(at: indexPath) as? QuestionListCell {
       cell.configureCell(questionCell: question)
     }
+  }
+  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    true
+  }
+  
+  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    true
   }
 }
