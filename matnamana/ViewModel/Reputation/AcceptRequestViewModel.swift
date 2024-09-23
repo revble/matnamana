@@ -69,7 +69,7 @@ final class AcceptRequestViewModel {
     print(selectedItems.value)
     requesterId = requester
     targetId = target
-    let documentId = "\(requester)-\(target)"
+//    let documentId = "\(requester)-\(target)"
     
     for selectedItem in selectedItems.value {
       print(selectedItem)
@@ -123,6 +123,7 @@ final class AcceptRequestViewModel {
           print("Reputation request successfully updated")
         }
       }
+    
   }
   
   func updateStatus(requester: String, target: String) {

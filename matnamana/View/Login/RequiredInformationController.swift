@@ -18,30 +18,30 @@ final class RequiredInformationController: BaseViewController {
   private var requiredInformationView = RequiredInformationView(frame: .zero)
   private let requiredInfoViewModel = RequiredInfoViewModel()
   
+  var appleLogin: Bool
+  
+  init(appleLogin: Bool) {
+    self.appleLogin = appleLogin
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func setupView() {
     super.setupView()
     requiredInformationView = RequiredInformationView(frame: UIScreen.main.bounds)
     self.view = requiredInformationView
+    if appleLogin {
+      requiredInformationView.hidename()
+    }
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupDismissKeyboardGesture()
   }
-  
-//  override func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
-//    UIView.animate(withDuration: 0.3) {
-//      let inset = keyboardHeight > 0 ? keyboardHeight : 0
-//      // keyboardHeight가 0보다 클 때 뷰를 위로 이동
-//      if inset > 0 {
-//        // 키보드가 나타날 때 현재 뷰의 transform을 변경하여 올림
-//        self.view.transform = CGAffineTransform(translationX: 0, y: -200)
-//      } else {
-//        // 키보드가 사라질 때 transform 원래 상태로 복구
-//        self.view.transform = .identity
-//      }
-//    }
-//  }
 
   override func bind() {
     super.bind()
@@ -58,6 +58,25 @@ final class RequiredInformationController: BaseViewController {
   }
   
   private func bindViewModel() {
+    
+    requiredInformationView.nickNameTextField.rx.text
+      .orEmpty
+      .distinctUntilChanged()
+      .subscribe(onNext: { [weak self] nickname in
+        guard let self else { return }
+        self.requiredInfoViewModel.validateNickname(nickname)
+      }).disposed(by: disposeBag)
+    
+    requiredInfoViewModel.isNicknameValid
+      .subscribe(onNext: { [weak self] isValid in
+        guard let self else { return }
+        if isValid {
+          self.requiredInformationView.hideduplicateCheck()
+        } else {
+          self.requiredInformationView.validCheck()
+        }
+      }).disposed(by: disposeBag)
+    
     requiredInfoViewModel.isNicknameDuplicate
       .subscribe(onNext: {  [weak self] isDuplicate in
         guard let self = self else { return }

@@ -62,8 +62,7 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate, ASAu
           self.authResultSubject.onNext(false)
           return
         }
-        print(appleIDCredential.fullName)
-        print(appleIDCredential.email)
+        UserDefaults.standard.set("\(appleIDCredential.fullName?.familyName) \(appleIDCredential.fullName?.givenName)", forKey: "userName")
         self.authResultSubject.onNext(true)
       }
     }

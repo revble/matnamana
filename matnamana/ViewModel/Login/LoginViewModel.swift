@@ -22,6 +22,7 @@ final class LoginViewModel: ViewModelType {
   
   struct Output {
     let isDuplicate: Observable<Bool>
+    let appleLoggin: Observable<Bool>
   }
   
   private let db = FirebaseManager.shared.db
@@ -62,8 +63,10 @@ final class LoginViewModel: ViewModelType {
   }
   
   func transform(input: Input) -> Output {
+    var loggin = false
     let appleLogin = input.loggedInApple
       .do(onNext: {
+        loggin = true
         AppleLoginService.shared.startSignInWithAppleFlow()
       })
       .flatMap { _ -> Observable<Bool> in
@@ -87,6 +90,9 @@ final class LoginViewModel: ViewModelType {
         }
         return self.checkUidDuplicate()
       }
-    return Output(isDuplicate: isDuplicate)
+    if loggin {
+      return Output(isDuplicate: isDuplicate, appleLoggin: Observable.just(true))
+    }
+  return Output(isDuplicate: isDuplicate, appleLoggin: Observable.just(false))
   }
 }
