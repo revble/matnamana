@@ -16,7 +16,7 @@ class ProfileUIView: UIView {
     let imageView = UIImageView()
     imageView.image = UIImage(named: "profile")
     imageView.contentMode = .scaleAspectFill
-    imageView.layer.cornerRadius = 50
+    imageView.layer.cornerRadius = 75
     imageView.clipsToBounds = true
     imageView.isUserInteractionEnabled = true
     return imageView
@@ -33,7 +33,7 @@ class ProfileUIView: UIView {
   let nameLabel: UILabel = {
     let label = UILabel()
     label.text = "이름"
-    label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+    label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
     return label
   }()
   
@@ -48,14 +48,14 @@ class ProfileUIView: UIView {
   let nickNameLabel: UILabel = {
     let label = UILabel()
     label.text = "닉네임"
-    label.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
+    label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
     return label
   }()
   
   let introduceLabel: UILabel = {
     let label = UILabel()
     label.text = "자기소개"
-    label.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
+    label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
 
 
     return label
@@ -103,9 +103,9 @@ class ProfileUIView: UIView {
     
     
     profileImageView.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(80)
+      $0.top.equalToSuperview().offset(110)
       $0.centerX.equalToSuperview()
-      $0.width.height.equalTo(100)
+      $0.width.height.equalTo(150)
     }
     
     nameAgeStackView.snp.makeConstraints {

@@ -11,11 +11,12 @@ import SnapKit
 
 final class ProfileEditView: UIView {
 
+
   let profileImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(named: "profile")
     imageView.contentMode = .scaleAspectFill
-    imageView.layer.cornerRadius = 50
+    imageView.layer.cornerRadius = 75
     imageView.clipsToBounds = true
     imageView.isUserInteractionEnabled = true
     return imageView
@@ -27,26 +28,6 @@ final class ProfileEditView: UIView {
     uiLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
     return uiLabel
   }()
-
-//  let nickNameTextField: UITextField = {
-//    let textField = UITextField()
-//    textField.layer.borderWidth = 1.0
-//    textField.layer.borderColor = UIColor.black.cgColor
-//    textField.layer.cornerRadius = 5
-//    textField.clearButtonMode = .always
-//    textField.placeholder = "닉네임을 입력해주세요"
-//    return textField
-//  }()
-//
-//  let introduceTextField: UITextField = {
-//    let textField = UITextField()
-//    textField.layer.borderWidth = 1.0
-//    textField.layer.borderColor = UIColor.black.cgColor
-//    textField.layer.cornerRadius = 5
-//    textField.clearButtonMode = .always
-//    textField.placeholder = "자기소개를 입력해주세요"
-//    return textField
-//  }()
 
   let tableView: UITableView = {
     let tableView = UITableView()
@@ -70,8 +51,6 @@ final class ProfileEditView: UIView {
     [
       profileImageView,
       nameTextField,
-//      nickNameTextField,
-//      introduceTextField,
       tableView
     ].forEach {
       addSubview($0)
@@ -81,28 +60,15 @@ final class ProfileEditView: UIView {
   private func setConstraints() {
 
     profileImageView.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(80)
+      $0.top.equalToSuperview().offset(110)
       $0.centerX.equalToSuperview()
-      $0.width.height.equalTo(100)
+      $0.width.height.equalTo(150)
     }
 
     nameTextField.snp.makeConstraints {
       $0.top.equalTo(profileImageView.snp.bottom).offset(20)
       $0.centerX.equalToSuperview()
-//      $0.leading.trailing.equalToSuperview().inset(20)
     }
-
-//    nickNameTextField.snp.makeConstraints {
-//      $0.top.equalTo(nameTextField.snp.bottom).offset(8)
-//      $0.centerX.equalToSuperview()
-//      $0.leading.trailing.equalToSuperview().inset(20)
-//    }
-//
-//    introduceTextField.snp.makeConstraints {
-//      $0.top.equalTo(nickNameTextField.snp.bottom).offset(8)
-//      $0.centerX.equalToSuperview()
-//      $0.leading.trailing.equalToSuperview().inset(20)
-//    }
 
     tableView.snp.makeConstraints {
       $0.top.equalTo(nameTextField.snp.bottom).offset(20)
