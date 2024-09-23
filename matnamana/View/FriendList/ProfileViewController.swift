@@ -16,9 +16,11 @@ final class ProfileViewController: BaseViewController {
   private var viewModel = UserProfileViewModel()
   var userInfo: String
   var userImage: String?
+  var isCellClicked: Bool
   
-  init(userInfo: String) {
+  init(userInfo: String, isCellClicked: Bool) {
     self.userInfo = userInfo
+    self.isCellClicked = isCellClicked
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -44,6 +46,11 @@ final class ProfileViewController: BaseViewController {
       guard let snapshot = documentSnapshot else { return }
       let isFriend = snapshot.friendList.contains { $0.friendId == self.userInfo && $0.status != .rejected }
       
+      if isCellClicked {
+        self.profileView.requestFriend.isHidden = true
+        self.profileView.deleteFriend.isHidden = true
+      }
+      
       if isFriend {
         self.profileView.requestFriend.isHidden = true
         self.profileView.deleteFriend.isHidden = true
@@ -58,14 +65,28 @@ final class ProfileViewController: BaseViewController {
     
     output.userInfo
       .drive(onNext: { [weak self] userInfo in
-        guard let self = self else { return }
+        guard let self else { return }
         self.userImage = userInfo.profileImage
         self.profileView.configureUI(imageURL: userInfo.profileImage,
                                      userName: userInfo.name,
-                                     nickName: userInfo.nickName
+                                     nickName: userInfo.nickName,
+                                     
+                                     shortDescription: userInfo.shortDescription
+                                     
         )
       })
       .disposed(by: disposeBag)
+    
+    output.userInfoWithName
+      .drive(onNext: { [weak self] userInfo in
+        guard let self else { return }
+        self.userImage = userInfo.profileImage
+        self.profileView.configureUI(imageURL: userInfo.profileImage,
+                                     userName: userInfo.name,
+                                     nickName: userInfo.nickName,
+                                     shortDescription: userInfo.shortDescription
+                                     )
+                                     }).disposed(by: disposeBag)
   }
   
   private func buttonClicked() {
@@ -75,7 +96,10 @@ final class ProfileViewController: BaseViewController {
         guard let userImage = self.userImage else { return }
         let modalVC = AddFriendViewController(userInfo: self.userInfo,
                                               userImage: userImage,
-                                              userName: profileView.userName.text ?? "")
+                                              userName: profileView.userName.text ?? "") {
+          self.navigationController?.popViewController(animated: true)
+        }
+      
         modalVC.modalPresentationStyle = .overFullScreen
         self.present(modalVC, animated: true)
       }).disposed(by: disposeBag)

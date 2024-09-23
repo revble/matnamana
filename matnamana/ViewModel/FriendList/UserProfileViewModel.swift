@@ -19,6 +19,7 @@ final class UserProfileViewModel: ViewModelType {
   
   struct Output {
     let userInfo: Driver<User.Info>
+    let userInfoWithName: Driver<User.Info>
   }
   
   func transform(input: Input) -> Output {
@@ -27,12 +28,32 @@ final class UserProfileViewModel: ViewModelType {
         self.fetchUserInfo(nickName: input.nickName)
       }
       .asDriver(onErrorDriveWith: .empty())
-    return Output(userInfo: userInfo)
+    
+    let userInfoWithName = input.fetchUser
+      .flatMap { _ in
+        self.fetchUserInfoWithName(name: input.nickName)
+      }
+      .asDriver(onErrorDriveWith: .empty())
+    return Output(userInfo: userInfo, userInfoWithName: userInfoWithName)
   }
   
   private func fetchUserInfo(nickName: String) -> Observable<User.Info> {
     return Observable.create { observer in
       FirebaseManager.shared.getUserInfo(nickName: nickName) { user, error in
+        if let user = user {
+          observer.onNext(user.info)
+        } else if let error = error {
+          observer.onError(error)
+        }
+        observer.onCompleted()
+      }
+      return Disposables.create()
+    }
+  }
+  
+  private func fetchUserInfoWithName(name: String) -> Observable<User.Info> {
+    return Observable.create { observer in
+      FirebaseManager.shared.getUserInfoWithName(name: name) { user, error in
         if let user = user {
           observer.onNext(user.info)
         } else if let error = error {

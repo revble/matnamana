@@ -35,6 +35,16 @@ extension UIViewController {
     viewController.modalPresentationStyle = modalPresentationStyle
     self.present(viewController, animated: animated)
   }
+  
+  func hideKeyboardWhenTappedAround() {
+    let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+    tap.cancelsTouchesInView = false
+    view.addGestureRecognizer(tap)
+  }
+  
+  @objc func dismissKeyboard() {
+    view.endEditing(true)
+  }
 }
 
 extension UIView {
@@ -42,10 +52,10 @@ extension UIView {
     self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.04)
     self.layer.cornerRadius = 10
     self.layer.masksToBounds = false
-//    self.layer.shadowOpacity = 1
-//    self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
-//    self.layer.shadowOffset = CGSize(width: 2, height: 2)
-//    self.layer.shadowRadius = 2
+    //    self.layer.shadowOpacity = 1
+    //    self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
+    //    self.layer.shadowOffset = CGSize(width: 2, height: 2)
+    //    self.layer.shadowRadius = 2
   }
 }
 
