@@ -16,7 +16,7 @@ final class FriendListCell: UITableViewCell {
   private let userImage = UIImageView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 25
-    $0.contentMode = .scaleAspectFit
+    $0.contentMode = .scaleAspectFill
   }
   
   let userName = UILabel().then {
@@ -105,7 +105,7 @@ final class FriendListCell: UITableViewCell {
     userName.text = nickName
     
     if let url = URL(string: friendImage) {
-      userImage.kf.setImage(with: url)
+      userImage.kf.setImage(with: url, placeholder: UIImage(named: "profile"))
     }
     
     switch relation.lowercased() {

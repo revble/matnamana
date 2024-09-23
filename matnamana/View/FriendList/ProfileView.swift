@@ -16,20 +16,20 @@ final class ProfileView: UIView {
   private let myPageButton = UIButton(type: .system).then {
     var configuration = UIButton.Configuration.filled()
     configuration.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 35, bottom: 25, trailing: 35)
-    configuration.baseBackgroundColor = .clear // 기본 배경색 제거
+    configuration.baseBackgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)// 기본 배경색 제거
     configuration.background.cornerRadius = 16 // border-radius: 16px
     
     $0.configuration = configuration
     
-    // 테두리와 그림자 설정 (변경된 색상 적용)
+  
     $0.layer.cornerRadius = 16
     $0.layer.borderWidth = 1 // 테두리 두께
     $0.layer.borderColor = UIColor.lightGray.cgColor // 연한 회색 테두리
     $0.layer.shadowColor = UIColor.black.cgColor
-    $0.layer.shadowOffset = CGSize(width: 0, height: 4) // box-shadow 오프셋
-    $0.layer.shadowOpacity = 0.25 // box-shadow 투명도
-    $0.layer.shadowRadius = 4 // box-shadow 반경
-    $0.clipsToBounds = false // 그림자 보이도록 설정
+//    $0.layer.shadowOffset = CGSize(width: 0, height: 4) // box-shadow 오프셋
+//    $0.layer.shadowOpacity = 0.25 // box-shadow 투명도
+//    $0.layer.shadowRadius = 4 // box-shadow 반경
+//    $0.clipsToBounds = false // 그림자 보이도록 설정
   }
   
   private let verticalStackView: UIStackView = UIStackView().then {
@@ -46,8 +46,8 @@ final class ProfileView: UIView {
   
   let profileImage: UIImageView = UIImageView().then {
     $0.image = UIImage()
-    $0.layer.cornerRadius = 50
-    $0.contentMode = .scaleAspectFit
+    $0.layer.cornerRadius = 70
+    $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
   }
   
@@ -81,6 +81,17 @@ final class ProfileView: UIView {
     $0.layer.cornerRadius = 16
   }
   
+  let friendCount: UILabel = UILabel().then {
+    $0.text = ""
+    $0.textColor = .manaMainColor
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
+  }
+  
+  let shortDescription: UILabel = UILabel().then {
+    $0.text = ""
+    $0.font = .systemFont(ofSize: 17)
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configure()
@@ -104,7 +115,9 @@ final class ProfileView: UIView {
     
     [
       userName,
-      nickName
+      nickName,
+//      friendCount,
+      shortDescription
     ].forEach { verticalStackView.addArrangedSubview($0) }
     
     [
@@ -115,10 +128,11 @@ final class ProfileView: UIView {
     
   }
   
-  func configureUI(imageURL: String, userName: String, nickName: String) {
+  func configureUI(imageURL: String, userName: String, nickName: String, /*friendCount: Int*/ shortDescription: String) {
     self.userName.text = userName
-    self.nickName.text = nickName
-    
+    self.nickName.text = "\(nickName)"
+//    self.friendCount.text = "friendCount"
+    self.shortDescription.text = shortDescription
     if let url = URL(string: imageURL) {
       profileImage.kf.setImage(with: url, placeholder: UIImage(named: "profile"))
       profileImage.kf.setImage(with: url)
@@ -135,7 +149,7 @@ final class ProfileView: UIView {
     }
     
     profileImage.snp.makeConstraints {
-      $0.width.height.equalTo(100)
+      $0.width.height.equalTo(140)
       $0.centerX.equalToSuperview()
       $0.top.equalTo(self.safeAreaLayoutGuide).inset(100)
     }

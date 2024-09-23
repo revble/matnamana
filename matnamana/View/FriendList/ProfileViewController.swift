@@ -69,7 +69,10 @@ final class ProfileViewController: BaseViewController {
         self.userImage = userInfo.profileImage
         self.profileView.configureUI(imageURL: userInfo.profileImage,
                                      userName: userInfo.name,
-                                     nickName: userInfo.nickName
+                                     nickName: userInfo.nickName,
+                                     
+                                     shortDescription: userInfo.shortDescription
+                                     
         )
       })
       .disposed(by: disposeBag)
@@ -80,7 +83,8 @@ final class ProfileViewController: BaseViewController {
         self.userImage = userInfo.profileImage
         self.profileView.configureUI(imageURL: userInfo.profileImage,
                                      userName: userInfo.name,
-                                     nickName: userInfo.nickName
+                                     nickName: userInfo.nickName,
+                                     shortDescription: userInfo.shortDescription
                                      )
                                      }).disposed(by: disposeBag)
   }
@@ -92,7 +96,10 @@ final class ProfileViewController: BaseViewController {
         guard let userImage = self.userImage else { return }
         let modalVC = AddFriendViewController(userInfo: self.userInfo,
                                               userImage: userImage,
-                                              userName: profileView.userName.text ?? "")
+                                              userName: profileView.userName.text ?? "") {
+          self.navigationController?.popViewController(animated: true)
+        }
+      
         modalVC.modalPresentationStyle = .overFullScreen
         self.present(modalVC, animated: true)
       }).disposed(by: disposeBag)
