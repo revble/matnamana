@@ -27,7 +27,7 @@ final class LoginController: BaseViewController {
   override func bind() {
     super.bind()
     let input = LoginViewModel.Input(
-      loggedInApple: loginView.loginButton.rx.tap,
+      loggedInApple: loginView.loginButton.rx.controlEvent(.touchUpInside),
       loggedInKakao: loginView.kakaoLoginButton.rx.tap
     )
     

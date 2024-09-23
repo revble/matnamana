@@ -20,11 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
 
-    if isLoggedIn {
-      window.rootViewController = TabBarController()
-    } else {
+//    if isLoggedIn {
+//      window.rootViewController = TabBarController()
+//    } else {
       window.rootViewController = LoginController()
-    }
+//    }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
       window.makeKeyAndVisible()

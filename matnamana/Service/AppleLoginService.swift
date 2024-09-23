@@ -32,6 +32,8 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate, ASAu
     authorizationController.delegate = self
     authorizationController.presentationContextProvider = self
     authorizationController.performRequests()
+    
+
   }
   
   func authorizationController(controller: ASAuthorizationController,
@@ -60,6 +62,8 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate, ASAu
           self.authResultSubject.onNext(false)
           return
         }
+        print(appleIDCredential.fullName)
+        print(appleIDCredential.email)
         self.authResultSubject.onNext(true)
       }
     }
