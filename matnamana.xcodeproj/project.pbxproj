@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F0AC29B2CA1753900E71D65 /* ForbiddenWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0AC29A2CA1753900E71D65 /* ForbiddenWords.swift */; };
 		4F1E88652C8E89CD00F09A36 /* AcceptRequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88642C8E89CD00F09A36 /* AcceptRequestController.swift */; };
 		4F1E88682C8E99B300F09A36 /* AcceptRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */; };
 		4F4877CD2C9C2A2E0060C1B7 /* QandACell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4877CC2C9C2A2E0060C1B7 /* QandACell.swift */; };
@@ -155,6 +156,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F0AC29A2CA1753900E71D65 /* ForbiddenWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForbiddenWords.swift; sourceTree = "<group>"; };
 		4F1E885F2C8BEE1700F09A36 /* ReputaionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputaionViewModel.swift; sourceTree = "<group>"; };
 		4F1E88642C8E89CD00F09A36 /* AcceptRequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestController.swift; sourceTree = "<group>"; };
 		4F1E88672C8E99B300F09A36 /* AcceptRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewModel.swift; sourceTree = "<group>"; };
@@ -576,8 +578,8 @@
 		DDCF931C2C7D5418005DB62F /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				DDCF92412C78557D005DB62F /* LoginController.swift */,
 				4FEB36942C7EC9240066998E /* LoginView.swift */,
+				DDCF92412C78557D005DB62F /* LoginController.swift */,
 				4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */,
 				4F83D31C2C7F14A60076AE2A /* RequiredInformationView.swift */,
 			);
@@ -588,6 +590,7 @@
 			isa = PBXGroup;
 			children = (
 				DDCF93202C7D8C6D005DB62F /* UserModel.swift */,
+				4F0AC29A2CA1753900E71D65 /* ForbiddenWords.swift */,
 				DDCF93222C7D8C8B005DB62F /* QuestionModel.swift */,
 				DDF2A01F2C80A072001B1DB7 /* AnswerModel.swift */,
 				DDF2A0212C80A084001B1DB7 /* ReputationModel.swift */,
@@ -873,6 +876,7 @@
 				DDCF932B2C7E0D3D005DB62F /* FriendListCell.swift in Sources */,
 				4F83D32C2C8554BA0076AE2A /* HomeView.swift in Sources */,
 				4F4EDB282C958BA700BFF74F /* ReadAnswerView.swift in Sources */,
+				4F0AC29B2CA1753900E71D65 /* ForbiddenWords.swift in Sources */,
 				DDF2A01E2C8034A1001B1DB7 /* UIExtensions.swift in Sources */,
 				4F83D3372C8576770076AE2A /* SectionModel.swift in Sources */,
 				4F63D7232C8A8D5F00B0F65C /* ReputationView.swift in Sources */,
@@ -1134,7 +1138,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = MatnamanaLaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1150,7 +1153,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1168,7 +1171,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = MatnamanaLaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1184,7 +1186,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

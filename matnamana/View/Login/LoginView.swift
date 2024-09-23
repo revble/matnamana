@@ -5,7 +5,9 @@
 ////  Created by pc on 8/28/24.
 ////
 //
+import AuthenticationServices
 import UIKit
+
 
 import SnapKit
 import Then
@@ -38,11 +40,7 @@ final class LoginView: BaseView {
     $0.font = UIFont.systemFont(ofSize: 15)
   }
   
-  let loginButton = UIButton().then {
-    $0.setImage(UIImage(named: "appleLogin"), for: .normal)
-    $0.setTitleColor(.white, for: .normal)
-    $0.layer.cornerRadius = 10
-  }
+  let loginButton = ASAuthorizationAppleIDButton()
   
   let kakaoLoginButton = UIButton().then {
     $0.setImage(UIImage(named: "kakaoLogin"), for: .normal)
@@ -95,6 +93,7 @@ final class LoginView: BaseView {
       $0.top.equalTo(matnamana.snp.bottom).offset(16)
       $0.centerX.equalToSuperview()
       $0.leading.trailing.equalToSuperview().inset(16)
+      $0.height.equalTo(kakaoLoginButton.snp.height)
 //      $0.bottom.equalToSuperview().inset(150)
 //      $0.centerX.equalToSuperview()
 //      $0.left.equalToSuperview().offset(16)

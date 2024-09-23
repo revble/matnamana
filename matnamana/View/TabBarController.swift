@@ -8,7 +8,7 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     viewConfig()
@@ -28,36 +28,35 @@ final class TabBarController: UITabBarController {
   }
   
   private func viewConfig() {
-      let viewControllers = TabbarItem.allCases.map { item -> UINavigationController in
-          let vc = item.viewController
-          vc.view.backgroundColor = .systemBackground
-          vc.navigationItem.title = item.navigtaionItemTitle
-          vc.navigationItem.largeTitleDisplayMode = .always
-
-
-          let nav = UINavigationController(rootViewController: vc)
-          nav.title = item.navigtaionItemTitle
-        nav.tabBarItem.image = item.tabbarImage
-
-          // Large Title 설정
-          nav.navigationBar.prefersLargeTitles = true
-
-          return nav
-      }
-      setViewControllers(viewControllers, animated: false)
+    let viewControllers = TabbarItem.allCases.map { item -> UINavigationController in
+      let vc = item.viewController
+      vc.view.backgroundColor = .systemBackground
+      vc.navigationItem.title = item.navigtaionItemTitle
+      vc.navigationItem.largeTitleDisplayMode = .always
+      
+      
+      let nav = UINavigationController(rootViewController: vc)
+      nav.title = item.navigtaionItemTitle
+      nav.tabBarItem.image = item.tabbarImage
+      
+      // Large Title 설정
+      nav.navigationBar.prefersLargeTitles = true
+      
+      return nav
+    }
+    setViewControllers(viewControllers, animated: false)
     tabBar.tintColor = UIColor.manaMainColor
   }
-
+  
 }
 extension TabBarController {
-
 
   enum TabbarItem: CaseIterable {
     case mainPage
     case friendList
     case reputation
     case myPage
-
+    
     var viewController: UIViewController {
       switch self {
       case .mainPage:
@@ -73,18 +72,18 @@ extension TabBarController {
     }
     
     var tabbarImage: UIImage? {
-        switch self {
-        case .mainPage:
-            return UIImage(systemName: "house.fill")  // SF Symbols 사용
-        case .friendList:
-            return UIImage(systemName: "person.2.fill")
-        case .reputation:
-            return UIImage(named: "tapbbar")  // matnamanaLogo 이미지 사용
-        case .myPage:
-            return UIImage(systemName: "person.fill")
-        }
+      switch self {
+      case .mainPage:
+        return UIImage(systemName: "house.fill")  // SF Symbols 사용
+      case .friendList:
+        return UIImage(systemName: "person.2.fill")
+      case .reputation:
+        return UIImage(named: "tapbbar")  // matnamanaLogo 이미지 사용
+      case .myPage:
+        return UIImage(systemName: "person.fill")
+      }
     }
-
+    
     var navigtaionItemTitle: String {
       switch self {
       case .mainPage:
