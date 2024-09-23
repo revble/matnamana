@@ -41,7 +41,10 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
     profileEditView.profileImageView.addGestureRecognizer(tapGesture)
+
+    navigationController?.navigationBar.prefersLargeTitles = false
   }
+
 
   override func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
     super.adjustForKeyboardHeight(keyboardHeight)
@@ -61,8 +64,6 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
 
     // 입력 필드와 Observable 생성
 
-//    let nicknameText = profileEditView.nickNameTextField.rx.text.orEmpty.asObservable()
-//    let shortDescriptionText = profileEditView.introduceTextField.rx.text.orEmpty.asObservable()
 
     // 사용자 정보 텍스트 필드 Observable 생성
     let userInfoTexts = Observable.just(userInfo).map { userInfo in
@@ -75,8 +76,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     }
 
     // 프로필 이미지 Observable 생성
-//    UserDefaults.standard.set(profileImageUrl, forKey: "userImage")
-//    print(profileImageUrl)
+
     let profileImageObservable = Observable.just(profileImageUrl)
 
     // "저장" 버튼 탭 이벤트 처리
@@ -85,10 +85,10 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
       .subscribe(onNext: { [weak self] ( userDetails, profileImageUrl) in
         guard let self = self else { return }
         self.saveUserData()  // 저장 메서드 호출
-        self.navigateToProfileController()  // ProfileController로 이동
+        //        self.navigateToProfileController()  // ProfileController로 이동
       }).disposed(by: disposeBag)
-  }
 
+  }
   // 사용자 정보 바인딩 메서드 추가
   private func bindViewModel() {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
@@ -103,8 +103,8 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     let input = ProfileEditViewModel.Input(
       saveTap: navigationItem.rightBarButtonItem!.rx.tap.asObservable(),
 
-//      nicknameText: profileEditView.nickNameTextField.rx.text.orEmpty.asObservable(),
-//      shortDescriptionText: profileEditView.introduceTextField.rx.text.orEmpty.asObservable(),
+      //      nicknameText: profileEditView.nickNameTextField.rx.text.orEmpty.asObservable(),
+      //      shortDescriptionText: profileEditView.introduceTextField.rx.text.orEmpty.asObservable(),
       userInfoTexts: Observable.just(userInfo).map { userInfo in
         userInfo.reduce(into: [String: String]()) { result, field in
           if let rowIndex = userInfo.firstIndex(of: field),
@@ -125,8 +125,6 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
       .subscribe(onNext: { [weak self] profile in
         guard let self = self else { return }
         self.profileEditView.nameTextField.text = profile.name
-          //        self.profileEditView.nickNameTextField.text = profile.nickName
-//        self.profileEditView.introduceTextField.text = profile.shortDescription
         self.profileEditView.profileImageView.loadImage(from: profile.profileImage)
 
         // TableView 데이터 업데이트
@@ -204,82 +202,85 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
 
   private func saveUserData() {
     guard UserDefaults.standard.string(forKey: "loggedInUserId") != nil else { return }
-      // 기존 사용자 데이터 불러오기
-      viewModel.fetchProfileData()
-        .subscribe(onNext: { [weak self] existingUser in
-          guard let self = self else { return }
+    // 기존 사용자 데이터 불러오기
+    viewModel.fetchProfileData()
+      .subscribe(onNext: { [weak self] existingUser in
+        guard let self = self else { return }
 
-          // 입력된 사용자 정보로 업데이트ㄱ
-//          let nickname = self.profileEditView.nickNameTextField.text ?? ""
-//          let shortDescription = self.profileEditView.introduceTextField.text ?? ""
-          let name = UserDefaults.standard.string(forKey: "userName") ?? ""
-          var userDetails: [String: String] = [:]
-          for (index, key) in self.userInfo.enumerated() {
-            if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: index, section: 0)),
-               let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
-              userDetails[key] = textField.text ?? ""
-            }
+
+        let name = UserDefaults.standard.string(forKey: "userName") ?? ""
+        var userDetails: [String: String] = [:]
+        for (index, key) in self.userInfo.enumerated() {
+          if let cell = self.profileEditView.tableView.cellForRow(at: IndexPath(row: index, section: 0)),
+             let textField = cell.contentView.subviews.compactMap({ $0 as? UITextField }).first {
+            userDetails[key] = textField.text ?? ""
           }
+        }
 
-          // 기존 preset과 friendList를 유지하며 새로운 사용자 정보 생성
-          let updatedInfo = User.Info(
-            career: userDetails["직업"] ?? existingUser.info.career,
-            education: userDetails["최종학력"] ?? existingUser.info.education,
-            email: userDetails["이메일"] ?? existingUser.info.email,
-            location: userDetails["거주지"] ?? existingUser.info.location,
-            name:name,
-            phoneNumber: userDetails["휴대번호"] ?? existingUser.info.phoneNumber,
-            shortDescription: userDetails["소개"] ?? existingUser.info.shortDescription,
-            profileImage: self.profileImageUrl,
-            nickName: userDetails["닉네임"] ?? existingUser.info.nickName,
-            birth: userDetails["생일"] ?? existingUser.info.birth,
-            university: userDetails["대학교"] ?? existingUser.info.university,
-            companyName: userDetails["회사"] ?? existingUser.info.companyName
-          )
+        // 기존 preset과 friendList를 유지하며 새로운 사용자 정보 생성
+        let updatedInfo = User.Info(
+          career: userDetails["직업"] ?? existingUser.info.career,
+          education: userDetails["최종학력"] ?? existingUser.info.education,
+          email: userDetails["이메일"] ?? existingUser.info.email,
+          location: userDetails["거주지"] ?? existingUser.info.location,
+          name:name,
+          phoneNumber: userDetails["휴대번호"] ?? existingUser.info.phoneNumber,
+          shortDescription: userDetails["소개"] ?? existingUser.info.shortDescription,
+          profileImage: self.profileImageUrl,
+          nickName: userDetails["닉네임"] ?? existingUser.info.nickName,
+          birth: userDetails["생일"] ?? existingUser.info.birth,
+          university: userDetails["대학교"] ?? existingUser.info.university,
+          companyName: userDetails["회사"] ?? existingUser.info.companyName
+        )
 
-          let updatedUser = User(info: updatedInfo, preset: existingUser.preset, friendList: existingUser.friendList, userId: existingUser.userId)
+        let updatedUser = User(info: updatedInfo, preset: existingUser.preset, friendList: existingUser.friendList, userId: existingUser.userId)
 
-          self.viewModel.saveUserData(user: updatedUser)
-            .subscribe(onNext: { success in
-              if success {
-                print("User data saved successfully")
-              } else {
-                print("Failed to save user data")
-              }
-            }).disposed(by: self.disposeBag)
-        }).disposed(by: disposeBag)
-    }
+        self.viewModel.saveUserData(user: updatedUser)
+          .subscribe(onNext: { success in
+            if success {
+              self.navigationController?.popViewController(animated: true)
 
-    // MARK: - UITableViewDataSource Methods
+              print("User data saved successfully")
+            } else {
+              print("Failed to save user data")
+            }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return userInfo.count
-    }
+          }).disposed(by: self.disposeBag)
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-      cell.textLabel?.text = userInfo[indexPath.row]
+      }).disposed(by: disposeBag)
 
-      let textField: UITextField = {
-        let textField = UITextField()
-        textField.clearButtonMode = .always
-        textField.placeholder = "Value"
-        textField.text = ""
-        return textField
-      }()
-
-      cell.contentView.addSubview(textField)
-      textField.snp.makeConstraints {
-        $0.trailing.equalToSuperview().inset(20)
-        $0.centerY.equalToSuperview()
-        $0.width.equalTo(200)
-      }
-      return cell
-    }
-
-    // MARK: - 네비게이션 메서드 추가
-
-    private func navigateToProfileController() {
-      self.navigationController?.popViewController(animated: true)
-    }
   }
+
+  // MARK: - UITableViewDataSource Methods
+
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return userInfo.count
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+    cell.textLabel?.text = userInfo[indexPath.row]
+
+    let textField: UITextField = {
+      let textField = UITextField()
+      textField.clearButtonMode = .always
+      textField.placeholder = "Value"
+      textField.text = ""
+      return textField
+    }()
+
+    cell.contentView.addSubview(textField)
+    textField.snp.makeConstraints {
+      $0.trailing.equalToSuperview().inset(20)
+      $0.centerY.equalToSuperview()
+      $0.width.equalTo(200)
+    }
+    return cell
+  }
+
+  // MARK: - 네비게이션 메서드 추가
+  //
+  //    private func navigateToProfileController() {
+  //      self.navigationController?.popViewController(animated: true)
+  //    }
+}
