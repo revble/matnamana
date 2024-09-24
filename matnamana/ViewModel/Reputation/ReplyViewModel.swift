@@ -56,21 +56,20 @@ final class ReplyViewModel {
       
       guard let document = try? snapshot?.data(as: ReputationRequest.self) else { return }
       
-//      var updatedQuestionList = document.questionList
-//      var a = 0
-//      for (question, answer) in answers {
-//        updatedQuestionList[a].answer![userId] = answer
-//        a += 1
-//      }
-//      reputationRequest.updateData(["questionList": updatedQuestionList])
-      
+      //      var updatedQuestionList = document.questionList
+      //      var a = 0
+      //      for (question, answer) in answers {
+      //        updatedQuestionList[a].answer![userId] = answer
+      //        a += 1
+      //      }
+      //      reputationRequest.updateData(["questionList": updatedQuestionList])
       let updatedData: [String: Any] = [
-        "questionList": answers.map { answerTuple in
+        "questionList": answers.enumerated().map { (index, answerTuple) in
           [
             "contentDescription": answerTuple.0,
             "answer": [
               userId: answerTuple.1,
-              document.questionList[0].answer?.keys.first: document.questionList[0].answer?.values.first
+              document.questionList[index].answer?.keys.first: document.questionList[index].answer?.values.first
             ]
           ]
         }
@@ -79,18 +78,18 @@ final class ReplyViewModel {
     }
     
     
-//    let updatedData: [String: Any] = [
-//      "questionList": answers.map { answerTuple in
-//        [
-//          "contentDescription": answerTuple.0,
-//          "answer": [
-//            userId: answerTuple.1
-//          ]
-//        ]
-//      } 
-//    ]
-//    
-//    reputationRequest.setData(updatedData, merge: true)
+    //    let updatedData: [String: Any] = [
+    //      "questionList": answers.map { answerTuple in
+    //        [
+    //          "contentDescription": answerTuple.0,
+    //          "answer": [
+    //            userId: answerTuple.1
+    //          ]
+    //        ]
+    //      }
+    //    ]
+    //
+    //    reputationRequest.setData(updatedData, merge: true)
     
   }
   
