@@ -64,17 +64,17 @@ final class ReputaionController: BaseViewController {
     
   }
   
-  private func moveToSearchButton() -> UIBarButtonItem {
-    let button = reputationView.searchFriend
-    button.rx.tap
-      .observe(on: MainScheduler.instance)
-      .subscribe(onNext: { [weak self] in
-        guard let self else { return }
-        //self.pushViewController(SearchViewController())
-      }).disposed(by: disposeBag)
-    
-    return UIBarButtonItem(customView: button)
-  }
+//  private func moveToSearchButton() -> UIBarButtonItem {
+//    let button = reputationView.searchFriend
+//    button.rx.tap
+//      .observe(on: MainScheduler.instance)
+//      .subscribe(onNext: { [weak self] in
+//        guard let self else { return }
+//        self.pushViewController(SearchViewController())
+//      }).disposed(by: disposeBag)
+//    
+//    return UIBarButtonItem(customView: button)
+//  }
   
   private func bindCollectionView() {
     let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, Item>>(

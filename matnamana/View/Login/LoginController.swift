@@ -34,18 +34,23 @@ final class LoginController: BaseViewController {
     let output = loginviewModel.transform(input: input)
     
     output.isDuplicate
-      .withLatestFrom(output.appleLogin) { (isDuplicate: Bool, appleLogin: Bool) -> (Bool, Bool) in
-        return (isDuplicate, appleLogin)
+      .withLatestFrom(output.appleLoggin) { (isDuplicate: Bool, appleLoggin: Bool) -> (Bool, Bool) in
+        return (isDuplicate, appleLoggin)
       }
       .observe(on: MainScheduler.instance)
-      .subscribe(onNext: { [weak self] (isDuplicate, appleLogin) in
+      .subscribe(onNext: { [weak self] (isDuplicate, appleLoggin) in
         guard let self = self else { return }
         
         if isDuplicate {
           self.transitionToViewController(TabBarController())
         } else {
-          let viewController = RequiredInformationController(appleLogin: appleLogin)
-          self.transitionToViewController(viewController)
+          if appleLoggin {
+            let viewController = RequiredInformationController(appleLogin: true)
+            self.transitionToViewController(viewController)
+          } else {
+            let viewController = RequiredInformationController(appleLogin: false)
+            self.transitionToViewController(viewController)
+          }
         }
       })
       .disposed(by: disposeBag)
