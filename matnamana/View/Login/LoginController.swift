@@ -17,7 +17,6 @@ final class LoginController: BaseViewController {
   
   private var loginView = LoginView(frame: .zero)
   private let loginviewModel = LoginViewModel()
-  var namevalue = true
   
   override func setupView() {
     super.setupView()
@@ -35,22 +34,20 @@ final class LoginController: BaseViewController {
     let output = loginviewModel.transform(input: input)
     
     output.isDuplicate
+      .withLatestFrom(output.appleLogin) { (isDuplicate: Bool, appleLogin: Bool) -> (Bool, Bool) in
+        return (isDuplicate, appleLogin)
+      }
       .observe(on: MainScheduler.instance)
-      .subscribe(onNext: { [weak self] isDuplicate in
-        guard let self else { return }
+      .subscribe(onNext: { [weak self] (isDuplicate, appleLogin) in
+        guard let self = self else { return }
+        
         if isDuplicate {
           self.transitionToViewController(TabBarController())
         } else {
-          output.appleLoggin
-            .subscribe(onNext: { [weak self] bool in
-              guard let self else { return }
-              if bool {
-                self.transitionToViewController(RequiredInformationController(appleLogin: true))
-              } else {
-                self.transitionToViewController(RequiredInformationController(appleLogin: false))
-              }
-            }).disposed(by: self.disposeBag)
+          let viewController = RequiredInformationController(appleLogin: appleLogin)
+          self.transitionToViewController(viewController)
         }
-      }).disposed(by: disposeBag)
+      })
+      .disposed(by: disposeBag)
   }
 }

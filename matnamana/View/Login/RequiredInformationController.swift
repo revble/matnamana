@@ -32,10 +32,11 @@ final class RequiredInformationController: BaseViewController {
   override func setupView() {
     super.setupView()
     requiredInformationView = RequiredInformationView(frame: UIScreen.main.bounds)
-    self.view = requiredInformationView
     if appleLogin {
       requiredInformationView.hidename()
     }
+    self.view = requiredInformationView
+    
   }
   
   override func viewDidLoad() {

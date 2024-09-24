@@ -66,7 +66,7 @@ final class ReferenceCheckController: BaseViewController {
         self.present(alert, animated: true)
     
         guard let requestId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
-        guard let userNickName = UserDefaults.standard.string(forKey: "userNickName") else { return }
+        guard let userName = UserDefaults.standard.string(forKey: "userName") else { return }
         guard let userImage = UserDefaults.standard.string(forKey: "userImage") else { return }
         FirebaseManager.shared.getUserInfo(nickName: targetID) { [weak self] snapShot, error in
           guard let snapShot = snapShot else { return }
@@ -80,8 +80,8 @@ final class ReferenceCheckController: BaseViewController {
             QuestionList(answer: nil, contentDescription: $0)
           }
           self.request = ReputationRequest(
-            requester: UserProfile(nickName: userNickName, profileImage: userImage, userId: requestId),
-            target: UserProfile(nickName: snapShot.info.nickName, profileImage: "targetImage", userId: snapShot.userId),
+            requester: UserProfile(nickName: userName, profileImage: userImage, userId: requestId),
+            target: UserProfile(nickName: snapShot.info.name, profileImage: "targetImage", userId: snapShot.userId),
             questionList: newQuestion,
             status: .pending,
             selectedFriends: [UserProfile(nickName: "", profileImage: "", userId: "")],

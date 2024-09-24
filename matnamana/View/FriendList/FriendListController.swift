@@ -144,6 +144,10 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
       })
       .disposed(by: disposeBag)
     
+    bindFriendsSelect()
+  }
+  
+  func bindFriendsSelect() {
     friendListView.friendList.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
         guard let self else { return }
