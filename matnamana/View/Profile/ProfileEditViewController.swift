@@ -31,6 +31,11 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     self.view = profileEditView
   }
 
+  override func viewWillDisappear(_ animated: Bool) {
+          super.viewWillDisappear(animated)
+          navigationController?.navigationBar.prefersLargeTitles = true
+      }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
