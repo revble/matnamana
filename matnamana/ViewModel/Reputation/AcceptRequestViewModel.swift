@@ -74,7 +74,7 @@ final class AcceptRequestViewModel {
     for selectedItem in selectedItems.value {
       print(selectedItem)
       
-      db.collection("users").whereField("info.nickName", isEqualTo: selectedItem)
+      db.collection("users").whereField("info.name", isEqualTo: selectedItem)
         .getDocuments { [weak self] querySnapshot, error in
           guard let self = self else { return }
           guard let querySnapshot,
@@ -110,7 +110,7 @@ final class AcceptRequestViewModel {
       .updateData([
         "selectedFriends": friendList.value.map { friend in
           [
-            "nickName": friend.info.nickName,
+            "nickName": friend.info.name,
             "profileImage": friend.info.profileImage,
             "userId": friend.userId
           ]

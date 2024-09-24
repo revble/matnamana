@@ -37,15 +37,6 @@ class AcceptRequestController: FriendListController {
   override func bind() {
     super.bind()
     
-    friendListView.friendList.rx.itemSelected
-      .subscribe(onNext: { [weak self] indexPath in
-        guard let self = self else { return }
-        if let cell = self.friendListView.friendList.cellForRow(at: indexPath) as? FriendListCell {
-          guard let selectedFriends = cell.userName.text else { return }
-          self.viewModel.selectItem(selectedFriends: selectedFriends)
-        }
-      }).disposed(by: disposeBag)
-    
     friendListView.friendList.rx.itemDeselected
       .subscribe(onNext: { [weak self] indexPath in
         guard let self = self else { return }
@@ -72,6 +63,17 @@ class AcceptRequestController: FriendListController {
           }
         }
         print("현재 선택된 항목들: \(selectedItems)")
+      }).disposed(by: disposeBag)
+  }
+  
+  override func bindFriendsSelect() {
+    friendListView.friendList.rx.itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        guard let self = self else { return }
+        if let cell = self.friendListView.friendList.cellForRow(at: indexPath) as? FriendListCell {
+          guard let selectedFriends = cell.userName.text else { return }
+          self.viewModel.selectItem(selectedFriends: selectedFriends)
+        }
       }).disposed(by: disposeBag)
   }
   

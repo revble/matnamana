@@ -65,13 +65,9 @@ final class ReplyViewModel {
         ]
       }
     ]
-    do {
-      try reputationRequest.updateData(updatedData)
-      print("Document successfully updated")
-    } catch {
-      print("Error updating document: \(error)")
-    }
-    
+
+    reputationRequest.setData(updatedData, merge: true)
+ 
   }
   
   

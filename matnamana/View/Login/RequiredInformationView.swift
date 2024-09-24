@@ -117,6 +117,10 @@ class RequiredInformationView: BaseView {
   func hidename() {
     nameLabel.isHidden = true
     nameTextField.isHidden = true
+    nickNameLabel.snp.makeConstraints {
+      $0.top.equalTo(descriptionLabel.snp.bottom).offset(60)
+      $0.leading.equalToSuperview().inset(25)
+    }
   }
   
   override func configureUI() {
@@ -158,13 +162,10 @@ class RequiredInformationView: BaseView {
     }
     
     nickNameLabel.snp.makeConstraints {
-      if nameLabel.isHidden {
-        $0.top.equalTo(descriptionLabel.snp.bottom).offset(60)
-        $0.leading.equalToSuperview().inset(25)
-      } else {
-        $0.top.equalTo(nameTextField.snp.bottom).offset(32)
-        $0.leading.trailing.equalToSuperview().inset(25)
-      }
+      
+      $0.top.equalTo(nameTextField.snp.bottom).offset(32)
+      $0.leading.trailing.equalToSuperview().inset(25)
+      
     }
     
     nickNameTextField.snp.makeConstraints {
