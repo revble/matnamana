@@ -28,7 +28,7 @@ final class ReputationViewModel: ViewModelType {
     let docId = "\(requester)-\(target)"
     FirebaseManager.shared.db.collection("reputationRequests").document(docId)
       .delete { error in
-        if let error = error {
+        if error != nil {
           print("삭제 실패")
         } else {
           print("삭제 성공")
@@ -40,7 +40,7 @@ final class ReputationViewModel: ViewModelType {
   func fetchReputationInfo() {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
     FirebaseManager.shared.fetchReputationInfo(userId: userId) { reputationRequests, error in
-      if let error = error {
+      if error != nil {
         print("error")
       }
       guard let reputationRequests else { return }

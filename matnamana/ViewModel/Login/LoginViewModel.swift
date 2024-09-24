@@ -22,7 +22,7 @@ final class LoginViewModel: ViewModelType {
   
   struct Output {
     let isDuplicate: Observable<Bool>
-    let appleLogin: Observable<Bool>
+    let appleLoggin: Observable<Bool>
   }
   
   private let db = FirebaseManager.shared.db
@@ -91,6 +91,6 @@ final class LoginViewModel: ViewModelType {
     let selectApple = input.loggedInApple
       .map { _ in true }
     
-  return Output(isDuplicate: isDuplicate, appleLogin: selectApple)
+  return Output(isDuplicate: isDuplicate, appleLoggin: selectApple)
   }
 }
