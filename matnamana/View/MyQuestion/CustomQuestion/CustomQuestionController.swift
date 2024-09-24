@@ -114,13 +114,12 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
           FirebaseManager.shared.updatePresetQuestions(for: id, presetQuestions: updatedQuestions) { success, error in
             if success {
               print("preset 질문 추가/수정 성공")
+              self.navigationController?.popViewController(animated: true)
             } else {
               print("preset 질문 추가/수정 실패")
             }
           }
         }
-        
-        self.navigationController?.popViewController(animated: true)
       })
       .disposed(by: disposeBag)
   }
@@ -131,11 +130,12 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
     }
   }
   
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    view.endEditing(true)
+  }
+  
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     true
   }
-  
-  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    true
-  }
 }
+

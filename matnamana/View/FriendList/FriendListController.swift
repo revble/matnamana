@@ -26,6 +26,19 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
     viewModel.fetchFriends()
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+    tapGesture.cancelsTouchesInView = false  // 다른 터치 이벤트 방해하지 않음
+    self.view.addGestureRecognizer(tapGesture)
+    
+  }
+  
+  @objc override func dismissKeyboard() {
+    self.view.endEditing(true)  // 키보드 숨기기
+  }
+  
   override func bind() {
     super.bind()
     let acceptTapSubject = PublishSubject<User.Friend>()
@@ -159,6 +172,6 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-      searchBar.resignFirstResponder()
+    searchBar.resignFirstResponder()
   }
 }
