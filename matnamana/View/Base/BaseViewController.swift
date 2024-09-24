@@ -49,11 +49,8 @@ class BaseViewController: UIViewController {
       })
       .disposed(by: disposeBag)
   }
+  
   func adjustForKeyboardHeight(_ keyboardHeight: CGFloat) {
-    if keyboardHeight > 0 {
-          let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-          view.addGestureRecognizer(tapGesture)
-      }
 
     // 전체 뷰의 subviews 중 UIScrollView 타입의 뷰에 대해 인셋 조정
     UIView.animate(withDuration: 0.3) {
@@ -71,9 +68,6 @@ class BaseViewController: UIViewController {
         }
       }
     }
-  }
-  @objc internal override func dismissKeyboard() {
-      view.endEditing(true) // 키보드 내리기
   }
 
   func setupDismissKeyboardGesture() {

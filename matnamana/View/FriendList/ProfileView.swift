@@ -16,20 +16,16 @@ final class ProfileView: UIView {
   private let myPageButton = UIButton(type: .system).then {
     var configuration = UIButton.Configuration.filled()
     configuration.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 35, bottom: 25, trailing: 35)
-    configuration.baseBackgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)// 기본 배경색 제거
+    configuration.baseBackgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
     configuration.background.cornerRadius = 16 // border-radius: 16px
     
     $0.configuration = configuration
     
   
     $0.layer.cornerRadius = 16
-    $0.layer.borderWidth = 1 // 테두리 두께
-    $0.layer.borderColor = UIColor.lightGray.cgColor // 연한 회색 테두리
+    $0.layer.borderWidth = 1
+    $0.layer.borderColor = UIColor.lightGray.cgColor
     $0.layer.shadowColor = UIColor.black.cgColor
-//    $0.layer.shadowOffset = CGSize(width: 0, height: 4) // box-shadow 오프셋
-//    $0.layer.shadowOpacity = 0.25 // box-shadow 투명도
-//    $0.layer.shadowRadius = 4 // box-shadow 반경
-//    $0.clipsToBounds = false // 그림자 보이도록 설정
   }
   
   private let verticalStackView: UIStackView = UIStackView().then {
@@ -142,7 +138,7 @@ final class ProfileView: UIView {
   private func setConstraints() {
     
     myPageButton.snp.makeConstraints {
-      $0.top.equalTo(safeAreaLayoutGuide).offset(18)
+      $0.top.equalTo(self.safeAreaLayoutGuide).offset(18)
       $0.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.2)
       $0.trailing.equalToSuperview().offset(-UIScreen.main.bounds.width * 0.2)
       $0.height.equalToSuperview().multipliedBy(0.4)
@@ -151,12 +147,13 @@ final class ProfileView: UIView {
     profileImage.snp.makeConstraints {
       $0.width.height.equalTo(140)
       $0.centerX.equalToSuperview()
-      $0.top.equalTo(self.safeAreaLayoutGuide).inset(100)
+      $0.top.equalTo(self.safeAreaLayoutGuide).inset(32)
     }
     
     verticalStackView.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalTo(profileImage.snp.bottom).offset(20)
+      $0.bottom.equalToSuperview().inset(10)
     }
     
     horizontalStackView.snp.makeConstraints {
