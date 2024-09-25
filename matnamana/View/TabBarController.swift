@@ -19,9 +19,10 @@ final class TabBarController: UITabBarController {
       } else if let user = user {
         let myNickName = user.info.nickName
         let myName = user.info.name
+        let image = user.info.profileImage
         UserDefaults.standard.setValue(myNickName, forKey: "userNickName")
         UserDefaults.standard.setValue(myName, forKey: "userName")
-        UserDefaults.standard.setValue("profile", forKey: "userImage")
+        UserDefaults.standard.setValue(image, forKey: "userImage")
         self.navigationItem.largeTitleDisplayMode = .always
       }
     }

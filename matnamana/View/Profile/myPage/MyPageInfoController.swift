@@ -99,7 +99,7 @@ final class MyPageInfoController: BaseViewController {
         observer.onCompleted()
       }
       
-      let deleteUserIdAction = UIAlertAction(title: "탈되하기", style: .destructive) { _ in
+      let deleteUserIdAction = UIAlertAction(title: "탈퇴하기", style: .destructive) { _ in
         observer.onNext(.ok)
         observer.onCompleted()
       }

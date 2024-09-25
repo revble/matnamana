@@ -17,10 +17,15 @@ final class ProfileViewController: BaseViewController {
   var userInfo: String
   var userImage: String?
   var isCellClicked: Bool
+  var sendId: String?
   
-  init(userInfo: String, isCellClicked: Bool) {
+  init(userInfo: String,
+       isCellClicked: Bool,
+       sendId: String?
+  ) {
     self.userInfo = userInfo
     self.isCellClicked = isCellClicked
+    self.sendId = sendId
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -70,7 +75,6 @@ final class ProfileViewController: BaseViewController {
         self.profileView.configureUI(imageURL: userInfo.profileImage,
                                      userName: userInfo.name,
                                      nickName: userInfo.nickName,
-                                     
                                      shortDescription: userInfo.shortDescription
                                      
         )
@@ -80,6 +84,7 @@ final class ProfileViewController: BaseViewController {
     output.userInfoWithName
       .drive(onNext: { [weak self] userInfo in
         guard let self else { return }
+        self.sendId = userInfo.nickName
         self.userImage = userInfo.profileImage
         self.profileView.configureUI(imageURL: userInfo.profileImage,
                                      userName: userInfo.name,
@@ -115,7 +120,13 @@ final class ProfileViewController: BaseViewController {
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
         let targetId = self.userInfo
-        self.navigationController?.pushViewController(RequestMyQuestionController(targetId: targetId), animated: true)
+        if isCellClicked {
+          if let sendId = sendId {
+            self.navigationController?.pushViewController(RequestMyQuestionController(targetId: sendId), animated: true)
+          }
+        } else {
+          self.navigationController?.pushViewController(RequestMyQuestionController(targetId: targetId), animated: true)
+        }
       }).disposed(by: disposeBag)
   }
 }

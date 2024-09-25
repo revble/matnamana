@@ -82,8 +82,10 @@ final class RequestMyQuestionController: BaseViewController {
         guard let self else { return }
         print(indexPath.row)
         print(presetTitles.count)
-        if indexPath.row == 1 {
-          let alert = UIAlertController(title: "알림", message: "preset을 추가해주세요.", preferredStyle: .alert)
+        let lastSectionIndex = requestMyQuestion.myPresetQuestion.numberOfSections - 1
+        let lastItemIndex = requestMyQuestion.myPresetQuestion.numberOfItems(inSection: lastSectionIndex) - 1
+        if indexPath.section == lastSectionIndex && indexPath.item == lastItemIndex {
+          let alert = UIAlertController(title: "알림", message: "나만의 질문을 만들어보세요.", preferredStyle: .alert)
           let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
           alert.addAction(okAction)
           self.present(alert, animated: true, completion: nil)
