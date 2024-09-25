@@ -72,6 +72,11 @@ final class FriendListCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func prepareForReuse() {
+    userImage.image = UIImage(named: "profile")
+    super.prepareForReuse()
+  }
+  
   private func setConstraints() {
     userImage.snp.makeConstraints {
       $0.leading.equalToSuperview().inset(20)
