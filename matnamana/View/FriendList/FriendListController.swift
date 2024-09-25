@@ -138,7 +138,7 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
         if userExists {
           FirebaseManager.shared.getUserInfo(nickName: userNickName) { user, error in
             if let user = user {
-              let profileVC = ProfileViewController(userInfo: user.info.nickName, isCellClicked: false)
+              let profileVC = ProfileViewController(userInfo: user.info.nickName, isCellClicked: false, sendId: nil)
               profileVC.userInfo = user.info.nickName
               self.navigationController?.pushViewController(profileVC, animated: true)
             }
@@ -169,7 +169,9 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
           return
         }
         print(cell.userName.text ?? "")
-        let profileVC = ProfileViewController(userInfo: cell.userName.text ?? "", isCellClicked: true)
+        let profileVC = ProfileViewController(userInfo: cell.userName.text ?? "",
+                                              isCellClicked: true,
+                                              sendId: cell.userName.text)
         profileVC.userInfo = cell.userName.text ?? ""
         self.navigationController?.pushViewController(profileVC, animated: true)
       }).disposed(by: disposeBag)

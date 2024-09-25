@@ -18,7 +18,11 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
   private var presetTitle: String
   private var addMode: Bool
   
-  init(viewModel: CustomQuestionViewModel, presetTitle: String, addMode: Bool) {
+  
+  init(viewModel: CustomQuestionViewModel,
+       presetTitle: String,
+       addMode: Bool
+  ) {
     self.viewModel = viewModel
     self.presetTitle = presetTitle
     self.addMode = addMode
@@ -38,6 +42,8 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
   override func bind() {
     super.bind()
     
+    var isTitleSet = false
+    
     let input = CustomQuestionViewModel.Input(questions: Observable.just(()))
     let output = viewModel.transform(input: input)
     
@@ -56,7 +62,10 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
         if isEmptyQuestion {
           cell.questionLabel.textColor = .lightGray
         }
-        customQuestion.questionTitle.text = self.presetTitle
+        if !isTitleSet {
+          customQuestion.questionTitle.text = self.presetTitle
+          isTitleSet = true
+        }
       }
       .disposed(by: disposeBag)
     
@@ -96,9 +105,7 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
           let newPresetTitle = self.customQuestion.questionTitle.text ?? "새로운 질문"
           let presetQuestions = User.PresetQuestion(presetTitle: newPresetTitle, presetQuestion: self.viewModel.questions)
           
-          // 수정인지, 추가인지 구분하는 로직
           if let existingIndex = updatedQuestions.firstIndex(where: { $0.presetTitle == newPresetTitle }) {
-            // 질문이 이미 존재하면 수정
             updatedQuestions[existingIndex] = presetQuestions
             print("기존 질문 수정")
           } else {
@@ -135,7 +142,8 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
   }
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    true
+    customQuestion.resignFirstResponder()
+    return true
   }
 }
 
