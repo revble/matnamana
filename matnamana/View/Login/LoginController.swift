@@ -36,8 +36,8 @@ final class LoginController: BaseViewController {
     output.isDuplicate
       .withLatestFrom(output.appleLoggin) { (isDuplicate: Bool, appleLoggin: Bool) -> (Bool, Bool) in
         return (isDuplicate, appleLoggin)
-      }
-      .observe(on: MainScheduler.instance)
+          }
+          .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [weak self] (isDuplicate, appleLoggin) in
         guard let self = self else { return }
         

@@ -105,7 +105,12 @@ final class AnswerListController: BaseViewController {
     answerListView.reputationReview.sendButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self else { return }
-        
+        if self.selected != "" {
+          popViewController()
+          if let tabBarController = self.tabBarController {
+            tabBarController.selectedIndex = 0
+          }
+        }
       }).disposed(by: disposeBag)
   }
 }

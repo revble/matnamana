@@ -63,16 +63,14 @@ final class LoginViewModel: ViewModelType {
   }
   
   func transform(input: Input) -> Output {
-    var selectedApple = false
     let appleLogin = input.loggedInApple
       .do(onNext: {
         AppleLoginService.shared.startSignInWithAppleFlow()
       })
       .flatMap { _ -> Observable<Bool> in
-        selectedApple = true
-        return AppleLoginService.shared.authResultObservable()
+        AppleLoginService.shared.authResultObservable()
       }
-
+    
     let kakaoLogin = input.loggedInKakao
       .do(onNext: {
         KakaoLoginService.shared.KakaoLogin()
@@ -80,7 +78,7 @@ final class LoginViewModel: ViewModelType {
       .flatMap { _ -> Observable<Bool> in
         KakaoLoginService.shared.authResultObservable()
       }
-
+    
     let isDuplicate = Observable.of(appleLogin, kakaoLogin)
       .merge()
       .filter { $0 == true }
@@ -90,7 +88,13 @@ final class LoginViewModel: ViewModelType {
         }
         return self.checkUidDuplicate()
       }
-
-    return Output(isDuplicate: isDuplicate, appleLoggin: Observable.just(selectedApple))
+    
+    let selectApple = Observable
+      .merge(
+        input.loggedInApple.map { _ in true },
+        input.loggedInKakao.map { _ in false }
+      )
+    
+    return Output(isDuplicate: isDuplicate, appleLoggin: selectApple)
   }
 }

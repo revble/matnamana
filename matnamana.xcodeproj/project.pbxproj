@@ -379,9 +379,9 @@
 			isa = PBXGroup;
 			children = (
 				4FDF00172C92704E000B7873 /* ReplyController.swift */,
-				4FDF00192C9270D8000B7873 /* AnswerController.swift */,
 				4FDF001B2C927270000B7873 /* ReplyView.swift */,
 				4FDF001D2C927B34000B7873 /* AnswerView.swift */,
+				4FDF00192C9270D8000B7873 /* AnswerController.swift */,
 				4F4EDB292C997DAA00BFF74F /* AnswerListController.swift */,
 				4F4EDB2B2C997DB700BFF74F /* AnswerListView.swift */,
 				4F4EDB2D2C9B9A9600BFF74F /* AnswerListCell.swift */,
@@ -580,8 +580,8 @@
 			children = (
 				4FEB36942C7EC9240066998E /* LoginView.swift */,
 				DDCF92412C78557D005DB62F /* LoginController.swift */,
-				4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */,
 				4F83D31C2C7F14A60076AE2A /* RequiredInformationView.swift */,
+				4F83D31A2C7F14830076AE2A /* RequiredInformationController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
