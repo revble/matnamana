@@ -33,7 +33,9 @@ final class RequiredInformationController: BaseViewController {
     super.setupView()
     requiredInformationView = RequiredInformationView(frame: UIScreen.main.bounds)
     if appleLogin {
+      let userName = UserDefaults.standard.string(forKey: "userName")
       requiredInformationView.hidename()
+      requiredInformationView.nameTextField.text = userName
     }
     self.view = requiredInformationView
     
@@ -53,8 +55,12 @@ final class RequiredInformationController: BaseViewController {
     requiredInformationView.joinButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        let nickName = self.requiredInformationView.pickNickname()
-        self.requiredInfoViewModel.checNicknameDuplicate(nickname: nickName)
+        if requiredInformationView.nickNameTextField.text == "" || requiredInformationView.shortDescriptionTextField.text == "" || requiredInformationView.duplicateCheckLabel.isHidden == false {
+          self.alertMessage(title: "입력된 정보를 확인해주세요.", message: "", okTitle: "확인", next: false)
+        } else {
+          let nickName = self.requiredInformationView.pickNickname()
+          self.requiredInfoViewModel.checNicknameDuplicate(nickname: nickName)
+        }
       }).disposed(by: disposeBag)
   }
   
@@ -85,7 +91,7 @@ final class RequiredInformationController: BaseViewController {
           self.requiredInformationView.showduplicateCheck()
         } else {
           self.requiredInformationView.hideduplicateCheck()
-          self.alertMessage()
+          self.alertMessage(title: "가입을 환영합니다!", message: "나만의 탁월한 질문을 만들어 보세요!", okTitle: "이동하기", next: true)
           self.requiredInfoViewModel.makeUserInformation(
             name: self.requiredInformationView.pickName(),
             nickName: self.requiredInformationView.pickNickname(),
@@ -96,12 +102,14 @@ final class RequiredInformationController: BaseViewController {
       }).disposed(by: disposeBag)
   }
 
-  private func alertMessage() {
-    let alertMessage = UIAlertController(title: "가입을 환영합니다!",
-                                         message: "나만의 탁월한 질문을 만들어 보세요!",
+  private func alertMessage(title: String, message: String, okTitle: String, next: Bool) {
+    let alertMessage = UIAlertController(title: title,
+                                            message: message,
                                          preferredStyle: .alert)
-    let okAction = UIAlertAction(title: "이동하기", style: .default) {_ in
-      self.transitionToViewController(TabBarController())
+    let okAction = UIAlertAction(title: okTitle, style: .default) {_ in
+      if next {
+        self.transitionToViewController(TabBarController())
+      }
     }
     alertMessage.addAction(okAction)
     present(alertMessage, animated: true, completion: nil)

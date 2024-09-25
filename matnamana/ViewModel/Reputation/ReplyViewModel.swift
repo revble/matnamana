@@ -47,6 +47,30 @@ final class ReplyViewModel {
     }
   }
   
+  //  func sendAnswers(requester: String, target: String) {
+  //    guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
+  //    let documentId = "\(requester)-\(target)"
+  //    let answers: [(String, String)] = answerDataRelay.value
+  //    let reputationRequest = db.collection("reputationRequests").document(documentId)
+  //    reputationRequest.getDocument { snapshot, error in
+  //
+  //      guard let document = try? snapshot?.data(as: ReputationRequest.self) else { return }
+  //
+  //      let updatedData: [String: Any] = [
+  //        "questionList": answers.enumerated().map { (index, answerTuple) in
+  //          [
+  //            "contentDescription": answerTuple.0,
+  //            "answer": [
+  //              userId: answerTuple.1,
+  //              document.questionList[index].answer?.keys.first: document.questionList[index].answer?.values.first
+  //            ]
+  //          ]
+  //        }
+  //      ]
+  //      reputationRequest.setData(updatedData, merge: true)
+  //    }
+  //
+  //  }
   func sendAnswers(requester: String, target: String) {
     guard let userId = UserDefaults.standard.string(forKey: "loggedInUserId") else { return }
     let documentId = "\(requester)-\(target)"
@@ -56,42 +80,28 @@ final class ReplyViewModel {
       
       guard let document = try? snapshot?.data(as: ReputationRequest.self) else { return }
       
-      //      var updatedQuestionList = document.questionList
-      //      var a = 0
-      //      for (question, answer) in answers {
-      //        updatedQuestionList[a].answer![userId] = answer
-      //        a += 1
-      //      }
-      //      reputationRequest.updateData(["questionList": updatedQuestionList])
       let updatedData: [String: Any] = [
         "questionList": answers.enumerated().map { (index, answerTuple) in
-          [
+          var existingAnswer: [String: Any] = [:]
+          
+          if let existingQuestionAnswer = document.questionList[index].answer {
+            existingAnswer = [
+              existingQuestionAnswer.keys.first ?? "": existingQuestionAnswer.values.first ?? ""
+            ]
+          }
+          
+          return [
             "contentDescription": answerTuple.0,
             "answer": [
               userId: answerTuple.1,
-              document.questionList[index].answer?.keys.first: document.questionList[index].answer?.values.first
-            ]
+            ].merging(existingAnswer) { (current, _) in current }
           ]
         }
       ]
       reputationRequest.setData(updatedData, merge: true)
     }
-    
-    
-    //    let updatedData: [String: Any] = [
-    //      "questionList": answers.map { answerTuple in
-    //        [
-    //          "contentDescription": answerTuple.0,
-    //          "answer": [
-    //            userId: answerTuple.1
-    //          ]
-    //        ]
-    //      }
-    //    ]
-    //
-    //    reputationRequest.setData(updatedData, merge: true)
-    
   }
+  
   
   
   func saveAnswer(question: String, answer: String) {

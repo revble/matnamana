@@ -27,7 +27,7 @@ class RequiredInformationView: BaseView {
     $0.font = UIFont.title2()
   }
   
-  private let nameTextField = UITextField().then {
+  let nameTextField = UITextField().then {
     $0.placeholder = "실명을 입력해주세요."
     $0.font = UIFont.callOut()
     $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 0))
@@ -53,7 +53,7 @@ class RequiredInformationView: BaseView {
     $0.layer.borderColor = UIColor(.gray).cgColor
   }
   
-  private let duplicateCheckLabel = UILabel().then {
+  let duplicateCheckLabel = UILabel().then {
     $0.text = "중복된 닉네임입니다./사용할 수 없는 단어입니다."
     $0.textColor = .red
     $0.textAlignment = .left
@@ -67,7 +67,7 @@ class RequiredInformationView: BaseView {
     $0.font = UIFont.title2()
   }
   
-  private let shortDescriptionTextField = UITextField().then {
+  let shortDescriptionTextField = UITextField().then {
     $0.placeholder = "나를 소개하는 단어 또는 한마디.(최대 10자)"
     $0.font = UIFont.callOut()
     $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 0))

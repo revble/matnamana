@@ -69,7 +69,7 @@ final class AcceptRequestViewModel {
     print(selectedItems.value)
     requesterId = requester
     targetId = target
-    //    let documentId = "\(requester)-\(target)"
+//    let documentId = "\(requester)-\(target)"
     
     for selectedItem in selectedItems.value {
       print(selectedItem)
@@ -106,39 +106,24 @@ final class AcceptRequestViewModel {
     
     let documentId = "\(requester)-\(target)"
     
-    let reputation = db.collection("reputationRequests").document(documentId)
-    reputation.getDocument { snapshot, error in
-      guard
-        let reputationRequest = try? snapshot?.data(as: ReputationRequest.self),
-        let selectedFrinedsUserId = reputationRequest.selectedFriendsUserIds
-      else { return }
-      let answers = reputationRequest.questionList.map {
-        QuestionList(
-          answer: [
-            selectedFrinedsUserId[0]: "1",
-            selectedFrinedsUserId[1]: "1"
-          ],
-          contentDescription: $0.contentDescription
-        )
+    db.collection("reputationRequests").document(documentId)
+      .updateData([
+        "selectedFriends": friendList.value.map { friend in
+          [
+            "nickName": friend.info.name,
+            "profileImage": friend.info.profileImage,
+            "userId": friend.userId
+          ]
+        },
+        "selectedFriendsUserIds": friendList.value.map { $0.userId }
+      ]) { error in
+        if let error = error {
+          print("Error updating reputationRequests: \(error)")
+        } else {
+          print("Reputation request successfully updated")
+        }
       }
-      reputation.updateData(["questionList": answers]) { error in
-        
-        print(error ?? "error")
-      }
-      
-    }
     
-//    db.collection("reputationRequests").document(documentId)
-//      .updateData([
-//        "selectedFriends": friendList.value.map { friend in
-//          [
-//            "nickName": friend.info.name,
-//            "profileImage": friend.info.profileImage,
-//            "userId": friend.userId
-//          ]
-//        },
-//        "selectedFriendsUserIds": friendList.value.map { $0.userId }
-//      ]) 
   }
   
   func updateStatus(requester: String, target: String) {
