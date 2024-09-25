@@ -41,7 +41,7 @@ final class ProfileView: UIView {
   }
   
   let profileImage: UIImageView = UIImageView().then {
-    $0.image = UIImage()
+    $0.image = UIImage(named: "profile")
     $0.layer.cornerRadius = 70
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true

@@ -81,7 +81,7 @@ final class ReferenceCheckController: BaseViewController {
           }
           self.request = ReputationRequest(
             requester: UserProfile(nickName: userName, profileImage: userImage, userId: requestId),
-            target: UserProfile(nickName: snapShot.info.name, profileImage: "targetImage", userId: snapShot.userId),
+            target: UserProfile(nickName: snapShot.info.name, profileImage: userImage, userId: snapShot.userId),
             questionList: newQuestion,
             status: .pending,
             selectedFriends: [UserProfile(nickName: "", profileImage: "", userId: "")],
