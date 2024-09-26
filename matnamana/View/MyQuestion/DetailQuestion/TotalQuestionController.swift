@@ -19,7 +19,8 @@ final class TotalQuestionController: BaseViewController {
   private var selectedQuestions = [String]()
   var onQuestionSelected: ((String) -> Void)?
   
-  init(isCustom: Bool, addQuestion: Bool) {
+  init(isCustom: Bool,
+       addQuestion: Bool) {
     self.isCustom = isCustom
     self.addQuestion = addQuestion
     super.init(nibName: nil, bundle: nil)
@@ -47,7 +48,10 @@ final class TotalQuestionController: BaseViewController {
         .subscribe(onNext: { [weak self] in
           guard let self else { return }
           let viewModel = CustomQuestionViewModel(presetQuestions: selectedQuestions)
-          self.navigationController?.pushViewController(CustomQuestionController(viewModel: viewModel, presetTitle: "새로운 질문", addMode: true), animated: true)
+          self.navigationController?.pushViewController(CustomQuestionController(viewModel: viewModel,
+                                                                                 presetTitle: "새로운 질문",
+                                                                                 addMode: true, cellIndexPath: 0
+                                                                                ), animated: true)
         })
         .disposed(by: disposeBag)
     }

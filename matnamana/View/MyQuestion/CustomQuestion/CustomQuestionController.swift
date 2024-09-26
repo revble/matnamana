@@ -17,15 +17,17 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
   private var selectedIndexPath: IndexPath?
   private var presetTitle: String
   private var addMode: Bool
-  
+  private var cellIndexPath: Int
   
   init(viewModel: CustomQuestionViewModel,
        presetTitle: String,
-       addMode: Bool
+       addMode: Bool,
+       cellIndexPath: Int
   ) {
     self.viewModel = viewModel
     self.presetTitle = presetTitle
     self.addMode = addMode
+    self.cellIndexPath = cellIndexPath
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -109,12 +111,10 @@ final class CustomQuestionController: BaseViewController, UITextFieldDelegate {
             updatedQuestions[existingIndex] = presetQuestions
             print("기존 질문 수정")
           } else {
-            if updatedQuestions.count < 5 {
+            if self.addMode {
               updatedQuestions.append(presetQuestions)
             } else {
-              if let lastIndex = updatedQuestions.indices.last {
-                updatedQuestions[lastIndex] = presetQuestions
-              }
+              updatedQuestions[self.cellIndexPath] = presetQuestions
             }
           }
           
