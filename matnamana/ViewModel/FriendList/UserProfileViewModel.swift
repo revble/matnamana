@@ -20,6 +20,7 @@ final class UserProfileViewModel: ViewModelType {
   struct Output {
     let userInfo: Driver<User.Info>
     let userInfoWithName: Driver<User.Info>
+    let friendCount: Driver<[User.Friend]>
   }
   
   func transform(input: Input) -> Output {
@@ -34,7 +35,13 @@ final class UserProfileViewModel: ViewModelType {
         self.fetchUserInfoWithName(name: input.nickName)
       }
       .asDriver(onErrorDriveWith: .empty())
-    return Output(userInfo: userInfo, userInfoWithName: userInfoWithName)
+    
+    let friendCount = input.fetchUser
+      .flatMap { _ in
+        self.getUserFriendCount(name: input.nickName)
+      }
+      .asDriver(onErrorJustReturn: [])
+    return Output(userInfo: userInfo, userInfoWithName: userInfoWithName, friendCount: friendCount)
   }
   
   private func fetchUserInfo(nickName: String) -> Observable<User.Info> {
@@ -56,6 +63,20 @@ final class UserProfileViewModel: ViewModelType {
       FirebaseManager.shared.getUserInfoWithName(name: name) { user, error in
         if let user = user {
           observer.onNext(user.info)
+        } else if let error = error {
+          observer.onError(error)
+        }
+        observer.onCompleted()
+      }
+      return Disposables.create()
+    }
+  }
+  
+  private func getUserFriendCount(name: String) -> Observable<[User.Friend]> {
+    return Observable.create { observer in
+      FirebaseManager.shared.getUserInfoWithName(name: name) { user, error in
+        if let user = user {
+          observer.onNext(user.friendList)
         } else if let error = error {
           observer.onError(error)
         }

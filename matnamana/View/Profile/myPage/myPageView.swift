@@ -153,3 +153,4 @@ final class MyPageView: BaseView {
     button.layer.insertSublayer(gradientLayer, at: 0)
   }
 }
+//tableView(<#T##UITableView#>, titleForFooterInSection: <#T##Int#>)

@@ -76,7 +76,6 @@ final class ProfileViewController: BaseViewController {
                                      userName: userInfo.name,
                                      nickName: userInfo.nickName,
                                      shortDescription: userInfo.shortDescription
-                                     
         )
       })
       .disposed(by: disposeBag)
@@ -89,9 +88,15 @@ final class ProfileViewController: BaseViewController {
         self.profileView.configureUI(imageURL: userInfo.profileImage,
                                      userName: userInfo.name,
                                      nickName: userInfo.nickName,
-                                     shortDescription: userInfo.shortDescription
-                                     )
-                                     }).disposed(by: disposeBag)
+                                     shortDescription: userInfo.shortDescription)
+      }).disposed(by: disposeBag)
+    
+    output.friendCount
+      .drive(onNext: { [weak self] friendList in
+        guard let self else { return }
+        self.profileView.configureFriendCount(friendCount: friendList.count)
+        print(friendList.count)
+      }).disposed(by: disposeBag)
   }
   
   private func buttonClicked() {
