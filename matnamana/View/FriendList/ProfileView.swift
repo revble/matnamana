@@ -88,8 +88,24 @@ final class ProfileView: UIView {
   
   let shortDescription: UILabel = UILabel().then {
     $0.text = ""
-    $0.font = .systemFont(ofSize: 17)
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
+    $0.textAlignment = .center
   }
+  
+  let friendCountLabel: UILabel = UILabel().then {
+    $0.text = "명"
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
+  }
+  
+  let friendLabel: UILabel = UILabel().then {
+    $0.text = "친구 "
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
+  }
+  
+  let friendStackView: UIStackView = UIStackView().then {
+    $0.axis = .horizontal
+  }
+    
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -108,6 +124,12 @@ final class ProfileView: UIView {
     ].forEach { self.addSubview($0) }
     
     [
+      friendLabel,
+      friendCount,
+      friendCountLabel
+    ].forEach { friendStackView.addArrangedSubview($0) }
+    
+    [
       profileImage,
       verticalStackView
     ].forEach { myPageButton.addSubview($0) }
@@ -115,7 +137,7 @@ final class ProfileView: UIView {
     [
       userName,
       nickName,
-      friendCount,
+      friendStackView,
       shortDescription
     ].forEach { verticalStackView.addArrangedSubview($0) }
     
@@ -137,7 +159,8 @@ final class ProfileView: UIView {
     }
   }
   
-  func configureFriendCount(friendCount: Int) {
+  func configureFriendCount(friendCount: Int, friendCountLabel: String) {
+    self.friendCountLabel.text = friendCountLabel
     self.friendCount.text = String(friendCount)
   }
   

@@ -94,7 +94,15 @@ final class ProfileViewController: BaseViewController {
     output.friendCount
       .drive(onNext: { [weak self] friendList in
         guard let self else { return }
-        self.profileView.configureFriendCount(friendCount: friendList.count)
+        if friendList.count > 100 {
+          self.profileView.configureFriendCount(friendCount: friendList.count, friendCountLabel: "+")
+        } else if friendList.count > 50 {
+          self.profileView.configureFriendCount(friendCount: friendList.count, friendCountLabel: "+")
+        } else if friendList.count > 10 {
+          self.profileView.configureFriendCount(friendCount: friendList.count, friendCountLabel: "+")
+        } else {
+          self.profileView.configureFriendCount(friendCount: friendList.count, friendCountLabel: "명")
+        }
         print(friendList.count)
       }).disposed(by: disposeBag)
   }

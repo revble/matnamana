@@ -8,7 +8,7 @@
 import UIKit
 
 final class CustomQuestionView: BaseView {
-
+  
   let questionTitle = UITextField().then {
     $0.text = ""
     $0.textColor = .black
@@ -30,23 +30,29 @@ final class CustomQuestionView: BaseView {
     $0.layer.cornerRadius = 16
     $0.frame = CGRect(x: 0, y: 0, width: 200, height: 56)
   }
-
+  
   override func configureUI() {
     super.configureUI()
     
-    saveButton.frame = CGRect(x: 0, y: 0, width: self.frame.width - 300, height: 56)
+    let footerView = UIView(frame: CGRect(x: 0, y: 0, width: customTable.frame.width, height: 100))
+    footerView.addSubview(saveButton)
     customTable.tableHeaderView = questionTitle
-    customTable.tableFooterView = saveButton
-
+    customTable.tableFooterView = footerView
     self.addSubview(customTable)
   }
-
+  
   override func setConstraints() {
     super.setConstraints()
-
+    
     customTable.snp.makeConstraints {
       $0.edges.equalTo(self.safeAreaLayoutGuide).inset(32)
     }
-    customTable.layoutIfNeeded()
+    
+    saveButton.snp.makeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.centerY.equalToSuperview()
+      $0.width.equalTo(200)
+      $0.height.equalTo(56)
+    }
   }
 }
