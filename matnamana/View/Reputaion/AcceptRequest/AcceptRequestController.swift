@@ -84,7 +84,9 @@ class AcceptRequestController: FriendListController {
       .asDriver()
       .drive(onNext: { [weak self] in
         guard let self else { return }
-        if viewModel.selectedItems.value.count < 2 {
+        if viewModel.selectedItems.value.count == 0 {
+          self.alertMessage()
+        }else if viewModel.selectedItems.value.count == 1 {
           self.viewModel.removeFirstItem()
           self.alertMessage()
         } else {
@@ -100,9 +102,7 @@ class AcceptRequestController: FriendListController {
     let alertMessage = UIAlertController(title: "두명의 친구를 선택해 주세요!",
                                          message: "",
                                          preferredStyle: .alert)
-    let okAction = UIAlertAction(title: "확인", style: .default) {_ in
-      self.transitionToViewController(TabBarController())
-    }
+    let okAction = UIAlertAction(title: "확인", style: .default) 
     alertMessage.addAction(okAction)
     present(alertMessage, animated: true, completion: nil)
   }

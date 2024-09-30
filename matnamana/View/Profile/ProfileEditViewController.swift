@@ -263,23 +263,23 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileEditCell", for: indexPath)
     cell.textLabel?.text = userInfo[indexPath.row]
 
-    let textField: UITextField = {
-      let textField = UITextField()
-      textField.clearButtonMode = .always
-      textField.placeholder = "Value"
-      textField.text = ""
-      return textField
-    }()
-
-    cell.contentView.addSubview(textField)
-    textField.snp.makeConstraints {
-      $0.trailing.equalToSuperview().inset(20)
-      $0.centerY.equalToSuperview()
-      $0.width.equalTo(200)
-    }
+//    let textField: UITextField = {
+//      let textField = UITextField()
+//      textField.clearButtonMode = .always
+//      textField.placeholder = "Value"
+//      textField.text = ""
+//      return textField
+//    }()
+//
+//    cell.contentView.addSubview(textField)
+//    textField.snp.makeConstraints {
+//      $0.trailing.equalToSuperview().inset(20)
+//      $0.centerY.equalToSuperview()
+//      $0.width.equalTo(200)
+//    }
     return cell
   }
 
