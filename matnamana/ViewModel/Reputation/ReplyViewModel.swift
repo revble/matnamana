@@ -83,7 +83,6 @@ final class ReplyViewModel {
       let updatedData: [String: Any] = [
         "questionList": answers.enumerated().map { (index, answerTuple) in
           var existingAnswer: [String: Any] = [:]
-          
           if let existingQuestionAnswer = document.questionList[index].answer {
             existingAnswer = [
               existingQuestionAnswer.keys.first ?? "": existingQuestionAnswer.values.first ?? ""

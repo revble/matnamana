@@ -137,6 +137,7 @@ final class ReputationView: BaseView {
       $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(20)
       $0.centerX.equalToSuperview()
       $0.width.height.equalToSuperview()
+      $0.bottom.equalTo(self.safeAreaLayoutGuide)
     }
   }
 }

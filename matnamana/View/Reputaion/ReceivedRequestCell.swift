@@ -44,18 +44,19 @@ final class ReceivedRequestCell: UICollectionViewCell {
     $0.setTitle("수락하기", for: .normal)
     $0.titleLabel?.font = UIFont.subHeadLine()
     $0.backgroundColor = .manaMainColor
-    $0.layer.cornerRadius = 10
+    $0.layer.cornerRadius = 16
   }
   let cancelButton = UIButton().then {
     $0.setTitle("무시하기", for: .normal)
     $0.titleLabel?.font = UIFont.subHeadLine()
     $0.backgroundColor = .lightGray
-    $0.layer.cornerRadius = 10
+    $0.layer.cornerRadius = 16
   }
   
   private let buttonStackView = UIStackView().then {
     $0.axis = .horizontal
     $0.spacing = 10
+    $0.distribution = .fillEqually
   }
   
   override init(frame: CGRect) {
@@ -106,6 +107,7 @@ final class ReceivedRequestCell: UICollectionViewCell {
     buttonStackView.snp.makeConstraints {
       $0.top.equalTo(statusLabel.snp.bottom).offset(10)
       $0.centerX.equalTo(statusLabel.snp.centerX)
+      $0.leading.trailing.equalTo(statusLabel)
     }
   }
   

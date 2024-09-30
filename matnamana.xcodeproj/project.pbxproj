@@ -57,7 +57,7 @@
 		DA3A56062C85565B00459343 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56052C85565B00459343 /* ProfileEditViewController.swift */; };
 		DA3A560A2C855BC400459343 /* ProfileUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56092C855BC400459343 /* ProfileUIView.swift */; };
 		DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */; };
-		DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560D2C868BCC00459343 /* profileEditTable.swift */; };
+		DA3A560E2C868BCC00459343 /* profileEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A560D2C868BCC00459343 /* profileEditCell.swift */; };
 		DA3A56102C881AF900459343 /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = DA3A560F2C881AF900459343 /* RxKeyboard */; };
 		DA3A56132C8A967C00459343 /* TTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A56122C8A967B00459343 /* TTest.swift */; };
 		DA59CFE02C93F0490052D050 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFDF2C93F0490052D050 /* MyPageView.swift */; };
@@ -203,7 +203,7 @@
 		DA3A56052C85565B00459343 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		DA3A56092C855BC400459343 /* ProfileUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUIView.swift; sourceTree = "<group>"; };
 		DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
-		DA3A560D2C868BCC00459343 /* profileEditTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditTable.swift; sourceTree = "<group>"; };
+		DA3A560D2C868BCC00459343 /* profileEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileEditCell.swift; sourceTree = "<group>"; };
 		DA3A56122C8A967B00459343 /* TTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTest.swift; sourceTree = "<group>"; };
 		DA59CFDF2C93F0490052D050 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		DA59CFE12C93F06F0052D050 /* myPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageController.swift; sourceTree = "<group>"; };
@@ -535,7 +535,7 @@
 				DDCF923B2C78552C005DB62F /* ProfileController.swift */,
 				DA3A56092C855BC400459343 /* ProfileUIView.swift */,
 				DA3A560B2C868BA700459343 /* ProfileTableViewController.swift */,
-				DA3A560D2C868BCC00459343 /* profileEditTable.swift */,
+				DA3A560D2C868BCC00459343 /* profileEditCell.swift */,
 				DA3A56052C85565B00459343 /* ProfileEditViewController.swift */,
 				DA3A55FE2C81C1EE00459343 /* ProfileEditView.swift */,
 				DA3A56122C8A967B00459343 /* TTest.swift */,
@@ -937,7 +937,7 @@
 				DA3A560C2C868BA700459343 /* ProfileTableViewController.swift in Sources */,
 				4F4EDB2A2C997DAA00BFF74F /* AnswerListController.swift in Sources */,
 				DD9470FE2C8A834D009BF95E /* ReferenceView.swift in Sources */,
-				DA3A560E2C868BCC00459343 /* profileEditTable.swift in Sources */,
+				DA3A560E2C868BCC00459343 /* profileEditCell.swift in Sources */,
 				DDCF92422C78557D005DB62F /* LoginController.swift in Sources */,
 				4F83D31D2C7F14A60076AE2A /* RequiredInformationView.swift in Sources */,
 				4F4877CF2C9C2D6B0060C1B7 /* ReadAnswerViewModel.swift in Sources */,
@@ -1167,7 +1167,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = matnamana/matnamana.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -1187,7 +1187,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.revble.matnamana;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = matnamanaDevelopment;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

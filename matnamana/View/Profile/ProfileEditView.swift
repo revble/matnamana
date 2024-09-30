@@ -31,7 +31,7 @@ final class ProfileEditView: UIView {
 
   let tableView: UITableView = {
     let tableView = UITableView()
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    tableView.register(ProfileEditCell.self, forCellReuseIdentifier: String(describing: ProfileEditCell.self))
     tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 44
     return tableView

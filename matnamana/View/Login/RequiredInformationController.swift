@@ -55,8 +55,12 @@ final class RequiredInformationController: BaseViewController {
     requiredInformationView.joinButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        if requiredInformationView.nickNameTextField.text == "" || requiredInformationView.shortDescriptionTextField.text == "" || requiredInformationView.duplicateCheckLabel.isHidden == false {
-          self.alertMessage(title: "입력된 정보를 확인해주세요.", message: "", okTitle: "확인", next: false)
+        if requiredInformationView.nickNameTextField.text == "" {
+          self.alertMessage(title: "닉네임을 입력해주세요.", message: "", okTitle: "확인", next: false)
+        } else if requiredInformationView.shortDescriptionTextField.text == "" {
+          self.alertMessage(title: "소개글을 입력해주세요.", message: "", okTitle: "확인", next: false)
+        } else if requiredInformationView.duplicateCheckLabel.isHidden == false {
+          self.alertMessage(title: "유효하지 않은 닉네임입니다.", message: "(영문 알파벳, 숫자 15자 이내)", okTitle: "확인", next: false)
         } else {
           let nickName = self.requiredInformationView.pickNickname()
           self.requiredInfoViewModel.checNicknameDuplicate(nickname: nickName)
