@@ -17,6 +17,7 @@ final class TotalQuestionController: BaseViewController {
   private let isCustom: Bool
   private let addQuestion: Bool
   private var selectedQuestions = [String]()
+  private var isSelected = Array(repeating: Array(repeating: false, count: 1000), count: 3)
   var onQuestionSelected: ((String) -> Void)?
   
   init(isCustom: Bool,
@@ -69,6 +70,10 @@ final class TotalQuestionController: BaseViewController {
         .items(cellIdentifier: String(describing: QuestionListCell.self),
                cellType: QuestionListCell.self)) { [weak self] row, question, cell in
         guard let self else { return }
+        let count = question.contentDescription.count
+//        if self.isSelected.count != count {
+//          self.isSelected = Array(repeating: false, count: 100)
+//        }
         if self.addQuestion {
           cell.customButton.isHidden = false
           let image = UIImage(systemName: "plus")
@@ -78,26 +83,78 @@ final class TotalQuestionController: BaseViewController {
           cell.customButton.isHidden = true
         }
         cell.configureCell(questionCell: question.contentDescription)
+        
+        if self.isSelected[totalQuestionView.questionSegement.selectedSegmentIndex][row] {
+          cell.customButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+          cell.customButton.tintColor = UIColor.manaMainColor
+        } else {
+          cell.customButton.setImage(UIImage(systemName: "plus"), for: .normal)
+          cell.customButton.tintColor = UIColor.manaMainColor
+        }
       }.disposed(by: disposeBag)
     
     totalQuestionView.questionList.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
         guard let self else { return }
+        if self.isSelected[totalQuestionView.questionSegement.selectedSegmentIndex][indexPath.row] {
+          self.isSelected[totalQuestionView.questionSegement.selectedSegmentIndex][indexPath.row] = false
+        } else {
+          self.isSelected[totalQuestionView.questionSegement.selectedSegmentIndex][indexPath.row] = true
+        }
         if let selectedCell = self.totalQuestionView.questionList.cellForRow(at: indexPath) as? QuestionListCell {
           let selectedQuestion = selectedCell.questionLabel.text ?? ""
+          
+          if let index = self.selectedQuestions.firstIndex(of: selectedQuestion) {
+            self.selectedQuestions.remove(at: index)
+            selectedCell.customButton.setImage(UIImage(systemName: "plus"), for: .normal)
+            selectedCell.customButton.tintColor = UIColor.manaMainColor
+          } else {
+            if self.selectedQuestions.count < 5 {
+              self.selectedQuestions.append(selectedQuestion)
+              selectedCell.customButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+              selectedCell.customButton.tintColor = UIColor.manaMainColor
+            } else {
+              self.showToast(message: "최대 5개의 질문만 선택할 수 있습니다.", duration: 1.0)
+            }
+          }
           self.onQuestionSelected?(selectedQuestion)
         }
+        
         if !addQuestion {
           self.navigationController?.popViewController(animated: true)
-        } else {
-          if let selectedCell = self.totalQuestionView.questionList.cellForRow(at: indexPath) as? QuestionListCell {
-            let selectedQuestion = selectedCell.questionLabel.text ?? ""
-            if !selectedQuestions.contains(selectedQuestion) {
-              self.selectedQuestions.append(selectedQuestion)
-            }
-            self.onQuestionSelected?(selectedQuestion)
-          }
         }
       }).disposed(by: disposeBag)
+  }
+}
+
+extension UIViewController {
+  func showToast(message: String, duration: Double) {
+    let toastLabel = UILabel()
+    toastLabel.text = message
+    toastLabel.backgroundColor = UIColor.manaMainColor.withAlphaComponent(0.6)
+    toastLabel.textColor = UIColor.white
+    toastLabel.textAlignment = .center
+    toastLabel.font = UIFont.systemFont(ofSize: 14.0)
+    toastLabel.numberOfLines = 0
+    
+    let maxSize = CGSize(width: self.view.frame.size.width - 40, height: self.view.frame.size.height - 40)
+    var expectedSize = toastLabel.sizeThatFits(maxSize)
+    expectedSize.width += 20
+    expectedSize.height += 20
+    
+    toastLabel.frame = CGRect(x: (self.view.frame.size.width - expectedSize.width) / 2,
+                              y: self.view.frame.size.height - 150,
+                              width: expectedSize.width,
+                              height: expectedSize.height)
+    toastLabel.layer.cornerRadius = 10
+    toastLabel.clipsToBounds = true
+    
+    self.view.addSubview(toastLabel)
+    
+    UIView.animate(withDuration: 1.0, delay: duration, options: .curveEaseOut, animations: {
+      toastLabel.alpha = 0.0
+    }, completion: { _ in
+      toastLabel.removeFromSuperview()
+    })
   }
 }

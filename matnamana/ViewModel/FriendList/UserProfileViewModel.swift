@@ -36,13 +36,32 @@ final class UserProfileViewModel: ViewModelType {
       }
       .asDriver(onErrorDriveWith: .empty())
     
-    let friendCount = input.fetchUser
-      .flatMap { _ in
-        self.getUserFriendCount(name: input.nickName)
-      }
-      .asDriver(onErrorJustReturn: [])
-    return Output(userInfo: userInfo, userInfoWithName: userInfoWithName, friendCount: friendCount)
+    if isKorean(input.nickName) {
+      let friendCount = input.fetchUser
+        .flatMap { _ in
+          self.getUserFriendCount(name: input.nickName)
+        }
+        .asDriver(onErrorJustReturn: [])
+      return Output(userInfo: userInfo, userInfoWithName: userInfoWithName, friendCount: friendCount)
+    } else {
+      let friendCountWithName = input.fetchUser
+        .flatMap { _ in
+          self.getUserFriendCount(nickName: input.nickName)
+        }
+        .asDriver(onErrorJustReturn: [])
+      return Output(userInfo: userInfo, userInfoWithName: userInfoWithName, friendCount: friendCountWithName)
+    }
   }
+  
+  func isKorean(_ text: String) -> Bool {
+    for scalar in text.unicodeScalars {
+      if !(scalar.value >= 0xAC00 && scalar.value <= 0xD7A3) {
+        return false
+      }
+    }
+    return true
+  }
+  
   
   private func fetchUserInfo(nickName: String) -> Observable<User.Info> {
     return Observable.create { observer in
@@ -75,6 +94,20 @@ final class UserProfileViewModel: ViewModelType {
   private func getUserFriendCount(name: String) -> Observable<[User.Friend]> {
     return Observable.create { observer in
       FirebaseManager.shared.getUserInfoWithName(name: name) { user, error in
+        if let user = user {
+          observer.onNext(user.friendList)
+        } else if let error = error {
+          observer.onError(error)
+        }
+        observer.onCompleted()
+      }
+      return Disposables.create()
+    }
+  }
+  
+  private func getUserFriendCount(nickName: String) -> Observable<[User.Friend]> {
+    return Observable.create { observer in
+      FirebaseManager.shared.getUserInfo(nickName: nickName) { user, error in
         if let user = user {
           observer.onNext(user.friendList)
         } else if let error = error {
