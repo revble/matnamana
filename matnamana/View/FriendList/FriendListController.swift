@@ -30,13 +30,13 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
     super.viewDidLoad()
     
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-    tapGesture.cancelsTouchesInView = false  // 다른 터치 이벤트 방해하지 않음
+    tapGesture.cancelsTouchesInView = false
     self.view.addGestureRecognizer(tapGesture)
     
   }
   
   @objc override func dismissKeyboard() {
-    self.view.endEditing(true)  // 키보드 숨기기
+    self.view.endEditing(true)
   }
   
   override func bind() {
@@ -92,7 +92,9 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
               guard let self = self else { return .empty() }
               
               return Observable<Bool>.create { observer in
-                let alert = UIAlertController(title: "친구 요청 거절", message: "정말로 친구 요청을 거절하시겠습니까?", preferredStyle: .alert)
+                let alert = UIAlertController(title: "친구 요청 거절",
+                                              message: "정말로 친구 요청을 거절하시겠습니까?",
+                                              preferredStyle: .alert)
                 
                 let confirmAction = UIAlertAction(title: "확인", style: .destructive) { _ in
                   observer.onNext(true)
