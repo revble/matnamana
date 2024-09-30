@@ -124,7 +124,18 @@ final class TotalQuestionController: BaseViewController {
           self.navigationController?.popViewController(animated: true)
         }
       }).disposed(by: disposeBag)
-  }
+    
+    totalQuestionView.questionSegement.rx.selectedSegmentIndex
+      .subscribe(onNext: { [weak self] _ in
+        guard let self else { return }
+        self.totalQuestionView.questionList.reloadData()
+        let rowCount = self.totalQuestionView.questionList.numberOfRows(inSection: 0)
+        
+        if rowCount > 0 {
+          let firstIndexPath = IndexPath(row: 0, section: 0)
+          self.totalQuestionView.questionList.scrollToRow(at: firstIndexPath, at: .top, animated: false)
+        }
+      }).disposed(by: disposeBag)  }
 }
 
 extension UIViewController {
