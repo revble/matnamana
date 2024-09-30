@@ -269,7 +269,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     let textField: UITextField = {
       let textField = UITextField()
       textField.clearButtonMode = .always
-      textField.placeholder = "Value"
+//      textField.placeholder = "Value"
       textField.text = ""
       return textField
     }()
