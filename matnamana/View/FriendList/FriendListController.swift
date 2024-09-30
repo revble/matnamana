@@ -55,7 +55,8 @@ class FriendListController: BaseViewController, UISearchBarDelegate {
     let output = viewModel.transform(input: input)
     
     let dataSource = RxTableViewSectionedReloadDataSource<FriendsSection>(
-      configureCell: { dataSource, tableView, indexPath, friend in
+      configureCell: { [weak self] dataSource, tableView, indexPath, friend in
+        guard let self else { return UITableViewCell() }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendListCell.self), for: indexPath) as? FriendListCell else { return UITableViewCell() }
         let friend = dataSource[indexPath]
         cell.configureCell(nickName: friend.name,
