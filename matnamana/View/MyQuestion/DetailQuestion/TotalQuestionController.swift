@@ -19,6 +19,7 @@ final class TotalQuestionController: BaseViewController {
   private var selectedQuestions = [String]()
   private var isSelected = Array(repeating: Array(repeating: false, count: 1000), count: 3)
   var onQuestionSelected: ((String) -> Void)?
+  let customButton = UIButton(type: .system)
   
   init(isCustom: Bool,
        addQuestion: Bool) {
@@ -42,7 +43,7 @@ final class TotalQuestionController: BaseViewController {
     self.title = "전체 질문 리스트"
     
     if addQuestion {
-      let rightButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet.rectangle.portrait"), style: .plain, target: nil, action: nil)
+      let rightButton = UIBarButtonItem(image: UIImage(named: "ListOff"), style: .plain, target: nil, action: nil)
       navigationItem.rightBarButtonItem = rightButton
       
       rightButton.rx.tap
@@ -101,6 +102,12 @@ final class TotalQuestionController: BaseViewController {
         } else {
           self.isSelected[totalQuestionView.questionSegement.selectedSegmentIndex][indexPath.row] = true
         }
+        if self.containsTrue() {
+          navigationItem.rightBarButtonItem?.image = UIImage(named: "ListOn")
+        } else {
+          navigationItem.rightBarButtonItem?.image = UIImage(named: "ListOff")
+        }
+
         if let selectedCell = self.totalQuestionView.questionList.cellForRow(at: indexPath) as? QuestionListCell {
           let selectedQuestion = selectedCell.questionLabel.text ?? ""
           
@@ -135,7 +142,14 @@ final class TotalQuestionController: BaseViewController {
           let firstIndexPath = IndexPath(row: 0, section: 0)
           self.totalQuestionView.questionList.scrollToRow(at: firstIndexPath, at: .top, animated: false)
         }
-      }).disposed(by: disposeBag)  }
+      }).disposed(by: disposeBag)
+  }
+  
+  private func containsTrue() -> Bool {
+    return isSelected.contains { innerArray in
+      innerArray.contains(true)
+    }
+  }
 }
 
 extension UIViewController {
