@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 import RxKeyboard
 import FirebaseStorage
+import FirebaseAuth
 
 final class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate,
                                        UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -170,10 +171,21 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     picker.dismiss(animated: true, completion: nil)
 
     if let selectedImage = info[.editedImage] as? UIImage {
-      profileEditView.profileImageView.image = selectedImage
-      uploadImageToFirebase(image: selectedImage)
+        profileEditView.profileImageView.image = selectedImage
+
+        if let user = Auth.auth().currentUser {
+            uploadImageToFirebase(image: selectedImage)
+        } else {
+            print("User is not authenticated. Please log in.")
+            // 사용자에게 로그인하도록 알림을 표시하거나, 필요한 동작을 수행하세요.
+        }
     }
-  }
+}
+//    if let selectedImage = info[.editedImage] as? UIImage {
+//      profileEditView.profileImageView.image = selectedImage
+//      uploadImageToFirebase(image: selectedImage)
+//    }
+//  }
 
   private func uploadImageToFirebase(image: UIImage) {
     guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
