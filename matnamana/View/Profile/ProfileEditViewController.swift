@@ -89,6 +89,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
       .withLatestFrom(Observable.combineLatest( userInfoTexts, profileImageObservable))
       .subscribe(onNext: { [weak self] ( userDetails, profileImageUrl) in
         guard let self = self else { return }
+        self.view.endEditing(true)
         self.saveUserData()  // 저장 메서드 호출
         //        self.navigateToProfileController()  // ProfileController로 이동
       }).disposed(by: disposeBag)
