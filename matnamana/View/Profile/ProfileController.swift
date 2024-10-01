@@ -27,9 +27,11 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
     super.setupView()
     self.view = profileView
   }
-
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    view.backgroundColor = .white
+    profileView.tableView.dataSource = self
+    profileView.tableView.delegate = self
     bindProfileData()
   }
 
@@ -65,12 +67,7 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
       .disposed(by: disposeBag)
   }
 
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    view.backgroundColor = .white
-    profileView.tableView.dataSource = self
-    profileView.tableView.delegate = self
-  }
+
 
   override func setNavigation() {
     super.setNavigation()
