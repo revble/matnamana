@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 import RxKeyboard
 import FirebaseStorage
+import FirebaseAuth
 
 final class ProfileEditViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate,
                                        UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -109,8 +110,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     let input = ProfileEditViewModel.Input(
       saveTap: navigationItem.rightBarButtonItem!.rx.tap.asObservable(),
 
-      //      nicknameText: profileEditView.nickNameTextField.rx.text.orEmpty.asObservable(),
-      //      shortDescriptionText: profileEditView.introduceTextField.rx.text.orEmpty.asObservable(),
+     
       userInfoTexts: Observable.just(userInfo).map { userInfo in
         userInfo.reduce(into: [String: String]()) { result, field in
           if let rowIndex = userInfo.firstIndex(of: field),
@@ -170,10 +170,22 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     picker.dismiss(animated: true, completion: nil)
 
     if let selectedImage = info[.editedImage] as? UIImage {
-      profileEditView.profileImageView.image = selectedImage
-      uploadImageToFirebase(image: selectedImage)
+      DispatchQueue.main.async {
+          self.profileEditView.profileImageView.image = selectedImage
+      }
+        if let user = Auth.auth().currentUser {
+            uploadImageToFirebase(image: selectedImage)
+        } else {
+            print("User is not authenticated. Please log in.")
+            // 사용자에게 로그인하도록 알림을 표시하거나, 필요한 동작을 수행하세요.
+        }
     }
-  }
+}
+//    if let selectedImage = info[.editedImage] as? UIImage {
+//      profileEditView.profileImageView.image = selectedImage
+//      uploadImageToFirebase(image: selectedImage)
+//    }
+//  }
 
   private func uploadImageToFirebase(image: UIImage) {
     guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
@@ -266,7 +278,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileEditCell", for: indexPath)
     cell.textLabel?.text = userInfo[indexPath.row]
-
+    cell.selectionStyle = .none
 //    let textField: UITextField = {
 //      let textField = UITextField()
 //      textField.clearButtonMode = .always

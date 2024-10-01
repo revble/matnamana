@@ -67,6 +67,8 @@
 		DA59CFE92C9BAE9F0052D050 /* MyPageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFE82C9BAE9F0052D050 /* MyPageInfoView.swift */; };
 		DA59CFEB2C9BAED80052D050 /* MyPageInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFEA2C9BAED80052D050 /* MyPageInfoController.swift */; };
 		DA59CFED2C9BAF630052D050 /* MypageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CFEC2C9BAF630052D050 /* MypageInfoCell.swift */; };
+		DAF0843D2CAB3E900039D2A3 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = DAF0843C2CAB3E900039D2A3 /* FirebaseMessaging */; };
+		DAF0843F2CAB72AE0039D2A3 /* FirebaseFcmManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0843E2CAB72AE0039D2A3 /* FirebaseFcmManger.swift */; };
 		DD0CE9E42C92CD5D008B5A68 /* CustomQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */; };
 		DD0CE9E62C92D55E008B5A68 /* CustomQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */; };
 		DD0CE9E82C933091008B5A68 /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE9E72C933091008B5A68 /* BannerCell.swift */; };
@@ -212,6 +214,7 @@
 		DA59CFE82C9BAE9F0052D050 /* MyPageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoView.swift; sourceTree = "<group>"; };
 		DA59CFEA2C9BAED80052D050 /* MyPageInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoController.swift; sourceTree = "<group>"; };
 		DA59CFEC2C9BAF630052D050 /* MypageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageInfoCell.swift; sourceTree = "<group>"; };
+		DAF0843E2CAB72AE0039D2A3 /* FirebaseFcmManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFcmManger.swift; sourceTree = "<group>"; };
 		DD0CE9E32C92CD5D008B5A68 /* CustomQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionController.swift; sourceTree = "<group>"; };
 		DD0CE9E52C92D55E008B5A68 /* CustomQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionView.swift; sourceTree = "<group>"; };
 		DD0CE9E72C933091008B5A68 /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAF0843D2CAB3E900039D2A3 /* FirebaseMessaging in Frameworks */,
 				DA3A55FB2C802EA800459343 /* FirebaseStorageCombine-Community in Frameworks */,
 				DDCF924B2C785841005DB62F /* RxSwift in Frameworks */,
 				4F83D33F2C85A27D0076AE2A /* KakaoSDK in Frameworks */,
@@ -604,6 +608,7 @@
 			children = (
 				DDCF93352C7EEE33005DB62F /* FirebaseManager.swift */,
 				DDF2A01D2C8034A1001B1DB7 /* UIExtensions.swift */,
+				DAF0843E2CAB72AE0039D2A3 /* FirebaseFcmManger.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -734,6 +739,7 @@
 				DA3A55F82C802EA800459343 /* FirebaseStorage */,
 				DA3A55FA2C802EA800459343 /* FirebaseStorageCombine-Community */,
 				DA3A560F2C881AF900459343 /* RxKeyboard */,
+				DAF0843C2CAB3E900039D2A3 /* FirebaseMessaging */,
 			);
 			productName = matnamana;
 			productReference = DDE043512C773E3500DA099A /* matnamana.app */;
@@ -926,6 +932,7 @@
 				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
 				DDCF923E2C78554B005DB62F /* TotalQuestionController.swift in Sources */,
 				4F4EDB262C958B9E00BFF74F /* ReadAnserController.swift in Sources */,
+				DAF0843F2CAB72AE0039D2A3 /* FirebaseFcmManger.swift in Sources */,
 				DA3A56132C8A967C00459343 /* TTest.swift in Sources */,
 				4FEB36982C7F07120066998E /* AppleLoginService.swift in Sources */,
 				DD9470FA2C899058009BF95E /* TotalQuestionView.swift in Sources */,
@@ -1168,6 +1175,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = matnamana/matnamana.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -1187,6 +1195,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.revble.matnamana;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = matnamanaDevelopment;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1433,6 +1442,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DA3A56022C85464900459343 /* XCRemoteSwiftPackageReference "RxKeyboard" */;
 			productName = RxKeyboard;
+		};
+		DAF0843C2CAB3E900039D2A3 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseMessaging;
 		};
 		DDCF92452C785837005DB62F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
