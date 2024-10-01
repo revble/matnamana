@@ -278,7 +278,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileEditCell", for: indexPath)
     cell.textLabel?.text = userInfo[indexPath.row]
-
+    cell.selectionStyle = .none
 //    let textField: UITextField = {
 //      let textField = UITextField()
 //      textField.clearButtonMode = .always

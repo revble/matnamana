@@ -93,6 +93,7 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
     let info = visibleUserInfo[indexPath.row]
     cell.textLabel?.text = info.key
+    cell.selectionStyle = .none
 
     // 기존 UILabel 제거 및 직접 추가 (간결화)
     let valueLabel = UILabel()
