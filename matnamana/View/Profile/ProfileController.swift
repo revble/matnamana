@@ -27,6 +27,7 @@ final class ProfileController: BaseViewController, UITableViewDataSource, UITabl
     super.setupView()
     self.view = profileView
   }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     view.backgroundColor = .white
