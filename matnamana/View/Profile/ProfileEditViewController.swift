@@ -110,8 +110,7 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     let input = ProfileEditViewModel.Input(
       saveTap: navigationItem.rightBarButtonItem!.rx.tap.asObservable(),
 
-      //      nicknameText: profileEditView.nickNameTextField.rx.text.orEmpty.asObservable(),
-      //      shortDescriptionText: profileEditView.introduceTextField.rx.text.orEmpty.asObservable(),
+     
       userInfoTexts: Observable.just(userInfo).map { userInfo in
         userInfo.reduce(into: [String: String]()) { result, field in
           if let rowIndex = userInfo.firstIndex(of: field),
@@ -171,8 +170,9 @@ final class ProfileEditViewController: BaseViewController, UITableViewDataSource
     picker.dismiss(animated: true, completion: nil)
 
     if let selectedImage = info[.editedImage] as? UIImage {
-        profileEditView.profileImageView.image = selectedImage
-
+      DispatchQueue.main.async {
+          self.profileEditView.profileImageView.image = selectedImage
+      }
         if let user = Auth.auth().currentUser {
             uploadImageToFirebase(image: selectedImage)
         } else {
